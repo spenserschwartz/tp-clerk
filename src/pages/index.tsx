@@ -6,7 +6,10 @@ import { api } from "~/utils/api";
 export default function Home() {
   const user = useUser();
 
-  const { data } = api.posts.getAll.useQuery();
+  const { data, isLoading } = api.posts.getAll.useQuery();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>Something went wrong!</div>;
 
   return (
     <>
