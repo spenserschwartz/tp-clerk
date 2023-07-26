@@ -1,7 +1,40 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignOutButton,
+  useUser,
+  UserButton,
+} from "@clerk/nextjs";
 import Head from "next/head";
+import { PostView } from "~/components/postView";
 import { PageLayout } from "~/components/layout";
 import { api } from "~/utils/api";
+
+const CreatePostWizard = () => {
+  const { user } = useUser();
+
+  if (!user) return null;
+
+  console.log(user);
+
+  return (
+    <div className="flex w-full gap-3">
+      <UserButton
+        appearance={{
+          elements: {
+            userButtonAvatarBox: {
+              width: 56,
+              height: 56,
+            },
+          },
+        }}
+      />
+      <input
+        placeholder="Type some emojis!"
+        className="grow bg-transparent outline-none"
+      />
+    </div>
+  );
+};
 
 export default function Home() {
   const user = useUser();
@@ -19,13 +52,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageLayout>
+        <SignOutButton />
         <div>
           {!user.isSignedIn && <SignInButton />}
-          {!!user.isSignedIn && <SignOutButton />}
+          {user.isSignedIn && (
+            <div>
+              <CreatePostWizard />
+            </div>
+          )}
         </div>
         <div>
-          {data?.map((post) => (
-            <div key={post.id}>{post.content}</div>
+          {data?.map((fullPost) => (
+            <PostView {...fullPost} key={fullPost.post.id} />
           ))}
         </div>
       </PageLayout>
