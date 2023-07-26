@@ -8,6 +8,7 @@ import Head from "next/head";
 import { PostView } from "~/components/postView";
 import { PageLayout } from "~/components/layout";
 import { api } from "~/utils/api";
+import { LoadingPage } from "~/components/loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -36,13 +37,29 @@ const CreatePostWizard = () => {
   );
 };
 
+const Feed = () => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+
+  if (postsLoading) return <LoadingPage />;
+  if (!data) return <div>Something went wrong</div>;
+
+  return (
+    <div>
+      {data?.map((fullPost) => (
+        <PostView {...fullPost} key={fullPost.post.id} />
+      ))}
+    </div>
+  );
+};
+
 export default function Home() {
-  const user = useUser();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
 
-  const { data, isLoading } = api.posts.getAll.useQuery();
+  // Start fetching asap
+  api.posts.getAll.useQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>Something went wrong!</div>;
+  // Return empty div if user isn't loaded
+  if (!userLoaded) return <div />;
 
   return (
     <>
@@ -54,18 +71,14 @@ export default function Home() {
       <PageLayout>
         <SignOutButton />
         <div>
-          {!user.isSignedIn && <SignInButton />}
-          {user.isSignedIn && (
+          {!isSignedIn && <SignInButton />}
+          {isSignedIn && (
             <div>
               <CreatePostWizard />
             </div>
           )}
         </div>
-        <div>
-          {data?.map((fullPost) => (
-            <PostView {...fullPost} key={fullPost.post.id} />
-          ))}
-        </div>
+        <Feed />
       </PageLayout>
     </>
   );
