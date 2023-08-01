@@ -1,15 +1,18 @@
 import {
   SignInButton,
   SignOutButton,
-  useUser,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
-import { PostView } from "~/components/postView";
-import { PageLayout } from "~/components/layout";
+import { type NextPage } from "next";
+
 import { api } from "~/utils/api";
+
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { PageLayout } from "~/components/layout";
+import { PostView } from "~/components/postView";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -53,7 +56,6 @@ const CreatePostWizard = () => {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        disabled={isPosting}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -62,13 +64,11 @@ const CreatePostWizard = () => {
             }
           }
         }}
+        disabled={isPosting}
       />
       {input !== "" && !isPosting && (
-        <button onClick={() => mutate({ content: input })} disabled={isPosting}>
-          Post
-        </button>
+        <button onClick={() => mutate({ content: input })}>Post</button>
       )}
-
       {isPosting && (
         <div className="flex items-center justify-center">
           <LoadingSpinner size={20} />
@@ -81,19 +81,25 @@ const CreatePostWizard = () => {
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
-  if (postsLoading) return <LoadingPage />;
+  if (postsLoading)
+    return (
+      <div className="flex grow">
+        <LoadingPage />
+      </div>
+    );
+
   if (!data) return <div>Something went wrong</div>;
 
   return (
-    <div>
-      {data?.map((fullPost) => (
+    <div className="flex grow flex-col overflow-y-scroll">
+      {[...data].map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
     </div>
   );
 };
 
-export default function Home() {
+const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
   // Start fetching asap
@@ -105,15 +111,18 @@ export default function Home() {
   return (
     <PageLayout>
       <SignOutButton />
-      <div>
-        {!isSignedIn && <SignInButton />}
-        {isSignedIn && (
-          <div>
-            <CreatePostWizard />
+      <div className="flex border-b border-slate-400 p-4">
+        {/* {!isSignedIn && (
+          <div className="flex justify-center">
+            <SignInButton />
           </div>
-        )}
+        )} */}
+        {isSignedIn && <CreatePostWizard />}
       </div>
+
       <Feed />
     </PageLayout>
   );
-}
+};
+
+export default Home;
