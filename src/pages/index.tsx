@@ -4,7 +4,6 @@ import {
   useUser,
   UserButton,
 } from "@clerk/nextjs";
-import Head from "next/head";
 import { PostView } from "~/components/postView";
 import { PageLayout } from "~/components/layout";
 import { api } from "~/utils/api";
