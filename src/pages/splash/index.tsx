@@ -19,15 +19,15 @@ const SplashPage = () => {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl border border-rose-500 px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
-            <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <div className="mx-auto flex max-w-7xl justify-center px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
+            <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center border border-red-500 px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
+              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-8xl">
                 TravelPerfect
               </h1>
-              <h2 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              <h2 className="mt-10 text-center text-4xl font-bold tracking-tight text-white sm:text-4xl">
                 Where do you want to go?
               </h2>
-              <div className="mt-2">
+              <div className="mt-2 w-80 border border-red-400">
                 <input
                   type="destination"
                   name="destination"
@@ -36,10 +36,10 @@ const SplashPage = () => {
                   placeholder="Enter a city"
                 />
               </div>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
+              <p className="mt-6 border border-white text-lg leading-8 text-gray-300">
+                Insert some text here Anim aute id magna aliqua ad ad non
+                deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                amet fugiat veniam occaecat fugiat aliqua.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
                 <a
