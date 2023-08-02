@@ -112,11 +112,11 @@ const Home: NextPage = () => {
     <PageLayout>
       <SignOutButton />
       <div className="flex border-b border-slate-400 p-4">
-        {/* {!isSignedIn && (
+        {!isSignedIn && (
           <div className="flex justify-center">
             <SignInButton />
           </div>
-        )} */}
+        )}
         {isSignedIn && <CreatePostWizard />}
       </div>
 
