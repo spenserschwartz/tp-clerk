@@ -1,6 +1,18 @@
+import Datepicker from "react-tailwindcss-datepicker";
+import type { DateValueType } from "react-tailwindcss-datepicker";
 import Footer from "./components/footer";
+import { useState } from "react";
 
 const SplashPage = () => {
+  const [datePickerValue, setDatePickerValue] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleDatePickerChange = (newValue: typeof datePickerValue) => {
+    setDatePickerValue(newValue);
+  };
+
   return (
     <div className="h-screen bg-purple-950">
       <main>
@@ -49,6 +61,11 @@ const SplashPage = () => {
                   Start your journey
                 </a>
               </div>
+
+              <Datepicker
+                value={datePickerValue}
+                onChange={handleDatePickerChange}
+              />
             </div>
           </div>
         </div>
