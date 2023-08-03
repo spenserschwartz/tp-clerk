@@ -1,6 +1,6 @@
 import Datepicker from "react-tailwindcss-datepicker";
 import type { DateValueType } from "react-tailwindcss-datepicker";
-import Footer from "./components/footer";
+import Footer from "src/components/footer";
 import { useState } from "react";
 
 const SplashPage = () => {
