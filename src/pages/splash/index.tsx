@@ -34,7 +34,7 @@ const SplashPage = () => {
             />
           </div>
           <div className="mx-auto flex max-w-7xl justify-center px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
-            <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center border border-red-500 px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
+            <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center  px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
               <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-8xl">
                 TravelPerfect
               </h1>
@@ -62,22 +62,25 @@ const SplashPage = () => {
                 <Datepicker
                   value={datePickerValue}
                   onChange={handleDatePickerChange}
+                  primaryColor="purple"
                 />
               </div>
-              <p className="mt-6 border border-white text-lg leading-8 text-gray-300">
+              <p className="mt-6 text-lg leading-8 text-gray-300">
                 TravelPerfect is a travel planning tool that helps you find the
                 perfect destination for your next vacation. Enter a city and
                 your desired travel dates to get started.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
-                <a
-                  href="#"
-                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                <button
+                  type="button"
+                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={() => setIsSubmitted(true)}
                 >
                   Start your journey
-                </a>
+                </button>
               </div>
               {isSubmitted &&
+                inputValue &&
                 datePickerValue?.startDate &&
                 datePickerValue?.endDate && (
                   <p>
@@ -87,10 +90,9 @@ const SplashPage = () => {
             </div>
           </div>
         </div>
+        {/* Footer */}
+        <Footer />
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };
