@@ -50,6 +50,9 @@ dependencies:
   react-hot-toast:
     specifier: ^2.4.1
     version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
+  react-tailwindcss-datepicker:
+    specifier: ^1.6.6
+    version: 1.6.6(dayjs@1.11.9)(react@18.2.0)
   superjson:
     specifier: 1.12.2
     version: 1.12.2
@@ -3048,6 +3051,16 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
+      react: 18.2.0
+    dev: false
+
+  /react-tailwindcss-datepicker@1.6.6(dayjs@1.11.9)(react@18.2.0):
+    resolution: {integrity: sha512-kHSUonRO86PoYQQWPqpaSw2JeEn9OafdLsLBG85zO5Sfs23Ku8Ixt/YO+Is3TCBcFeOKnZgzhGLmP3NAXVlFkA==}
+    peerDependencies:
+      dayjs: ^1.11.6
+      react: ^17.0.2 || ^18.2.0
+    dependencies:
+      dayjs: 1.11.9
       react: 18.2.0
     dev: false
 
