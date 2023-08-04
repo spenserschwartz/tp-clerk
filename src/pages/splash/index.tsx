@@ -4,6 +4,8 @@ import Footer from "src/components/footer";
 import { useState } from "react";
 
 const SplashPage = () => {
+  const [inputValue, setInputValue] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [datePickerValue, setDatePickerValue] = useState<DateValueType>({
     startDate: new Date(),
     endDate: new Date(),
@@ -39,19 +41,33 @@ const SplashPage = () => {
               <h2 className="mt-10 text-center text-4xl font-bold tracking-tight text-white sm:text-4xl">
                 Where do you want to go?
               </h2>
-              <div className="mt-2 w-80 border border-red-400">
+              <div className="mt-2 w-80">
                 <input
                   type="destination"
                   name="destination"
                   id="destination"
-                  className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mb-2 block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Enter a city"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (inputValue !== "") {
+                        setIsSubmitted(true);
+                      }
+                    }
+                  }}
+                />
+                <Datepicker
+                  value={datePickerValue}
+                  onChange={handleDatePickerChange}
                 />
               </div>
               <p className="mt-6 border border-white text-lg leading-8 text-gray-300">
-                Insert some text here Anim aute id magna aliqua ad ad non
-                deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                amet fugiat veniam occaecat fugiat aliqua.
+                TravelPerfect is a travel planning tool that helps you find the
+                perfect destination for your next vacation. Enter a city and
+                your desired travel dates to get started.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
                 <a
@@ -61,11 +77,13 @@ const SplashPage = () => {
                   Start your journey
                 </a>
               </div>
-
-              <Datepicker
-                value={datePickerValue}
-                onChange={handleDatePickerChange}
-              />
+              {isSubmitted &&
+                datePickerValue?.startDate &&
+                datePickerValue?.endDate && (
+                  <p>
+                    {`You want to go to ${inputValue} from ${datePickerValue.startDate.toString()} to ${(datePickerValue?.endDate).toString()}`}
+                  </p>
+                )}
             </div>
           </div>
         </div>
