@@ -19,3 +19,24 @@ model Post {
 
     @@index([authorId])
 }
+
+model CityPost {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    city        String
+    attractions Attraction[]
+    authorId    String
+
+    @@index([authorId])
+}
+
+model Attraction {
+    id          String    @id @default(cuid())
+    name        String
+    description String?
+    cityPost    CityPost? @relation(fields: [cityPostId], references: [id])
+    cityPostId  String?
+
+    @@index([cityPostId])
+}
