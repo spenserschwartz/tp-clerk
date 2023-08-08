@@ -24,6 +24,12 @@ export const cityRouter = createTRPCRouter({
 
       if (!city) throw new TRPCError({ code: "NOT_FOUND" });
 
-      return city;
+      const attractions = await ctx.prisma.attraction.findMany({
+        where: {
+          cityPostId: city.id,
+        },
+      });
+
+      return { city, attractions };
     }),
 });

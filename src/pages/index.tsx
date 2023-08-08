@@ -9,6 +9,8 @@ import { PageLayout } from "~/components/layout";
 
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
+  const { data, isLoading: cityLoading } = api.city.getAll.useQuery();
+  const { data: newData } = api.city.getByName.useQuery({ id: "test" });
 
   // Start fetching asap
   api.posts.getAll.useQuery();
@@ -16,12 +18,9 @@ const Home: NextPage = () => {
   // Return empty div if user isn't loaded
   if (!userLoaded) return <div />;
 
-  // const { data, isLoading: cityLoading } = api.city.getAll.useQuery();
+  console.log("City?", data);
 
-  // console.log("City?", data);
-
-  // const { data: newData } = api.city.getByName.useQuery({ id: "test" });
-  // console.log("london?", newData);
+  console.log("london?", newData);
 
   return (
     <PageLayout>
