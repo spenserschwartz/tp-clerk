@@ -1,9 +1,7 @@
-import { clerkClient } from "@clerk/nextjs/server";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { filterUserForClient } from "~/server/helpers/filterUserForClient";
 
 export const cityRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -14,4 +12,18 @@ export const cityRouter = createTRPCRouter({
 
     return cities;
   }),
+
+  getByName: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx }) => {
+      const city = await ctx.prisma.cityPost.findFirst({
+        where: {
+          city: "London",
+        },
+      });
+
+      if (!city) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return city;
+    }),
 });
