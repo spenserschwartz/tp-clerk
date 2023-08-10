@@ -8,12 +8,12 @@ const CityPage: NextPage<{ id: string }> = ({ id }) => {
   //   const { data } = api.posts.getById.useQuery({
   //     id,
   //   });
-  const { data } = api.city.getByName.useQuery({ id: "test" });
-  console.log("CityPage", data);
+  // const { data } = api.city.getCityByName.useQuery({ id: "test" });
+  // console.log("CityPage", data);
 
-  console.log("id", id);
+  // console.log("id", id);
 
-  if (!data) return <div>404</div>;
+  // if (!data) return <div>404</div>;
 
   return (
     <>

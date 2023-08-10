@@ -20,7 +20,7 @@ model Post {
     @@index([authorId])
 }
 
-model CityPost {
+model City {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
@@ -32,12 +32,12 @@ model CityPost {
 }
 
 model Attraction {
-    id          String    @id @default(cuid())
+    id          String  @id @default(cuid())
     name        String
     description String?
-    cityPost    CityPost? @relation(fields: [cityPostId], references: [id])
-    cityPostId  String?
+    city        City?   @relation(fields: [cityId], references: [id])
+    cityId      String?
     authorId    String
 
-    @@index([cityPostId])
+    @@index([cityId])
 }

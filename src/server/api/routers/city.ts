@@ -5,7 +5,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const cityRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const cities = await ctx.prisma.cityPost.findMany({
+    const cities = await ctx.prisma.city.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
@@ -13,23 +13,14 @@ export const cityRouter = createTRPCRouter({
     return cities;
   }),
 
-  getByName: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx }) => {
-      const city = await ctx.prisma.cityPost.findFirst({
-        where: {
-          city: "London",
-        },
+  getCityByName: publicProcedure
+    .input(z.object({ name: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const city = await ctx.prisma.city.findFirst({
+        where: { name: input.name },
       });
-
-      if (!city) throw new TRPCError({ code: "NOT_FOUND" });
-
-      const attractions = await ctx.prisma.attraction.findMany({
-        where: {
-          cityPostId: city.id,
-        },
-      });
-
-      return { city, attractions };
+      return city;
     }),
+
+  // More routers here...
 });
