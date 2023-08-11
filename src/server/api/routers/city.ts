@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -18,6 +17,7 @@ export const cityRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const city = await ctx.prisma.city.findFirst({
         where: { name: input.name },
+        include: { attractions: true },
       });
       return city;
     }),

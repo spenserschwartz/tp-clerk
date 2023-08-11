@@ -8,9 +8,11 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     name: cityName,
   });
 
-  if (!data) return <div>404</div>;
+  console.log("cityName", data);
 
-  return <div>CityPage</div>;
+  if (!data) return <div>404 City Not Found</div>;
+
+  return <div>{`City Page: ${cityName}`}</div>;
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

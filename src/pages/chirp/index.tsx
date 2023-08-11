@@ -7,7 +7,7 @@ import Feed from "~/components/postFeed";
 import CreatePostWizard from "~/components/createPostWizard";
 import { PageLayout } from "~/components/layout";
 
-const Home: NextPage = () => {
+const ChirpPage: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
   const { data } = api.city.getAll.useQuery();
   const { data: londonData } = api.city.getCityByName.useQuery({
@@ -41,4 +41,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default ChirpPage;
