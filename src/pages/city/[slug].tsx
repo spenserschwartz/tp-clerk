@@ -2,17 +2,29 @@ import type { GetStaticProps, NextPage } from "next";
 
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
+import { displayCityName } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
-  const { data } = api.city.getCityByName.useQuery({
+  const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
+  const attractions = cityData?.attractions;
 
-  console.log("cityName", data);
+  console.log("cityData", cityData);
 
-  if (!data) return <div>404 City Not Found</div>;
+  if (!cityData) return <div>404 City Not Found</div>;
 
-  return <div>{`City Page: ${cityName}`}</div>;
+  return (
+    <div>
+      <h1>{displayCityName(cityName)}</h1>
+      <h2>Top Attractions</h2>
+      <ul>
+        {attractions?.map((attraction) => (
+          <li key={attraction.id}>{attraction.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
