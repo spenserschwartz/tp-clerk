@@ -1,4 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
+import ImageGrid from "~/components/imageGrid";
+import { PageLayout } from "~/components/layout";
 
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
@@ -15,7 +17,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   if (!cityData) return <div>404 City Not Found</div>;
 
   return (
-    <div>
+    <PageLayout>
       <h1>{displayCityName(cityName)}</h1>
       <h2>Top Attractions</h2>
       <ul>
@@ -23,7 +25,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
           <li key={attraction.id}>{attraction.name}</li>
         ))}
       </ul>
-    </div>
+      <ImageGrid />
+    </PageLayout>
   );
 };
 
