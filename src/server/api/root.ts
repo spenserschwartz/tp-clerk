@@ -1,5 +1,10 @@
 import { createTRPCRouter } from "~/server/api/trpc";
-import { cityRouter, postsRouter, profileRouter } from "./routers";
+import {
+  attractionsRouter,
+  cityRouter,
+  postsRouter,
+  profileRouter,
+} from "./routers";
 
 /**
  * This is the primary router for your server.
@@ -7,6 +12,7 @@ import { cityRouter, postsRouter, profileRouter } from "./routers";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  attractions: attractionsRouter,
   city: cityRouter,
   posts: postsRouter,
   profile: profileRouter,
