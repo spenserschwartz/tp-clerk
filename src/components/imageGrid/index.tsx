@@ -46,7 +46,8 @@ type AttractionsType = RouterOutputs["attractions"]["getAll"][number];
 type GetAllCitiesType = RouterOutputs["city"]["getAllWithAttractions"][number];
 type GetCityByNameType = RouterOutputs["city"]["getCityByName"] | undefined;
 
-const ImageGrid = (cityData) => {
+/* eslint-disable-next-line*/
+const ImageGrid = (cityData: any) => {
   console.log("ImageGrid cityData", cityData);
   return (
     <ul role="list" className={imageGridClassName}>
