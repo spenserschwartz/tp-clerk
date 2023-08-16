@@ -5,23 +5,53 @@ import {
   imageGridClassName,
   listItemClassName,
 } from "./styles";
-import { RouterInputs } from "~/utils/api";
+import type { City, Attraction, Prisma } from "prisma/prisma-client";
+import { RouterOutputs } from "~/utils/api";
 
 const files = [
   {
     title: "IMG_4985.HEIC",
     size: "3.9 MB",
     source:
-      "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
+      "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+  },
+  {
+    title: "IMG_4986.HEIC",
+    size: "3.9 MB",
+    source:
+      "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+  },
+  {
+    title: "IMG_4987.HEIC",
+    size: "3.9 MB",
+    source:
+      "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+  },
+  {
+    title: "IMG_4988.HEIC",
+    size: "3.9 MB",
+    source:
+      "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+  },
+  {
+    title: "IMG_4989.HEIC",
+    size: "3.9 MB",
+    source:
+      "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
   },
   // More files...
 ];
 
-const ImageGrid = () => {
+type AttractionsType = RouterOutputs["attractions"]["getAll"][number];
+type GetAllCitiesType = RouterOutputs["city"]["getAllWithAttractions"][number];
+type GetCityByNameType = RouterOutputs["city"]["getCityByName"] | undefined;
+
+const ImageGrid = (cityData) => {
+  console.log("ImageGrid cityData", cityData);
   return (
     <ul role="list" className={imageGridClassName}>
       {files.map((file) => (
-        <li key={file.source} className={listItemClassName}>
+        <li key={file.title} className={listItemClassName}>
           <div className={imageContainerClassName}>
             <Image
               src={file.source}

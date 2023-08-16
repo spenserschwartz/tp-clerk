@@ -12,16 +12,9 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   });
   const attractions = cityData?.attractions;
 
-  const { data: allAttractions } = api.attractions.getAll.useQuery();
-  console.log("cityData", cityData);
-  console.log("attractionsData", allAttractions);
-
-  const { data: londonData } = api.attractions.getAttractionsByCity.useQuery({
-    name: cityName,
-  });
-  console.log("londonData", londonData);
-
   if (!cityData) return <div>404 City Not Found</div>;
+
+  // console.log("CityPage cityData", cityData);
 
   return (
     <PageLayout>
@@ -32,7 +25,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
           <li key={attraction.id}>{attraction.name}</li>
         ))}
       </ul>
-      <ImageGrid />
+      <ImageGrid cityData={cityData} />
     </PageLayout>
   );
 };
