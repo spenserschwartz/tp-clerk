@@ -3,13 +3,16 @@ import { footerNavigation } from "./utils";
 
 const Footer = () => {
   return (
-    <footer aria-labelledby="footer-heading" className="relative">
+    <footer
+      aria-labelledby="footer-heading"
+      className="fixed inset-x-0 bottom-0"
+    >
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-6 pt-4 lg:px-8">
         <div className="border-t border-white/10 pt-8 md:flex md:items-center md:justify-between">
-          <div className="flex space-x-6 md:order-2">
+          <div className="flex space-x-6 pb-2 md:order-2">
             {footerNavigation.social.map((item) => (
               <a
                 key={item.name}

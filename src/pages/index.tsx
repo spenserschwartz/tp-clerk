@@ -16,15 +16,15 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen bg-purple-950">
+    <div className="h-screen border-4 border-white bg-purple-950">
       <main>
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
+          {/* Gradient */}
           <div
             className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
             aria-hidden="true"
           >
-            {/* Gradient */}
             <div
               className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#000000] to-[#4f46e5] opacity-20"
               style={{
@@ -33,14 +33,23 @@ const Home = () => {
               }}
             />
           </div>
-          <div className="mx-auto flex max-w-7xl justify-center px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
+
+          {/* Main stuff */}
+          {/* sm:pb-40 lg:flex lg:px-8 lg:pt-20 */}
+          <div className="mx-auto flex max-w-7xl justify-center px-6">
+            {/* Center most of everything */}
             <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center  px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
+              {/* Title */}
               <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-8xl">
                 TravelPerfect
               </h1>
+
+              {/* Subtitle */}
               <h2 className="mt-10 text-center text-4xl font-bold tracking-tight text-white sm:text-4xl">
                 Where do you want to go?
               </h2>
+
+              {/* Container for input and DatePicker */}
               <div className="mt-2 w-80">
                 <input
                   type="destination"
@@ -65,11 +74,15 @@ const Home = () => {
                   primaryColor="purple"
                 />
               </div>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
+
+              {/* Flavor Text */}
+              <p className="mt-6 text-justify text-lg leading-8 text-gray-300">
                 TravelPerfect is a travel planning tool that helps you find the
                 perfect destination for your next vacation. Enter a city and
                 your desired travel dates to get started.
               </p>
+
+              {/* Button */}
               <div className="mt-10 flex items-center gap-x-6">
                 <button
                   type="button"
@@ -79,6 +92,8 @@ const Home = () => {
                   Start your journey
                 </button>
               </div>
+
+              {/* Display text on submit */}
               {isSubmitted &&
                 inputValue &&
                 datePickerValue?.startDate &&
