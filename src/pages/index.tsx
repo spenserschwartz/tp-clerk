@@ -36,7 +36,7 @@ const Home = () => {
 
           {/* Main stuff */}
           {/* sm:pb-40 lg:flex lg:px-8 lg:pt-20 */}
-          <div className="mx-auto flex max-w-7xl justify-center px-6">
+          <div className="mx-auto flex max-w-7xl justify-center px-6 pt-10">
             {/* Center most of everything */}
             <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center  px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
               {/* Title */}
@@ -98,9 +98,14 @@ const Home = () => {
                 inputValue &&
                 datePickerValue?.startDate &&
                 datePickerValue?.endDate && (
-                  <p>
-                    {`You want to go to ${inputValue} from ${datePickerValue.startDate.toString()} to ${(datePickerValue?.endDate).toString()}`}
-                  </p>
+                  <div>
+                    <p>
+                      {`You want to go to ${inputValue} from ${datePickerValue.startDate.toString()} to ${(datePickerValue?.endDate).toString()}.`}
+                    </p>
+                    <p className="text-center text-orange-500">
+                      This tool is a work in progress.
+                    </p>
+                  </div>
                 )}
             </div>
           </div>
