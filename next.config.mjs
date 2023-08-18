@@ -10,7 +10,8 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ["images.clerk.dev"],
+    domains: ["images.clerk.dev", "images.unsplash.com"],
+    // images.unsplash is for tailwind demos
   },
 
   /**

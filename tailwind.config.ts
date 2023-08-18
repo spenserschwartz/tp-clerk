@@ -8,5 +8,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"), // Images with details from https://tailwindui.com/components/application-ui/lists/grid-lists
+  ],
 } satisfies Config;
