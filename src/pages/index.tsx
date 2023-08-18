@@ -103,7 +103,11 @@ const Home = () => {
                       {`You want to go to ${inputValue} from ${datePickerValue.startDate.toString()} to ${(datePickerValue?.endDate).toString()}.`}
                     </p>
                     <p className="text-center text-orange-500">
+<<<<<<< HEAD
                       This tool is a work in progress.
+=======
+                      This tool is a work in progress
+>>>>>>> a42f528a65adbbb1161544301d2a220877e112a7
                     </p>
                   </div>
                 )}
