@@ -5,8 +5,8 @@ import {
   imageGridClassName,
   listItemClassName,
 } from "./styles";
-import type { City, Attraction, Prisma } from "prisma/prisma-client";
-import { RouterOutputs } from "~/utils/api";
+
+import type { RouterOutputs } from "~/utils/api";
 
 const files = [
   {
@@ -42,12 +42,13 @@ const files = [
   // More files...
 ];
 
-type AttractionsType = RouterOutputs["attractions"]["getAll"][number];
-type GetAllCitiesType = RouterOutputs["city"]["getAllWithAttractions"][number];
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"] | undefined;
+type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 
-/* eslint-disable-next-line*/
-const ImageGrid = (cityData: any) => {
+interface ImageGridProps {
+  cityData: GetCityByNameType;
+}
+
+const ImageGrid = ({ cityData }: ImageGridProps) => {
   console.log("ImageGrid cityData", cityData);
   return (
     <ul role="list" className={imageGridClassName}>

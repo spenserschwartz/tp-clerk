@@ -14,7 +14,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   if (!cityData) return <div>404 City Not Found</div>;
 
-  // console.log("CityPage cityData", cityData);
+  console.log("CityPage cityData", cityData);
 
   return (
     <PageLayout>
