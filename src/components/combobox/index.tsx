@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox as HeadlessCombobox } from "@headlessui/react";
-
-// const people = [
-//   { id: 1, name: "Leslie Alexander" },
-//   // More users...
-// ];
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,13 +13,15 @@ interface ComboboxOptionsType {
   id: string;
 }
 
-interface ComboboxInterface {
+interface ComboboxProps {
   options: ComboboxOptionsType[];
 }
 
-export default function Combobox({ options }: ComboboxInterface) {
+export default function Combobox({ options }: ComboboxProps) {
+  const router = useRouter();
   const [query, setQuery] = useState<string>("");
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] =
+    useState<ComboboxOptionsType | null>(null);
 
   const filteredOptions =
     query === ""
@@ -31,14 +30,20 @@ export default function Combobox({ options }: ComboboxInterface) {
           return option.name.toLowerCase().includes(query.toLowerCase());
         });
 
+  const comboboxChangeHandler = (option: ComboboxOptionsType) => {
+    setSelectedOption(option); // This line isn't really used, we can clean up the useState above
+    void router.push(`/city/${option.name}`);
+  };
+
   return (
     <HeadlessCombobox
       as="div"
       value={selectedOption}
-      onChange={setSelectedOption}
+      // onChange={setSelectedOption}
+      onChange={comboboxChangeHandler}
     >
-      <HeadlessCombobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-        Assigned to
+      <HeadlessCombobox.Label className="block text-sm font-medium leading-6 text-white">
+        City Combobox
       </HeadlessCombobox.Label>
       <div className="relative mt-2">
         <HeadlessCombobox.Input
@@ -69,7 +74,7 @@ export default function Combobox({ options }: ComboboxInterface) {
                 }
               >
                 {({ active, selected }) => (
-                  <>
+                  <Link href={`/city/${option.name}`}>
                     <span
                       className={classNames(
                         "block truncate",
@@ -90,7 +95,7 @@ export default function Combobox({ options }: ComboboxInterface) {
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
                     )}
-                  </>
+                  </Link>
                 )}
               </HeadlessCombobox.Option>
             ))}
