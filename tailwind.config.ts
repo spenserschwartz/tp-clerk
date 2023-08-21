@@ -10,5 +10,6 @@ export default {
   },
   plugins: [
     require("@tailwindcss/aspect-ratio"), // Images with details from https://tailwindui.com/components/application-ui/lists/grid-lists
+    require("@tailwindcss/forms"), // Combobox
   ],
 } satisfies Config;
