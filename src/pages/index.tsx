@@ -1,7 +1,10 @@
-import Datepicker from "react-tailwindcss-datepicker";
-import type { DateValueType } from "react-tailwindcss-datepicker";
-import Footer from "src/components/footer";
 import { useState } from "react";
+import Datepicker, { type DateValueType } from "react-tailwindcss-datepicker";
+
+import { Footer } from "src/components";
+import Combobox from "src/components/combobox";
+import { LoadingPage } from "src/components/loading";
+import { api } from "~/utils/api";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -11,9 +14,20 @@ const Home = () => {
     endDate: new Date(),
   });
 
-  const handleDatePickerChange = (newValue: typeof datePickerValue) => {
+  const handleDatePickerChange = (newValue: DateValueType) => {
     setDatePickerValue(newValue);
   };
+
+  const { data, isLoading } = api.city.getAll.useQuery();
+
+  if (isLoading) return <LoadingPage />;
+
+  console.log("Home data", data);
+
+  const comboboxOptions = data?.map((city) => {
+    return { name: city.name, id: city.id };
+  }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
+  console.log("comboboxOptions", comboboxOptions);
 
   return (
     <div className="h-screen border-4 border-white bg-purple-950">
@@ -36,7 +50,7 @@ const Home = () => {
 
           {/* Main stuff */}
           {/* sm:pb-40 lg:flex lg:px-8 lg:pt-20 */}
-          <div className="mx-auto flex max-w-7xl justify-center px-6 pt-10">
+          <div className="mx-auto flex max-w-7xl justify-center border-2 border-red-300 px-6 pb-20 pt-10">
             {/* Center most of everything */}
             <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center  px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
               {/* Title */}
@@ -68,11 +82,14 @@ const Home = () => {
                     }
                   }}
                 />
+
                 <Datepicker
                   value={datePickerValue}
                   onChange={handleDatePickerChange}
                   primaryColor="purple"
                 />
+
+                <Combobox options={comboboxOptions} />
               </div>
 
               {/* Flavor Text */}
@@ -110,6 +127,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+
         {/* Footer */}
         <Footer />
       </main>
