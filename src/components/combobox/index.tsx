@@ -23,6 +23,7 @@ export default function Combobox({ options }: ComboboxProps) {
   const [selectedOption, setSelectedOption] =
     useState<ComboboxOptionsType | null>(null);
 
+  // Used for combobox filtering
   const filteredOptions =
     query === ""
       ? options
@@ -39,7 +40,6 @@ export default function Combobox({ options }: ComboboxProps) {
     <HeadlessCombobox
       as="div"
       value={selectedOption}
-      // onChange={setSelectedOption}
       onChange={comboboxChangeHandler}
     >
       <HeadlessCombobox.Label className="block text-sm font-medium leading-6 text-white">
