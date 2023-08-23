@@ -2,11 +2,11 @@ import Image from "next/image";
 import {
   imageClassName,
   imageContainerClassName,
-  imageGridClassName,
   listItemClassName,
 } from "./styles";
 
 import type { RouterOutputs } from "~/utils/api";
+import { ThumbsUpIcon } from "public/icons";
 type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 interface ImageGridProps {
   cityData: GetCityByNameType;
@@ -19,7 +19,10 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
   console.log("attractions", attractions);
 
   return (
-    <ul role="list" className={imageGridClassName}>
+    <ul
+      role="list"
+      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-red-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+    >
       {attractions?.map((attraction) => (
         <li key={attraction.id} className={listItemClassName}>
           <div className={imageContainerClassName}>
@@ -31,12 +34,13 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
               height={100}
             />
           </div>
-          <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">
+          <p className="pointer-events-none mt-2 block truncate text-center text-sm font-medium text-gray-900">
             {attraction.name}
           </p>
-          <p className="pointer-events-none block text-sm font-medium text-gray-500">
-            {attraction.name}
-          </p>
+
+          <div className="flex justify-center">
+            <ThumbsUpIcon /> 99
+          </div>
         </li>
       ))}
     </ul>
