@@ -40,7 +40,7 @@ model Attraction {
     description String?
     city        City?   @relation(fields: [cityId], references: [id])
     cityId      String?
-    imageURL    String?
+    imageURL    String
     authorId    String
 
     @@index([cityId])
