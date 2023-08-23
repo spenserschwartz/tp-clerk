@@ -4,13 +4,11 @@ import { PageLayout } from "~/components/layout";
 
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
-import { displayCityName } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
-  const attractions = cityData?.attractions;
 
   if (!cityData) return <div>404 City Not Found</div>;
 
@@ -18,13 +16,13 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   return (
     <PageLayout>
-      <h1>{displayCityName(cityName)}</h1>
-      <h2>Top Attractions</h2>
-      <ul>
-        {attractions?.map((attraction) => (
-          <li key={attraction.id}>{attraction.name}</li>
-        ))}
-      </ul>
+      <h1 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+        {cityData.name}
+      </h1>
+      <p className="mb-6 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+        {cityData.description}
+      </p>
+
       <ImageGrid cityData={cityData} />
     </PageLayout>
   );
