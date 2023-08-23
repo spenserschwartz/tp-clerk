@@ -27,7 +27,7 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
         <li key={attraction.id} className={listItemClassName}>
           <div className={imageContainerClassName}>
             <Image
-              src={attraction?.imageURL as string}
+              src={attraction.imageURL as string}
               alt=""
               className={imageClassName}
               width={100}
