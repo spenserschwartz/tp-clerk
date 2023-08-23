@@ -24,9 +24,10 @@ model City {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    name        String
     attractions Attraction[]
     authorId    String
+    description String?
+    name        String
 
     @@index([authorId])
 }
