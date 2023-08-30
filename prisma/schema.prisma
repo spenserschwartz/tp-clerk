@@ -29,6 +29,8 @@ model City {
     description String?
     name        String
 
+    users User[]
+
     @@index([authorId])
 }
 
@@ -44,4 +46,17 @@ model Attraction {
     authorId    String
 
     @@index([cityId])
+}
+
+model User {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    authorid String
+    email    String @unique
+    name     String
+
+    cities City[]
+
+    @@index([authorid])
 }

@@ -4,6 +4,7 @@ import {
   cityRouter,
   postsRouter,
   profileRouter,
+  userRouter,
 } from "./routers";
 
 /**
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   city: cityRouter,
   posts: postsRouter,
   profile: profileRouter,
+  user: userRouter,
 });
 
 // export type definition of API

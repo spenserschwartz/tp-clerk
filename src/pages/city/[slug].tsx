@@ -5,14 +5,20 @@ import { PageLayout } from "~/components/layout";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
+import { useUser } from "@clerk/nextjs";
+
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
+  const { isLoaded, isSignedIn, user } = useUser();
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
 
+  const { data: userData } = api.user.getAll.useQuery();
+  console.log("uD", userData);
+
   if (!cityData) return <div>404 City Not Found</div>;
 
-  console.log("CityPage cityData", cityData);
+  console.log("City User", user);
 
   return (
     <PageLayout>
