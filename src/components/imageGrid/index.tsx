@@ -35,6 +35,7 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
                 className={imageClassName}
                 width={100}
                 height={100}
+                unoptimized
               />
             </div>
             <p className="pointer-events-none mt-2 block truncate text-center text-sm font-medium text-gray-900">
