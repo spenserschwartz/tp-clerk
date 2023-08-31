@@ -15,7 +15,7 @@ const ratelimit = new Ratelimit({
   analytics: true,
 });
 
-export const userRouter = createTRPCRouter({
+export const usersRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const users = await ctx.prisma.user.findMany({
       take: 100,
