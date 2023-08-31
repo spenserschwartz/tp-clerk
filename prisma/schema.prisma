@@ -52,11 +52,11 @@ model User {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    authorid String
+    authorId String
     email    String @unique
     name     String
 
     cities City[]
 
-    @@index([authorid])
+    @@index([id])
 }

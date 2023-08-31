@@ -34,7 +34,7 @@ export const usersRouter = createTRPCRouter({
 
       const newUser = await ctx.prisma.user.create({
         data: {
-          id: authorId,
+          authorId,
           email: input.email,
           name: input.name,
         },

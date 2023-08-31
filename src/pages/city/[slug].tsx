@@ -6,6 +6,7 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
 import { useUser } from "@clerk/nextjs";
+import CreateUserWizard from "~/components/createUserWizard";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -30,6 +31,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       </p>
 
       <ImageGrid cityData={cityData} />
+
+      <CreateUserWizard />
     </PageLayout>
   );
 };
