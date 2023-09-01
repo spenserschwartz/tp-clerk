@@ -7,7 +7,6 @@ import {
 
 import type { RouterOutputs } from "~/utils/api";
 import { ThumbsUpIcon } from "public/icons";
-import { prisma } from "~/server/db";
 import { api } from "~/utils/api";
 
 type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
@@ -56,9 +55,9 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
             </p>
 
             {/* Upvotes */}
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
               <ThumbsUpIcon />
-              {attraction?.upvotes.length}
+              <div className="ml-1">{attraction?.upvotes.length}</div>
             </div>
           </li>
         );

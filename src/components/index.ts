@@ -1,4 +1,6 @@
+import CreateUserWizard from "./createUserWizard";
 import Footer from "./footer";
 import ImageGrid from "./imageGrid";
+import { PageLayout } from "./layout";
 
-export { Footer, ImageGrid };
+export { CreateUserWizard, Footer, ImageGrid, PageLayout };

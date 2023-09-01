@@ -1,25 +1,15 @@
 import type { GetStaticProps, NextPage } from "next";
-import ImageGrid from "~/components/imageGrid";
-import { PageLayout } from "~/components/layout";
-
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-import { useUser } from "@clerk/nextjs";
-import CreateUserWizard from "~/components/createUserWizard";
+import { CreateUserWizard, ImageGrid, PageLayout } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
 
-  // const { data: userData } = api.users.getAll.useQuery();
-  // console.log("uD", userData);
-
   if (!cityData) return <div>404 City Not Found</div>;
-
-  console.log("City User", user);
 
   return (
     <PageLayout>

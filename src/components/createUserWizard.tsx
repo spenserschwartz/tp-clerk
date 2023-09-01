@@ -1,9 +1,8 @@
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 
-import { LoadingSpinner } from "~/components/loading";
-import { useState, type MouseEvent } from "react";
+import { type MouseEvent } from "react";
 import { toast } from "react-hot-toast";
 
 const CreateUserWizard = () => {
@@ -35,7 +34,9 @@ const CreateUserWizard = () => {
 
   return (
     <div className="flex w-full gap-3">
-      <button onClick={createUser}>CreateUserWizard</button>
+      {!isCreatingUser && (
+        <button onClick={createUser}>CreateUserWizard</button>
+      )}
     </div>
   );
 };
