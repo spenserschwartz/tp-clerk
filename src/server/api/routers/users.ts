@@ -24,6 +24,18 @@ export const usersRouter = createTRPCRouter({
     return users;
   }),
 
+  getByEmail: publicProcedure
+    .input(z.object({ email: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: input.email },
+      });
+
+      if (!user) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return user;
+    }),
+
   create: privateProcedure
     .input(z.object({ email: z.string(), name: z.string() }))
     .mutation(async ({ ctx, input }) => {

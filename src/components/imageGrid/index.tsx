@@ -7,6 +7,9 @@ import {
 
 import type { RouterOutputs } from "~/utils/api";
 import { ThumbsUpIcon } from "public/icons";
+import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
+
 type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 interface ImageGridProps {
   cityData: GetCityByNameType;
@@ -18,6 +21,16 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
 
   // ! Type error. Look at eslint-disable
   const { attractions } = cityData;
+
+  const { data: upVoteCount } = api.attractions.getById.useQuery({
+    id: "cll4b5ois0000z4ka8u0wdhdi",
+  });
+  console.log("upVoteCount", upVoteCount);
+
+  const { data: londonData } = api.city.getCityByName.useQuery({
+    name: cityData.name,
+  });
+  console.log("londonData", londonData);
 
   return (
     <ul
@@ -42,8 +55,10 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
               {attraction.name}
             </p>
 
+            {/* Upvotes */}
             <div className="flex justify-center">
-              <ThumbsUpIcon /> 99
+              <ThumbsUpIcon />
+              {attraction?.upvotes.length}
             </div>
           </li>
         );

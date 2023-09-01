@@ -14,8 +14,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     name: cityName,
   });
 
-  const { data: userData } = api.users.getAll.useQuery();
-  console.log("uD", userData);
+  // const { data: userData } = api.users.getAll.useQuery();
+  // console.log("uD", userData);
 
   if (!cityData) return <div>404 City Not Found</div>;
 

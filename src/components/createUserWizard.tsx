@@ -8,9 +8,6 @@ import { toast } from "react-hot-toast";
 
 const CreateUserWizard = () => {
   const { user } = useUser();
-  console.log("CUW user", user);
-
- 
 
   const ctx = api.useContext();
 
