@@ -10,13 +10,12 @@ const CreateUserWizard = () => {
   const { user } = useUser();
   console.log("CUW user", user);
 
-  const [input, setInput] = useState("");
+ 
 
   const ctx = api.useContext();
 
   const { mutate, isLoading: isCreatingUser } = api.users.create.useMutation({
     onSuccess: () => {
-      setInput("");
       void ctx.users.getAll.invalidate();
     },
     onError: (e) => {
