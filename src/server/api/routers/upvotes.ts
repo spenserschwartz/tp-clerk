@@ -17,6 +17,9 @@ export const upvotesRouter = createTRPCRouter({
       const upvotesByUserInThisCity = await ctx.prisma.upvotes.findMany({
         where: { userId: input.userId, attraction: { cityId: input.cityId } },
       });
+
+      if (!upvotesByUserInThisCity) throw new TRPCError({ code: "NOT_FOUND" });
+
       return upvotesByUserInThisCity;
     }),
 
