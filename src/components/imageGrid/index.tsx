@@ -31,8 +31,6 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
     userUpvoteMemo[upvote.attractionId] = true;
   });
 
-  console.log("userUpvoteMemo", userUpvoteMemo);
-
   return (
     <ul
       role="list"
@@ -57,7 +55,7 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
             </p>
 
             {/* Upvotes */}
-            <div className="flex justify-center fill-green-500">
+            <div className="flex justify-center border-red-400 fill-green-500">
               <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
               <div className="ml-1">{attraction?.upvotes.length}</div>
               <div>
