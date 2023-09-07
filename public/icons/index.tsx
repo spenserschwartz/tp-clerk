@@ -11,8 +11,8 @@ const ThumbsUpIcon = ({ enabled }: ThumbsUpIconProps) => {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke={enabled ? "green" : "currentColor"}
-      className="h-6 w-6"
+      stroke="currentColor"
+      className={`h-6 w-6 ${enabled ? "text-green-500" : "text-white"}`}
     >
       <path
         strokeLinecap="round"

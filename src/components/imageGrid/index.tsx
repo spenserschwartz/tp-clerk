@@ -57,7 +57,7 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
             </p>
 
             {/* Upvotes */}
-            <div className="flex justify-center ">
+            <div className="flex justify-center fill-green-500">
               <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
               <div className="ml-1">{attraction?.upvotes.length}</div>
               <div>
