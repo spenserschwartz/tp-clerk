@@ -7,27 +7,22 @@ import {
 
 import type { RouterOutputs } from "~/utils/api";
 import { ThumbsUpIcon } from "public/icons";
-import { api } from "~/utils/api";
 
 type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
+type GetUpvotesByUserInCityType =
+  RouterOutputs["upvotes"]["getAllByUserInCity"];
 interface ImageGridProps {
   cityData: GetCityByNameType;
+  userUpvoteData: GetUpvotesByUserInCityType | undefined; // undefined if user is not logged in
 }
 
-const ImageGrid = ({ cityData }: ImageGridProps) => {
+const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
   console.log("ImageGrid cityData", cityData);
+  console.log("ImageGrid userUpvoteData", userUpvoteData);
 
   // ! Type error. Look at eslint-disable
   const { attractions } = cityData;
-
-  const { data: upVotesByUserInCity } = api.upvotes.getAllByUserInCity.useQuery(
-    {
-      cityId: cityData.id,
-      userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
-    }
-  );
-  console.log("upVotesByUserInCity", upVotesByUserInCity);
 
   return (
     <ul
