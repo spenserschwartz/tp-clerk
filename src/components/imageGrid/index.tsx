@@ -1,9 +1,4 @@
 import Image from "next/image";
-import {
-  imageClassName,
-  imageContainerClassName,
-  listItemClassName,
-} from "./styles";
 
 import type { RouterOutputs } from "~/utils/api";
 import { ThumbsUpIcon } from "public/icons";
@@ -34,17 +29,20 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   return (
     <ul
       role="list"
-      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-red-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-slate-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
     >
       {attractions?.map((attraction) => {
         return (
-          <li key={attraction.id} className={listItemClassName}>
-            <div className={imageContainerClassName}>
+          <li
+            key={attraction.id}
+            className="relative w-full border-2 border-blue-400"
+          >
+            <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
               <Image
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 src={attraction.imageURL}
                 alt=""
-                className={imageClassName}
+                className="pointer-events-none object-cover group-hover:opacity-75"
                 width={100}
                 height={100}
                 unoptimized
@@ -55,7 +53,7 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
             </p>
 
             {/* Upvotes */}
-            <div className="flex justify-center border-red-400 fill-green-500">
+            <div className="flex justify-center">
               <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
               <div className="ml-1">{attraction?.upvotes.length}</div>
               <div>
