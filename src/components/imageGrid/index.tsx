@@ -16,6 +16,8 @@ interface ImageGridProps {
   userUpvoteData: GetUpvotesByUserInCityType | undefined; // undefined if user is not logged in
 }
 
+type UserUpvoteMemo = Record<string, boolean>;
+
 const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
   console.log("ImageGrid cityData", cityData);
@@ -23,6 +25,13 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
 
   // ! Type error. Look at eslint-disable
   const { attractions } = cityData;
+
+  const userUpvoteMemo: UserUpvoteMemo = {};
+  userUpvoteData?.forEach((upvote) => {
+    userUpvoteMemo[upvote.attractionId] = true;
+  });
+
+  console.log("userUpvoteMemo", userUpvoteMemo);
 
   return (
     <ul
@@ -51,6 +60,9 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
             <div className="flex justify-center ">
               <ThumbsUpIcon />
               <div className="ml-1">{attraction?.upvotes.length}</div>
+              <div>
+                Did you upvote? {userUpvoteMemo[attraction.id] ? "yes" : "no"}
+              </div>
             </div>
           </li>
         );
