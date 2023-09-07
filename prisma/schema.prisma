@@ -59,7 +59,7 @@ model User {
     name     String
 
     cities  City[]
-    Upvotes Upvotes[]
+    upvotes Upvotes[]
 
     @@index([id])
 }

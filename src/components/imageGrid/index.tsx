@@ -21,15 +21,13 @@ const ImageGrid = ({ cityData }: ImageGridProps) => {
   // ! Type error. Look at eslint-disable
   const { attractions } = cityData;
 
-  const { data: upVoteCount } = api.attractions.getById.useQuery({
-    id: "cll4b5ois0000z4ka8u0wdhdi",
-  });
-  console.log("upVoteCount", upVoteCount);
-
-  const { data: londonData } = api.city.getCityByName.useQuery({
-    name: cityData.name,
-  });
-  console.log("londonData", londonData);
+  const { data: upVotesByUserInCity } = api.upvotes.getAllByUserInCity.useQuery(
+    {
+      cityId: cityData.id,
+      userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
+    }
+  );
+  console.log("upVotesByUserInCity", upVotesByUserInCity);
 
   return (
     <ul

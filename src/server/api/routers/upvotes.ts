@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const upvotesRouter = createTRPCRouter({
@@ -9,6 +10,15 @@ export const upvotesRouter = createTRPCRouter({
     });
     return upvotes;
   }),
+
+  getAllByUserInCity: publicProcedure
+    .input(z.object({ cityId: z.string(), userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const upvotesByUserInThisCity = await ctx.prisma.upvotes.findMany({
+        where: { userId: input.userId, attraction: { cityId: input.cityId } },
+      });
+      return upvotesByUserInThisCity;
+    }),
 
   // More routers here...
 });
