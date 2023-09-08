@@ -2,6 +2,9 @@ import Image from "next/image";
 
 import { ThumbsUpIcon } from "public/icons";
 import type { ImageGridProps, UserUpvoteMemo } from "./types";
+import { api } from "~/utils/api";
+import { type MouseEvent } from "react";
+import { toast } from "react-hot-toast";
 
 const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
@@ -15,6 +18,31 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   userUpvoteData?.forEach((upvote) => {
     userUpvoteMemo[upvote.attractionId] = true;
   });
+
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
+    onSuccess: () => {
+      void ctx.upvotes.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage?.[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to upvote! Please try again later.");
+      }
+    },
+  });
+
+  const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    mutate({
+      attractionId: "cll4b5ois0000z4ka8u0wdhdi",
+      userId: "fake Id from upvoteHandler",
+    });
+  };
 
   return (
     <ul
@@ -50,7 +78,10 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
                 Did you upvote? {userUpvoteMemo[attraction.id] ? "yes" : "no"}
               </div>
             </div> */}
-            <button className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <button
+              className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={upvoteHandler}
+            >
               <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
               <span className="mx-1">Upvote</span>
             </button>
