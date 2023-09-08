@@ -1,17 +1,7 @@
 import Image from "next/image";
 
-import type { RouterOutputs } from "~/utils/api";
 import { ThumbsUpIcon } from "public/icons";
-
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
-type GetUpvotesByUserInCityType =
-  RouterOutputs["upvotes"]["getAllByUserInCity"];
-interface ImageGridProps {
-  cityData: GetCityByNameType;
-  userUpvoteData: GetUpvotesByUserInCityType | undefined; // undefined if user is not logged in
-}
-
-type UserUpvoteMemo = Record<string, boolean>;
+import type { ImageGridProps, UserUpvoteMemo } from "./types";
 
 const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
