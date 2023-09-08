@@ -51,6 +51,8 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
       className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-slate-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
     >
       {attractions?.map((attraction) => {
+        const userHasUpvotedAttraction = !!userUpvoteMemo[attraction.id];
+
         return (
           <li
             key={attraction.id}
@@ -80,9 +82,15 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
               {isUpvoting ? (
                 <LoadingSpinner />
               ) : (
-                <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
+                <ThumbsUpIcon enabled={userHasUpvotedAttraction} />
               )}
-              <span className="mx-1">Upvote</span>
+              <span
+                className={`mx-1 ${
+                  userHasUpvotedAttraction ? "text-green-500" : ""
+                }`}
+              >
+                {userHasUpvotedAttraction ? "Upvoted" : "Upvote"}
+              </span>
             </button>
           </li>
         );
