@@ -46,8 +46,6 @@ export const upvotesRouter = createTRPCRouter({
 
       const newUpvote = await ctx.prisma.upvotes.create({
         data: {
-          // attractionId: input.attractionId,
-          // userId: authorId,
           attraction: { connect: { id: input.attractionId } },
           user: { connect: { id: authorId } },
         },
