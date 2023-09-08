@@ -5,6 +5,7 @@ import type { ImageGridProps, UserUpvoteMemo } from "./types";
 import { api } from "~/utils/api";
 import { type MouseEvent } from "react";
 import { toast } from "react-hot-toast";
+import { LoadingSpinner } from "../loading";
 
 const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
@@ -71,18 +72,16 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
             </p>
 
             {/* Upvotes */}
-            {/* <div className="flex justify-center border-2 border-red-300">
-              <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
-              <div className="ml-1">{attraction?.upvotes.length}</div>
-              <div>
-                Did you upvote? {userUpvoteMemo[attraction.id] ? "yes" : "no"}
-              </div>
-            </div> */}
             <button
               className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               onClick={upvoteHandler}
+              disabled={isUpvoting}
             >
-              <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
+              {isUpvoting ? (
+                <LoadingSpinner />
+              ) : (
+                <ThumbsUpIcon enabled={!!userUpvoteMemo[attraction.id]} />
+              )}
               <span className="mx-1">Upvote</span>
             </button>
           </li>
