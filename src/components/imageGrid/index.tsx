@@ -89,7 +89,7 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
                   userHasUpvotedAttraction ? "text-green-500" : ""
                 }`}
               >
-                {userHasUpvotedAttraction ? "Upvoted" : "Upvote"}
+                {attraction?.upvotes.length ?? 0}
               </span>
             </button>
           </li>
