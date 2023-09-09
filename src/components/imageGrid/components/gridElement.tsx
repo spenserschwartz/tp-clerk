@@ -1,4 +1,4 @@
-import { type MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { type RouterOutputs, api } from "~/utils/api";
 import toast from "react-hot-toast";
@@ -17,13 +17,15 @@ const GridElement = ({
   attraction,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
-  const ctx = api.useContext();
+  //   const ctx = api.useContext();
+  const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
 
   console.log("GridElement attraction", attraction);
 
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
     onSuccess: () => {
-      void ctx.upvotes.getAll.invalidate();
+      //   void ctx.upvotes.getAll.invalidate();
+      setUpvotes(upvotes + 1);
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -78,7 +80,7 @@ const GridElement = ({
         <span
           className={`mx-1 ${userHasUpvotedAttraction ? "text-green-500" : ""}`}
         >
-          {attraction?.upvotes.length ?? 0}
+          {upvotes}
         </span>
       </button>
     </li>
