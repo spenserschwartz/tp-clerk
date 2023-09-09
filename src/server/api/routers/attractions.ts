@@ -8,6 +8,7 @@ export const attractionsRouter = createTRPCRouter({
     const attractions = await ctx.prisma.attraction.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
+      include: { upvotes: true },
     });
     return attractions;
   }),
