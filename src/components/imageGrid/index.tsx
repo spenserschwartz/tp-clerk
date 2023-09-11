@@ -1,51 +1,17 @@
-import { type MouseEvent } from "react";
-import Image from "next/image";
-import { toast } from "react-hot-toast";
-
-import { api } from "~/utils/api";
-import { LoadingSpinner } from "../loading";
-import { ThumbsUpIcon } from "public/icons";
 import type { ImageGridProps, UserUpvoteMemo } from "./types";
 import GridElement from "./components/gridElement";
 
 const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
+  const { attractions } = cityData;
 
   console.log("ImageGrid cityData", cityData);
   console.log("ImageGrid userUpvoteData", userUpvoteData);
-
-  // ! Type error. Look at eslint-disable
-  const { attractions } = cityData;
 
   const userUpvoteMemo: UserUpvoteMemo = {};
   userUpvoteData?.forEach((upvote) => {
     userUpvoteMemo[upvote.attractionId] = true;
   });
-
-  const ctx = api.useContext();
-
-  const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
-    onSuccess: () => {
-      void ctx.upvotes.getAll.invalidate();
-    },
-    onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content;
-      if (errorMessage?.[0]) {
-        toast.error(errorMessage[0]);
-      } else {
-        toast.error("Failed to upvote! Please try again later.");
-      }
-    },
-  });
-
-  const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    mutate({
-      attractionId: "cll4b5ois0000z4ka8u0wdhdi",
-      userId: "fake Id from upvoteHandler",
-    });
-  };
 
   return (
     <ul

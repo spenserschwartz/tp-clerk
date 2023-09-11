@@ -37,7 +37,7 @@ export const upvotesRouter = createTRPCRouter({
     }),
 
   create: privateProcedure
-    .input(z.object({ attractionId: z.string(), userId: z.string() }))
+    .input(z.object({ attractionId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
 
