@@ -17,14 +17,15 @@ const GridElement = ({
   attraction,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
-  //   const ctx = api.useContext();
+  const ctx = api.useContext();
+
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
 
   console.log("GridElement attraction", attraction);
 
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
     onSuccess: () => {
-      //   void ctx.upvotes.getAll.invalidate();
+      void ctx.upvotes.getAll.invalidate();
       setUpvotes(upvotes + 1);
     },
     onError: (e) => {
