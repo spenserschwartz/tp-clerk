@@ -43,11 +43,9 @@ const GridElement = ({
 
     // if (userHasUpvotedAttraction)
 
-    if (userHasUpvotedAttraction) {
-      mutate({
-        attractionId: attraction.id,
-      });
-    }
+    mutate({
+      attractionId: attraction.id,
+    });
   };
 
   const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
@@ -99,7 +97,7 @@ const GridElement = ({
         onClick={upvoteHandler}
         disabled={isUpvoting}
       >
-        {isUpvoting ? (
+        {isUpvoting || isDeletingUpvote ? (
           <LoadingSpinner />
         ) : (
           <ThumbsUpIcon enabled={userHasUpvotedAttraction} />
