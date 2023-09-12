@@ -30,7 +30,7 @@ const Home = () => {
   console.log("comboboxOptions", comboboxOptions);
 
   return (
-    <div className="h-screen border-4 border-white bg-purple-950">
+    <div className="h-screen border-4 border-white">
       <main>
         {/* Hero section */}
         <div className="relative isolate overflow-hidden">
@@ -129,7 +129,7 @@ const Home = () => {
         </div>
 
         {/* Footer */}
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </div>
   );

@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from "react";
+import Footer from "./footer";
 
 export const PageLayout = (props: PropsWithChildren) => {
   return (
@@ -6,6 +7,7 @@ export const PageLayout = (props: PropsWithChildren) => {
       <div className="flex h-full w-full max-w-6xl flex-col rounded-xl border-2 border-slate-800  bg-slate-600">
         {props.children}
       </div>
+      <Footer />
     </main>
   );
 };
