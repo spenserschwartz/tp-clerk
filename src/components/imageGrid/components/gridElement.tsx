@@ -41,7 +41,35 @@ const GridElement = ({
   const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    mutate({
+    // if (userHasUpvotedAttraction)
+
+    if (userHasUpvotedAttraction) {
+      mutate({
+        attractionId: attraction.id,
+      });
+    }
+  };
+
+  const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
+    api.upvotes.delete.useMutation({
+      onSuccess: () => {
+        void ctx.upvotes.getAll.invalidate();
+        setUpvotes(upvotes - 1);
+      },
+      onError: (e) => {
+        const errorMessage = e.data?.zodError?.fieldErrors.content;
+        if (errorMessage?.[0]) {
+          toast.error(errorMessage[0]);
+        } else {
+          toast.error("Failed to upvote! Please try again later.");
+        }
+      },
+    });
+
+  const deleteUpvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    mutateDelete({
       attractionId: attraction.id,
     });
   };
@@ -82,6 +110,7 @@ const GridElement = ({
           {upvotes}
         </span>
       </button>
+      <button onClick={deleteUpvoteHandler}>DELETE UPVOTE</button>
     </li>
   );
 };

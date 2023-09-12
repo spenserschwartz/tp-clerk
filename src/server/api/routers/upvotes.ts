@@ -54,5 +54,20 @@ export const upvotesRouter = createTRPCRouter({
       return newUpvote;
     }),
 
+  delete: privateProcedure
+    .input(z.object({ attractionId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const authorId = ctx.userId;
+
+      const { success } = await ratelimit.limit(authorId);
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
+
+      await ctx.prisma.upvotes.delete({
+        where: {
+          id: "clmgrmwek0007z48o1c4lc2l0",
+        },
+      });
+    }),
+
   // More routers here...
 });
