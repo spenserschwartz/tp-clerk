@@ -74,6 +74,7 @@ model Upvotes {
     user   User   @relation(fields: [userId], references: [id])
     userId String
 
+    @@unique([attractionId, userId]) // https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-a-unique-field
     @@index([attractionId])
     @@index([userId])
 }

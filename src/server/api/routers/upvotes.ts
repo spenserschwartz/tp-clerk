@@ -62,9 +62,10 @@ export const upvotesRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(authorId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      await ctx.prisma.upvotes.delete({
+      await ctx.prisma.upvotes.deleteMany({
         where: {
-          id: "clmgrmwek0007z48o1c4lc2l0",
+          attractionId: input.attractionId,
+          userId: authorId,
         },
       });
     }),
