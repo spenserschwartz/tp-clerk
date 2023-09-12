@@ -20,13 +20,15 @@ const GridElement = ({
   const ctx = api.useContext();
 
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
-
-  console.log("GridElement attraction", attraction);
+  const [attractionUpvoted, setAttractionUpvoted] = useState(
+    userHasUpvotedAttraction
+  );
 
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
     onSuccess: () => {
       void ctx.upvotes.getAll.invalidate();
       setUpvotes(upvotes + 1);
+      setAttractionUpvoted(true);
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -38,21 +40,12 @@ const GridElement = ({
     },
   });
 
-  const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    // if (userHasUpvotedAttraction)
-
-    mutate({
-      attractionId: attraction.id,
-    });
-  };
-
   const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
     api.upvotes.delete.useMutation({
       onSuccess: () => {
         void ctx.upvotes.getAll.invalidate();
         setUpvotes(upvotes - 1);
+        setAttractionUpvoted(false);
       },
       onError: (e) => {
         const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -63,6 +56,13 @@ const GridElement = ({
         }
       },
     });
+
+  const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
+    else mutate({ attractionId: attraction.id });
+  };
 
   const deleteUpvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -100,11 +100,9 @@ const GridElement = ({
         {isUpvoting || isDeletingUpvote ? (
           <LoadingSpinner />
         ) : (
-          <ThumbsUpIcon enabled={userHasUpvotedAttraction} />
+          <ThumbsUpIcon enabled={attractionUpvoted} />
         )}
-        <span
-          className={`mx-1 ${userHasUpvotedAttraction ? "text-green-500" : ""}`}
-        >
+        <span className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}>
           {upvotes}
         </span>
       </button>
