@@ -39,7 +39,6 @@ const GridElement = ({
       }
     },
   });
-
   const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
     api.upvotes.delete.useMutation({
       onSuccess: () => {
@@ -62,14 +61,6 @@ const GridElement = ({
 
     if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
     else mutate({ attractionId: attraction.id });
-  };
-
-  const deleteUpvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    mutateDelete({
-      attractionId: attraction.id,
-    });
   };
 
   return (
@@ -106,7 +97,6 @@ const GridElement = ({
           {upvotes}
         </span>
       </button>
-      <button onClick={deleteUpvoteHandler}>DELETE UPVOTE</button>
     </li>
   );
 };
