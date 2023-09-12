@@ -1,6 +1,10 @@
 import React from "react";
 
-const ThumbsUpIcon = () => {
+interface ThumbsUpIconProps {
+  enabled: boolean;
+}
+
+const ThumbsUpIcon = ({ enabled }: ThumbsUpIconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +12,7 @@ const ThumbsUpIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="h-6 w-6"
+      className={`h-6 w-6 ${enabled ? "text-green-500" : "text-white"}`}
     >
       <path
         strokeLinecap="round"

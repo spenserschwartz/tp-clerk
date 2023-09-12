@@ -1,18 +1,25 @@
 import type { GetStaticProps, NextPage } from "next";
-import ImageGrid from "~/components/imageGrid";
-import { PageLayout } from "~/components/layout";
+import { useUser } from "@clerk/nextjs";
 
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+
+import { CreateUserWizard, ImageGrid, PageLayout } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
+  const { user } = useUser();
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
 
   if (!cityData) return <div>404 City Not Found</div>;
 
-  console.log("CityPage cityData", cityData);
+  console.log("CityPage user", user);
+  const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
+    cityId: cityData.id,
+    userId: user ? user.id : "",
+  });
+  console.log("CityPage userUpvoteData", userUpvoteData);
 
   return (
     <PageLayout>
@@ -23,7 +30,9 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
         {cityData.description}
       </p>
 
-      <ImageGrid cityData={cityData} />
+      <ImageGrid cityData={cityData} userUpvoteData={userUpvoteData} />
+
+      <CreateUserWizard />
     </PageLayout>
   );
 };

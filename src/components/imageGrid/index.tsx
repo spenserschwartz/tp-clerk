@@ -1,50 +1,29 @@
-import Image from "next/image";
-import {
-  imageClassName,
-  imageContainerClassName,
-  listItemClassName,
-} from "./styles";
+import type { ImageGridProps, UserUpvoteMemo } from "./types";
+import GridElement from "./components/gridElement";
 
-import type { RouterOutputs } from "~/utils/api";
-import { ThumbsUpIcon } from "public/icons";
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
-interface ImageGridProps {
-  cityData: GetCityByNameType;
-}
-
-const ImageGrid = ({ cityData }: ImageGridProps) => {
+const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   if (!cityData) return null;
-  console.log("ImageGrid cityData", cityData);
-
-  // ! Type error. Look at eslint-disable
   const { attractions } = cityData;
+
+  const userUpvoteMemo: UserUpvoteMemo = {};
+  userUpvoteData?.forEach((upvote) => {
+    userUpvoteMemo[upvote.attractionId] = true;
+  });
 
   return (
     <ul
       role="list"
-      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-red-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-slate-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
     >
       {attractions?.map((attraction) => {
-        return (
-          <li key={attraction.id} className={listItemClassName}>
-            <div className={imageContainerClassName}>
-              <Image
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                src={attraction.imageURL}
-                alt=""
-                className={imageClassName}
-                width={100}
-                height={100}
-              />
-            </div>
-            <p className="pointer-events-none mt-2 block truncate text-center text-sm font-medium text-gray-900">
-              {attraction.name}
-            </p>
+        const userHasUpvotedAttraction = !!userUpvoteMemo[attraction.id];
 
-            <div className="flex justify-center">
-              <ThumbsUpIcon /> 99
-            </div>
-          </li>
+        return (
+          <GridElement
+            key={attraction.id}
+            attraction={attraction}
+            userHasUpvotedAttraction={userHasUpvotedAttraction}
+          />
         );
       })}
     </ul>

@@ -27,7 +27,7 @@ export const cityRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const city = await ctx.prisma.city.findFirst({
         where: { name: input.name },
-        include: { attractions: true },
+        include: { attractions: { include: { upvotes: true } } },
       });
       return city;
     }),
