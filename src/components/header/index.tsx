@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const navigation = [
-  { name: "Cities", href: "#" },
+  { name: "Cities", href: "/cities" },
   { name: "Upvotes", href: "#" },
   { name: "Features", href: "#" },
   { name: "About", href: "#" },
