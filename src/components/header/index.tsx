@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const navigation = [
-  { name: "Product", href: "#" },
+  { name: "Cities", href: "#" },
+  { name: "Upvotes", href: "#" },
   { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
+  { name: "About", href: "#" },
 ];
 
 export default function Header() {
