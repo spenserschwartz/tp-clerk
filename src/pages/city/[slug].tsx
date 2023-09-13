@@ -22,7 +22,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   console.log("CityPage userUpvoteData", userUpvoteData);
 
   return (
-    <PageLayout>
+    <>
       <h1 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         {cityData.name}
       </h1>
@@ -33,7 +33,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <ImageGrid cityData={cityData} userUpvoteData={userUpvoteData} />
 
       <CreateUserWizard />
-    </PageLayout>
+    </>
   );
 };
 

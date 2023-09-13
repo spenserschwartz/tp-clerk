@@ -3,10 +3,7 @@ import { footerNavigation } from "./utils";
 
 const Footer = () => {
   return (
-    <footer
-      aria-labelledby="footer-heading"
-      className="fixed inset-x-0 bottom-0"
-    >
+    <footer aria-labelledby="footer-heading" className="w-full">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
