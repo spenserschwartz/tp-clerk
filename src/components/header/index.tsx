@@ -23,6 +23,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <Link href="/">
             <span className="sr-only">Your Company</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="h-8 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
@@ -55,9 +56,6 @@ export default function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {/* <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a> */}
           <SignedIn>
             <UserButton />
           </SignedIn>
@@ -77,6 +75,7 @@ export default function Header() {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
