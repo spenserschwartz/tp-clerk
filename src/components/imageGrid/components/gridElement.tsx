@@ -83,20 +83,22 @@ const GridElement = ({
       </p>
 
       {/* Upvotes */}
-      <button
-        className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
-        onClick={upvoteHandler}
-        disabled={isUpvoting}
-      >
-        {isUpvoting || isDeletingUpvote ? (
-          <LoadingSpinner />
-        ) : (
-          <ThumbsUpIcon enabled={attractionUpvoted} />
-        )}
-        <span className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}>
-          {upvotes}
-        </span>
-      </button>
+      <div className="flex justify-center ">
+        <button
+          className="inline-flex w-32 items-center justify-center rounded-md border-2 border-red-400 bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
+          onClick={upvoteHandler}
+          disabled={isUpvoting}
+        >
+          {isUpvoting || isDeletingUpvote ? (
+            <LoadingSpinner />
+          ) : (
+            <ThumbsUpIcon enabled={attractionUpvoted} />
+          )}
+          <span className={`mx-2 ${attractionUpvoted ? "text-green-500" : ""}`}>
+            {upvotes}
+          </span>
+        </button>
+      </div>
     </li>
   );
 };
