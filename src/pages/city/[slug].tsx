@@ -31,7 +31,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
       <ImageGrid cityData={cityData} userUpvoteData={userUpvoteData} />
 
-      <CreateUserWizard />
+      {/* <CreateUserWizard /> */}
     </div>
   );
 };
