@@ -8,6 +8,7 @@ import { CreateUserWizard, ImageGrid } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
+  console.log("CityPage user", user);
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
