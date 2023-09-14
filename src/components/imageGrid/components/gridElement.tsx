@@ -18,6 +18,7 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
+  console.log("GridElement ctx", ctx);
 
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
   const [attractionUpvoted, setAttractionUpvoted] = useState(
