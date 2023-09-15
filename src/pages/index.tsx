@@ -108,7 +108,7 @@ const Home = () => {
             </div>
 
             {/* Display text on submit */}
-            {isSubmitted &&
+            {/* {isSubmitted &&
               inputValue &&
               datePickerValue?.startDate &&
               datePickerValue?.endDate && (
@@ -120,7 +120,7 @@ const Home = () => {
                     This tool is a work in progress.
                   </p>
                 </div>
-              )}
+              )} */}
           </div>
         </div>
       </div>
