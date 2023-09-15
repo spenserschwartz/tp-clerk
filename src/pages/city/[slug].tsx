@@ -29,10 +29,10 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         {cityData.name}
       </h1>
-      <p className="mb-6 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+      <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
-      <div className="flex w-full justify-center border-2 border-red-400">
+      <div className="flex w-full justify-center ">
         <Searchbar
           inputValue={filterInputValue}
           setInputValue={setFilterInputValue}
