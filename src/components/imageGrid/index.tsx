@@ -13,7 +13,7 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
   return (
     <ul
       role="list"
-      className="grid grid-cols-2 gap-x-4 gap-y-8 border-2 border-slate-500 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+      className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
     >
       {attractions?.map((attraction) => {
         const userHasUpvotedAttraction = !!userUpvoteMemo[attraction.id];

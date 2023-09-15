@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-import { CreateUserWizard, ImageGrid } from "~/components";
+import { ImageGrid } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();

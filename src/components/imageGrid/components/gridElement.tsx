@@ -27,8 +27,6 @@ const GridElement = ({
     setAttractionUpvoted(userHasUpvotedAttraction);
   }, [userHasUpvotedAttraction]);
 
-  console.log(attraction.name, userHasUpvotedAttraction, attractionUpvoted);
-
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
     onSuccess: () => {
       void ctx.upvotes.getAll.invalidate();
@@ -69,10 +67,7 @@ const GridElement = ({
   };
 
   return (
-    <li
-      key={attraction.id}
-      className="relative w-full border-2 border-blue-400"
-    >
+    <li key={attraction.id} className="relative w-full ">
       <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
           src={attraction.imageURL || "/images/placeholder.png"}
@@ -83,14 +78,14 @@ const GridElement = ({
           unoptimized
         />
       </div>
-      <p className="pointer-events-none mt-2 block truncate text-center text-sm font-medium text-gray-900">
+      <p className="text-md pointer-events-none mt-2 block truncate text-center font-serif font-medium uppercase text-white">
         {attraction.name}
       </p>
 
       {/* Upvotes */}
       <div className="flex justify-center ">
         <button
-          className="inline-flex w-32 items-center justify-center rounded-md border-2 border-red-400 bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
+          className="inline-flex w-32 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
           onClick={upvoteHandler}
           disabled={isUpvoting}
         >
