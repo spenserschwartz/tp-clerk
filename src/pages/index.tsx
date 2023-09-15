@@ -47,7 +47,6 @@ const Home = () => {
         </div>
 
         {/* Main stuff */}
-        {/* sm:pb-40 lg:flex lg:px-8 lg:pt-20 */}
         <div className="mx-auto flex max-w-7xl justify-center  px-6 pb-20 pt-10">
           {/* Center most of everything */}
           <div className="mx-auto flex max-w-2xl flex-shrink-0 flex-col items-center  px-2 lg:mx-0 lg:max-w-xl lg:pt-8">
@@ -57,13 +56,13 @@ const Home = () => {
             </h1>
 
             {/* Subtitle */}
-            <h2 className="mt-10 text-center text-4xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="my-5 text-center text-4xl font-bold tracking-tight text-white sm:text-4xl">
               Where do you want to go?
             </h2>
 
             {/* Container for input and DatePicker */}
             <div className="mt-2 w-80">
-              <input
+              {/* <input
                 type="destination"
                 name="destination"
                 id="destination"
@@ -85,7 +84,7 @@ const Home = () => {
                 value={datePickerValue}
                 onChange={handleDatePickerChange}
                 primaryColor="purple"
-              />
+              /> */}
 
               <Combobox options={comboboxOptions} />
             </div>
