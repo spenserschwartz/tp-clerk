@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from "react";
+import { useState, type MouseEvent, useEffect } from "react";
 import Image from "next/image";
 import { type RouterOutputs, api } from "~/utils/api";
 import toast from "react-hot-toast";
@@ -18,12 +18,16 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-  console.log("GridElement ctx", ctx);
 
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
+  useEffect(() => {
+    setAttractionUpvoted(userHasUpvotedAttraction);
+  }, [userHasUpvotedAttraction]);
+
+  console.log(attraction.name, userHasUpvotedAttraction, attractionUpvoted);
 
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
     onSuccess: () => {
