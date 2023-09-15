@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import { useUser } from "@clerk/nextjs";
 
@@ -5,14 +6,18 @@ import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 import { ImageGrid } from "~/components";
+import Searchbar from "~/components/searchbar";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
+  const [filterInputValue, setFilterInputValue] = useState("");
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
 
   if (!cityData) return <div>404 City Not Found</div>;
+
+  console.log("cityData", cityData);
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
@@ -27,8 +32,18 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <p className="mb-6 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
+      <div className="w-60">
+        <Searchbar
+          inputValue={filterInputValue}
+          setInputValue={setFilterInputValue}
+        />
+      </div>
 
-      <ImageGrid cityData={cityData} userUpvoteData={userUpvoteData} />
+      <ImageGrid
+        cityData={cityData}
+        userUpvoteData={userUpvoteData}
+        filterInputValue={filterInputValue}
+      />
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import type { ImageGridProps, UserUpvoteMemo } from "./types";
 import GridElement from "./components/gridElement";
 
-const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
+const ImageGrid = ({
+  cityData,
+  userUpvoteData,
+  filterInputValue,
+}: ImageGridProps) => {
   if (!cityData) return null;
   const { attractions } = cityData;
 
@@ -10,12 +14,19 @@ const ImageGrid = ({ cityData, userUpvoteData }: ImageGridProps) => {
     userUpvoteMemo[upvote.attractionId] = true;
   });
 
+  const filteredAttractions = attractions?.filter((attraction) => {
+    if (!filterInputValue) return true;
+    return attraction.name
+      .toLowerCase()
+      .includes(filterInputValue.toLowerCase());
+  });
+
   return (
     <ul
       role="list"
       className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
     >
-      {attractions?.map((attraction) => {
+      {filteredAttractions?.map((attraction) => {
         const userHasUpvotedAttraction = !!userUpvoteMemo[attraction.id];
 
         return (

@@ -6,6 +6,7 @@ type GetUpvotesByUserInCityType =
 
 export interface ImageGridProps {
   cityData: GetCityByNameType;
+  filterInputValue?: string;
   userUpvoteData: GetUpvotesByUserInCityType | undefined; // undefined if user is not logged in
 }
 
