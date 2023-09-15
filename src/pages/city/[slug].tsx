@@ -32,7 +32,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <p className="mb-6 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
-      <div className="w-60">
+      <div className="flex w-full justify-center border-2 border-red-400">
         <Searchbar
           inputValue={filterInputValue}
           setInputValue={setFilterInputValue}
