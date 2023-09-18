@@ -75,6 +75,7 @@ const GridElement = ({
           className="pointer-events-none object-cover group-hover:opacity-75"
           width={100}
           height={100}
+          priority
           unoptimized
         />
       </div>

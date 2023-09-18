@@ -18,8 +18,6 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   if (!cityData) return <div>404 City Not Found</div>;
 
-  console.log("cityData", cityData);
-
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
     userId: user ? user.id : "",
