@@ -24,6 +24,33 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     userId: user ? user.id : "",
   });
 
+  // const allUpvotes = api.upvotes.getAll.useQuery(); // works
+  // const utils = api.useContext();
+
+  // const upvoteCreate = api.upvotes.create.useMutation({
+  //   async onMutate(newUpvote) {
+  //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+  //     await utils.upvotes.getAll.cancel();
+
+  //     // Get data from queryCache
+  //     const prevData = utils.upvotes.getAll.getData();
+
+  //     // Optimistically update to the new value
+  //     utils.upvotes.getAll.setData(undefined, (old) => [...old, newUpvote]);
+
+  //     // Return the previous data if something goes wrong
+  //     return { prevData };
+  //   },
+  //   onError(err, newPost, ctx) {
+  //     // If the mutation fails, use the context-value from onMutate
+  //     utils.upvotes.getAll.setData(undefined, ctx?.prevData);
+  //   },
+  //   onSettled() {
+  //     // Sync with server once mutation has settled
+  //     void utils.upvotes.getAll.invalidate();
+  //   },
+  // });
+
   return (
     <div className="px-2">
       <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
