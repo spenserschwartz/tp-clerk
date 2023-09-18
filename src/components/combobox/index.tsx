@@ -52,7 +52,6 @@ export default function Combobox({ options }: ComboboxProps) {
             setQuery(event.target.value)
           }
           displayValue={(option: ComboboxOptionsType) => option?.name}
-          onClick={() => console.log("hey")}
         />
         <HeadlessCombobox.Button
           className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
