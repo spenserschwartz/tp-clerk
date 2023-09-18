@@ -22,7 +22,7 @@ export default function Header() {
       >
         <div className="flex lg:flex-1">
           <Link href="/">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">TravelPerfect</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="h-8 w-auto"
