@@ -1,9 +1,10 @@
-import { useUser } from "@clerk/nextjs";
+import { type MouseEvent } from "react";
+import { toast } from "react-hot-toast";
+import { SignedIn, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 
-import { type MouseEvent } from "react";
-import { toast } from "react-hot-toast";
+import Modal from "./modal";
 
 const CreateUserWizard = () => {
   const { user } = useUser();
@@ -33,11 +34,15 @@ const CreateUserWizard = () => {
   };
 
   return (
-    <div className="flex w-full gap-3">
-      {!isCreatingUser && (
-        <button onClick={createUser}>CreateUserWizard</button>
-      )}
-    </div>
+    // <div className="flex w-full gap-3">
+    //   {!isCreatingUser && (
+    //     <button onClick={createUser}>CreateUserWizard</button>
+    //   )}
+    // </div>
+
+    <SignedIn>
+      <Modal />
+    </SignedIn>
   );
 };
 

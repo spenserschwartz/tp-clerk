@@ -29,8 +29,6 @@ model City {
     description String?
     name        String
 
-    users User[]
-
     @@index([authorId])
 }
 
@@ -50,20 +48,6 @@ model Attraction {
     @@index([cityId])
 }
 
-model User {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-
-    authorId String
-    email    String @unique
-    name     String
-
-    cities  City[]
-    upvotes Upvotes[]
-
-    @@index([id])
-}
-
 model Upvotes {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
@@ -71,7 +55,6 @@ model Upvotes {
     attraction   Attraction @relation(fields: [attractionId], references: [id])
     attractionId String
 
-    user   User   @relation(fields: [userId], references: [id])
     userId String
 
     @@unique([attractionId, userId]) // https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-a-unique-field

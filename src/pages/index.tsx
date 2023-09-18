@@ -21,8 +21,6 @@ const Home = () => {
 
   if (isLoading) return <LoadingPage />;
 
-  console.log("Home data", data);
-
   const comboboxOptions = data?.map((city) => {
     return { name: city.name, id: city.id };
   }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
