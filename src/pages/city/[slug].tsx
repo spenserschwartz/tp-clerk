@@ -7,6 +7,8 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 import { ImageGrid } from "~/components";
 import Searchbar from "~/components/searchbar";
+import Head from "next/head";
+import { displayCityName } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
@@ -53,6 +55,9 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   return (
     <div className="px-2">
+      <Head>
+        <title>{`${cityData.name} - TravelPerfect`}</title>
+      </Head>
       <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         {cityData.name}
       </h1>
