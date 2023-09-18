@@ -8,7 +8,6 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { ImageGrid } from "~/components";
 import Searchbar from "~/components/searchbar";
 import Head from "next/head";
-import { displayCityName } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
