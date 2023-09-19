@@ -7,11 +7,11 @@ export const displayCityName = (city: string): string => {
     .join(" "); // join back to string
 };
 
-type GetReccomendedDaysByCityType =
+type GetRecomendedDaysByCityType =
   RouterOutputs["recommendedDaysInCity"]["getAllByCity"];
 
 export const findAverageRecDays = (
-  allCityRecs: GetReccomendedDaysByCityType | undefined
+  allCityRecs: GetRecomendedDaysByCityType | undefined
 ) => {
   if (!allCityRecs ?? !allCityRecs?.length) return undefined;
   // Find average

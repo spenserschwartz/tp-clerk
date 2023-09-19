@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  privateProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 export const recommendedDaysInCityRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -22,6 +26,22 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
       });
 
       return recs;
+    }),
+
+  create: privateProcedure
+    .input(z.object({ cityId: z.string(), recommendedDays: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+
+      const recommendation = await ctx.prisma.recommendedDaysInCity.create({
+        data: {
+          city: { connect: { id: input.cityId } },
+          recommendedDays: input.recommendedDays,
+          userId,
+        },
+      });
+
+      return recommendation;
     }),
 
   //More routers here...

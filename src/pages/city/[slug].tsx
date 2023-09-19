@@ -1,14 +1,14 @@
 import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
+import { findAverageRecDays } from "~/utils/common";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 import { ImageGrid } from "~/components";
 import Searchbar from "~/components/searchbar";
-import Head from "next/head";
-import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
@@ -23,7 +23,6 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     cityId: cityData.id,
     userId: user ? user.id : "",
   });
-
   const { data: allCityRecs } = api.recommendedDaysInCity.getAllByCity.useQuery(
     {
       cityName: cityData.name,
@@ -31,34 +30,6 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   );
 
   const averageRecDays = findAverageRecDays(allCityRecs);
-  console.log("averageRecDays", averageRecDays);
-
-  // const allUpvotes = api.upvotes.getAll.useQuery(); // works
-  // const utils = api.useContext();
-
-  // const upvoteCreate = api.upvotes.create.useMutation({
-  //   async onMutate(newUpvote) {
-  //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-  //     await utils.upvotes.getAll.cancel();
-
-  //     // Get data from queryCache
-  //     const prevData = utils.upvotes.getAll.getData();
-
-  //     // Optimistically update to the new value
-  //     utils.upvotes.getAll.setData(undefined, (old) => [...old, newUpvote]);
-
-  //     // Return the previous data if something goes wrong
-  //     return { prevData };
-  //   },
-  //   onError(err, newPost, ctx) {
-  //     // If the mutation fails, use the context-value from onMutate
-  //     utils.upvotes.getAll.setData(undefined, ctx?.prevData);
-  //   },
-  //   onSettled() {
-  //     // Sync with server once mutation has settled
-  //     void utils.upvotes.getAll.invalidate();
-  //   },
-  // });
 
   return (
     <div className="px-2">
@@ -74,9 +45,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       {/* Recommended time in city */}
       <p className="text-center text-amber-600">
         {allCityRecs?.length
-          ? `Travelers recommend spending ${findAverageRecDays(
-              allCityRecs
-            )} in ${cityData.name}`
+          ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
           : "No recommendations yet"}
       </p>
       <div className="flex w-full justify-center ">
