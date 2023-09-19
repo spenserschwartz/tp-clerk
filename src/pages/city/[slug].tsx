@@ -8,6 +8,7 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { ImageGrid } from "~/components";
 import Searchbar from "~/components/searchbar";
 import Head from "next/head";
+import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
@@ -28,6 +29,9 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       cityName: cityData.name,
     }
   );
+
+  const averageRecDays = findAverageRecDays(allCityRecs);
+  console.log("averageRecDays", averageRecDays);
 
   // const allUpvotes = api.upvotes.getAll.useQuery(); // works
   // const utils = api.useContext();
