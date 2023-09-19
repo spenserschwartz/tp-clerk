@@ -8,7 +8,7 @@ const navigation = [
   { name: "Cities", href: "/cities" },
   { name: "London", href: "/city/london" },
   { name: "Berlin", href: "/city/berlin" },
-  { name: "About", href: "#" },
+  { name: "About", href: "/about" },
 ];
 
 export default function Header() {
