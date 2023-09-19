@@ -12,5 +12,17 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
     return allRecs;
   }),
 
+  getAllByCity: publicProcedure
+    .input(z.object({ cityName: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const recs = await ctx.prisma.recommendedDaysInCity.findMany({
+        take: 100,
+        orderBy: [{ createdAt: "desc" }],
+        where: { city: { name: input.cityName } },
+      });
+
+      return recs;
+    }),
+
   //More routers here...
 });

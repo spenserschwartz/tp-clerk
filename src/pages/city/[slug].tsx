@@ -23,6 +23,12 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     userId: user ? user.id : "",
   });
 
+  const { data: allCityRecs } = api.recommendedDaysInCity.getAllByCity.useQuery(
+    {
+      cityName: cityData.name,
+    }
+  );
+
   // const allUpvotes = api.upvotes.getAll.useQuery(); // works
   // const utils = api.useContext();
 
@@ -60,6 +66,11 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       </h1>
       <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
+      </p>
+      <p>
+        {allCityRecs?.length
+          ? `Users recommend spending ${allCityRecs.length} days in ${cityData.name}`
+          : "No recommendations yet"}
       </p>
       <div className="flex w-full justify-center ">
         <Searchbar
