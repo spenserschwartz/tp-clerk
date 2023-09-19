@@ -2,6 +2,7 @@ import { attractionsRouter } from "./attractions";
 import { cityRouter } from "./city";
 import { postsRouter } from "./posts";
 import { profileRouter } from "./profile";
+import { recommendedDaysInCityRouter } from "./recommendedDaysInCity";
 import { upvotesRouter } from "./upvotes";
 
 export {
@@ -9,5 +10,6 @@ export {
   cityRouter,
   postsRouter,
   profileRouter,
+  recommendedDaysInCityRouter,
   upvotesRouter,
 };
