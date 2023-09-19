@@ -35,7 +35,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
 
   if (!data)
     return (
-      <div className="flex h-full flex-col items-center justify-center border-2 border-red-300">
+      <div className="flex h-full flex-col items-center justify-center">
         <p>404 Uh-oh Page Not Found</p>
         <button
           type="button"
