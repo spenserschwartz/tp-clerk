@@ -17,11 +17,11 @@ const ratelimit = new Ratelimit({
 
 export const upvotesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const upvotes = await ctx.prisma.user.findMany({
+    const allUpvotes = await ctx.prisma.upvotes.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
-    return upvotes;
+    return allUpvotes;
   }),
 
   getAllByUserInCity: publicProcedure
@@ -47,7 +47,7 @@ export const upvotesRouter = createTRPCRouter({
       const newUpvote = await ctx.prisma.upvotes.create({
         data: {
           attraction: { connect: { id: input.attractionId } },
-          user: { connect: { id: authorId } },
+          userId: authorId,
         },
       });
 

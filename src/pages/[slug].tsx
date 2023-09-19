@@ -2,6 +2,7 @@ import { SignOutButton } from "@clerk/nextjs";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { PageLayout } from "~/components/layout";
 import { LoadingPage } from "~/components/loading";
@@ -27,11 +28,24 @@ const ProfileFeed = (props: { userId: string }) => {
 };
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
+  const router = useRouter();
   const { data } = api.profile.getUserByUsername.useQuery({
     username,
   });
 
-  if (!data) return <div>404</div>;
+  if (!data)
+    return (
+      <div className="flex h-full flex-col items-center justify-center">
+        <p>404 Uh-oh Page Not Found</p>
+        <button
+          type="button"
+          className="mb-2 rounded-full bg-purple-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          onClick={router.back}
+        >
+          Click to go back
+        </button>
+      </div>
+    );
 
   return (
     <>

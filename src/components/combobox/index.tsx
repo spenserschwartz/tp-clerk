@@ -42,8 +42,8 @@ export default function Combobox({ options }: ComboboxProps) {
       value={selectedOption}
       onChange={comboboxChangeHandler}
     >
-      <HeadlessCombobox.Label className="block text-sm font-medium leading-6 text-white">
-        City Combobox
+      <HeadlessCombobox.Label className="block text-sm font-medium leading-6 text-purple-500">
+        Pick a city from the dropdown
       </HeadlessCombobox.Label>
       <div className="relative mt-2">
         <HeadlessCombobox.Input
@@ -53,7 +53,10 @@ export default function Combobox({ options }: ComboboxProps) {
           }
           displayValue={(option: ComboboxOptionsType) => option?.name}
         />
-        <HeadlessCombobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+        <HeadlessCombobox.Button
+          className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
+          as="div"
+        >
           <ChevronUpDownIcon
             className="h-5 w-5 text-gray-400"
             aria-hidden="true"
