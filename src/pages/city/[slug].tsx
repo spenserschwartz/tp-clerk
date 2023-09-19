@@ -71,9 +71,12 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
-      <p>
+      {/* Recommended time in city */}
+      <p className="text-center text-amber-600">
         {allCityRecs?.length
-          ? `Users recommend spending ${allCityRecs.length} days in ${cityData.name}`
+          ? `Travelers recommend spending ${findAverageRecDays(
+              allCityRecs
+            )} in ${cityData.name}`
           : "No recommendations yet"}
       </p>
       <div className="flex w-full justify-center ">
