@@ -9,9 +9,11 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 import { ImageGrid } from "~/components";
 import Searchbar from "~/components/searchbar";
+import Modal from "~/components/modal";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
+  const [openModal, setOpenModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
@@ -48,6 +50,13 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
           ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
           : "No recommendations yet"}
       </p>
+
+      {/* Been to this city? Open modal */}
+      <p
+        className="text-center text-blue-500 hover:cursor-pointer"
+        onClick={() => setOpenModal(true)}
+      >{`Been to ${cityData.name}? Click here!`}</p>
+
       <div className="flex w-full justify-center ">
         <Searchbar
           inputValue={filterInputValue}
@@ -60,6 +69,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
         userUpvoteData={userUpvoteData}
         filterInputValue={filterInputValue}
       />
+
+      <Modal openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );
 };
