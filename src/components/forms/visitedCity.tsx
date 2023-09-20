@@ -5,17 +5,35 @@ import { LoadingSpinner } from "../loading";
 
 const VisitedCityForm = () => {
   const ctx = api.useContext();
-  const [recDaysInput, setRecDaysInput] = useState("b");
+  const [recDaysInput, setRecDaysInput] = useState("");
 
   const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
+    console.log("typeof rawValue", typeof rawValue);
     // Check if input is a number
     if (isNaN(Number(rawValue))) return;
     else setRecDaysInput(rawValue);
   };
 
+  //   const { mutate, isLoading: creatingRec } =
+  //     api.recommendedDaysInCity.create.useMutation({
+  //       onSuccess: () => {
+  //         void ctx.recommendedDaysInCity.getAll.invalidate();
+  //       },
+  //       onError: (e) => {
+  //         const errorMessage = e.data?.zodError?.fieldErrors.content;
+  //         if (errorMessage?.[0]) {
+  //           toast.error(errorMessage[0]);
+  //         } else {
+  //           toast.error(
+  //             "Failed to log your recommendation! Please try again later."
+  //           );
+  //         }
+  //       },
+  //     });
+
   const { mutate, isLoading: creatingRec } =
-    api.recommendedDaysInCity.create.useMutation({
+    api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
         void ctx.recommendedDaysInCity.getAll.invalidate();
       },
@@ -45,7 +63,8 @@ const VisitedCityForm = () => {
     if (!recDaysInput) return;
     mutate({
       cityId: "cll5m4ihx0000z4mruvrk2hi4",
-      recommendedDays: 1,
+      id: userRecommendationData?.id ?? "",
+      recommendedDays: Number(recDaysInput),
     });
   };
 

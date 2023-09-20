@@ -67,5 +67,34 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
       return recommendation;
     }),
 
+  upsert: privateProcedure
+    .input(
+      z.object({
+        cityId: z.string(),
+        id: z.string(),
+        recommendedDays: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+
+      const { success } = await ratelimit.limit(userId);
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
+
+      const recommendation = await ctx.prisma.recommendedDaysInCity.upsert({
+        where: { id: input.id },
+        update: {
+          recommendedDays: input.recommendedDays,
+        },
+        create: {
+          city: { connect: { id: input.cityId } },
+          recommendedDays: input.recommendedDays,
+          userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
+        },
+      });
+
+      return recommendation;
+    }),
+
   //More routers here...
 });
