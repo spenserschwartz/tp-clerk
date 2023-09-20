@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 import { api } from "~/utils/api";
 import { findAverageRecDays } from "~/utils/common";
@@ -18,6 +19,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
+  const ctx = api.useContext();
 
   if (!cityData) return <div>404 City Not Found</div>;
 
@@ -33,8 +35,32 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   const averageRecDays = findAverageRecDays(allCityRecs);
 
+  const { mutate, isLoading } = api.recommendedDaysInCity.create.useMutation({
+    onSuccess: () => {
+      void ctx.recommendedDaysInCity.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage?.[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error(
+          "Failed to log your recommendation! Please try again later."
+        );
+      }
+    },
+  });
+
+  const createRecHandler = () => {
+    mutate({
+      cityId: "cllgzrb4n00001e4bdkolk49o",
+      recommendedDays: 5,
+    });
+  };
+
   return (
     <div className="px-2">
+      <button onClick={createRecHandler}>createRecHandler</button>
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
@@ -52,10 +78,12 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       </p>
 
       {/* Been to this city? Open modal */}
-      <p
-        className="text-center text-blue-500 hover:cursor-pointer"
-        onClick={() => setOpenModal(true)}
-      >{`Been to ${cityData.name}? Click here!`}</p>
+      <div className="flex justify-center">
+        <p
+          className="text-center text-blue-500 hover:cursor-pointer"
+          onClick={() => setOpenModal(true)}
+        >{`Been to ${cityData.name}? Click here!`}</p>
+      </div>
 
       <div className="flex w-full justify-center ">
         <Searchbar
