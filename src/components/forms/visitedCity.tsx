@@ -5,7 +5,7 @@ import { LoadingSpinner } from "../loading";
 
 const VisitedCityForm = () => {
   const ctx = api.useContext();
-  const [recDaysInput, setRecDaysInput] = useState("");
+  const [recDaysInput, setRecDaysInput] = useState("b");
 
   const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -38,11 +38,14 @@ const VisitedCityForm = () => {
 
   console.log("userRecomendationData", userRecommendationData);
 
-  const submitHandler = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Prevent the browser from reloading the page
+    e.preventDefault();
+
     if (!recDaysInput) return;
     mutate({
       cityId: "cll5m4ihx0000z4mruvrk2hi4",
-      recommendedDays: 5,
+      recommendedDays: 1,
     });
   };
 
@@ -53,7 +56,7 @@ const VisitedCityForm = () => {
           <LoadingSpinner size={64} />
         </div>
       ) : (
-        <form className="mt-2" onSubmit={submitHandler}>
+        <form className="mt-2" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             Visited City
           </h2>
@@ -87,7 +90,6 @@ const VisitedCityForm = () => {
             >
               Submit
             </button>
-            <button onClick={submitHandler}>Try here</button>
           </div>
         </form>
       )}
