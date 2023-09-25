@@ -5,16 +5,6 @@ import { LoadingSpinner } from "../loading";
 
 const VisitedCityForm = () => {
   const ctx = api.useContext();
-  const [recDaysInput, setRecDaysInput] = useState("");
-
-  const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    console.log("typeof rawValue", typeof rawValue);
-    // Check if input is a number
-    if (isNaN(Number(rawValue))) return;
-    else setRecDaysInput(rawValue);
-  };
-
   const { mutate, isLoading: creatingRec } =
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
@@ -36,6 +26,16 @@ const VisitedCityForm = () => {
     api.recommendedDaysInCity.getUserRecommendation.useQuery({
       cityName: "London",
     });
+
+  const recommendedDays = userRecommendationData?.recommendedDays ?? undefined;
+  const [recDaysInput, setRecDaysInput] = useState("");
+
+  const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue: string = e.target.value; // rawValue is string because input type is text
+    // Check if input is a number
+    if (isNaN(Number(rawValue))) return;
+    else setRecDaysInput(rawValue);
+  };
 
   console.log("userRecomendationData", userRecommendationData);
 
@@ -69,6 +69,13 @@ const VisitedCityForm = () => {
             >
               How many days should travelers spend here?
             </label>
+
+            {/* Previous Recommendation */}
+            <p className="text-xs text-slate-500">
+              {recommendedDays
+                ? "You previously recommended " + recommendedDays + " days"
+                : null}
+            </p>
             <input
               type="text"
               name="numberOfRecDays"
