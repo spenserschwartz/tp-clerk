@@ -12,6 +12,15 @@ export const cityRouter = createTRPCRouter({
     return cities;
   }),
 
+  getAllCityNames: publicProcedure.query(async ({ ctx }) => {
+    const cities = await ctx.prisma.city.findMany({
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+    });
+
+    return cities.map((city) => city.name);
+  }),
+
   getAllWithAttractions: publicProcedure.query(async ({ ctx }) => {
     const cities = await ctx.prisma.city.findMany({
       take: 100,
