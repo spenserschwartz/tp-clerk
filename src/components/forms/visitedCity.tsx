@@ -72,8 +72,7 @@ const VisitedCityForm = () => {
             {/* Previous Recommendation */}
             <p className="text-xs text-slate-500">
               {recommendedDays
-                ? // ? "You previously recommended " + recommendedDays + " days"
-                  `You previously recommended ${recommendedDays} ${
+                ? `You previously recommended ${recommendedDays} ${
                     recommendedDays === 1 ? "day" : "days"
                   }`
                 : null}
