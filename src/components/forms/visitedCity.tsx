@@ -5,6 +5,9 @@ import { LoadingSpinner } from "../loading";
 
 const VisitedCityForm = () => {
   const ctx = api.useContext();
+  const [recDaysInput, setRecDaysInput] = useState("");
+
+  // Create a new recommendation
   const { mutate, isLoading: creatingRec } =
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
@@ -21,14 +24,12 @@ const VisitedCityForm = () => {
         }
       },
     });
-
+  // Get the user's previous recommendation
   const { data: userRecommendationData, isLoading: userRecIsLoading } =
     api.recommendedDaysInCity.getUserRecommendation.useQuery({
       cityName: "London",
     });
-
   const recommendedDays = userRecommendationData?.recommendedDays ?? undefined;
-  const [recDaysInput, setRecDaysInput] = useState("");
 
   const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue: string = e.target.value; // rawValue is string because input type is text
@@ -36,8 +37,6 @@ const VisitedCityForm = () => {
     if (isNaN(Number(rawValue))) return;
     else setRecDaysInput(rawValue);
   };
-
-  console.log("userRecomendationData", userRecommendationData);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent the browser from reloading the page
@@ -73,7 +72,10 @@ const VisitedCityForm = () => {
             {/* Previous Recommendation */}
             <p className="text-xs text-slate-500">
               {recommendedDays
-                ? "You previously recommended " + recommendedDays + " days"
+                ? // ? "You previously recommended " + recommendedDays + " days"
+                  `You previously recommended ${recommendedDays} ${
+                    recommendedDays === 1 ? "day" : "days"
+                  }`
                 : null}
             </p>
             <input
