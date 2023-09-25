@@ -7,11 +7,18 @@ const CitiesPage: NextPage = () => {
   const { data: cityNames } = api.city.getAllCityNames.useQuery();
 
   return (
-    <div>
-      <p>These are the current cities that TravelPerfect is working with:</p>
-      <ul>
+    <div className="flex h-full flex-col items-center justify-center">
+      <p className="text-center">
+        These are the current cities that TravelPerfect is working with:
+      </p>
+      <p className="text-orange-400">(Click to navigate to city)</p>
+      <ul className="flex flex-col  text-center">
         {cityNames?.map((cityName) => (
-          <Link key={`CitiesList:${cityName}`} href={`/${cityName}`}>
+          <Link
+            className="mt-2"
+            key={`CitiesList:${cityName}`}
+            href={`/city/${cityName}`}
+          >
             {cityName}
           </Link>
         ))}
