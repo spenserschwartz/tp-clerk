@@ -1,6 +1,5 @@
-import { type Dispatch, Fragment, useState } from "react";
+import { type Dispatch, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 import VisitedCityForm from "../forms/visitedCity";
 
 interface ModalProps {
@@ -9,7 +8,6 @@ interface ModalProps {
 }
 
 export default function Modal({ openModal, setOpenModal }: ModalProps) {
-  const [recDaysInput, setRecDaysInput] = useState("");
   const closeModalHandler = () => setOpenModal(false);
 
   return (
@@ -40,37 +38,6 @@ export default function Modal({ openModal, setOpenModal }: ModalProps) {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <div>
-                  {/* <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <CheckIcon
-                      className="h-6 w-6 text-green-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-base font-semibold leading-6 text-gray-900"
-                    >
-                      Payment successful
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Consequatur amet labore.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-5 sm:mt-6">
-                  <div className="mt-2">
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="you@example.com"
-                    />
-                  </div> */}
                   <VisitedCityForm />
                   <button
                     type="button"
