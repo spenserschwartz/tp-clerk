@@ -24,7 +24,9 @@ model City {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    attractions Attraction[]
+    attractions     Attraction[]
+    recommendedDays RecommendedDaysInCity[]
+
     authorId    String
     description String?
     name        String
@@ -59,5 +61,20 @@ model Upvotes {
 
     @@unique([attractionId, userId]) // https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-a-unique-field
     @@index([attractionId])
+    @@index([userId])
+}
+
+model RecommendedDaysInCity {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    city            City   @relation(fields: [cityId], references: [id])
+    cityId          String
+    recommendedDays Int
+
+    userId String
+
+    @@unique([cityId, userId])
+    @@index([cityId])
     @@index([userId])
 }

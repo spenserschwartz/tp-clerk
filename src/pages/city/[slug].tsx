@@ -1,16 +1,17 @@
 import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
+import { findAverageRecDays } from "~/utils/common";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-import { ImageGrid } from "~/components";
-import Searchbar from "~/components/searchbar";
-import Head from "next/head";
+import { ImageGrid, Modal, Searchbar } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
+  const [openModal, setOpenModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
@@ -22,33 +23,13 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
     cityId: cityData.id,
     userId: user ? user.id : "",
   });
+  const { data: allCityRecs } = api.recommendedDaysInCity.getAllByCity.useQuery(
+    {
+      cityName: cityData.name,
+    }
+  );
 
-  // const allUpvotes = api.upvotes.getAll.useQuery(); // works
-  // const utils = api.useContext();
-
-  // const upvoteCreate = api.upvotes.create.useMutation({
-  //   async onMutate(newUpvote) {
-  //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-  //     await utils.upvotes.getAll.cancel();
-
-  //     // Get data from queryCache
-  //     const prevData = utils.upvotes.getAll.getData();
-
-  //     // Optimistically update to the new value
-  //     utils.upvotes.getAll.setData(undefined, (old) => [...old, newUpvote]);
-
-  //     // Return the previous data if something goes wrong
-  //     return { prevData };
-  //   },
-  //   onError(err, newPost, ctx) {
-  //     // If the mutation fails, use the context-value from onMutate
-  //     utils.upvotes.getAll.setData(undefined, ctx?.prevData);
-  //   },
-  //   onSettled() {
-  //     // Sync with server once mutation has settled
-  //     void utils.upvotes.getAll.invalidate();
-  //   },
-  // });
+  const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
     <div className="px-2">
@@ -61,6 +42,21 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
+      {/* Recommended time in city */}
+      <p className="text-center text-amber-600">
+        {allCityRecs?.length
+          ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
+          : "No recommendations yet"}
+      </p>
+
+      {/* Been to this city? Open modal */}
+      <div className="flex justify-center">
+        <p
+          className="text-center text-blue-500 hover:cursor-pointer"
+          onClick={() => setOpenModal(true)}
+        >{`Been to ${cityData.name}? Click here!`}</p>
+      </div>
+
       <div className="flex w-full justify-center ">
         <Searchbar
           inputValue={filterInputValue}
@@ -73,6 +69,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
         userUpvoteData={userUpvoteData}
         filterInputValue={filterInputValue}
       />
+
+      <Modal openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );
 };
