@@ -15,23 +15,6 @@ const VisitedCityForm = () => {
     else setRecDaysInput(rawValue);
   };
 
-  //   const { mutate, isLoading: creatingRec } =
-  //     api.recommendedDaysInCity.create.useMutation({
-  //       onSuccess: () => {
-  //         void ctx.recommendedDaysInCity.getAll.invalidate();
-  //       },
-  //       onError: (e) => {
-  //         const errorMessage = e.data?.zodError?.fieldErrors.content;
-  //         if (errorMessage?.[0]) {
-  //           toast.error(errorMessage[0]);
-  //         } else {
-  //           toast.error(
-  //             "Failed to log your recommendation! Please try again later."
-  //           );
-  //         }
-  //       },
-  //     });
-
   const { mutate, isLoading: creatingRec } =
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
