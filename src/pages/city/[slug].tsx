@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
-import toast from "react-hot-toast";
 
 import { api } from "~/utils/api";
 import { findAverageRecDays } from "~/utils/common";
