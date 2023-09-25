@@ -19,7 +19,6 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
-  const ctx = api.useContext();
 
   if (!cityData) return <div>404 City Not Found</div>;
 
@@ -35,32 +34,8 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
 
   const averageRecDays = findAverageRecDays(allCityRecs);
 
-  const { mutate, isLoading } = api.recommendedDaysInCity.create.useMutation({
-    onSuccess: () => {
-      void ctx.recommendedDaysInCity.getAll.invalidate();
-    },
-    onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content;
-      if (errorMessage?.[0]) {
-        toast.error(errorMessage[0]);
-      } else {
-        toast.error(
-          "Failed to log your recommendation! Please try again later."
-        );
-      }
-    },
-  });
-
-  const createRecHandler = () => {
-    mutate({
-      cityId: "cllgzrb4n00001e4bdkolk49o",
-      recommendedDays: 5,
-    });
-  };
-
   return (
     <div className="px-2">
-      <button onClick={createRecHandler}>createRecHandler</button>
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
