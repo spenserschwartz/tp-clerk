@@ -24,11 +24,12 @@ export default function Header() {
           <Link href="/">
             <span className="sr-only">TravelPerfect</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            {/* <img
               className="h-8 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
               alt=""
-            />
+            /> */}
+            <p className="text-2xl font-bold">TravelPerfect</p>
           </Link>
         </div>
 
