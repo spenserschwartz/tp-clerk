@@ -16,6 +16,7 @@ const VisitedCityForm = ({ onFormSubmit }: VisitedCityFormProps) => {
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
         void ctx.recommendedDaysInCity.getAll.invalidate();
+        toast.success("Your recommendation has been logged!");
       },
       onError: (e) => {
         const errorMessage = e.data?.zodError?.fieldErrors.content;

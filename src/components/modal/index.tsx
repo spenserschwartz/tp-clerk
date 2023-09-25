@@ -1,7 +1,6 @@
 import { type Dispatch, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import VisitedCityForm from "../forms/visitedCity";
-import toast from "react-hot-toast";
 
 interface ModalProps {
   openModal: boolean;
@@ -13,8 +12,6 @@ export default function Modal({ openModal, setOpenModal }: ModalProps) {
 
   const handleFormSubmit = () => {
     closeModalHandler();
-
-    toast.success("Your recommendation has been logged!");
   };
 
   return (
