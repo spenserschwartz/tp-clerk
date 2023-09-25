@@ -3,11 +3,15 @@ import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 import { LoadingSpinner } from "../loading";
 
-const VisitedCityForm = () => {
+interface VisitedCityFormProps {
+  onFormSubmit: () => void;
+}
+
+const VisitedCityForm = ({ onFormSubmit }: VisitedCityFormProps) => {
   const ctx = api.useContext();
   const [recDaysInput, setRecDaysInput] = useState("");
 
-  // Create a new recommendation
+  // Upsert a new recommendation
   const { mutate, isLoading: creatingRec } =
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
@@ -23,6 +27,7 @@ const VisitedCityForm = () => {
           );
         }
       },
+      onSettled: () => onFormSubmit(),
     });
   // Get the user's previous recommendation
   const { data: userRecommendationData, isLoading: userRecIsLoading } =
