@@ -7,9 +7,7 @@ import { api } from "~/utils/api";
 import { findAverageRecDays } from "~/utils/common";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-import { ImageGrid } from "~/components";
-import Searchbar from "~/components/searchbar";
-import Modal from "~/components/modal";
+import { ImageGrid, Modal, Searchbar } from "~/components";
 
 const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
