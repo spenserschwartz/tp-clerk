@@ -7,14 +7,15 @@ const openai = new OpenAI({
 });
 
 export const OpenAIRouter = createTRPCRouter({
-  generateTripItinerary: publicProcedure
+  generateTripItinerary: privateProcedure
     .input(z.any())
     .mutation(async ({ ctx, input }) => {
       try {
         const chatCompletion = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
-            { role: "user", content: `Repeat this word 3 times: boom` },
+            // { role: "user", content: `Repeat this word 3 times: ${input}` },
+            { role: "user", content: `Give a 3 day itinerary to London` },
           ],
         });
 
