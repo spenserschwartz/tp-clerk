@@ -1,10 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import openai from "~/utils/openai";
 
-interface Data {
-  name: string;
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -14,7 +10,7 @@ export default async function handler(
     messages: [
       {
         role: "user",
-        content: `Repeat this word 3 times: ${req.query.input}`,
+        content: `Repeat this word 3 times: boom`,
       },
     ],
   });

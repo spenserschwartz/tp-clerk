@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { privateProcedure, createTRPCRouter, publicProcedure } from "../trpc";
+import { privateProcedure, createTRPCRouter } from "../trpc";
 import { z } from "zod";
 
 const openai = new OpenAI({
@@ -15,13 +15,17 @@ export const OpenAIRouter = createTRPCRouter({
           model: "gpt-3.5-turbo",
           messages: [
             // { role: "user", content: `Repeat this word 3 times: ${input}` },
-            { role: "user", content: `Give a 3 day itinerary to London` },
+            {
+              role: "user",
+              content: `Give a 3 day itinerary to London. Return the reply as a JSON object`,
+            },
           ],
         });
 
         return chatCompletion;
       } catch (err) {
         console.log(err);
+        return {} as Record<string, unknown>;
       }
     }),
 

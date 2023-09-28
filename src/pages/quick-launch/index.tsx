@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 
 const QuickLaunchPage: NextPage = () => {
   const [aiText, setAiText] = useState("aiText will be generated here");
-  const [inputValue, setInputValue] = useState("");
 
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
@@ -18,7 +17,7 @@ const QuickLaunchPage: NextPage = () => {
         if (error) console.error(error);
         if (data) console.log("data", data);
 
-        setAiText(data?.choices[0]?.message.content ?? "");
+        // setAiText(data?.choices[0]?.message.content ?? "");
       },
     });
   };
@@ -29,10 +28,6 @@ const QuickLaunchPage: NextPage = () => {
         <LoadingSpinner size={64} />
       ) : (
         <div>
-          <input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          ></input>
           <button onClick={handleGenerateTextWithAI}>Click for AI</button>
           <p>{aiText}</p>
         </div>
