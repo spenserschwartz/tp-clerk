@@ -4,7 +4,6 @@ import { LoadingSpinner } from "~/components";
 import { api } from "~/utils/api";
 
 const SplashPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [aiText, setAiText] = useState("aiText will be generated here");
   const [inputValue, setInputValue] = useState("");
 
@@ -17,15 +16,15 @@ const SplashPage = () => {
       onSettled(data, error, variables, context) {
         if (error) console.error(error);
         if (data) console.log("data", data);
-        console.log("context", context);
-        console.log("variables", variables);
+
+        setAiText(data?.choices[0]?.message.content ?? "");
       },
     });
   };
 
   return (
     <div>
-      {isLoading ? (
+      {isLoadingAI ? (
         <LoadingSpinner size={64} />
       ) : (
         <div>
