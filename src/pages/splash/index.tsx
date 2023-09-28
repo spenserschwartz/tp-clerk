@@ -1,29 +1,26 @@
 import { type MouseEvent, useState } from "react";
+import toast from "react-hot-toast";
 import { LoadingSpinner } from "~/components";
+import { api } from "~/utils/api";
 
 const SplashPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [aiText, setAiText] = useState("aiText will be generated here");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleGenerateTextWithAI = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const { mutate, isLoading: isLoadingAI } =
+    api.openAI.generateTripItinerary.useMutation({});
 
+  const handleGenerateTextWithAI = () => {
     console.log("handleGenerateTextWithAI");
-
-    try {
-      setIsLoading(true);
-      console.log("trying to hit..");
-      const res = await fetch(`/api/openai`);
-      if (res.status !== 200) console.error("Error generating text with AI");
-      else {
-        console.log("hit");
-        const data = await res.json();
-        console.log("data", data);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    mutate("hello", {
+      onSettled(data, error, variables, context) {
+        if (error) console.error(error);
+        if (data) console.log("data", data);
+        console.log("context", context);
+        console.log("variables", variables);
+      },
+    });
   };
 
   return (
@@ -31,7 +28,14 @@ const SplashPage = () => {
       {isLoading ? (
         <LoadingSpinner size={64} />
       ) : (
-        <button onClick={handleGenerateTextWithAI}>Click for AI</button>
+        <div>
+          <input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          ></input>
+          <button onClick={handleGenerateTextWithAI}>Click for AI</button>
+          <p>{aiText}</p>
+        </div>
       )}
     </div>
   );

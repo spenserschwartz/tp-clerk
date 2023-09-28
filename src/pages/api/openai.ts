@@ -14,18 +14,17 @@ export default async function handler(
     messages: [
       {
         role: "user",
-        content:
-          "Can you generate a response to list the top 3 attractions in London? The response should be in JSON format and include the name, description, and location of each attraction.",
+        content: `Repeat this word 3 times: ${req.query.input}`,
       },
     ],
   });
 
   const responseText =
     chatCompletion.choices[0]?.message.content ?? "No AI response found";
-  //   res.status(200).json({ responseText });
+  res.status(200).json({ responseText });
 
-  const responseObject = JSON.parse(responseText);
-  res.status(200).json(responseObject);
+  // const responseObject = JSON.parse(responseText);
+  // res.status(200).json(responseObject);
 
   // Receive some text, ask ChatGPT to generate something
 }
