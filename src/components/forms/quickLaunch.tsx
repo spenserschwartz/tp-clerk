@@ -1,26 +1,45 @@
 import React, { useState } from "react";
+import { api } from "~/utils/api";
 
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
 }
 
 const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
+  const { mutate, isLoading: isLoadingAI } =
+    api.openAI.generateTripItinerary.useMutation({});
   const [chosenCityName, setChosenCityName] = useState("");
-  const [numberOfDays, setNumberOfDays] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   if (!cityNames?.length) return <div>No city names found</div>;
 
-  const handleNumberOfDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  if (isLoadingAI) return <div>Loading...</div>;
 
-    if (isNaN(Number(e.target.value))) return;
-    else setNumberOfDays(e.target.value);
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent the browser from reloading the page
+
+    console.log("formSubmit");
+    mutate(
+      { cityName: chosenCityName, startDate, endDate },
+      {
+        onSettled(data, error) {
+          if (error) console.error(error);
+          if (data) console.log("data", data);
+
+          const parsedData = JSON.parse(
+            data?.choices[0]?.message.content ?? "{}"
+          ) as Record<string, string>;
+
+          console.log("PARSE", parsedData);
+        },
+      }
+    );
   };
 
   return (
     <div className="mx-auto w-full md:w-96 md:max-w-full">
       <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           {/* Destination */}
           <label className="mb-6 block">
             <span className="text-gray-300">Where do you want to go?</span>
@@ -30,8 +49,9 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setChosenCityName(e.target.value)
               }
+              defaultValue={""}
             >
-              <option disabled selected>
+              <option disabled value="">
                 Select a city
               </option>
               {/* Map out cityNames */}
@@ -50,23 +70,22 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
               name="birthday"
               type="date"
               className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setStartDate(e.target.value)
+              }
             />
           </label>
 
-          {/* Trip Length */}
+          {/* End Date */}
           <label className="mb-6 block">
-            <span className="text-gray-300">
-              How many days will you be there?
-            </span>
-
+            <span className="text-gray-300">When do you want to end?</span>
             <input
-              name="name"
-              type="text"
+              name="birthday"
+              type="date"
               className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="# of days"
-              value={numberOfDays}
-              onChange={handleNumberOfDaysChange}
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEndDate(e.target.value)
+              }
             />
           </label>
 

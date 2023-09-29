@@ -17,20 +17,20 @@ const QuickLaunchPage: NextPage = () => {
 
   const handleGenerateTextWithAI = () => {
     console.log("handleGenerateTextWithAI");
-    mutate("Berlin", {
-      onSettled(data, error, variables, context) {
-        if (error) console.error(error);
-        if (data) console.log("data", data);
+    // mutate("Berlin", {
+    //   onSettled(data, error, variables, context) {
+    //     if (error) console.error(error);
+    //     if (data) console.log("data", data);
 
-        const parsedData = JSON.parse(
-          data?.choices[0]?.message.content ?? "{}"
-        ) as Record<string, string>;
+    //     const parsedData = JSON.parse(
+    //       data?.choices[0]?.message.content ?? "{}"
+    //     ) as Record<string, string>;
 
-        console.log("PARSE", parsedData);
+    //     console.log("PARSE", parsedData);
 
-        setAiText(data?.choices[0]?.message.content ?? "");
-      },
-    });
+    //     setAiText(data?.choices[0]?.message.content ?? "");
+    //   },
+    // });
   };
 
   return (

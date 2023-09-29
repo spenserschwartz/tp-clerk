@@ -8,7 +8,13 @@ const openai = new OpenAI({
 
 export const OpenAIRouter = createTRPCRouter({
   generateTripItinerary: privateProcedure
-    .input(z.any())
+    .input(
+      z.object({
+        cityName: z.string(),
+        startDate: z.string(),
+        endDate: z.string(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       try {
         const chatCompletion = await openai.chat.completions.create({
@@ -17,7 +23,7 @@ export const OpenAIRouter = createTRPCRouter({
             // { role: "user", content: `Repeat this word 3 times: ${input}` },
             {
               role: "user",
-              content: `Give a 3 day itinerary to ${input}. Return the reply as a JSON object`,
+              content: `Give a 3 day itinerary to ${input.cityName}. Return the reply as a JSON object`,
             },
           ],
         });
