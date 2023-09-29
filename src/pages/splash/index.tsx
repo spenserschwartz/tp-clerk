@@ -5,11 +5,7 @@ import QuickLaunchForm from "~/components/forms/quickLaunch";
 import { api } from "~/utils/api";
 
 const SplashPage = () => {
-  return (
-    <div>
-      <QuickLaunchForm />
-    </div>
-  );
+  return <div>Splash Page</div>;
 };
 
 export default SplashPage;
