@@ -7,9 +7,8 @@ interface QuickLaunchFormProps {
 const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
   const [chosenCityName, setChosenCityName] = useState("");
   const [numberOfDays, setNumberOfDays] = useState("");
+  const [startDate, setStartDate] = useState("");
   if (!cityNames?.length) return <div>No city names found</div>;
-
-  console.log("chosenCityName", chosenCityName);
 
   const handleNumberOfDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -22,6 +21,7 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
     <div className="mx-auto w-full md:w-96 md:max-w-full">
       <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
         <form>
+          {/* Destination */}
           <label className="mb-6 block">
             <span className="text-gray-300">Where do you want to go?</span>
             <select
@@ -43,6 +43,7 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
             </select>
           </label>
 
+          {/* Start Date */}
           <label className="mb-6 block">
             <span className="text-gray-300">When do you want to start?</span>
             <input
@@ -52,8 +53,12 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
             />
           </label>
 
+          {/* Trip Length */}
           <label className="mb-6 block">
-            <span className="text-gray-300">How long will you be there?</span>
+            <span className="text-gray-300">
+              How many days will you be there?
+            </span>
+
             <input
               name="name"
               type="text"
@@ -65,19 +70,19 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
             />
           </label>
 
-          <div>
-            <label className="">
-              <input
-                name="season"
-                type="checkbox"
-                className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
-              />
-              <span className="ml-2 text-gray-300">
-                Add some extra adventure!
-              </span>
-            </label>
-          </div>
+          {/* Adventure Option */}
+          <label className="">
+            <input
+              name="adventureOption"
+              type="checkbox"
+              className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
+            />
+            <span className="ml-2 text-gray-300">
+              Add some extra adventure!
+            </span>
+          </label>
 
+          {/* Submit Button */}
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
