@@ -5,38 +5,12 @@ interface QuickLaunchFormProps {
 }
 
 const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
-  if (!cityNames?.length) return <>No city names found</>;
+  if (!cityNames?.length) return <div>No city names found</div>;
 
   return (
     <div className="mx-auto w-full md:w-96 md:max-w-full">
       <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
-        <form method="POST" action="https://herotofu.com/start">
-          <label className="mb-6 block">
-            <span className="text-gray-300">Your name</span>
-            <input
-              name="name"
-              type="text"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Joe Bloggs"
-            />
-          </label>
-          <label className="mb-6 block">
-            <span className="text-gray-300">Email address</span>
-            <input
-              name="email"
-              type="email"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="joe.bloggs@example.com"
-            />
-          </label>
-          <label className="mb-6 block">
-            <span className="text-gray-300">When is your birthday?</span>
-            <input
-              name="birthday"
-              type="date"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          </label>
+        <form>
           <label className="mb-6 block">
             <span className="text-gray-300">Where do you want to go?</span>
             <select
@@ -51,6 +25,26 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
               ))}
             </select>
           </label>
+
+          <label className="mb-6 block">
+            <span className="text-gray-300">Your name</span>
+            <input
+              name="name"
+              type="text"
+              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              placeholder="Joe Bloggs"
+            />
+          </label>
+
+          <label className="mb-6 block">
+            <span className="text-gray-300">When is your birthday?</span>
+            <input
+              name="birthday"
+              type="date"
+              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+          </label>
+
           <div className="mb-6">
             <div className="mt-2">
               <div>
