@@ -17,7 +17,7 @@ export const OpenAIRouter = createTRPCRouter({
             // { role: "user", content: `Repeat this word 3 times: ${input}` },
             {
               role: "user",
-              content: `Give a 3 day itinerary to London. Return the reply as a JSON object`,
+              content: `Give a 3 day itinerary to ${input}. Return the reply as a JSON object`,
             },
           ],
         });
@@ -25,7 +25,6 @@ export const OpenAIRouter = createTRPCRouter({
         return chatCompletion;
       } catch (err) {
         console.log(err);
-        return {} as Record<string, unknown>;
       }
     }),
 

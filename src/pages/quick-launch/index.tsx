@@ -12,12 +12,12 @@ const QuickLaunchPage: NextPage = () => {
 
   const handleGenerateTextWithAI = () => {
     console.log("handleGenerateTextWithAI");
-    mutate("hello", {
+    mutate("Berlin", {
       onSettled(data, error, variables, context) {
         if (error) console.error(error);
         if (data) console.log("data", data);
 
-        // setAiText(data?.choices[0]?.message.content ?? "");
+        setAiText(data?.choices[0]?.message.content ?? "");
       },
     });
   };
