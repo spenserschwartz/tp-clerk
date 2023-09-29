@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { privateProcedure, createTRPCRouter } from "../trpc";
 import { z } from "zod";
+import { findDifferenceInDays } from "~/utils/common";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,6 +14,8 @@ interface QueryInputInterface {
 }
 
 const generateQuery = (input: QueryInputInterface) => {
+  const differenceInDays = findDifferenceInDays(input.startDate, input.endDate);
+
   return `Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
           Return the reply as a JSON object.
           
@@ -30,7 +33,8 @@ const generateQuery = (input: QueryInputInterface) => {
             "evening": "Visit the Moulin Rouge"}
           ]
 
-          Give at least two sentences of context for morning, afternoon, and evening activities
+          Give at least two sentences of context for morning, afternoon, and evening activities. 
+          If ${differenceInDays} is greater than 7, replace the "morning", "afternoon", and "evening" properties with an "itinerary" property.
           `;
 };
 
