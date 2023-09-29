@@ -5,8 +5,11 @@ interface QuickLaunchFormProps {
 }
 
 const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
+  const [chosenCityName, setChosenCityName] = useState("");
   const [numberOfDays, setNumberOfDays] = useState("");
   if (!cityNames?.length) return <div>No city names found</div>;
+
+  console.log("chosenCityName", chosenCityName);
 
   const handleNumberOfDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -24,6 +27,9 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
             <select
               name="present"
               className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                setChosenCityName(e.target.value)
+              }
             >
               {/* Map out cityNames */}
               {cityNames.map((cityName) => (
@@ -52,6 +58,7 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
               placeholder="# of days"
               value={numberOfDays}
               onChange={handleNumberOfDaysChange}
+              required
             />
           </label>
 
@@ -73,7 +80,7 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
               type="submit"
               className="focus:shadow-outline h-10 rounded-lg bg-indigo-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-indigo-800"
             >
-              Send Answers
+              Make an itinerary!
             </button>
           </div>
         </form>
