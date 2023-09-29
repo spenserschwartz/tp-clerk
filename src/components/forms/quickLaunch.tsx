@@ -1,6 +1,12 @@
 import React from "react";
 
-const QuickLaunchForm = () => {
+interface QuickLaunchFormProps {
+  cityNames: string[] | undefined;
+}
+
+const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
+  if (!cityNames) return <>No city names found</>;
+
   return (
     <div className="mx-auto w-full md:w-96 md:max-w-full">
       <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">

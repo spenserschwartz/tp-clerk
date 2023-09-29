@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import { type MouseEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { LoadingSpinner, Modal } from "~/components";
+import QuickLaunchForm from "~/components/forms/quickLaunch";
 import { api } from "~/utils/api";
 
 const QuickLaunchPage: NextPage = () => {
@@ -11,6 +12,8 @@ const QuickLaunchPage: NextPage = () => {
 
   const { data: cityNames, isLoading: cityNamesLoading } =
     api.city.getAllCityNames.useQuery();
+
+  console.log("cityNames", cityNames);
 
   const handleGenerateTextWithAI = () => {
     console.log("handleGenerateTextWithAI");
@@ -38,6 +41,7 @@ const QuickLaunchPage: NextPage = () => {
         <div>
           <button onClick={handleGenerateTextWithAI}>Generate Your Trip</button>
           <p>{aiText}</p>
+          <QuickLaunchForm cityNames={cityNames} />
         </div>
       )}
     </div>
