@@ -5,7 +5,7 @@ interface QuickLaunchFormProps {
 }
 
 const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
-  if (!cityNames) return <>No city names found</>;
+  if (!cityNames?.length) return <>No city names found</>;
 
   return (
     <div className="mx-auto w-full md:w-96 md:max-w-full">
@@ -38,17 +38,17 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
             />
           </label>
           <label className="mb-6 block">
-            <span className="text-gray-300">
-              What kind of present you expect this year?
-            </span>
+            <span className="text-gray-300">Where do you want to go?</span>
             <select
               name="present"
               className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             >
-              <option>Chocolate cake</option>
-              <option>Dancing cat</option>
-              <option>Custom meme about me</option>
-              <option>Zoom backgrounds for the rest of my life</option>
+              {/* Map out cityNames */}
+              {cityNames.map((cityName) => (
+                <option key={`QuickLaunchOption:${cityName}`}>
+                  {cityName}
+                </option>
+              ))}
             </select>
           </label>
           <div className="mb-6">
