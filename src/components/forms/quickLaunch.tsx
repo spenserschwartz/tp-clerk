@@ -31,6 +31,9 @@ const QuickLaunchForm = ({ cityNames }: QuickLaunchFormProps) => {
                 setChosenCityName(e.target.value)
               }
             >
+              <option disabled selected>
+                Select a city
+              </option>
               {/* Map out cityNames */}
               {cityNames.map((cityName) => (
                 <option key={`QuickLaunchOption:${cityName}`}>
