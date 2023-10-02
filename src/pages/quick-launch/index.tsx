@@ -49,7 +49,7 @@ const QuickLaunchPage: NextPage = () => {
               {/* Parsed Itinerary Display */}
               {parsedData.map((itineraryDay) => (
                 <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
-                  <p className="text mt-2 text-center font-bold">
+                  <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
                     {itineraryDay.date} - {itineraryDay.dayOfWeek}
                   </p>
 
