@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { type MouseEvent, useState } from "react";
+import { type MouseEvent, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { LoadingSpinner, Modal } from "~/components";
 import Button from "~/components/button";
@@ -16,6 +16,8 @@ interface ParsedAIMessageInterface {
 
 const QuickLaunchPage: NextPage = () => {
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
+  const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
+
   const [showForm, setShowForm] = useState(false);
 
   const { mutate, isLoading: isLoadingAI } =
@@ -30,9 +32,18 @@ const QuickLaunchPage: NextPage = () => {
     generatedAIMessage ? JSON.parse(generatedAIMessage) : {}
   );
 
-  const parsedData = JSON.parse(
-    generatedAIMessage
-  ) as ParsedAIMessageInterface[];
+  useEffect(() => {
+    if (generatedAIMessage) {
+      try {
+        const newParsedData = JSON.parse(
+          generatedAIMessage
+        ) as ParsedAIMessageInterface[];
+        setParsedData(newParsedData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [generatedAIMessage]);
 
   return (
     <div>
@@ -40,7 +51,7 @@ const QuickLaunchPage: NextPage = () => {
         <LoadingSpinner size={64} />
       ) : (
         <div>
-          {generatedAIMessage ? (
+          {parsedData.length ? (
             <div>
               <div className="mt-3 flex justify-center">
                 <Button buttonText="New Itinerary" />

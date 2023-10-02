@@ -34,7 +34,6 @@ const generateQuery = (input: QueryInputInterface) => {
           ]
 
           Give at least two sentences of context for morning, afternoon, and evening activities. 
-          If ${differenceInDays} is greater than 7, replace the "morning", "afternoon", and "evening" properties with an "itinerary" property.
           `;
 };
 
