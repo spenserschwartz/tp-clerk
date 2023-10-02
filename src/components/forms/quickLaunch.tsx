@@ -21,8 +21,6 @@ const QuickLaunchForm = ({
 
   if (isLoadingAI) return <div>Loading...</div>;
 
-  console.log("end - start", findDifferenceInDays(endDate, startDate));
-
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
