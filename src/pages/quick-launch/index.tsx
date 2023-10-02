@@ -7,6 +7,8 @@ import { api } from "~/utils/api";
 
 const QuickLaunchPage: NextPage = () => {
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
+  const [showForm, setShowForm] = useState(false);
+
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
@@ -14,6 +16,10 @@ const QuickLaunchPage: NextPage = () => {
     api.city.getAllCityNames.useQuery();
 
   console.log("generatedAIMessage", generatedAIMessage);
+  console.log(
+    "PARSED",
+    generatedAIMessage ? JSON.parse(generatedAIMessage) : {}
+  );
 
   return (
     <div>
@@ -21,10 +27,14 @@ const QuickLaunchPage: NextPage = () => {
         <LoadingSpinner size={64} />
       ) : (
         <div>
-          <QuickLaunchForm
-            cityNames={cityNames}
-            setGeneratedMessage={setGeneratedAIMessage}
-          />
+          {generatedAIMessage ? (
+            generatedAIMessage
+          ) : (
+            <QuickLaunchForm
+              cityNames={cityNames}
+              setGeneratedMessage={setGeneratedAIMessage}
+            />
+          )}
         </div>
       )}
     </div>

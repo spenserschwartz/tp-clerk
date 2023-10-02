@@ -16,6 +16,7 @@ const QuickLaunchForm = ({
   const [chosenCityName, setChosenCityName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   if (!cityNames?.length) return <div>No city names found</div>;
 
   if (isLoadingAI) return <div>Loading...</div>;
