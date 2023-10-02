@@ -54,7 +54,10 @@ const QuickLaunchPage: NextPage = () => {
           {parsedData.length ? (
             <div>
               <div className="mt-3 flex justify-center">
-                <Button buttonText="New Itinerary" />
+                <Button
+                  buttonText="New Itinerary"
+                  buttonClickHandler={() => setParsedData([])}
+                />
               </div>
 
               {/* Parsed Itinerary Display */}

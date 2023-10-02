@@ -1,6 +1,7 @@
 import React from "react";
 
 interface ButtonProps {
+  buttonClickHandler: () => void;
   buttonText: string;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
@@ -13,9 +14,10 @@ const paddingMap = {
   xl: "px-3.5 py-2.5",
 };
 
-const Button = ({ buttonText, size }: ButtonProps) => (
+const Button = ({ buttonClickHandler, buttonText, size }: ButtonProps) => (
   <button
     type="button"
+    onClick={buttonClickHandler}
     className={`rounded bg-indigo-500 
     ${
       paddingMap[size ?? "md"]
