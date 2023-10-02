@@ -42,10 +42,22 @@ const QuickLaunchPage: NextPage = () => {
         <div>
           {generatedAIMessage ? (
             <div>
-              <Button buttonText={"New Itinerary"} />
+              <div className="mt-3 flex justify-center">
+                <Button buttonText="New Itinerary" />
+              </div>
+
+              {/* Parsed Itinerary Display */}
               {parsedData.map((itineraryDay) => (
                 <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
-                  {itineraryDay.dayOfWeek}
+                  <p className="text mt-2 text-center font-bold">
+                    {itineraryDay.date} - {itineraryDay.dayOfWeek}
+                  </p>
+
+                  <ul className="ms-8 list-outside list-disc">
+                    <li className="mb-1">Morning: {itineraryDay.morning}</li>
+                    <li>Afternoon: {itineraryDay.afternoon}</li>
+                    <li>Evening: {itineraryDay.evening}</li>
+                  </ul>
                 </div>
               ))}
             </div>
