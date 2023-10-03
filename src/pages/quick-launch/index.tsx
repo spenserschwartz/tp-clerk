@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { useState, useEffect } from "react";
-import { LoadingSpinner } from "~/components";
-import Button from "~/components/button";
+import { Button, LoadingSpinner } from "~/components";
 import QuickLaunchForm from "~/components/forms/quickLaunch";
 import { api } from "~/utils/api";
 
