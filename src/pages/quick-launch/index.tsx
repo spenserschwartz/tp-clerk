@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
-import { type MouseEvent, useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { LoadingSpinner, Modal } from "~/components";
+import { useState, useEffect } from "react";
+import { LoadingSpinner } from "~/components";
 import Button from "~/components/button";
 import QuickLaunchForm from "~/components/forms/quickLaunch";
 import { api } from "~/utils/api";
@@ -18,20 +17,15 @@ const QuickLaunchPage: NextPage = () => {
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
 
-  const [showForm, setShowForm] = useState(false);
-
-  const { mutate, isLoading: isLoadingAI } =
+  // Generate Itinerary
+  const { isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
+  // Get city names for combobox
   const { data: cityNames, isLoading: cityNamesLoading } =
     api.city.getAllCityNames.useQuery();
 
-  console.log("generatedAIMessage", generatedAIMessage);
-  console.log(
-    "PARSED",
-    generatedAIMessage ? JSON.parse(generatedAIMessage) : {}
-  );
-
+  // Set parsedData that shows on generation
   useEffect(() => {
     if (generatedAIMessage) {
       try {
@@ -50,6 +44,7 @@ const QuickLaunchPage: NextPage = () => {
       {isLoadingAI || cityNamesLoading ? (
         <LoadingSpinner size={64} />
       ) : (
+        // Show parsed data if it exists, otherwise show form
         <div>
           {parsedData.length ? (
             <div>
