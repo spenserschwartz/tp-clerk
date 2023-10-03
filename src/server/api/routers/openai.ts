@@ -1,10 +1,7 @@
-import OpenAI from "openai";
-import { privateProcedure, createTRPCRouter } from "../trpc";
+// import OpenAI from "openai";
 import { z } from "zod";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import openai from "~/utils/openai";
+import { privateProcedure, createTRPCRouter } from "../trpc";
 
 interface QueryInputInterface {
   cityName: string;
