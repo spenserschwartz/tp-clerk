@@ -1,6 +1,5 @@
 import { type Dispatch, useState } from "react";
 import { api } from "~/utils/api";
-import { findDifferenceInDays } from "~/utils/common";
 
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
@@ -30,13 +29,8 @@ const QuickLaunchForm = ({
         onSettled(data, error) {
           if (error) console.error(error);
           if (data) {
-            console.log("data", data);
             setGeneratedMessage(data?.choices[0]?.message.content ?? "");
           }
-
-          const parsedData = JSON.parse(
-            data?.choices[0]?.message.content ?? "{}"
-          ) as Record<string, string>;
         },
       }
     );
