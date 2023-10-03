@@ -6,17 +6,6 @@ import { LoadingPage } from "src/components/loading";
 import { api } from "~/utils/api";
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [datePickerValue, setDatePickerValue] = useState<DateValueType>({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-
-  const handleDatePickerChange = (newValue: DateValueType) => {
-    setDatePickerValue(newValue);
-  };
-
   const { data, isLoading } = api.city.getAll.useQuery();
 
   if (isLoading) return <LoadingPage />;
@@ -24,7 +13,6 @@ const Home = () => {
   const comboboxOptions = data?.map((city) => {
     return { name: city.name, id: city.id };
   }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
-  console.log("comboboxOptions", comboboxOptions);
 
   return (
     <main>
@@ -60,30 +48,6 @@ const Home = () => {
 
             {/* Container for input and DatePicker */}
             <div className="mt-2 w-80">
-              {/* <input
-                type="destination"
-                name="destination"
-                id="destination"
-                className="mb-2 block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="Enter a city"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    if (inputValue !== "") {
-                      setIsSubmitted(true);
-                    }
-                  }
-                }}
-              />
-
-              <Datepicker
-                value={datePickerValue}
-                onChange={handleDatePickerChange}
-                primaryColor="purple"
-              /> */}
-
               <Combobox options={comboboxOptions} />
             </div>
 
@@ -93,38 +57,9 @@ const Home = () => {
               perfect destination for your next vacation. Enter a city and your
               desired travel dates to get started.
             </p>
-
-            {/* Button */}
-            {/* <div className="mt-10 flex items-center gap-x-6">
-              <button
-                type="button"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={() => setIsSubmitted(true)}
-              >
-                Start your journey
-              </button>
-            </div> */}
-
-            {/* Display text on submit */}
-            {/* {isSubmitted &&
-              inputValue &&
-              datePickerValue?.startDate &&
-              datePickerValue?.endDate && (
-                <div>
-                  <p>
-                    {`You want to go to ${inputValue} from ${datePickerValue.startDate.toString()} to ${(datePickerValue?.endDate).toString()}.`}
-                  </p>
-                  <p className="text-center text-orange-500">
-                    This tool is a work in progress.
-                  </p>
-                </div>
-              )} */}
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      {/* <Footer /> */}
     </main>
   );
 };

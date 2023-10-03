@@ -16,9 +16,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster position="bottom-center" />
-      <PageLayout>
+      {/* <PageLayout>
         <Component {...pageProps} />
-      </PageLayout>
+      </PageLayout> */}
+      <Component {...pageProps} />
     </ClerkProvider>
   );
 };
