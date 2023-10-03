@@ -1,7 +1,6 @@
 import OpenAI from "openai";
 import { privateProcedure, createTRPCRouter } from "../trpc";
 import { z } from "zod";
-import { findDifferenceInDays } from "~/utils/common";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -14,8 +13,6 @@ interface QueryInputInterface {
 }
 
 const generateQuery = (input: QueryInputInterface) => {
-  const differenceInDays = findDifferenceInDays(input.startDate, input.endDate);
-
   return `Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
           Return the reply as a JSON object.
           
@@ -46,15 +43,14 @@ export const OpenAIRouter = createTRPCRouter({
         endDate: z.string(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       try {
         const chatCompletion = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
             {
               role: "user",
-              // content: `Give a 3 day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}. Return the reply as a JSON object`,
-              content: generateQuery(input),
+              content: generateQuery(input), // Query goes here
             },
           ],
         });
