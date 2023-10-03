@@ -1,4 +1,4 @@
-import type { AppType } from "next/app";
+import type { AppProps, AppType } from "next/app";
 import Head from "next/head";
 import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
@@ -6,8 +6,21 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import { PageLayout } from "~/components";
+import { type NextPage } from "next";
+import { type ReactElement, type ReactNode } from "react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <ClerkProvider {...pageProps}>
       <Head>
@@ -19,7 +32,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       {/* <PageLayout>
         <Component {...pageProps} />
       </PageLayout> */}
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </ClerkProvider>
   );
 };
