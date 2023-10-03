@@ -25,3 +25,11 @@ export const findAverageRecDays = (
     else return `${Math.floor(average)} - ${Math.ceil(average)} days`;
   }
 };
+
+// Difference in days between two dates in MM/DD/YYYY format
+export const findDifferenceInDays = (date1: string, date2: string) => {
+  const diffInMs = Math.abs(
+    new Date(date1).getTime() - new Date(date2).getTime()
+  );
+  return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+};

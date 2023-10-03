@@ -1,24 +1,35 @@
-import type { AppType } from "next/app";
+import { type NextPage } from "next";
 import Head from "next/head";
+import type { AppProps, AppType } from "next/app";
 import { ClerkProvider } from "@clerk/nextjs";
-import { api } from "~/utils/api";
-
-import "~/styles/globals.css";
 import { Toaster } from "react-hot-toast";
-import { PageLayout } from "~/components";
+import { type ReactElement, type ReactNode } from "react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+import { api } from "~/utils/api";
+import "~/styles/globals.css";
+
+// Used for getLayout on Next
+export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <ClerkProvider {...pageProps}>
       <Head>
-        <title>Travel Perfect Title</title>
+        <title>TravelPerfect</title>
         <meta name="description" content="🚀" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster position="bottom-center" />
-      <PageLayout>
-        <Component {...pageProps} />
-      </PageLayout>
+
+      {getLayout(<Component {...pageProps} />)}
     </ClerkProvider>
   );
 };
