@@ -1,8 +1,9 @@
-import { addDays } from "date-fns";
-import { type Dispatch, useState } from "react";
+import { addDays, format as formatDate } from "date-fns";
+import { useEffect, useState, type Dispatch } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
+import { LoadingPage } from "../loading";
 
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
@@ -19,20 +20,49 @@ const QuickLaunchForm = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const [oldStartDate, setOldStartDate] = useState("");
+
+  console.log("oldStartDate", oldStartDate);
+
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 7),
   });
 
+  useEffect(() => {
+    const formattedStartDate = formatDate(
+      date?.from ?? new Date(),
+      "yyyy-MM-dd"
+    );
+    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+    console.log("formattedEndDate", formattedEndDate);
+
+    if (date?.from && date?.to) {
+      setStartDate(formattedStartDate);
+      setEndDate(formattedEndDate);
+    }
+  }, [date]);
+
+  console.log("startDate", startDate);
+
   if (!cityNames?.length) return <div>No city names found</div>;
 
-  if (isLoadingAI) return <div>Loading...</div>;
+  if (isLoadingAI)
+    return (
+      <div>
+        <LoadingPage />
+      </div>
+    );
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
     mutate(
-      { cityName: chosenCityName, startDate, endDate },
+      {
+        cityName: chosenCityName,
+        startDate,
+        endDate,
+      },
       {
         onSettled(data, error) {
           if (error) console.error(error);
@@ -79,13 +109,14 @@ const QuickLaunchForm = ({
               type="date"
               className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setStartDate(e.target.value)
+                // setStartDate(e.target.value)
+                setOldStartDate(e.target.value)
               }
             />
           </label>
 
           {/* End Date */}
-          <label className="mb-6 block">
+          {/* <label className="mb-6 block">
             <span className="text-gray-300">When do you want to end?</span>
             <input
               name="birthday"
@@ -95,7 +126,7 @@ const QuickLaunchForm = ({
                 setEndDate(e.target.value)
               }
             />
-          </label>
+          </label> */}
 
           {/* Date Range Picker */}
           <DatePickerWithRange date={date} setDate={setDate} />
