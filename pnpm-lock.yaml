@@ -62,9 +62,6 @@ dependencies:
   dayjs:
     specifier: ^1.11.9
     version: 1.11.9
-  google:
-    specifier: link:next/font/google
-    version: link:next/font/google
   lucide-react:
     specifier: ^0.284.0
     version: 0.284.0(react@18.2.0)
