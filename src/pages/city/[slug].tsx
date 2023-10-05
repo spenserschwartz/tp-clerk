@@ -1,15 +1,16 @@
-import { useState } from "react";
-import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
+import type { GetStaticProps } from "next";
+import Head from "next/head";
+import { ReactElement, useState } from "react";
 
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 import { findAverageRecDays } from "~/utils/common";
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-import { ImageGrid, Modal, Searchbar } from "~/components";
+import { ImageGrid, Modal, PageLayout, Searchbar } from "~/components";
+import { NextPageWithLayout } from "../_app";
 
-const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
+const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
@@ -32,7 +33,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
-    <div className="px-2">
+    <body className="px-2">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
@@ -71,7 +72,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
       />
 
       <Modal openModal={openModal} setOpenModal={setOpenModal} />
-    </div>
+    </body>
   );
 };
 
@@ -97,6 +98,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths = () => {
   return { paths: [], fallback: "blocking" };
+};
+
+CityPage.getLayout = function getLayout(page: ReactElement) {
+  return <PageLayout>{page}</PageLayout>;
 };
 
 export default CityPage;
