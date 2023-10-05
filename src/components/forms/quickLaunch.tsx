@@ -25,39 +25,38 @@ const QuickLaunchForm = ({
     to: addDays(new Date(), 7),
   });
 
+  // Update startDate and endDate when date changes from DatePickerWithRange
   useEffect(() => {
-    const formattedStartDate = formatDate(
-      date?.from ?? new Date(),
-      "yyyy-MM-dd"
-    );
-    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
-    console.log("formattedEndDate", formattedEndDate);
-
     if (date?.from && date?.to) {
+      const formattedStartDate = formatDate(
+        date?.from ?? new Date(),
+        "yyyy-MM-dd"
+      );
+      const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+
       setStartDate(formattedStartDate);
       setEndDate(formattedEndDate);
     }
   }, [date]);
 
-  console.log("startDate", startDate);
-
   if (!cityNames?.length) return <div>No city names found</div>;
 
-  if (isLoadingAI)
-    return (
-      <div>
-        <LoadingPage />
-      </div>
-    );
+  if (isLoadingAI) return <LoadingPage />;
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
+    const formattedStartDate = formatDate(
+      date?.from ?? new Date(),
+      "yyyy-MM-dd"
+    );
+    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+
     mutate(
       {
         cityName: chosenCityName,
-        startDate,
-        endDate,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
       },
       {
         onSettled(data, error) {
@@ -96,33 +95,6 @@ const QuickLaunchForm = ({
               ))}
             </select>
           </label>
-
-          {/* Start Date */}
-          {/* <label className="mb-6 block">
-            <span className="text-gray-300">When do you want to start?</span>
-            <input
-              name="birthday"
-              type="date"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                // setStartDate(e.target.value)
-                setOldStartDate(e.target.value)
-              }
-            />
-          </label> */}
-
-          {/* End Date */}
-          {/* <label className="mb-6 block">
-            <span className="text-gray-300">When do you want to end?</span>
-            <input
-              name="birthday"
-              type="date"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEndDate(e.target.value)
-              }
-            />
-          </label> */}
 
           {/* Date Range Picker */}
           <DatePickerWithRange date={date} setDate={setDate} />

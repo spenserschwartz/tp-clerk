@@ -1,19 +1,13 @@
-import React from "react";
 import { type ReactElement } from "react";
 
 import Combobox from "src/components/combobox";
 import { LoadingPage } from "src/components/loading";
 import { PageLayout } from "~/components";
-import { Calendar } from "~/ui/calendar";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
 import { api } from "~/utils/api";
 
 const Home = () => {
   const { data, isLoading } = api.city.getAll.useQuery();
-
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
-
   if (isLoading) return <LoadingPage />;
 
   const comboboxOptions = data?.map((city) => {

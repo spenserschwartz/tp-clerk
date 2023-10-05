@@ -21,14 +21,6 @@ export function DatePickerWithRange({
   date,
   setDate,
 }: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) {
-  console.log("date", date);
-  console.log("date.from", date?.from);
-  console.log("format date", format(date?.from ?? new Date(), "yyyy-MM-dd"));
-  console.log(
-    "range",
-    (date?.from?.getDate() ?? 0) - (date?.to?.getDate() ?? 0)
-  );
-
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>

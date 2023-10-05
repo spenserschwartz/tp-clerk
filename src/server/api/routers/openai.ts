@@ -1,7 +1,7 @@
 // import OpenAI from "openai";
 import { z } from "zod";
 import openai from "~/utils/openai";
-import { privateProcedure, createTRPCRouter } from "../trpc";
+import { createTRPCRouter, privateProcedure } from "../trpc";
 
 interface QueryInputInterface {
   cityName: string;
@@ -11,7 +11,7 @@ interface QueryInputInterface {
 
 const generateQuery = (input: QueryInputInterface) => {
   return `Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
-          Return the reply as a JSON object.
+          Return the reply as an array in the following format.
           
           Example response for September 29, 2023 to September 30, 2023 to Paris: 
           [
@@ -20,6 +20,7 @@ const generateQuery = (input: QueryInputInterface) => {
             "morning": "Visit the Eiffel Tower", 
             "afternoon": "Visit the Louvre", 
             "evening": "Visit the Arc de Triomphe"},
+            
             {"dayOfWeek: "Saturday",
             "date": "September 30, 2023",
             "morning": "Visit the Notre Dame",
