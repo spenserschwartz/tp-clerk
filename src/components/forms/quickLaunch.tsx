@@ -20,10 +20,6 @@ const QuickLaunchForm = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [oldStartDate, setOldStartDate] = useState("");
-
-  console.log("oldStartDate", oldStartDate);
-
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 7),
@@ -102,7 +98,7 @@ const QuickLaunchForm = ({
           </label>
 
           {/* Start Date */}
-          <label className="mb-6 block">
+          {/* <label className="mb-6 block">
             <span className="text-gray-300">When do you want to start?</span>
             <input
               name="birthday"
@@ -113,7 +109,7 @@ const QuickLaunchForm = ({
                 setOldStartDate(e.target.value)
               }
             />
-          </label>
+          </label> */}
 
           {/* End Date */}
           {/* <label className="mb-6 block">
