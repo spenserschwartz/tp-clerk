@@ -1,5 +1,5 @@
 import { addDays, format as formatDate } from "date-fns";
-import { useEffect, useState, type Dispatch } from "react";
+import { useState, type Dispatch } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
@@ -17,27 +17,11 @@ const QuickLaunchForm = ({
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const [chosenCityName, setChosenCityName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 7),
   });
-
-  // Update startDate and endDate when date changes from DatePickerWithRange
-  useEffect(() => {
-    if (date?.from && date?.to) {
-      const formattedStartDate = formatDate(
-        date?.from ?? new Date(),
-        "yyyy-MM-dd"
-      );
-      const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
-
-      setStartDate(formattedStartDate);
-      setEndDate(formattedEndDate);
-    }
-  }, [date]);
 
   if (!cityNames?.length) return <div>No city names found</div>;
 
