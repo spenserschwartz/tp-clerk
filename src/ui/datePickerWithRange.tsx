@@ -9,14 +9,28 @@ import { cn } from "@/lib/utils";
 import { Button } from "~/ui/button";
 import { Calendar } from "~/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "~/ui/popover";
+import { Dispatch } from "react";
+
+interface DatePickerWithRangeProps {
+  date: DateRange | undefined;
+  setDate: Dispatch<DateRange | undefined>;
+}
 
 export function DatePickerWithRange({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 7),
-  });
+  date,
+  setDate,
+}: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) {
+  //   const [date, setDate] = React.useState<DateRange | undefined>({
+  //     from: new Date(),
+  //     to: addDays(new Date(), 7),
+  //   });
+
+  console.log("date", date);
+  console.log(
+    "range",
+    (date?.from?.getDate() ?? 0) - (date?.to?.getDate() ?? 0)
+  );
 
   return (
     <div className={cn("grid gap-2", className)}>

@@ -1,4 +1,7 @@
+import { addDays } from "date-fns";
 import { type Dispatch, useState } from "react";
+import { type DateRange } from "react-day-picker";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
 interface QuickLaunchFormProps {
@@ -15,6 +18,11 @@ const QuickLaunchForm = ({
   const [chosenCityName, setChosenCityName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 7),
+  });
 
   if (!cityNames?.length) return <div>No city names found</div>;
 
@@ -88,6 +96,9 @@ const QuickLaunchForm = ({
               }
             />
           </label>
+
+          {/* Date Range Picker */}
+          <DatePickerWithRange date={date} setDate={setDate} />
 
           {/* Adventure Option */}
           <label className="">
