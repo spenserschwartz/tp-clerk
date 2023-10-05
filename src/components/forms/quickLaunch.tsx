@@ -1,5 +1,9 @@
-import { type Dispatch, useState } from "react";
+import { addDays, format as formatDate } from "date-fns";
+import { useState, type Dispatch } from "react";
+import { type DateRange } from "react-day-picker";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
+import { LoadingPage } from "../loading";
 
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
@@ -13,18 +17,31 @@ const QuickLaunchForm = ({
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const [chosenCityName, setChosenCityName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 7),
+  });
 
   if (!cityNames?.length) return <div>No city names found</div>;
 
-  if (isLoadingAI) return <div>Loading...</div>;
+  if (isLoadingAI) return <LoadingPage />;
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
+    const formattedStartDate = formatDate(
+      date?.from ?? new Date(),
+      "yyyy-MM-dd"
+    );
+    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+
     mutate(
-      { cityName: chosenCityName, startDate, endDate },
+      {
+        cityName: chosenCityName,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      },
       {
         onSettled(data, error) {
           if (error) console.error(error);
@@ -63,31 +80,8 @@ const QuickLaunchForm = ({
             </select>
           </label>
 
-          {/* Start Date */}
-          <label className="mb-6 block">
-            <span className="text-gray-300">When do you want to start?</span>
-            <input
-              name="birthday"
-              type="date"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setStartDate(e.target.value)
-              }
-            />
-          </label>
-
-          {/* End Date */}
-          <label className="mb-6 block">
-            <span className="text-gray-300">When do you want to end?</span>
-            <input
-              name="birthday"
-              type="date"
-              className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEndDate(e.target.value)
-              }
-            />
-          </label>
+          {/* Date Range Picker */}
+          <DatePickerWithRange date={date} setDate={setDate} />
 
           {/* Adventure Option */}
           <label className="">

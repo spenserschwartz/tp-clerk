@@ -3,11 +3,11 @@ import { type ReactElement } from "react";
 import Combobox from "src/components/combobox";
 import { LoadingPage } from "src/components/loading";
 import { PageLayout } from "~/components";
+
 import { api } from "~/utils/api";
 
 const Home = () => {
   const { data, isLoading } = api.city.getAll.useQuery();
-
   if (isLoading) return <LoadingPage />;
 
   const comboboxOptions = data?.map((city) => {

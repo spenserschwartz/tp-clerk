@@ -30,7 +30,7 @@ export default function Header() {
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
               alt=""
             /> */}
-            <p className="text-2xl font-bold">TravelPerfect</p>
+            <p className="text-2xl font-bold text-white">TravelPerfect</p>
           </Link>
         </div>
 
