@@ -1,6 +1,15 @@
 import GitHubIcon from "~/icons/GitHub";
 import LinkedInIcon from "~/icons/LinkedIn";
 
+export const headerNavigation = {
+  links: [
+    { name: "Quick Launch", href: "/quick-launch" },
+    { name: "Cities", href: "/cities" },
+    { name: "London", href: "/city/london" },
+    { name: "Berlin", href: "/city/berlin" },
+  ],
+};
+
 export const footerNavigation = {
   socialMediaIcons: [
     {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
+import { headerNavigation } from "./utils";
 // import Dropdown from '@/components/utils/dropdown'
 // import MobileMenu from './mobile-menu'
 
@@ -37,6 +38,18 @@ export default function Header() {
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow flex-wrap items-center justify-end">
+              {/* Header Navigation Links */}
+              {headerNavigation.links.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+              {/* Header Sign In Links */}
               <li>
                 <Link
                   href="/sign-in"
@@ -45,6 +58,7 @@ export default function Header() {
                   Sign in
                 </Link>
               </li>
+              {/* Header Sign Up */}
               <li>
                 <Link
                   href="/sign-in"
