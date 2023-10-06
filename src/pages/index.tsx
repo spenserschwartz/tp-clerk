@@ -1,6 +1,7 @@
 import { type ReactElement } from "react";
 
 import { LoadingPage } from "src/components/loading";
+import Hero from "~/components/hero";
 import { RootLayout } from "~/components/layout";
 
 import { api } from "~/utils/api";
@@ -13,7 +14,11 @@ const Home = () => {
     return { name: city.name, id: city.id };
   }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
 
-  return <>Home</>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {

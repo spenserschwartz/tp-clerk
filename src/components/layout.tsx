@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import Header from "./ui/header";
 
 // Todo: add font-inter to global styles
+// Todo: aos
 
 export const RootLayout = (props: PropsWithChildren) => {
   return (
