@@ -1,10 +1,10 @@
-import { useState, type MouseEvent, useEffect } from "react";
 import Image from "next/image";
-import { type RouterOutputs, api } from "~/utils/api";
+import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
+import { api, type RouterOutputs } from "~/utils/api";
 
-import { LoadingSpinner } from "src/components";
 import { ThumbsUpIcon } from "public/icons";
+import { LoadingSpinner } from "src/components";
 
 type Attraction = RouterOutputs["attractions"]["getAll"][0];
 
@@ -86,7 +86,7 @@ const GridElement = ({
       {/* Upvotes */}
       <div className="flex justify-center ">
         <button
-          className="inline-flex w-32 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
+          className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
           onClick={upvoteHandler}
           disabled={isUpvoting}
         >

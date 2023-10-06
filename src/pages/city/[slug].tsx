@@ -33,7 +33,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
-    <body className="px-2">
+    <div className="px-2">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
@@ -72,7 +72,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       />
 
       <Modal openModal={openModal} setOpenModal={setOpenModal} />
-    </body>
+    </div>
   );
 };
 
