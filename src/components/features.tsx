@@ -2,7 +2,6 @@
 
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
-import FeaturesBg from "public/images/features-bg.png";
 import { useEffect, useRef, useState } from "react";
 
 export default function Features() {
@@ -218,7 +217,7 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="mx-auto rounded md:max-w-none"
-                        src={FeaturesBg}
+                        src={"/images/features-bg.png"}
                         width={500}
                         height="462"
                         alt="Features bg"
@@ -250,7 +249,7 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="mx-auto rounded md:max-w-none"
-                        src={FeaturesBg}
+                        src={"/images/features-bg.png"}
                         width={500}
                         height="462"
                         alt="Features bg"
