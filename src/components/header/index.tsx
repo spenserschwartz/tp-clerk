@@ -34,7 +34,13 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Site branding */}
-          <div className="mr-4 shrink-0">TravelPerfect</div>
+          <div className="mr-4 shrink-0 border-2 border-red-300">
+            <Link href="/">
+              <span className="sr-only">TravelPerfect</span>
+
+              <p className="text-2xl font-bold text-white">TravelPerfect</p>
+            </Link>
+          </div>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">

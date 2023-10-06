@@ -32,23 +32,31 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Site branding */}
-          <div className="mr-4 shrink-0">TravelPerfect</div>
+          <div className="mr-4 shrink-0">
+            <Link href="/">
+              <span className="sr-only">TravelPerfect</span>
+              <p className="text-2xl font-bold ">TravelPerfect</p>
+            </Link>
+          </div>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow flex-wrap items-center justify-end">
               {/* Header Navigation Links */}
-              {headerNavigation.links.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="flex items-center px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <div className="flex grow flex-wrap items-center">
+                {headerNavigation.links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="flex px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </div>
+
               {/* Header Sign In Links */}
               <li>
                 <Link
