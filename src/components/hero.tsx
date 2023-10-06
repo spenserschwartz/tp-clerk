@@ -44,7 +44,7 @@ export default function Hero() {
               className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl"
               data-aos="zoom-y-out"
             >
-              Make your travels{" "}
+              Travel{" "}
               <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
                 Perfect
               </span>
