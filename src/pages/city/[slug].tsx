@@ -7,7 +7,8 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 import { findAverageRecDays } from "~/utils/common";
 
-import { ImageGrid, Modal, PageLayout, Searchbar } from "~/components";
+import { ImageGrid, Modal, Searchbar } from "~/components";
+import { RootLayout } from "~/components/layout";
 import { NextPageWithLayout } from "../_app";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
@@ -101,7 +102,7 @@ export const getStaticPaths = () => {
 };
 
 CityPage.getLayout = function getLayout(page: ReactElement) {
-  return <PageLayout>{page}</PageLayout>;
+  return <RootLayout>{page}</RootLayout>;
 };
 
 export default CityPage;

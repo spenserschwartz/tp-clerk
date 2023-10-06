@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { PageLayout } from "~/components/layout";
+import { RootLayout } from "~/components/layout";
 import { LoadingPage } from "~/components/loading";
 import { PostView } from "~/components/postView";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
@@ -53,7 +53,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
       <Head>
         <title>{data.username ?? data.externalUsername}</title>
       </Head>
-      <PageLayout>
+      <RootLayout>
         <div className="relative h-36 bg-slate-600">
           <Image
             src={data.profileImageUrl}
@@ -71,7 +71,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         }`}</div>
         <div className="w-full border-b border-slate-400" />
         <ProfileFeed userId={data.id} />
-      </PageLayout>
+      </RootLayout>
     </>
   );
 };

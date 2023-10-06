@@ -3,9 +3,8 @@ import { type NextPage } from "next";
 
 import { api } from "~/utils/api";
 
-import Feed from "~/components/postFeed";
 import CreatePostWizard from "~/components/createPostWizard";
-import { PageLayout } from "~/components/layout";
+import Feed from "~/components/postFeed";
 
 const ChirpPage: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
@@ -24,7 +23,7 @@ const ChirpPage: NextPage = () => {
   console.log("london", londonData);
 
   return (
-    <PageLayout>
+    <>
       <SignOutButton />
       <div className="flex border-b border-slate-400 p-4">
         {!isSignedIn && (
@@ -37,7 +36,7 @@ const ChirpPage: NextPage = () => {
 
       {/* Post Feed */}
       <Feed />
-    </PageLayout>
+    </>
   );
 };
 
