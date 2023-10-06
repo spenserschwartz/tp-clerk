@@ -42,26 +42,26 @@ export default function Hero() {
           <div className="pb-12 text-center md:pb-16">
             <h1
               className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl"
-              //   data-aos="zoom-y-out"
+              data-aos="zoom-y-out"
             >
-              Make your website{" "}
+              Make your travels{" "}
               <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
-                wonderful
+                Perfect
               </span>
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
                 className="mb-8 text-xl text-gray-600"
-                // data-aos="zoom-y-out"
-                // data-aos-delay="150"
+                data-aos="zoom-y-out"
+                data-aos-delay="150"
               >
                 Our landing page template works on all devices, so you only have
                 to set it up once, and get beautiful results forever.
               </p>
               <div
                 className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
-                // data-aos="zoom-y-out"
-                // data-aos-delay="300"
+                data-aos="zoom-y-out"
+                data-aos-delay="300"
               >
                 <div>
                   <a
