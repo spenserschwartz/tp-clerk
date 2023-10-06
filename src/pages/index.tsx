@@ -1,3 +1,4 @@
+import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import { type ReactElement } from "react";
 
 import { LoadingPage } from "src/components/loading";
@@ -17,6 +18,9 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <SignedIn>
+        <SignOutButton />
+      </SignedIn>
     </>
   );
 };

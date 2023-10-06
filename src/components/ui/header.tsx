@@ -13,7 +13,7 @@ export default function Header() {
 
   // detect whether user has scrolled the page down by 10px
   const scrollHandler = () => {
-    window.pageYOffset > 10 ? setTop(false) : setTop(true);
+    window.scrollY > 10 ? setTop(false) : setTop(true);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Header() {
             <ul className="flex grow flex-wrap items-center justify-end">
               <li>
                 <Link
-                  href="/signin"
+                  href="/sign-in"
                   className="flex items-center px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
                 >
                   Sign in
@@ -47,7 +47,7 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  href="/signup"
+                  href="/sign-in"
                   className="btn-sm ml-3 bg-gray-900 text-gray-200 hover:bg-gray-800"
                 >
                   <span>Sign up</span>

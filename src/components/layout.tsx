@@ -7,6 +7,7 @@ import Header from "./ui/header";
 // Todo: add font-inter to global styles
 
 export const RootLayout = (props: PropsWithChildren) => {
+  // AOS, animate on scroll
   useEffect(() => {
     AOS.init({
       once: true,
