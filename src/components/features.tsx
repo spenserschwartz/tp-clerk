@@ -3,7 +3,6 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import FeaturesBg from "public/images/features-bg.png";
-import FeaturesElement from "public/images/features-element.png";
 import { useEffect, useRef, useState } from "react";
 
 export default function Features() {
@@ -186,14 +185,15 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="mx-auto rounded md:max-w-none"
-                        src={FeaturesBg}
+                        src={"/images/features-bg.png"}
                         width={500}
                         height="462"
                         alt="Features bg"
+                        priority={false}
                       />
                       <Image
                         className="animate-float absolute left-0 w-full transform md:max-w-none"
-                        src={FeaturesElement}
+                        src={"/images/features-element.png"}
                         width={500}
                         height="44"
                         alt="Element"
@@ -225,7 +225,7 @@ export default function Features() {
                       />
                       <Image
                         className="animate-float absolute left-0 w-full transform md:max-w-none"
-                        src={FeaturesElement}
+                        src={"/images/features-element.png"}
                         width={500}
                         height="44"
                         alt="Element"
@@ -257,7 +257,7 @@ export default function Features() {
                       />
                       <Image
                         className="animate-float absolute left-0 w-full transform md:max-w-none"
-                        src={FeaturesElement}
+                        src={"/images/features-element.png"}
                         width={500}
                         height="44"
                         alt="Element"
