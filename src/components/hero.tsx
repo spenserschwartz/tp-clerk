@@ -55,8 +55,8 @@ export default function Hero() {
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
-                Our landing page template works on all devices, so you only have
-                to set it up once, and get beautiful results forever.
+                TravelPerfect is a travel planning tool that helps you plan your
+                next vacation.
               </p>
               <div
                 className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
@@ -74,7 +74,7 @@ export default function Hero() {
                 <div>
                   <a
                     className="btn w-full bg-gray-900 text-white hover:bg-gray-800 sm:ml-4 sm:w-auto"
-                    href="#0"
+                    href="#explore_solutions"
                   >
                     Learn more
                   </a>
