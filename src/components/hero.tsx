@@ -68,7 +68,7 @@ export default function Hero() {
                     className="btn mb-4 w-full bg-blue-600 text-white hover:bg-blue-700 sm:mb-0 sm:w-auto"
                     href="#0"
                   >
-                    Start free trial
+                    Quick Launch
                   </a>
                 </div>
                 <div>
