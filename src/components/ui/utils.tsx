@@ -11,6 +11,11 @@ export const headerNavigation = {
 };
 
 export const footerNavigation = {
+  cities: [
+    { name: "London", href: "/city/london" },
+    { name: "Berlin", href: "/city/berlin" },
+  ],
+
   socialMediaIcons: [
     {
       name: "LinkedIn",
