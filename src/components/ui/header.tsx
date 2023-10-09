@@ -13,7 +13,7 @@ import { headerNavigation } from "./utils";
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
 
-  // detect whether user has scrolled the page down by 10px
+  // Detect whether user has scrolled the page down by 10px
   const scrollHandler = () => {
     window.scrollY > 10 ? setTop(false) : setTop(true);
   };
