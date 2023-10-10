@@ -6,7 +6,7 @@ import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import { headerNavigation } from "./utils";
 // import Dropdown from '@/components/utils/dropdown'
-// import MobileMenu from './mobile-menu'
+import MobileMenu from "./mobile-menu";
 
 //Todo: MobileMenu
 
@@ -98,7 +98,7 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* <MobileMenu /> */}
+          <MobileMenu />
         </div>
       </div>
     </header>
