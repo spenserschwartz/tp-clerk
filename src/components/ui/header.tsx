@@ -1,14 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
-import { headerNavigation } from "./utils";
-// import Dropdown from '@/components/utils/dropdown'
-import MobileMenu from "./mobile-menu";
+import { useEffect, useState } from "react";
 
-//Todo: MobileMenu
+import MobileMenu from "./mobile-menu";
+import { headerNavigation } from "./utils";
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
