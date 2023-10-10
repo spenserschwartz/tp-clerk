@@ -6,6 +6,13 @@ interface CarouselProps {
   slides: string[];
 }
 
+const slides = [
+  "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+  "https://images.unsplash.com/photo-1529180184525-78f99adb8e98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+  "https://images.unsplash.com/photo-1560969185-ee68ef9080c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://images.unsplash.com/photo-1578666062144-080ac96e3e24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+];
+
 export default function Carousel({ slides }: CarouselProps) {
   const [current, setCurrent] = useState(0);
 
@@ -59,7 +66,7 @@ export default function Carousel({ slides }: CarouselProps) {
                 setCurrent(i);
               }}
               key={"circle" + i}
-              className={`h-5 w-5 cursor-pointer rounded-full  ${
+              className={`h-3 w-3 cursor-pointer rounded-full  ${
                 i == current ? "bg-white" : "bg-gray-500"
               }`}
             ></div>
