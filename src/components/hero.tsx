@@ -103,7 +103,7 @@ export default function Hero() {
             videoHeight={1080}
           /> */}
 
-          <div className="max-w-md border-2 border-red-300">
+          <div className="max-w-2xl border-2 border-red-300">
             <Carousel slides={slides} />
           </div>
         </div>
