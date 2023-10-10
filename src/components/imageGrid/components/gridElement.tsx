@@ -115,11 +115,11 @@ const GridElement = ({
         </div>
         <div className="px-6 py-4">
           <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-          {/* <p className="text-base text-gray-700">
+          <p className="text-base text-gray-700">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Voluptatibus quia, nulla! Maiores et perferendis eaque,
             exercitationem praesentium nihil.
-          </p> */}
+          </p>
         </div>
         <div className="flex justify-center ">
           <button
