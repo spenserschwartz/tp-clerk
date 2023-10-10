@@ -40,6 +40,7 @@ export default function Carousel({ slides }: CarouselProps) {
           //   return <img src={s} />;
           return (
             <Image
+              className="rounded-xl shadow-md"
               key={`Carousel_Image-${slide}`}
               src={slide || "/images/placeholder.png"}
               alt={`Carousel_Image-${slide}`}

@@ -46,7 +46,7 @@ export default function Hero() {
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Hero content */}
-        <div className="pb-12 pt-32 md:pb-20 md:pt-40">
+        <div className="flex flex-col items-center pb-12 pt-32 md:pb-20 md:pt-40">
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
             <h1
@@ -103,7 +103,7 @@ export default function Hero() {
             videoHeight={1080}
           /> */}
 
-          <div className="max-w-2xl border-2 border-red-300">
+          <div className="max-w-2xl">
             <Carousel slides={slides} />
           </div>
         </div>
