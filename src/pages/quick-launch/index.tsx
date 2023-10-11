@@ -69,12 +69,11 @@ const QuickLaunchPage: NextPage = () => {
                 </div>
               ))}
             </div>
-          ) : (
-            <QuickLaunchForm
-              cityNames={cityNames}
-              setGeneratedMessage={setGeneratedAIMessage}
-            />
-          )}
+          ) : // <QuickLaunchForm
+          //   cityNames={cityNames}
+          //   setGeneratedMessage={setGeneratedAIMessage}
+          // />
+          null}
         </div>
       )}
     </div>
