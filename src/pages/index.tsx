@@ -2,6 +2,7 @@ import { type ReactElement } from "react";
 
 import { LoadingPage } from "src/components/loading";
 import Features from "~/components/features";
+import FeaturesQuickLaunch from "~/components/features-quicklaunch";
 import Hero from "~/components/hero";
 import { RootLayout } from "~/components/layout";
 import QuickLaunch from "~/components/quickLaunch";
@@ -21,7 +22,7 @@ const Home = () => {
     <>
       <Hero />
       <Features />
-      <QuickLaunch />
+      <FeaturesQuickLaunch />
 
       <Footer />
     </>

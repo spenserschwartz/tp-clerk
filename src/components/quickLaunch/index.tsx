@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, LoadingSpinner } from "~/components";
 import QuickLaunchForm from "../forms/quickLaunch";
+import { quickLaunchCities } from "../utils";
 
 interface ParsedAIMessageInterface {
   dayOfWeek: string;
@@ -13,6 +14,7 @@ interface ParsedAIMessageInterface {
 }
 
 const QuickLaunch = () => {
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
 
@@ -29,52 +31,6 @@ const QuickLaunch = () => {
       }
     }
   }, [generatedAIMessage]);
-
-  const quickLaunchCities = [
-    "London",
-    "Berlin",
-    "New York City",
-    "Paris",
-    "Munich",
-    "Amsterdam",
-    "Rome",
-    "Barcelona",
-    "Madrid",
-    "Prague",
-    "Vienna",
-    "Budapest",
-    "Dublin",
-    "Lisbon",
-    "Brussels",
-    "Copenhagen",
-    "Stockholm",
-    "Athens",
-    "Helsinki",
-    "Oslo",
-    "Warsaw",
-    "Zurich",
-    "Moscow",
-    "Istanbul",
-    "Saint Petersburg",
-    "Bucharest",
-    "Edinburgh",
-    "Venice",
-    "Florence",
-    "Milan",
-    "Naples",
-    "Bratislava",
-    "Luxembourg City",
-    "Reykjavik",
-    "Tallinn",
-    "Riga",
-    "Vilnius",
-    "Valletta",
-    "Ljubljana",
-    "Monaco",
-    "Andorra la Vella",
-    "San Marino",
-    "Vatican City",
-  ];
 
   return (
     <section className="relative border-2 border-red-300">
@@ -96,20 +52,22 @@ const QuickLaunch = () => {
             </p>
           </div>
 
-          {/* Quick Launch Form */}
-          <QuickLaunchForm
-            cityNames={quickLaunchCities}
-            setGeneratedMessage={setGeneratedAIMessage}
-          />
-
           {/* Parsed Itinerary Display */}
-          <div className="overflow-y-scroll border-2 border-blue-400">
+          <div className="rounded-lg border-2 border-blue-400">
+            {/* Quick Launch Form */}
+            <QuickLaunchForm
+              cityNames={quickLaunchCities}
+              setGeneratedMessage={setGeneratedAIMessage}
+              setIsLoadingAI={setIsLoadingAI}
+            />
+            isLoadingAI
+            {isLoadingAI ? "True" : "False"}
             <Button
               buttonText="New Itinerary"
               buttonClickHandler={() => setParsedData([])}
             />
             {parsedData.length && (
-              <div className="max-h-96">
+              <div className="h-80 overflow-y-scroll bg-gray-200">
                 {parsedData.map((itineraryDay) => (
                   <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                     <p className="text-font-bold mt-2 text-center text-xl text-orange-500">

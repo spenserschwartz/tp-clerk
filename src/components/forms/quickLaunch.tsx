@@ -1,5 +1,5 @@
 import { addDays, format as formatDate } from "date-fns";
-import { useState, type Dispatch } from "react";
+import { useEffect, useState, type Dispatch } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
@@ -8,11 +8,13 @@ import { LoadingPage, LoadingSpinner } from "../loading";
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
   setGeneratedMessage: Dispatch<string>;
+  setIsLoadingAI: Dispatch<boolean>;
 }
 
 const QuickLaunchForm = ({
   cityNames,
   setGeneratedMessage,
+  setIsLoadingAI,
 }: QuickLaunchFormProps) => {
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
@@ -22,6 +24,10 @@ const QuickLaunchForm = ({
     from: new Date(),
     to: addDays(new Date(), 7),
   });
+
+  useEffect(() => {
+    setIsLoadingAI(isLoadingAI);
+  }, [isLoadingAI, setIsLoadingAI]);
 
   if (!cityNames?.length) return <div>No city names found</div>;
 
