@@ -3,7 +3,7 @@ import { useState, type Dispatch } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
-import { LoadingPage } from "../loading";
+import { LoadingPage, LoadingSpinner } from "../loading";
 
 interface QuickLaunchFormProps {
   cityNames: string[] | undefined;
@@ -25,7 +25,7 @@ const QuickLaunchForm = ({
 
   if (!cityNames?.length) return <div>No city names found</div>;
 
-  if (isLoadingAI) return <LoadingPage />;
+  if (isLoadingAI) return <LoadingSpinner />;
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
