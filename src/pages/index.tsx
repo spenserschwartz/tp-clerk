@@ -14,9 +14,9 @@ const Home = () => {
   const { data, isLoading } = api.city.getAll.useQuery();
   if (isLoading) return <LoadingPage />;
 
-  const comboboxOptions = data?.map((city) => {
-    return { name: city.name, id: city.id };
-  }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
+  // const comboboxOptions = data?.map((city) => {
+  //   return { name: city.name, id: city.id };
+  // }) ?? [{ name: "no cities found", id: "nocitiesfound" }];
 
   return (
     <>
