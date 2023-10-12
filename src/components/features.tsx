@@ -160,10 +160,10 @@ export default function Features() {
             </div>
 
             {/* Tabs items */}
-            <div className="mx-auto mb-8 max-w-md md:order-1 md:col-span-5 md:mb-0 md:w-full md:max-w-none lg:col-span-6">
+            <div className="mx-auto mb-8 max-w-xl md:order-1 md:col-span-5 md:mb-0 md:w-full md:max-w-none lg:col-span-6">
               <div className="transition-all">
                 <div
-                  className="relative flex flex-col border-2 border-blue-300 text-center lg:text-right"
+                  className="relative flex flex-col text-center lg:text-right"
                   data-aos="zoom-y-out"
                   ref={tabs}
                 >
@@ -171,7 +171,7 @@ export default function Features() {
                   <Transition
                     show={tab === 1}
                     appear={true}
-                    className="w-full"
+                    className="flex w-full justify-center"
                     enter="transition ease-in-out duration-700 transform order-first"
                     enterFrom="opacity-0 translate-y-16"
                     enterTo="opacity-100 translate-y-0"
@@ -203,6 +203,7 @@ export default function Features() {
                       />
                     </div>
                   </Transition>
+
                   {/* Item 2 */}
                   <Transition
                     show={tab === 2}
@@ -235,6 +236,7 @@ export default function Features() {
                       />
                     </div>
                   </Transition>
+
                   {/* Item 3 */}
                   <Transition
                     show={tab === 3}
