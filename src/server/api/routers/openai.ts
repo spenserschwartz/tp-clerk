@@ -43,15 +43,20 @@ export const OpenAIRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
+        console.log("before chat completion");
         const chatCompletion = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
             {
               role: "user",
+              // content: "What is 2 + 2",
               content: generateQuery(input), // Query goes here
             },
           ],
+          max_tokens: 750,
         });
+        console.log("after chat completion");
+        console.log(chatCompletion);
 
         return chatCompletion;
       } catch (err) {
