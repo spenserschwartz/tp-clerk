@@ -160,10 +160,10 @@ export default function Features() {
             </div>
 
             {/* Tabs items */}
-            <div className="mx-auto mb-8 max-w-xl md:order-1 md:col-span-5 md:mb-0 md:w-full md:max-w-none lg:col-span-6">
+            <div className="mx-auto mb-8 max-w-md md:order-1 md:col-span-5 md:mb-0 md:w-full md:max-w-none lg:col-span-6">
               <div className="transition-all">
                 <div
-                  className="relative flex flex-col text-center lg:text-right"
+                  className="relative flex flex-col border-2 border-blue-300 text-center lg:text-right"
                   data-aos="zoom-y-out"
                   ref={tabs}
                 >
@@ -181,18 +181,21 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative inline-flex flex-col">
-                      <Image
-                        className="mx-auto rounded md:max-w-none"
+                    <div className="relative max-w-sm border-2 border-red-300">
+                      {/* <Image
+                        className="mx-auto rounded border-2 border-red-400 md:max-w-none"
                         src={"/images/features-bg.png"}
                         width={500}
                         height="462"
                         alt="Features bg"
                         priority={false}
-                      />
+                      /> */}
                       <Image
-                        className="animate-float absolute left-0 w-full transform md:max-w-none"
-                        src={"/images/features-element.png"}
+                        className="animate-float left-0 mx-auto w-full transform md:max-w-none"
+                        // src={"/images/features-element.png"}
+                        src={
+                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
+                        }
                         width={500}
                         height="44"
                         alt="Element"
