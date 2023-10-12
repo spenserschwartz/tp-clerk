@@ -70,11 +70,11 @@ export default function Features() {
                 >
                   <div>
                     <div className="mb-1 font-bold leading-snug tracking-tight">
-                      Building the Simple ecosystem
+                      Quick Launch Itinerary
                     </div>
                     <div className="text-gray-600">
-                      Take collaboration to the next level with security and
-                      administrative features built for teams.
+                      Make a trip in seconds with our AI trip planner. Just say
+                      a city and your dates and we will do the rest!
                     </div>
                   </div>
                   <div className="ml-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white shadow">
@@ -164,7 +164,7 @@ export default function Features() {
               <div className="transition-all">
                 <div
                   className="relative flex flex-col text-center lg:text-right"
-                  data-aos="zoom-y-out"
+                  // data-aos="zoom-y-out"
                   ref={tabs}
                 >
                   {/* Item 1 */}
@@ -181,25 +181,14 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative max-w-sm border-2 border-red-300">
-                      {/* <Image
-                        className="mx-auto rounded border-2 border-red-400 md:max-w-none"
-                        src={"/images/features-bg.png"}
-                        width={500}
-                        height="462"
-                        alt="Features bg"
-                        priority={false}
-                      /> */}
+                    <div className="relative flex h-96 max-w-sm items-end">
                       <Image
-                        className="animate-float left-0 mx-auto w-full transform md:max-w-none"
-                        // src={"/images/features-element.png"}
-                        src={
-                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
-                        }
+                        className="animate-float left-0 mx-auto w-full transform rounded-lg shadow-lg md:max-w-none"
+                        src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
                         width={500}
                         height="44"
                         alt="Element"
-                        style={{ top: "30%" }}
+                        // style={{ top: "30%" }}
                       />
                     </div>
                   </Transition>
