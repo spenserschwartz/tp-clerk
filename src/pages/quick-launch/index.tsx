@@ -1,16 +1,6 @@
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
-import { Button, LoadingSpinner } from "~/components";
-import QuickLaunch from "~/components/quickLaunch";
-import { api } from "~/utils/api";
 
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import QuickLaunch from "~/components/quickLaunch";
 
 const QuickLaunchPage: NextPage = () => {
   return (
