@@ -1,4 +1,5 @@
 import React from "react";
+import QuickLaunch from "./quickLaunch";
 
 const FeaturesQuickLaunch = () => {
   return (
@@ -21,6 +22,7 @@ const FeaturesQuickLaunch = () => {
             </p>
           </div>
         </div>
+        <QuickLaunch />
       </div>
     </section>
   );

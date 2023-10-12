@@ -29,6 +29,8 @@ const QuickLaunchForm = ({
     setIsLoadingAI(isLoadingAI);
   }, [isLoadingAI, setIsLoadingAI]);
 
+  console.log("QLF isLoading", isLoadingAI);
+
   if (!cityNames?.length) return <div>No city names found</div>;
 
   if (isLoadingAI) return <LoadingSpinner />;
