@@ -103,16 +103,29 @@ const QuickLaunch = () => {
               <DatePickerWithRange date={date} setDate={setDate} />
 
               {/* Adventure Option */}
-              <label className="">
-                <input
-                  name="adventureOption"
-                  type="checkbox"
-                  className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
-                />
-                <span className="ml-2 text-gray-300">
-                  Add some extra adventure!
-                </span>
-              </label>
+              <div className="mt-4 flex flex-col">
+                <label className="fl">
+                  <input
+                    name="adventureOption"
+                    type="checkbox"
+                    className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
+                  />
+                  <span className="ml-2 text-gray-300">
+                    Add some extra adventure!
+                  </span>
+                </label>
+
+                <label className="fl">
+                  <input
+                    name="adventureOption"
+                    type="checkbox"
+                    className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
+                  />
+                  <span className="ml-2 text-gray-300">
+                    Give some extra time to explore!
+                  </span>
+                </label>
+              </div>
 
               {/* Submit Button */}
               <div className="mt-6 flex justify-center">
