@@ -26,6 +26,9 @@ const QuickLaunch = () => {
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
+  const { mutate: mutateStreaming, isLoading: isLoadingStreaming } =
+    api.openAI.generateTripStreaming.useMutation();
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
@@ -44,6 +47,8 @@ const QuickLaunch = () => {
       {
         onSettled(data, error) {
           if (error) console.error(error);
+          console.log("onSettled data", data);
+
           if (data) {
             setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
           }
