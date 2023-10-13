@@ -26,9 +26,6 @@ const QuickLaunch = () => {
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
-  const { mutate: mutateStreaming, isLoading: isLoadingStreaming } =
-    api.openAI.generateTripStreaming.useMutation();
-
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 

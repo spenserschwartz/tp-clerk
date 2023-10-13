@@ -32,10 +32,6 @@ const generateQuery = (input: QueryInputInterface) => {
           `;
 };
 
-const generateQueryStreaming = (input: QueryInputInterface) => {
-  return `Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.`;
-};
-
 export const OpenAIRouter = createTRPCRouter({
   generateTripItinerary: privateProcedure
     .input(
