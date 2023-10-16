@@ -1,8 +1,7 @@
 import { type ReactElement } from "react";
-import { RootLayout } from "~/components/layout";
-
-import QuickLaunch from "~/components/quickLaunch";
 import { type NextPageWithLayout } from "../_app";
+
+import { QuickLaunch, RootLayout } from "~/components";
 
 const QuickLaunchPage: NextPageWithLayout = () => {
   return (
