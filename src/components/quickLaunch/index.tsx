@@ -142,16 +142,13 @@ const QuickLaunch = () => {
         </div>
       )}
       {/* Display Generated Itinerary */}
-      <div className="mx-4 flex max-w-5xl flex-col items-center">
-        <div className="m-2">
+      {parsedData.length ? (
+        <div className="mx-4 flex max-w-5xl flex-col items-center">
           <Button
             buttonText="Create new itinerary"
             buttonClickHandler={() => setParsedData([])}
-            size="xl"
           />
-        </div>
 
-        {parsedData.length ? (
           <div className="flex h-80 flex-col overflow-y-scroll rounded-xl bg-gray-200 shadow-xl">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
@@ -167,8 +164,8 @@ const QuickLaunch = () => {
               </div>
             ))}
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 };
