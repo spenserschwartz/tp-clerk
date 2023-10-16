@@ -3,11 +3,7 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link
-      href="/"
-      className="block border-2 border-red-500"
-      aria-label="TravelPerfect"
-    >
+    <Link href="/" className="block" aria-label="TravelPerfect">
       <svg
         className="h-8 w-8"
         viewBox="0 0 32 32"
