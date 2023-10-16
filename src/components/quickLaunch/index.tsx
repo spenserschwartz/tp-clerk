@@ -2,7 +2,7 @@ import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 
-import { LoadingPage } from "~/components";
+import { Button, LoadingPage } from "~/components";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
@@ -69,11 +69,11 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       isLoadingAI: {isLoadingAI ? "true" : "false"}
       {isLoadingAI && <LoadingPage />}
-      {/* Display Itinerary */}
-      {!isLoadingAI && (
+      {/* Quick Launch Form */}
+      {!isLoadingAI && !parsedData.length && (
         <div className="mx-auto w-full md:w-96 md:max-w-full">
           <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
             <form onSubmit={handleFormSubmit}>
@@ -142,9 +142,17 @@ const QuickLaunch = () => {
         </div>
       )}
       {/* Display Generated Itinerary */}
-      <div>
-        {parsedData.length && (
-          <div className="h-80 overflow-y-scroll bg-gray-200">
+      <div className="mx-4 flex max-w-5xl flex-col items-center">
+        <div className="m-2">
+          <Button
+            buttonText="Create new itinerary"
+            buttonClickHandler={() => setParsedData([])}
+            size="xl"
+          />
+        </div>
+
+        {parsedData.length ? (
+          <div className="flex h-80 flex-col overflow-y-scroll rounded-xl bg-gray-200 shadow-xl">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
@@ -159,7 +167,7 @@ const QuickLaunch = () => {
               </div>
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
