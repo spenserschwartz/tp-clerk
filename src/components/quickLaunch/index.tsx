@@ -80,7 +80,7 @@ const QuickLaunch = () => {
           <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
             <form onSubmit={handleFormSubmit}>
               {/* Destination */}
-              <div className="mb-6 block w-[300px] border-2 border-blue-300">
+              <div className="mb-6 block w-[300px]">
                 <Select
                   options={quickLaunchCities}
                   selected={chosenCityName}
