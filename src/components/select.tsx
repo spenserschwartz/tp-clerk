@@ -4,8 +4,8 @@ import { Fragment } from "react";
 
 interface SelectProps {
   options: string[];
-  selected?: string;
-  setSelected?: (selected: string) => void;
+  selected: string;
+  setSelected: (selected: string) => void;
 }
 
 function classNames(...classes: string[]) {
