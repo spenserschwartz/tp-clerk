@@ -138,14 +138,14 @@ const QuickLaunch = () => {
             buttonClickHandler={() => setParsedData([])}
           />
 
-          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-200 pr-2 shadow-xl sm:h-80">
+          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
                   {itineraryDay.date} - {itineraryDay.dayOfWeek}
                 </p>
 
-                <ul className="ms-8 list-outside list-disc text-gray-800">
+                <ul className="ms-8 list-outside list-disc text-gray-300">
                   <li className="mb-1">Morning: {itineraryDay.morning}</li>
                   <li>Afternoon: {itineraryDay.afternoon}</li>
                   <li>Evening: {itineraryDay.evening}</li>
