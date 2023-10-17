@@ -1,5 +1,5 @@
 import { OpenAIStream, streamToResponse } from "ai";
-import { NextApiRequest, NextApiResponse } from "next";
+import { type NextApiRequest, type NextApiResponse } from "next";
 import openai from "~/utils/openai";
 
 export default async function handler(
