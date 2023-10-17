@@ -75,7 +75,7 @@ export default function Hero() {
                 <div>
                   <a
                     className="btn mb-4 w-full bg-blue-600 text-white hover:bg-blue-700 sm:mb-0 sm:w-auto"
-                    href="#0"
+                    href="#quick_launch"
                   >
                     Quick Launch
                   </a>
