@@ -9,6 +9,8 @@ const FeaturesQuickLaunch = () => {
         className="pointer-events-none absolute inset-0 top-1/2 bg-gray-200 md:mt-24 lg:mt-0"
         aria-hidden="true"
       ></div>
+
+      {/* Vertical line */}
       <div className="absolute bottom-0 left-0 right-0 m-auto h-20 w-px translate-y-1/2 transform bg-gray-200 p-px"></div>
 
       <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
