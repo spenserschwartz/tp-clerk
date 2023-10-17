@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Bottom area */}
         <div className="border-t border-gray-200 py-4 md:flex md:items-center md:justify-between md:py-8">
           {/* Social Media Icons */}
-          <ul className="mb-4 flex justify-center space-x-4 md:order-1 md:mb-0 md:ml-4">
+          <ul className="mb-4 flex justify-center space-x-8 md:order-1 md:mb-0 md:ml-4">
             {footerNavigation.socialMediaIcons.map((icon) => (
               <li key={`SocialMediaIcon-${icon.name}`} className="">
                 <a
