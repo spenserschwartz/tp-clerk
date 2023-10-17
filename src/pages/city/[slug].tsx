@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { ReactElement, useState } from "react";
+import { useState, type ReactElement } from "react";
 
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
@@ -9,7 +9,7 @@ import { findAverageRecDays } from "~/utils/common";
 
 import { ImageGrid, Modal, Searchbar } from "~/components";
 import { RootLayout } from "~/components/layout";
-import { NextPageWithLayout } from "../_app";
+import { type NextPageWithLayout } from "../_app";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
