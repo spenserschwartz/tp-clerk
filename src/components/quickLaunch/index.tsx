@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
-import { Button, LoadingPage } from "~/components";
+import { Button, LoadingSpinner } from "~/components";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
 
@@ -69,9 +69,10 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   return (
-    <div className="flex flex-col items-center">
-      isLoadingAI: {isLoadingAI ? "true" : "false"}
-      {isLoadingAI && <LoadingPage />}
+    <div className="my-8 flex h-96 flex-col items-center">
+      {/* Loading Page */}
+      {isLoadingAI && <LoadingSpinner size={100} />}
+
       {/* Quick Launch Form */}
       {!isLoadingAI && !parsedData.length && (
         <div className="mx-auto w-full md:w-96 md:max-w-full">
@@ -143,20 +144,20 @@ const QuickLaunch = () => {
       )}
       {/* Display Generated Itinerary */}
       {parsedData.length ? (
-        <div className="mx-4 flex max-w-5xl flex-col items-center">
+        <div className="flex h-full max-w-5xl flex-col items-center">
           <Button
             buttonText="Create new itinerary"
             buttonClickHandler={() => setParsedData([])}
           />
 
-          <div className="flex flex-grow flex-col overflow-y-scroll rounded-xl bg-gray-200 shadow-xl sm:h-80">
+          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-200 pr-2 shadow-xl sm:h-80">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
                   {itineraryDay.date} - {itineraryDay.dayOfWeek}
                 </p>
 
-                <ul className="ms-8 list-outside list-disc">
+                <ul className="ms-8 list-outside list-disc text-gray-800">
                   <li className="mb-1">Morning: {itineraryDay.morning}</li>
                   <li>Afternoon: {itineraryDay.afternoon}</li>
                   <li>Evening: {itineraryDay.evening}</li>
