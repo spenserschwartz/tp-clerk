@@ -22,7 +22,7 @@ export function DatePickerWithRange({
   setDate,
 }: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("grid", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button

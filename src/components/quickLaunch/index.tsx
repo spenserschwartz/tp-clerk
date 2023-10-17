@@ -5,6 +5,7 @@ import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
 import { Button, LoadingSpinner } from "~/components";
 import { api } from "~/utils/api";
+import Select from "../select";
 import { quickLaunchCities } from "../utils";
 
 interface ParsedAIMessageInterface {
@@ -79,29 +80,16 @@ const QuickLaunch = () => {
           <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
             <form onSubmit={handleFormSubmit}>
               {/* Destination */}
-              <label className="mb-6 block">
-                <span className="text-gray-300">Where do you want to go?</span>
-                <select
-                  name="present"
-                  className="mt-1 w-full rounded-md border-gray-600 bg-transparent text-gray-300 placeholder-gray-600 shadow-sm selection:block focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                    setChosenCityName(e.target.value)
-                  }
-                  defaultValue={""}
-                >
-                  <option disabled value="">
-                    Select a city
-                  </option>
-                  {/* Map out cityNames */}
-                  {quickLaunchCities.map((cityName) => (
-                    <option key={`QuickLaunchOption:${cityName}`}>
-                      {cityName}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className="mb-6 block w-[300px] border-2 border-blue-300">
+                <Select
+                  options={quickLaunchCities}
+                  selected={chosenCityName}
+                  setSelected={setChosenCityName}
+                />
+              </div>
 
               {/* Date Range Picker */}
+              <span className="text-gray-300">Choose your dates</span>
               <DatePickerWithRange date={date} setDate={setDate} />
 
               {/* Adventure Option */}
