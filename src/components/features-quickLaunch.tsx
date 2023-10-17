@@ -6,7 +6,7 @@ const FeaturesQuickLaunch = () => {
     <section className="relative" id="quick_launch">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div
-        className="pointer-events-none absolute inset-0 top-1/2 bg-gray-200 md:mt-24 lg:mt-0"
+        className="pointer-events-none absolute inset-0 top-1/2 bg-gray-100 md:my-24 lg:mt-0"
         aria-hidden="true"
       ></div>
 
