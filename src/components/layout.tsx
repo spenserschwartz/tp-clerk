@@ -24,6 +24,7 @@ export const RootLayout = (props: PropsWithChildren) => {
         <Header />
         {props.children}
 
+        {/* Grow the page so that footer is at bottom of page if there is no scroll */}
         <div className="flex-grow"></div>
         <Footer />
       </div>
