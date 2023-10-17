@@ -23,8 +23,6 @@ const Home = () => {
       <Hero />
       <Features />
       <FeaturesQuickLaunch />
-
-      <Footer />
     </>
   );
 };

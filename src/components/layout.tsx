@@ -2,6 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
+import Footer from "./ui/footer";
 import Header from "./ui/header";
 
 // Todo: add font-inter to global styles
@@ -22,6 +23,9 @@ export const RootLayout = (props: PropsWithChildren) => {
       <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
         <Header />
         {props.children}
+
+        <div className="flex-grow"></div>
+        <Footer />
       </div>
     </div>
   );

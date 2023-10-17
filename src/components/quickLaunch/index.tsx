@@ -1,9 +1,9 @@
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
 import { Button, LoadingPage } from "~/components";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
 
@@ -149,7 +149,7 @@ const QuickLaunch = () => {
             buttonClickHandler={() => setParsedData([])}
           />
 
-          <div className="flex h-80 flex-col overflow-y-scroll rounded-xl bg-gray-200 shadow-xl">
+          <div className="flex flex-grow flex-col overflow-y-scroll rounded-xl bg-gray-200 shadow-xl sm:h-80">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
