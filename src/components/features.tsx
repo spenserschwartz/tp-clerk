@@ -25,6 +25,8 @@ export default function Features() {
         className="pointer-events-none absolute inset-0 mb-16 bg-gray-100"
         aria-hidden="true"
       ></div>
+
+      {/* Vertical line between sections */}
       <div className="absolute left-0 right-0 m-auto h-20 w-px -translate-y-1/2 transform bg-gray-200 p-px"></div>
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">

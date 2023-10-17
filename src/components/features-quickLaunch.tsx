@@ -3,10 +3,10 @@ import QuickLaunch from "./quickLaunch";
 
 const FeaturesQuickLaunch = () => {
   return (
-    <section className="relative border-2 border-red-300" id="quick_launch">
+    <section className="relative" id="quick_launch">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div
-        className="pointer-events-none absolute inset-0 top-1/2 bg-gray-900 md:mt-24 lg:mt-0"
+        className="pointer-events-none absolute inset-0 top-1/2 bg-gray-200 md:mt-24 lg:mt-0"
         aria-hidden="true"
       ></div>
       <div className="absolute bottom-0 left-0 right-0 m-auto h-20 w-px translate-y-1/2 transform bg-gray-200 p-px"></div>
