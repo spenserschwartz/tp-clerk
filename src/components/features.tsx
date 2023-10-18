@@ -2,12 +2,13 @@
 
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import Button from "./button";
 
 export default function Features() {
+  const router = useRouter();
   const [tab, setTab] = useState<number>(1);
-
   const tabs = useRef<HTMLDivElement>(null);
 
   const heightFix = () => {
@@ -194,28 +195,21 @@ export default function Features() {
                         // style={{ top: "30%" }}
                       /> */}
                       <Image
-                        className="mx-auto rounded md:max-w-none"
+                        className="mx-auto rounded hover:blur md:max-w-none"
                         src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
                         width={500}
                         height="462"
                         alt="Features bg"
                       />
-                      {/* <Image
-                        className="animate-float absolute left-0 w-full transform rounded-md md:max-w-none"
-                        src={
-                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/screenshot_quick_itinerary.png"
-                        }
-                        width={500}
-                        height="800"
-                        alt="Element"
-                        style={{ top: "50%", left: "30%" }}
-                      /> */}
-                      <div className="animate-float absolute left-0 top-1/2 w-full transform rounded-md md:max-w-none">
-                        <Button
-                          buttonClickHandler={() => console.log("click")}
-                          buttonText="Try it out now"
-                          color="red-500"
-                        />
+
+                      {/* Button to anchor quickLaunch */}
+                      <div className="animate-float absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform rounded-md md:max-w-none">
+                        <button
+                          type="button"
+                          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                          <a href="#quick_launch">Try it out</a>
+                        </button>
                       </div>
                     </div>
                   </Transition>
