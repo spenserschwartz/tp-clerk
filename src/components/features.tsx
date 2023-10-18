@@ -212,7 +212,9 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="mx-auto rounded md:max-w-none"
-                        src={"/images/features-bg.png"}
+                        src={
+                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/skydive.png"
+                        }
                         width={500}
                         height="462"
                         alt="Features bg"
