@@ -3,6 +3,7 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Button from "./button";
 
 export default function Features() {
   const [tab, setTab] = useState<number>(1);
@@ -183,15 +184,39 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative flex h-96 max-w-sm items-end">
-                      <Image
+                    <div className="relative flex h-96 max-w-sm items-end border border-red-500">
+                      {/* <Image
                         className="animate-float left-0 mx-auto w-full transform rounded-lg shadow-lg md:max-w-none"
                         src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
                         width={500}
                         height="44"
                         alt="Element"
                         // style={{ top: "30%" }}
+                      /> */}
+                      <Image
+                        className="mx-auto rounded md:max-w-none"
+                        src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
+                        width={500}
+                        height="462"
+                        alt="Features bg"
                       />
+                      {/* <Image
+                        className="animate-float absolute left-0 w-full transform rounded-md md:max-w-none"
+                        src={
+                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/screenshot_quick_itinerary.png"
+                        }
+                        width={500}
+                        height="800"
+                        alt="Element"
+                        style={{ top: "50%", left: "30%" }}
+                      /> */}
+                      <div className="animate-float absolute left-0 top-1/2 w-full transform rounded-md md:max-w-none">
+                        <Button
+                          buttonClickHandler={() => console.log("click")}
+                          buttonText="Try it out now"
+                          color="red-500"
+                        />
+                      </div>
                     </div>
                   </Transition>
 

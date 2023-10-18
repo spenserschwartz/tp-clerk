@@ -3,6 +3,7 @@ import React from "react";
 interface ButtonProps {
   buttonClickHandler: () => void;
   buttonText: string;
+
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
@@ -19,9 +20,8 @@ const Button = ({ buttonClickHandler, buttonText, size }: ButtonProps) => (
     type="button"
     onClick={buttonClickHandler}
     className={`rounded bg-indigo-500 
-    ${
-      paddingMap[size ?? "md"]
-    } text-xs font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500`}
+    ${paddingMap[size ?? "md"]} 
+    text-xs font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500`}
   >
     {buttonText}
   </button>
