@@ -18,7 +18,6 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
@@ -68,6 +67,7 @@ const GridElement = ({
 
   return (
     <div className="max-w-sm overflow-hidden rounded shadow-lg">
+      {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
           src={attraction.imageURL || "/images/placeholder.png"}
@@ -79,14 +79,16 @@ const GridElement = ({
           unoptimized
         />
       </div>
+
+      {/* Description */}
       <div className="px-6 py-4">
         <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-        <p className="text-base text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-          nihil.
+        <p className="line-clamp-3 h-20 border border-red-300 text-base text-gray-700">
+          {attraction.description}
         </p>
       </div>
+
+      {/* Button */}
       <div className="flex justify-center ">
         <button
           className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
@@ -103,6 +105,8 @@ const GridElement = ({
           </span>
         </button>
       </div>
+
+      {/* Tags */}
       <div className="px-6 pb-2 pt-4">
         <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
           #photography
