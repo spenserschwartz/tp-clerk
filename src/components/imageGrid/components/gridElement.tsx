@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ThumbsUpIcon } from "public/icons";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
+
+import { ThumbsUpIcon } from "public/icons";
 import { LoadingSpinner } from "~/components/loading";
 import { api, type RouterOutputs } from "~/utils/api";
 
