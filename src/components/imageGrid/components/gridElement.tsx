@@ -83,7 +83,7 @@ const GridElement = ({
       {/* Description */}
       <div className="px-6 py-4">
         <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-        <p className="line-clamp-3 h-20 border border-red-300 text-base text-gray-700">
+        <p className="line-clamp-3 h-20 text-base text-gray-700">
           {attraction.description}
         </p>
       </div>
