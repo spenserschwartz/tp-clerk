@@ -27,7 +27,7 @@ const FeaturesTab = ({ tab, tabs }: FeaturesTabProps) => {
       beforeEnter={() => heightFix()}
       unmount={false}
     >
-      <div className="min-group relative flex h-96 items-end border border-red-500">
+      <div className="group relative flex h-96 items-end border border-red-500">
         {/* <Image
                         className="animate-float left-0 mx-auto w-full transform rounded-lg shadow-lg md:max-w-none"
                         src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
