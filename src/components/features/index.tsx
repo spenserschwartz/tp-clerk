@@ -171,7 +171,6 @@ export default function Features() {
                 >
                   {/* Item 1 */}
                   <FeaturesTab tab={tab} tabs={tabs} />
-
                   {/* Item 2 */}
                   <Transition
                     show={tab === 2}
@@ -206,7 +205,6 @@ export default function Features() {
                       />
                     </div>
                   </Transition>
-
                   {/* Item 3 */}
                   <Transition
                     show={tab === 3}
