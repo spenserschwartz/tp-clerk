@@ -9,6 +9,9 @@ export default function Logo() {
         width={32}
         height={32}
         alt="HeaderIcon"
+        style={{
+          width: "auto",
+        }}
       />
     </Link>
   );
