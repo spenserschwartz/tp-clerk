@@ -182,7 +182,7 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative flex h-96 max-w-sm items-end border border-red-500">
+                    <div className="min-group relative flex h-96 max-w-sm items-end border border-red-500">
                       {/* <Image
                         className="animate-float left-0 mx-auto w-full transform rounded-lg shadow-lg md:max-w-none"
                         src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
@@ -192,18 +192,20 @@ export default function Features() {
                         // style={{ top: "30%" }}
                       /> */}
                       <Image
-                        className="mx-auto rounded hover:blur md:max-w-none"
-                        src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
-                        width={500}
-                        height="462"
-                        alt="Features bg"
+                        className="mx-auto rounded group-hover:blur md:max-w-none"
+                        src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/screenshot_quick_itinerary.png"
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: "100%", height: "auto" }}
+                        alt="Screenshot of quick itinerary"
                       />
 
                       {/* Button to anchor quickLaunch */}
-                      <div className="animate-float absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform rounded-md md:max-w-none">
+                      <div className="animate-float invisible absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform justify-center rounded-md border border-green-400 group-hover:visible md:max-w-none">
                         <button
                           type="button"
-                          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                          className="rounded-md  bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                           <a href="#quick_launch">Try it out</a>
                         </button>

@@ -75,4 +75,9 @@ export default {
     require("@tailwindcss/forms"), // Combobox
     require("tailwindcss-animate"),
   ],
+  variants: {
+    extend: {
+      visibility: ["group-hover"],
+    },
+  },
 } satisfies Config;
