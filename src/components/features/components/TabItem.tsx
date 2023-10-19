@@ -7,7 +7,7 @@ interface FeaturesTabProps {
   tabs: React.RefObject<HTMLDivElement>;
 }
 
-const FeaturesTab = ({ tab, tabs }: FeaturesTabProps) => {
+const FeaturesTabItem = ({ tab, tabs }: FeaturesTabProps) => {
   const heightFix = () => {
     if (tabs.current?.parentElement)
       tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
@@ -28,14 +28,6 @@ const FeaturesTab = ({ tab, tabs }: FeaturesTabProps) => {
       unmount={false}
     >
       <div className="group relative flex h-96 items-end border border-red-500">
-        {/* <Image
-                        className="animate-float left-0 mx-auto w-full transform rounded-lg shadow-lg md:max-w-none"
-                        src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/Screenshot+-+QuickLaunch.png"
-                        width={500}
-                        height="44"
-                        alt="Element"
-                        // style={{ top: "30%" }}
-                      /> */}
         <Image
           className="mx-auto rounded group-hover:blur md:max-w-none"
           src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/screenshot_quick_itinerary.png"
@@ -52,7 +44,7 @@ const FeaturesTab = ({ tab, tabs }: FeaturesTabProps) => {
             type="button"
             className="rounded-md  bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            <a href="#quick_launch">Try it out</a>
+            <a href="#quick_launch">Make a quick trip!</a>
           </button>
         </div>
       </div>
@@ -60,4 +52,4 @@ const FeaturesTab = ({ tab, tabs }: FeaturesTabProps) => {
   );
 };
 
-export default FeaturesTab;
+export default FeaturesTabItem;
