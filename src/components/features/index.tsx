@@ -3,6 +3,7 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { screenshots } from "~/utils/images";
 import FeaturesTabItem from "./components/TabItem";
 
 export default function Features() {
@@ -186,24 +187,22 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative inline-flex flex-col">
+                    <div className="relative inline-flex flex-col rounded-lg shadow-2xl">
                       <Image
                         className="mx-auto rounded md:max-w-none"
-                        src={
-                          "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/skydive.png"
-                        }
+                        src={screenshots.londonSplash}
                         width={500}
                         height="462"
                         alt="Features bg"
                       />
-                      <Image
+                      {/* <Image
                         className="animate-float absolute left-0 w-full transform md:max-w-none"
                         src={"/images/features-element.png"}
                         width={500}
                         height="44"
                         alt="Element"
                         style={{ top: "30%" }}
-                      />
+                      /> */}
                     </div>
                   </Transition>
                   {/* Item 3 */}

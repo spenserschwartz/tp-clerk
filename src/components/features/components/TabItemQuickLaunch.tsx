@@ -9,7 +9,7 @@ interface FeaturesTabProps {
   tabs: React.RefObject<HTMLDivElement>;
 }
 
-const FeaturesTabItem = ({ tab, tabs }: FeaturesTabProps) => {
+const TabItemQuickLaunch = ({ tab, tabs }: FeaturesTabProps) => {
   const heightFix = () => {
     if (tabs.current?.parentElement)
       tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
@@ -54,4 +54,4 @@ const FeaturesTabItem = ({ tab, tabs }: FeaturesTabProps) => {
   );
 };
 
-export default FeaturesTabItem;
+export default TabItemQuickLaunch;
