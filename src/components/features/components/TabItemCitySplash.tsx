@@ -1,5 +1,6 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { screenshots } from "~/utils/images";
 
@@ -36,6 +37,16 @@ const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
           height="462"
           alt="Features bg"
         />
+
+        {/* Button to anchor quickLaunch */}
+        <div className="animate-float invisible absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform justify-center rounded-md md:max-w-none md:group-hover:visible">
+          <button
+            type="button"
+            className="rounded-md  bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <Link href="/city/london">{`See London's page`}</Link>
+          </button>
+        </div>
       </div>
     </Transition>
   );
