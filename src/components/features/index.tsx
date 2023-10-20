@@ -56,8 +56,10 @@ export default function Features() {
                   features for a better experience.
                 </p>
               </div>
+
               {/* Tabs buttons */}
               <div className="mb-8 md:mb-0">
+                {/* Tab Button 1 */}
                 <a
                   className={`mb-3 flex items-center rounded border p-5 text-lg transition duration-300 ease-in-out ${
                     tab !== 1
@@ -89,6 +91,8 @@ export default function Features() {
                     </svg>
                   </div>
                 </a>
+
+                {/* Tab Button 2 */}
                 <a
                   className={`mb-3 flex items-center rounded border p-5 text-lg transition duration-300 ease-in-out ${
                     tab !== 2
@@ -106,9 +110,9 @@ export default function Features() {
                       Explore Cities
                     </div>
                     <div className="text-gray-600">
-                      See the attractions each city has to offer and see what
-                      users have to say about them. See the most popular
-                      attractions to see what you can&rsquo;t miss!
+                      See the attractions each city has to offer, upvote your
+                      favorites, and see what&rsquo;s popular with fellow
+                      travelers!
                     </div>
                   </div>
                   <div className="ml-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white shadow">
