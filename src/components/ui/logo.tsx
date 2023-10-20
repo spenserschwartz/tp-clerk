@@ -7,11 +7,8 @@ export default function Logo() {
       <Image
         src="/images/penguin_purp_cropped.png"
         width={32}
-        height={32}
+        height={50}
         alt="HeaderIcon"
-        style={{
-          width: "auto",
-        }}
       />
     </Link>
   );
