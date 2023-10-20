@@ -1,12 +1,12 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import type { AppProps, AppType } from "next/app";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "react-hot-toast";
+import { type NextPage } from "next";
+import type { AppProps, AppType } from "next/app";
+import Head from "next/head";
 import { type ReactElement, type ReactNode } from "react";
+import { Toaster } from "react-hot-toast";
 
-import { api } from "~/utils/api";
 import "~/styles/globals.css";
+import { api } from "~/utils/api";
 
 // Used for getLayout on Next
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {

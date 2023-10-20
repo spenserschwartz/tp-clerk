@@ -1,17 +1,33 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import type { PropsWithChildren } from "react";
-import Footer from "./footer";
-import Header from "./header";
+import { useEffect } from "react";
+import Footer from "./ui/footer";
+import Header from "./ui/header";
 
-export const PageLayout = (props: PropsWithChildren) => {
+// Todo: add font-inter to global styles
+
+export const RootLayout = (props: PropsWithChildren) => {
+  // AOS, animate on scroll
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+  });
+
   return (
-    <>
-      <main className="overflow-none flex h-screen flex-col items-center justify-center bg-purple-800">
+    <div className="bg-white tracking-tight text-gray-900 antialiased">
+      <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
         <Header />
-        <div className="flex h-full w-full max-w-6xl flex-col overflow-auto rounded-xl border-2  border-slate-800 bg-blue-950 ">
-          {props.children}
-        </div>
+        {props.children}
+
+        {/* Grow the page so that footer is at bottom of page if there is no scroll */}
+        <div className="flex-grow"></div>
         <Footer />
-      </main>
-    </>
+      </div>
+    </div>
   );
 };

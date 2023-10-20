@@ -1,15 +1,15 @@
-import { useState } from "react";
-import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
-
+import type { GetStaticProps } from "next";
+import Head from "next/head";
+import { useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
-import { findAverageRecDays } from "~/utils/common";
+
+import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { findAverageRecDays } from "~/utils/common";
+import { type NextPageWithLayout } from "../_app";
 
-import { ImageGrid, Modal, Searchbar } from "~/components";
-
-const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
+const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
@@ -32,7 +32,7 @@ const CityPage: NextPage<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
-    <div className="px-2">
+    <div className="border px-2 pt-16">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
@@ -97,6 +97,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths = () => {
   return { paths: [], fallback: "blocking" };
+};
+
+CityPage.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
 };
 
 export default CityPage;

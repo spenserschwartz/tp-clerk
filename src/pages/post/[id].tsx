@@ -1,9 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { api } from "~/utils/api";
-import { PageLayout } from "~/components/layout";
+import { RootLayout } from "~/components/layout";
 import { PostView } from "~/components/postView";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { api } from "~/utils/api";
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
   const { data } = api.posts.getById.useQuery({
@@ -16,9 +16,9 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
       <Head>
         <title>{`${data.post.content} - @${data.author.username}`}</title>
       </Head>
-      <PageLayout>
+      <RootLayout>
         <PostView {...data} />
-      </PageLayout>
+      </RootLayout>
     </>
   );
 };

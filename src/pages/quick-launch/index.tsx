@@ -1,84 +1,18 @@
-import { type NextPage } from "next";
-import { useEffect, useState } from "react";
-import { Button, LoadingSpinner } from "~/components";
-import QuickLaunchForm from "~/components/forms/quickLaunch";
-import { api } from "~/utils/api";
+import { type ReactElement } from "react";
+import { type NextPageWithLayout } from "../_app";
 
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import { QuickLaunch, RootLayout } from "~/components";
 
-const QuickLaunchPage: NextPage = () => {
-  const [generatedAIMessage, setGeneratedAIMessage] = useState("");
-  const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
-
-  // Generate Itinerary
-  const { isLoading: isLoadingAI } =
-    api.openAI.generateTripItinerary.useMutation({});
-
-  // Get city names for combobox
-  const { data: cityNames, isLoading: cityNamesLoading } =
-    api.city.getAllCityNames.useQuery();
-
-  // Set parsedData that shows on generation
-  useEffect(() => {
-    if (generatedAIMessage) {
-      try {
-        const newParsedData = JSON.parse(
-          generatedAIMessage
-        ) as ParsedAIMessageInterface[];
-        setParsedData(newParsedData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, [generatedAIMessage]);
-
+const QuickLaunchPage: NextPageWithLayout = () => {
   return (
-    <div>
-      {isLoadingAI || cityNamesLoading ? (
-        <LoadingSpinner size={64} />
-      ) : (
-        // Show parsed data if it exists, otherwise show form
-        <div>
-          {parsedData.length ? (
-            <div>
-              <div className="mt-3 flex justify-center">
-                <Button
-                  buttonText="New Itinerary"
-                  buttonClickHandler={() => setParsedData([])}
-                />
-              </div>
-
-              {/* Parsed Itinerary Display */}
-              {parsedData.map((itineraryDay) => (
-                <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
-                  <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
-                    {itineraryDay.date} - {itineraryDay.dayOfWeek}
-                  </p>
-
-                  <ul className="ms-8 list-outside list-disc">
-                    <li className="mb-1">Morning: {itineraryDay.morning}</li>
-                    <li>Afternoon: {itineraryDay.afternoon}</li>
-                    <li>Evening: {itineraryDay.evening}</li>
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <QuickLaunchForm
-              cityNames={cityNames}
-              setGeneratedMessage={setGeneratedAIMessage}
-            />
-          )}
-        </div>
-      )}
+    <div className="mt-16">
+      <QuickLaunch />
     </div>
   );
+};
+
+QuickLaunchPage.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
 };
 
 export default QuickLaunchPage;

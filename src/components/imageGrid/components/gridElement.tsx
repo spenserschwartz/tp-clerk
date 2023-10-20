@@ -1,10 +1,10 @@
-import { useState, type MouseEvent, useEffect } from "react";
 import Image from "next/image";
-import { type RouterOutputs, api } from "~/utils/api";
+import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
-import { LoadingSpinner } from "src/components";
 import { ThumbsUpIcon } from "public/icons";
+import { LoadingSpinner } from "~/components/loading";
+import { api, type RouterOutputs } from "~/utils/api";
 
 type Attraction = RouterOutputs["attractions"]["getAll"][0];
 
@@ -18,7 +18,6 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
@@ -67,7 +66,8 @@ const GridElement = ({
   };
 
   return (
-    <li key={attraction.id} className="relative w-full ">
+    <div className="max-w-sm overflow-hidden rounded shadow-lg">
+      {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
           src={attraction.imageURL || "/images/placeholder.png"}
@@ -79,14 +79,19 @@ const GridElement = ({
           unoptimized
         />
       </div>
-      <p className="text-md pointer-events-none mt-2 block truncate text-center font-serif font-medium uppercase text-white">
-        {attraction.name}
-      </p>
 
-      {/* Upvotes */}
+      {/* Description */}
+      <div className="px-6 py-4">
+        <div className="mb-2 text-xl font-bold">{attraction.name}</div>
+        <p className="line-clamp-3 h-20 text-base text-gray-700">
+          {attraction.description}
+        </p>
+      </div>
+
+      {/* Button */}
       <div className="flex justify-center ">
         <button
-          className="inline-flex w-32 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
+          className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
           onClick={upvoteHandler}
           disabled={isUpvoting}
         >
@@ -100,7 +105,20 @@ const GridElement = ({
           </span>
         </button>
       </div>
-    </li>
+
+      {/* Tags */}
+      <div className="px-6 pb-2 pt-4">
+        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+          #photography
+        </span>
+        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+          #travel
+        </span>
+        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+          #winter
+        </span>
+      </div>
+    </div>
   );
 };
 
