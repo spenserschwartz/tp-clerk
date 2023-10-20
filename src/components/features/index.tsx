@@ -103,11 +103,12 @@ export default function Features() {
                 >
                   <div>
                     <div className="mb-1 font-bold leading-snug tracking-tight">
-                      Building the Simple ecosystem
+                      Explore Cities
                     </div>
                     <div className="text-gray-600">
-                      Take collaboration to the next level with security and
-                      administrative features built for teams.
+                      See the attractions each city has to offer and see what
+                      users have to say about them. See the most popular
+                      attractions to see what you can&rsquo;t miss!
                     </div>
                   </div>
                   <div className="ml-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white shadow">
