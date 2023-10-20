@@ -1,4 +1,4 @@
-import { useChat, useCompletion } from "ai/react";
+import { useChat } from "ai/react";
 
 const SplashPage = () => {
   const { messages, handleSubmit, input, handleInputChange } = useChat();
