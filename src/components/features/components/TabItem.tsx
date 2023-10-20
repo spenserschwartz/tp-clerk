@@ -1,6 +1,8 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
+
+import { screenshots } from "~/utils/images";
 
 interface FeaturesTabProps {
   tab: number;
@@ -30,7 +32,7 @@ const FeaturesTabItem = ({ tab, tabs }: FeaturesTabProps) => {
       <div className="group relative flex h-96 items-end ">
         <Image
           className="mx-auto rounded md:max-w-none md:group-hover:blur"
-          src="https://travelperfect-bucket.s3.us-west-1.amazonaws.com/screenshot_quick_itinerary.png"
+          src={screenshots.quickItinerary}
           width={0}
           height={0}
           sizes="100vw"
