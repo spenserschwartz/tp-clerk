@@ -28,22 +28,14 @@ const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
       beforeEnter={() => heightFix()}
       unmount={false}
     >
-      <div className="relative inline-flex flex-col rounded-lg shadow-2xl">
+      <div className="group relative inline-flex flex-col rounded-lg shadow-2xl ">
         <Image
-          className="mx-auto rounded md:max-w-none"
+          className="mx-auto rounded md:max-w-none md:group-hover:blur"
           src={screenshots.londonSplash}
           width={500}
           height="462"
           alt="Features bg"
         />
-        {/* <Image
-        className="animate-float absolute left-0 w-full transform md:max-w-none"
-        src={"/images/features-element.png"}
-        width={500}
-        height="44"
-        alt="Element"
-        style={{ top: "30%" }}
-      /> */}
       </div>
     </Transition>
   );

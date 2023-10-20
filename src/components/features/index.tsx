@@ -3,7 +3,7 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { screenshots } from "~/utils/images";
+
 import TabItemCitySplash from "./components/TabItemCitySplash";
 import TabItemQuickLaunch from "./components/TabItemQuickLaunch";
 
