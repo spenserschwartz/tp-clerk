@@ -4,7 +4,7 @@ import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { screenshots } from "~/utils/images";
-import FeaturesTabItem from "./components/TabItem";
+import TabItemQuickLaunch from "./components/TabItemQuickLaunch";
 
 export default function Features() {
   const [tab, setTab] = useState<number>(1);
@@ -171,7 +171,7 @@ export default function Features() {
                   ref={tabs}
                 >
                   {/* Item 1 */}
-                  <FeaturesTabItem tab={tab} tabs={tabs} />
+                  <TabItemQuickLaunch tab={tab} tabs={tabs} />
 
                   {/* Item 2 */}
                   <Transition
