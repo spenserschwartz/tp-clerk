@@ -10,17 +10,21 @@ interface QueryInputInterface {
 }
 
 const generateQuery = (input: QueryInputInterface) => {
-  return `Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
-          Return the reply as an array in the following format.
+  return `
+          [no prose]
+          [Output only JSON]
+          Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+          Return the reply in the following format. 
+
+          Example response for September 29, 2023 to September 30, 2023 to Paris:
           
-          Example response for September 29, 2023 to September 30, 2023 to Paris: 
           [
-            {"dayOfWeek: "Friday", 
-            "date": "September 29, 2023", 
-            "morning": "Visit the Eiffel Tower", 
-            "afternoon": "Visit the Louvre", 
+            {"dayOfWeek: "Friday",
+            "date": "September 29, 2023",
+            "morning": "Visit the Eiffel Tower",
+            "afternoon": "Visit the Louvre",
             "evening": "Visit the Arc de Triomphe"},
-            
+
             {"dayOfWeek: "Saturday",
             "date": "September 30, 2023",
             "morning": "Visit the Notre Dame",
@@ -28,7 +32,7 @@ const generateQuery = (input: QueryInputInterface) => {
             "evening": "Visit the Moulin Rouge"}
           ]
 
-          Give at least two sentences of context for morning, afternoon, and evening activities. 
+          Give at least two sentences of context for morning, afternoon, and evening activities.
           `;
 };
 
