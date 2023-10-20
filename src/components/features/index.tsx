@@ -1,7 +1,5 @@
 "use client";
 
-import { Transition } from "@headlessui/react";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import TabItemCitySplash from "./components/TabItemCitySplash";
