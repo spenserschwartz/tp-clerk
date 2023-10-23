@@ -8,9 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("req.body:", req.body);
-  console.log("messages:", messages);
-
   const aiResponse = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     stream: true,
