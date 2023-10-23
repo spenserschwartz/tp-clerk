@@ -1,9 +1,12 @@
 import { useChat } from "ai/react";
 
+// Optional but recommended: use the Edge Runtime. This can only be done at the page level, not inside nested components.
+export const runtime = "experimental-edge";
+
 const SplashPage = () => {
   const { messages, handleSubmit, input, handleInputChange } = useChat();
 
-  console.log("messages", messages);
+  // console.log("messages", messages);
 
   return (
     <form onSubmit={handleSubmit}>
