@@ -40,7 +40,7 @@ export const LoadingSection = () => {
         Our AI robots are hard at work making your itinerary!
       </p>
 
-      <p>{"Live life with no excuses, travel with no regret. Oscar Wilde "}</p>
+      <p>{"Live life with no excuses, travel with no regret. -Oscar Wilde "}</p>
     </div>
   );
 };
