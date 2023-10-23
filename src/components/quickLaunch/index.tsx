@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
-import { Button, LoadingSpinner } from "~/components";
+import { Button, LoadingSection, LoadingSpinner, Select } from "~/components";
 import { api } from "~/utils/api";
-import { LoadingSection } from "../loading";
-import Select from "../select";
 import { quickLaunchCities } from "../utils";
 
 interface ParsedAIMessageInterface {
