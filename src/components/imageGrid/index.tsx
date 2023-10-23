@@ -21,6 +21,8 @@ const ImageGrid = ({
       .includes(filterInputValue.toLowerCase());
   });
 
+  console.log("cityData", cityData);
+
   return (
     <ul
       role="list"
@@ -33,6 +35,7 @@ const ImageGrid = ({
           <GridElement
             key={attraction.id}
             attraction={attraction}
+            cityName={cityData.name}
             userHasUpvotedAttraction={userHasUpvotedAttraction}
           />
         );
