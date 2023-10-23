@@ -21,8 +21,6 @@ const ImageGrid = ({
       .includes(filterInputValue.toLowerCase());
   });
 
-  console.log("cityData", cityData);
-
   return (
     <ul
       role="list"
