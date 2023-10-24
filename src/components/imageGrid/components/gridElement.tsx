@@ -24,16 +24,13 @@ const GridElement = ({
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
+
   useEffect(() => {
     setAttractionUpvoted(userHasUpvotedAttraction);
   }, [userHasUpvotedAttraction]);
 
   const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
-    onSuccess: () => {
-      void ctx.upvotes.getAll.invalidate();
-      setUpvotes(upvotes + 1);
-      setAttractionUpvoted(true);
-    },
+    onSuccess: () => void ctx.upvotes.getAll.invalidate(),
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage?.[0]) {
@@ -41,15 +38,20 @@ const GridElement = ({
       } else {
         toast.error("Failed to upvote! Please try again later.");
       }
+
+      // Reset optimistic update on error
+      setUpvotes(upvotes - 1);
+      setAttractionUpvoted(false);
+    },
+    onMutate: () => {
+      // Optimistic update
+      setUpvotes(upvotes + 1);
+      setAttractionUpvoted(true);
     },
   });
   const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
     api.upvotes.delete.useMutation({
-      onSuccess: () => {
-        void ctx.upvotes.getAll.invalidate();
-        setUpvotes(upvotes - 1);
-        setAttractionUpvoted(false);
-      },
+      onSuccess: () => void ctx.upvotes.getAll.invalidate(),
       onError: (e) => {
         const errorMessage = e.data?.zodError?.fieldErrors.content;
         if (errorMessage?.[0]) {
@@ -57,12 +59,23 @@ const GridElement = ({
         } else {
           toast.error("Failed to upvote! Please try again later.");
         }
+
+        // Reset optimistic update on error
+        setUpvotes(upvotes + 1);
+        setAttractionUpvoted(true);
+      },
+
+      onMutate: () => {
+        // Optimistic Update
+        setUpvotes(upvotes - 1);
+        setAttractionUpvoted(false);
       },
     });
 
   const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    // If the user has already upvoted, remove their update
     if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
     else mutate({ attractionId: attraction.id });
   };
