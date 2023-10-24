@@ -97,14 +97,27 @@ const GridElement = ({
 
       {/* Description */}
       <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{attraction.name}</div>
+        {/* <div className="mb-2 text-xl font-bold">{attraction.name}</div> */}
+        <div className="mb-2 flex justify-between">
+          <p className="text-xl font-bold">{attraction.name}</p>
+
+          <div className="flex justify-start">
+            <ThumbsUpIcon enabled={attractionUpvoted} />
+            <span
+              className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}
+            >
+              {upvotes}
+            </span>
+          </div>
+        </div>
+
         <p className="h-18 line-clamp-3 text-base text-gray-700">
           {attraction.description}
         </p>
       </div>
 
       {/* Button */}
-      <div className="flex justify-center ">
+      {/* <div className="flex justify-start">
         <button
           className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
           onClick={upvoteHandler}
@@ -112,14 +125,16 @@ const GridElement = ({
         >
           {isUpvoting || isDeletingUpvote ? (
             <LoadingSpinner />
-          ) : (
-            <ThumbsUpIcon enabled={attractionUpvoted} />
-          )}
+            ) : (
+              <ThumbsUpIcon enabled={attractionUpvoted} />
+            )}
+          <ThumbsUpIcon enabled={attractionUpvoted} />
+
           <span className={`mx-2 ${attractionUpvoted ? "text-green-500" : ""}`}>
             {upvotes}
           </span>
         </button>
-      </div>
+      </div> */}
 
       {/* Tags */}
       <div className="px-6 pb-2 pt-4">
