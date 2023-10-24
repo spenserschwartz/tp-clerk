@@ -101,19 +101,25 @@ const GridElement = ({
         <div className="mb-2 flex justify-between">
           <p className="text-xl font-bold">{attraction.name}</p>
 
-          <div className="flex justify-start">
+          <button
+            className="flex w-24 items-center justify-center rounded-md hover:bg-gray-200"
+            onClick={upvoteHandler}
+          >
             <ThumbsUpIcon enabled={attractionUpvoted} />
             <span
               className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}
             >
               {upvotes}
             </span>
-          </div>
+          </button>
         </div>
 
-        <p className="h-18 line-clamp-3 text-base text-gray-700">
-          {attraction.description}
-        </p>
+        {/* Description */}
+        <div>
+          <p className="line-clamp-3 h-20 py-2 text-base text-gray-700">
+            {attraction.description}
+          </p>
+        </div>
       </div>
 
       {/* Button */}
