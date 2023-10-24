@@ -2,7 +2,8 @@ import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
-import { ThumbsUpIcon } from "public/icons";
+import { Star } from "lucide-react";
+import { HeartIcon, StarIcon, ThumbsUpIcon } from "public/icons";
 import { LoadingSpinner } from "~/components/loading";
 import { api, type RouterOutputs } from "~/utils/api";
 
@@ -82,30 +83,45 @@ const GridElement = ({
 
   return (
     <div className="max-w-sm overflow-hidden rounded shadow-lg">
+      {/* Attraction Name */}
+      {/* <p className="flex h-14 items-center justify-center border border-red-500 text-center text-2xl font-bold">
+        {attraction.name}
+      </p> */}
+
       {/* Image */}
-      <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+      <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
           src={attraction.imageURL || "/images/placeholder.png"}
           alt=""
-          className="pointer-events-none object-cover group-hover:opacity-75"
+          className="pointer-events-none object-cover"
           width={100}
           height={100}
           priority
           unoptimized
         />
+        <div className="absolute top-0 flex justify-end border-2 border-blue-400">
+          <button
+            className="flex h-8 w-16 items-center justify-center rounded-md hover:bg-gray-200"
+            onClick={upvoteHandler}
+          >
+            {/* <ThumbsUpIcon enabled={attractionUpvoted} /> */}
+            <HeartIcon enabled={attractionUpvoted} />
+          </button>
+        </div>
       </div>
 
       {/* Description */}
       <div className="px-6 py-4">
-        {/* <div className="mb-2 text-xl font-bold">{attraction.name}</div> */}
-        <div className="mb-2 flex justify-between">
-          <p className="text-xl font-bold">{attraction.name}</p>
+        <div className="mb-2 text-xl font-bold">{attraction.name}</div>
+        <div className="mb-2 flex items-center justify-between">
+          {/* <p className=" text-xl font-bold">{attraction.name}</p> */}
 
           <button
-            className="flex w-24 items-center justify-center rounded-md hover:bg-gray-200"
+            className="flex h-8 w-24 items-center justify-center rounded-md hover:bg-gray-200"
             onClick={upvoteHandler}
           >
-            <ThumbsUpIcon enabled={attractionUpvoted} />
+            <StarIcon enabled={attractionUpvoted} />
+            <HeartIcon enabled={attractionUpvoted} />
             <span
               className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}
             >
