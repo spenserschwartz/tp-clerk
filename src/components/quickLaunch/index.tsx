@@ -20,7 +20,7 @@ const QuickLaunch = () => {
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
-    to: addDays(new Date(), 7),
+    to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
   const { mutate, isLoading: isLoadingAI } =
@@ -71,11 +71,10 @@ const QuickLaunch = () => {
   return (
     <div className="my-8 flex h-96 flex-col items-center">
       {/* Loading Page */}
-      {isLoadingAI && <LoadingSpinner size={100} />}
-      {!isLoadingAI && <LoadingSection />}
+      {isLoadingAI && <LoadingSection />}
 
       {/* Quick Launch Form */}
-      {isLoadingAI && !parsedData.length && (
+      {!isLoadingAI && !parsedData.length && (
         <div className="mx-auto w-full md:w-96 md:max-w-full">
           <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
             <form onSubmit={handleFormSubmit}>

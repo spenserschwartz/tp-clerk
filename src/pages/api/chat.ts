@@ -4,6 +4,8 @@ import openai from "~/utils/openai";
 
 // https://sdk.vercel.ai/docs/guides/frameworks/nextjs-pages
 
+export const runtime = "edge";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
