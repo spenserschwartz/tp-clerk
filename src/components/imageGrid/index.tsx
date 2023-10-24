@@ -33,6 +33,7 @@ const ImageGrid = ({
           <GridElement
             key={attraction.id}
             attraction={attraction}
+            cityName={cityData.name}
             userHasUpvotedAttraction={userHasUpvotedAttraction}
           />
         );

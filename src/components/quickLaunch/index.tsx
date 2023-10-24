@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
-import { Button, LoadingSpinner } from "~/components";
+import { Button, LoadingSection, LoadingSpinner, Select } from "~/components";
 import { api } from "~/utils/api";
-import Select from "../select";
 import { quickLaunchCities } from "../utils";
 
 interface ParsedAIMessageInterface {
@@ -21,7 +20,7 @@ const QuickLaunch = () => {
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
-    to: addDays(new Date(), 7),
+    to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
   const { mutate, isLoading: isLoadingAI } =
@@ -72,7 +71,7 @@ const QuickLaunch = () => {
   return (
     <div className="my-8 flex h-96 flex-col items-center">
       {/* Loading Page */}
-      {isLoadingAI && <LoadingSpinner size={100} />}
+      {isLoadingAI && <LoadingSection />}
 
       {/* Quick Launch Form */}
       {!isLoadingAI && !parsedData.length && (

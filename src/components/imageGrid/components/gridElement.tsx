@@ -10,15 +10,17 @@ type Attraction = RouterOutputs["attractions"]["getAll"][0];
 
 interface GridElementProps {
   attraction: Attraction;
+  cityName: string;
   userHasUpvotedAttraction: boolean;
 }
 
 const GridElement = ({
   attraction,
+  cityName,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-  const [upvotes, setUpvotes] = useState(attraction.upvotes.length || 0);
+  const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0);
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
@@ -83,7 +85,7 @@ const GridElement = ({
       {/* Description */}
       <div className="px-6 py-4">
         <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-        <p className="line-clamp-3 h-20 text-base text-gray-700">
+        <p className="h-18 line-clamp-3 text-base text-gray-700">
           {attraction.description}
         </p>
       </div>
@@ -109,13 +111,13 @@ const GridElement = ({
       {/* Tags */}
       <div className="px-6 pb-2 pt-4">
         <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-          #photography
-        </span>
-        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
           #travel
         </span>
         <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-          #winter
+          #attraction
+        </span>
+        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+          #{cityName}
         </span>
       </div>
     </div>

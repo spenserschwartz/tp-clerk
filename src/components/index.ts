@@ -5,10 +5,11 @@ import Footer from "./footer";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
 import { RootLayout } from "./layout";
-import { LoadingPage, LoadingSpinner } from "./loading";
+import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./modal";
 import QuickLaunch from "./quickLaunch";
 import Searchbar from "./searchbar";
+import Select from "./select";
 
 export {
   Button,
@@ -18,9 +19,11 @@ export {
   Hero,
   ImageGrid,
   LoadingPage,
+  LoadingSection,
   LoadingSpinner,
   Modal,
   QuickLaunch,
   RootLayout,
   Searchbar,
+  Select,
 };
