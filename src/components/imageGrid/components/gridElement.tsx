@@ -99,12 +99,10 @@ const GridElement = ({
           priority
           unoptimized
         />
-        <div className="absolute top-0 flex justify-end border-2 border-blue-400">
-          <button
-            className="flex h-8 w-16 items-center justify-center rounded-md hover:bg-gray-200"
-            onClick={upvoteHandler}
-          >
-            {/* <ThumbsUpIcon enabled={attractionUpvoted} /> */}
+
+        {/* Overlay for icon in top right */}
+        <div className="absolute top-0 flex items-start justify-end border-2 border-blue-400">
+          <button onClick={upvoteHandler}>
             <HeartIcon enabled={attractionUpvoted} />
           </button>
         </div>
@@ -137,26 +135,6 @@ const GridElement = ({
           </p>
         </div>
       </div>
-
-      {/* Button */}
-      {/* <div className="flex justify-start">
-        <button
-          className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
-          onClick={upvoteHandler}
-          disabled={isUpvoting}
-        >
-          {isUpvoting || isDeletingUpvote ? (
-            <LoadingSpinner />
-            ) : (
-              <ThumbsUpIcon enabled={attractionUpvoted} />
-            )}
-          <ThumbsUpIcon enabled={attractionUpvoted} />
-
-          <span className={`mx-2 ${attractionUpvoted ? "text-green-500" : ""}`}>
-            {upvotes}
-          </span>
-        </button>
-      </div> */}
 
       {/* Tags */}
       <div className="px-6 pb-2 pt-4">
