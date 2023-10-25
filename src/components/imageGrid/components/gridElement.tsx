@@ -108,7 +108,7 @@ const GridElement = ({
       {/* Details */}
       <div className="px-6 py-2">
         {/* Attraction Name */}
-        <div className="flex h-14 items-center justify-center border border-blue-400 text-xl font-bold">
+        <div className="flex h-14 items-center justify-center border border-blue-400 text-center text-xl font-bold">
           {attraction.name}
         </div>
         {/* <div className="mb-2 flex items-center justify-between">
