@@ -1,6 +1,5 @@
 import { OpenAIStream, streamToResponse } from "ai";
 import { type NextApiRequest, type NextApiResponse } from "next";
-import { NextRequest } from "next/server";
 import openai from "~/utils/openai";
 
 // https://sdk.vercel.ai/docs/guides/frameworks/nextjs-pages
