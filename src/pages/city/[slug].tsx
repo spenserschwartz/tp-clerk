@@ -32,7 +32,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
-    <div className="flex w-full flex-col items-center border-4 border-green-500 px-2 pt-16">
+    <div className="flex w-full flex-col items-center px-2 pt-16">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
