@@ -106,7 +106,7 @@ const GridElement = ({
       </div>
 
       {/* Details */}
-      <div className="px-6 py-2">
+      <div className="px-4 py-2">
         {/* Attraction Name */}
         <div className="flex h-14 items-center justify-center border border-blue-400 text-center text-xl font-bold">
           {attraction.name}
