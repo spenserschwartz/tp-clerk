@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
-import { HeartIcon, StarIcon } from "public/icons";
+import { HeartIcon } from "public/icons";
 import { api, type RouterOutputs } from "~/utils/api";
 
 type Attraction = RouterOutputs["attractions"]["getAll"][0];
@@ -106,12 +106,13 @@ const GridElement = ({
         </div>
       </div>
 
-      {/* Description */}
-      <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-        <div className="mb-2 flex items-center justify-between">
-          {/* <p className=" text-xl font-bold">{attraction.name}</p> */}
-
+      {/* Details */}
+      <div className="px-6 py-2">
+        {/* Attraction Name */}
+        <div className="flex h-14 items-center justify-center border border-blue-400 text-xl font-bold">
+          {attraction.name}
+        </div>
+        {/* <div className="mb-2 flex items-center justify-between">
           <button
             className="flex h-8 w-24 items-center justify-center rounded-md hover:bg-gray-200"
             onClick={upvoteHandler}
@@ -124,11 +125,11 @@ const GridElement = ({
               {upvotes}
             </span>
           </button>
-        </div>
+        </div> */}
 
         {/* Description */}
         <div>
-          <p className="line-clamp-3 h-20 py-2 text-base text-gray-700">
+          <p className="line-clamp-3 h-20 border border-red-400 py-2 text-base text-gray-700">
             {attraction.description}
           </p>
         </div>
