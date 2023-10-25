@@ -13,7 +13,7 @@ const HeartIcon = ({ enabled }: IconProps) => {
       viewBox="0 0 24 24"
       fill="currentColor"
       className={`h-6 w-6 ${
-        enabled ? "text-red-500" : "text-black"
+        enabled ? "text-purple-500" : "text-black"
       } border border-red-400`}
       stroke="white"
       strokeWidth={1.5}
