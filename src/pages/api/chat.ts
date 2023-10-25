@@ -12,8 +12,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   console.log("This is req.body", req.body);
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument
   const parsed = JSON.parse(req.body);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.log("messages", parsed.messages[0].content);
 
   const aiResponse = await openai.chat.completions.create({
