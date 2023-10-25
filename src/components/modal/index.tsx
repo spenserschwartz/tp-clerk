@@ -1,5 +1,6 @@
-import { type Dispatch, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, type Dispatch } from "react";
+import MakeItineraryForm from "../forms/makeItinerary";
 import VisitedCityForm from "../forms/visitedCity";
 
 interface ModalProps {
@@ -42,7 +43,11 @@ export default function Modal({ openModal, setOpenModal }: ModalProps) {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <div>
-                  <VisitedCityForm
+                  {/* <VisitedCityForm
+                    onFormCancel={closeModalHandler}
+                    onFormSubmit={handleFormSubmit}
+                  /> */}
+                  <MakeItineraryForm
                     onFormCancel={closeModalHandler}
                     onFormSubmit={handleFormSubmit}
                   />
