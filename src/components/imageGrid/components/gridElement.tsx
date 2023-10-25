@@ -108,27 +108,13 @@ const GridElement = ({
       {/* Details */}
       <div className="px-4 py-2">
         {/* Attraction Name */}
-        <div className="flex h-14 items-center justify-center border border-blue-400 text-center text-xl font-bold">
+        <div className="flex h-14 items-center justify-center text-center text-xl font-bold">
           {attraction.name}
         </div>
-        {/* <div className="mb-2 flex items-center justify-between">
-          <button
-            className="flex h-8 w-24 items-center justify-center rounded-md hover:bg-gray-200"
-            onClick={upvoteHandler}
-          >
-            <StarIcon enabled={attractionUpvoted} />
-            <HeartIcon enabled={attractionUpvoted} />
-            <span
-              className={`mx-1 ${attractionUpvoted ? "text-green-500" : ""}`}
-            >
-              {upvotes}
-            </span>
-          </button>
-        </div> */}
 
         {/* Description */}
         <div>
-          <p className="line-clamp-3 h-20 border border-red-400 py-2 text-base text-gray-700">
+          <p className="line-clamp-3 h-20  py-2 text-base text-gray-700">
             {attraction.description}
           </p>
         </div>
