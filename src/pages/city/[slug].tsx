@@ -32,16 +32,25 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   return (
-    <div className="px-2 pt-16">
+    <div className="flex w-full flex-col items-center border-4 border-green-500 px-2 pt-16">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
-      <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        {cityData.name}
-      </h1>
+
+      {/* City Details */}
+      <div className="flex w-full max-w-6xl justify-center px-5">
+        <div className="relative flex w-full items-center justify-center ">
+          <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+            {cityData.name}
+          </h1>
+          <button className="absolute right-0 h-20 w-20 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"></button>
+        </div>
+      </div>
+
       <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
         {cityData.description}
       </p>
+
       {/* Recommended time in city */}
       <p className="text-center text-amber-600">
         {allCityRecs?.length
@@ -57,6 +66,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         >{`Been to ${cityData.name}? Click here!`}</p>
       </div>
 
+      {/* Filter attraction name */}
       <div className="flex w-full justify-center ">
         <Searchbar
           inputValue={filterInputValue}
