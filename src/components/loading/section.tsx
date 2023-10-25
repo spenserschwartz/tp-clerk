@@ -1,9 +1,6 @@
-import { useChat } from "ai/react";
 import { LoadingSpinner } from "../loading";
 
 const LoadingSection = () => {
-  const { messages, handleSubmit, input, handleInputChange } = useChat();
-
   return (
     <div className="min-h-48 flex w-full max-w-xl flex-col items-center rounded-xl border border-gray-600 bg-gray-300 p-6">
       <LoadingSpinner size={100} />

@@ -23,6 +23,7 @@ const QuickLaunch = () => {
     to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
+
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
