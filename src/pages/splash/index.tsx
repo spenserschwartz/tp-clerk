@@ -1,5 +1,4 @@
 import { useChat } from "ai/react";
-import { HeartIcon } from "public/icons";
 
 const SplashPage = () => {
   const { messages, handleSubmit, input, handleInputChange } = useChat();
