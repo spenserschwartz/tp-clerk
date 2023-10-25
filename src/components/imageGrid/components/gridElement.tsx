@@ -2,9 +2,7 @@ import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
-import { Star } from "lucide-react";
-import { HeartIcon, StarIcon, ThumbsUpIcon } from "public/icons";
-import { LoadingSpinner } from "~/components/loading";
+import { HeartIcon, StarIcon } from "public/icons";
 import { api, type RouterOutputs } from "~/utils/api";
 
 type Attraction = RouterOutputs["attractions"]["getAll"][0];
@@ -101,7 +99,7 @@ const GridElement = ({
         />
 
         {/* Overlay for icon in top right */}
-        <div className="absolute top-0 flex items-start justify-end border-2 border-blue-400">
+        <div className="absolute top-0 flex items-start justify-end">
           <button onClick={upvoteHandler}>
             <HeartIcon enabled={attractionUpvoted} />
           </button>
