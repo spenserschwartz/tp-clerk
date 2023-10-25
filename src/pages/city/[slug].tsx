@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
+import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { findAverageRecDays } from "~/utils/common";
@@ -44,28 +45,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
             {cityData.name}
           </h1>
           <button className="absolute right-0 ">
-            <div className="h-auto w-auto">
-              <div className="h-full flex-1">
-                <div className="flex h-full flex-1 items-center justify-center rounded-full bg-green-500 p-2 text-white shadow hover:bg-green-700">
-                  <div className="relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-8 w-8"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AddIcon />
           </button>
         </div>
       </div>
