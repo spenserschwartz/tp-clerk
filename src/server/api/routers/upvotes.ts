@@ -1,12 +1,12 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { z } from "zod";
 import {
   createTRPCRouter,
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 
 // Create a new ratelimiter, that allows 5 requests per 1 minute
 const ratelimit = new Ratelimit({
@@ -29,6 +29,7 @@ export const upvotesRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const upvotesByUserInThisCity = await ctx.prisma.upvotes.findMany({
         where: { userId: input.userId, attraction: { cityId: input.cityId } },
+        include: { attraction: true },
       });
 
       if (!upvotesByUserInThisCity) throw new TRPCError({ code: "NOT_FOUND" });
