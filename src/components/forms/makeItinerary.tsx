@@ -4,8 +4,8 @@ import { api } from "~/utils/api";
 import { LoadingSpinner } from "../loading";
 
 interface MakeItineraryFormProps {
-  onFormCancel: () => void;
-  onFormSubmit: () => void;
+  onFormCancel?: () => void;
+  onFormSubmit?: () => void;
 }
 
 const MakeItineraryForm = ({
