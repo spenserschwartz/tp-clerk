@@ -13,6 +13,7 @@ import { type NextPageWithLayout } from "../_app";
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { user } = useUser();
   const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
   const [filterInputValue, setFilterInputValue] = useState("");
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
@@ -31,6 +32,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   );
 
   const averageRecDays = findAverageRecDays(allCityRecs);
+
+  const visitedCityHandler = () => {
+    setModalContent("VisitedCityForm");
+    setOpenModal(true);
+  };
 
   return (
     <div className="flex w-full flex-col items-center px-2 pt-16">
@@ -65,7 +71,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <div className="flex justify-center">
         <p
           className="text-center text-blue-500 hover:cursor-pointer"
-          onClick={() => setOpenModal(true)}
+          // onClick={() => setOpenModal(true)}
+          onClick={visitedCityHandler}
         >{`Been to ${cityData.name}? Click here!`}</p>
       </div>
 
@@ -83,7 +90,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         filterInputValue={filterInputValue}
       />
 
-      <Modal openModal={openModal} setOpenModal={setOpenModal} />
+      <Modal
+        content={modalContent}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   );
 };

@@ -7,7 +7,7 @@ interface ModalMapProps {
   name: string;
 }
 
-const ModalMap = ({
+const ModalContent = ({
   handleFormSubmit,
   closeModalHandler,
   name,
@@ -33,4 +33,4 @@ const ModalMap = ({
   }
 };
 
-export default ModalMap;
+export default ModalContent;
