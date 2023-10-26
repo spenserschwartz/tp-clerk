@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
-import MakeItineraryForm from "~/components/forms/makeItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { findAverageRecDays } from "~/utils/common";
 import { type NextPageWithLayout } from "../_app";
@@ -41,7 +40,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
 
       {/* City Details */}
       <div className="flex w-full max-w-6xl justify-center px-5">
-        <MakeItineraryForm />
         <div className="relative flex w-full items-center justify-center ">
           <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
             {cityData.name}

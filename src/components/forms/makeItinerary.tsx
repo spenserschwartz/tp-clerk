@@ -13,55 +13,56 @@ const MakeItineraryForm = ({
   onFormSubmit,
 }: MakeItineraryFormProps) => {
   const ctx = api.useContext();
-  const [recDaysInput, setRecDaysInput] = useState("");
-
-  // !Upsert a new recommendation
-  const { mutate, isLoading: creatingRec } =
-    api.recommendedDaysInCity.upsert.useMutation({
-      onSuccess: () => {
-        void ctx.recommendedDaysInCity.getAll.invalidate();
-        toast.success("Your recommendation has been logged!");
-      },
-      onError: (e) => {
-        const errorMessage = e.data?.zodError?.fieldErrors.content;
-        if (errorMessage?.[0]) {
-          toast.error(errorMessage[0]);
-        } else {
-          toast.error(
-            "Failed to log your recommendation! Please try again later."
-          );
-        }
-      },
-      onSettled: () => onFormSubmit(),
-    });
-
-  // Get the user's previous recommendation
-  //   const { data: userRecommendationData, isLoading: userRecIsLoading } =
-  //     api.recommendedDaysInCity.getUserRecommendation.useQuery({
-  //       cityName: "London",
-  //     });
-  //   const recommendedDays = userRecommendationData?.recommendedDays ?? undefined;
 
   const { data, isLoading } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: "cll5m4ihx0000z4mruvrk2hi4",
     userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
   });
 
-  console.log("DATA", data);
+  const attractionNames: string[] | undefined = data?.map(
+    (upvote) => upvote.attraction.name
+  );
 
-  const handleRecDaysInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue: string = e.target.value; // rawValue is string because input type is text
-    // Check if input is a number
-    if (isNaN(Number(rawValue))) return;
-    else setRecDaysInput(rawValue);
-  };
+  console.log("attractionNames", attractionNames);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // Prevent the browser from reloading the page
     e.preventDefault();
+
+    console.log("Submitted");
   };
 
-  return <div>MakeItinerary</div>;
+  return (
+    <div>
+      <form className="mt-2" onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+          Make an Itinerary
+        </h2>
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Here are the attractions to include:
+        </label>
+
+        {attractionNames?.map((attractionName) => (
+          <div key={attractionName}>{attractionName}</div>
+        ))}
+
+        <div className="mt-6 flex items-center justify-end gap-x-6">
+          <button
+            type="button"
+            onClick={onFormCancel}
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default MakeItineraryForm;
