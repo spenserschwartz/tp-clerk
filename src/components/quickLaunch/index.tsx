@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
-import { Button, LoadingSection, Select } from "~/components";
+import { Button, Itinerary, LoadingSection, Select } from "~/components";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
 
@@ -70,7 +70,7 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   return (
-    <div className="my-8 flex h-96 flex-col items-center">
+    <div className="my-8 flex h-full flex-col items-center">
       {/* Loading Page */}
       {isLoadingAI && <LoadingSection />}
 
@@ -130,35 +130,9 @@ const QuickLaunch = () => {
           </div>
         </div>
       )}
+
       {/* Display Generated Itinerary */}
-      {parsedData.length ? (
-        <div className="flex h-full max-w-5xl flex-col items-center">
-          {/* Button to create new itinerary */}
-          <Button
-            buttonText="Create new itinerary"
-            buttonClickHandler={() => setParsedData([])}
-          />
-
-          {/* Itinerary */}
-          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
-            {parsedData.map((itineraryDay) => (
-              <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
-                {/* Date and day of week */}
-                <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
-                  {itineraryDay.date} - {itineraryDay.dayOfWeek}
-                </p>
-
-                {/* Morning, Afternoon, Evening */}
-                <ul className="ms-8 list-outside list-disc text-gray-300">
-                  <li className="mb-1">Morning: {itineraryDay.morning}</li>
-                  <li>Afternoon: {itineraryDay.afternoon}</li>
-                  <li>Evening: {itineraryDay.evening}</li>
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
+      <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import FeaturesQuickLaunch from "./features-quickLaunch";
 import Footer from "./footer";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
+import Itinerary from "./itinerary";
 import { RootLayout } from "./layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./modal";
@@ -18,6 +19,7 @@ export {
   Footer,
   Hero,
   ImageGrid,
+  Itinerary,
   LoadingPage,
   LoadingSection,
   LoadingSpinner,
