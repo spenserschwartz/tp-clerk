@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
+import toast from "react-hot-toast";
 import { Itinerary, LoadingSection, Select } from "~/components";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
@@ -30,29 +31,33 @@ const QuickLaunch = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
-    const formattedStartDate = formatDate(
-      date?.from ?? new Date(),
-      "yyyy-MM-dd"
-    );
-    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+    // If no city is chosen, toast error
+    if (!chosenCityName) toast.error("Please choose a city!");
+    else {
+      const formattedStartDate = formatDate(
+        date?.from ?? new Date(),
+        "yyyy-MM-dd"
+      );
+      const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
-    mutate(
-      {
-        cityName: chosenCityName,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      },
-      {
-        onSettled(data, error) {
-          if (error) console.error(error);
-          console.log("onSettled data", data);
-
-          if (data) {
-            setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
-          }
+      mutate(
+        {
+          cityName: chosenCityName,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
         },
-      }
-    );
+        {
+          onSettled(data, error) {
+            if (error) console.error(error);
+            console.log("onSettled data", data);
+
+            if (data) {
+              setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
+            }
+          },
+        }
+      );
+    }
   };
 
   // Set parsedData that shows on generation
