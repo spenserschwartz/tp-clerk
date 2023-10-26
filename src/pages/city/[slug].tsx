@@ -81,7 +81,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         cityName: cityData.name,
         startDate: "2021-09-01",
         endDate: "2021-09-03",
-        attractions: attractionNames,
+        attractions: attractionNames ?? [],
       },
       {
         onSettled(data, error) {
@@ -149,9 +149,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
         {isLoadingAI && <LoadingSection />}
-
-        <MakeItineraryForm />
-
         <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
       </div>
 

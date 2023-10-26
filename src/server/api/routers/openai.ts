@@ -20,7 +20,9 @@ const generateQuery = (input: QueryInputInterface) => {
           Return the reply in the following format. 
           ${
             input.attractions?.length
-              ? "Also, include the following attractions: Samuel Johnson Museum"
+              ? `Make sure to include the following attractions: ${input.attractions.join(
+                  ", "
+                )}`
               : ""
           }
 
