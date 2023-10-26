@@ -24,6 +24,7 @@ const Itinerary = ({ parsedData, setParsedData }: ItineraryProps) => {
           <Button
             buttonText="Create new itinerary"
             buttonClickHandler={() => setParsedData([])}
+            size="xl"
           />
 
           {/* Itinerary */}
