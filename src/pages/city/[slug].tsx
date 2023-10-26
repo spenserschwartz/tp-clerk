@@ -65,6 +65,9 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     }
   );
 
+  const attractionNames: string[] | undefined = userUpvoteData?.map(
+    (upvote) => upvote.attraction.name
+  );
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   const visitedCityHandler = () => {
@@ -78,6 +81,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         cityName: cityData.name,
         startDate: "2021-09-01",
         endDate: "2021-09-03",
+        attractions: attractionNames,
       },
       {
         onSettled(data, error) {

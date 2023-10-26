@@ -7,14 +7,22 @@ interface QueryInputInterface {
   cityName: string;
   startDate: string;
   endDate: string;
+  attractions?: string[];
 }
 
 const generateQuery = (input: QueryInputInterface) => {
   return `
           [no prose]
           [Output only JSON]
-          Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+          Give a day-to-day itinerary to ${input.cityName} from ${
+    input.startDate
+  } to ${input.endDate}.
           Return the reply in the following format. 
+          ${
+            input.attractions?.length
+              ? "Also, include the following attractions: Samuel Johnson Museum"
+              : ""
+          }
 
           Example response for September 29, 2023 to September 30, 2023 to Paris:
           
@@ -43,6 +51,7 @@ export const OpenAIRouter = createTRPCRouter({
         cityName: z.string(),
         startDate: z.string(),
         endDate: z.string(),
+        attractions: z.array(z.string()),
       })
     )
     .mutation(async ({ input }) => {
