@@ -53,7 +53,7 @@ export const OpenAIRouter = createTRPCRouter({
         cityName: z.string(),
         startDate: z.string(),
         endDate: z.string(),
-        attractions: z.array(z.string()),
+        attractions: z.array(z.string()).optional(),
       })
     )
     .mutation(async ({ input }) => {
