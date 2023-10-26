@@ -29,7 +29,7 @@ const ModalContent = ({
         />
       );
     default:
-      return <div>Modal not found</div>;
+      return <div>Modal content not found</div>;
   }
 };
 
