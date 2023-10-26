@@ -38,6 +38,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setOpenModal(true);
   };
 
+  const makeItineraryHandler = () => {
+    setModalContent("MakeItineraryForm");
+    setOpenModal(true);
+  };
+
   return (
     <div className="flex w-full flex-col items-center px-2 pt-16">
       <Head>
@@ -50,7 +55,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
             {cityData.name}
           </h1>
-          <button className="absolute right-0 ">
+          <button className="absolute right-0" onClick={makeItineraryHandler}>
             <AddIcon />
           </button>
         </div>
