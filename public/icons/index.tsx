@@ -12,7 +12,7 @@ const HeartIcon = ({ enabled }: IconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`h-6 w-6 ${enabled ? "text-purple-500" : "text-gray-600"}`}
+      className={`h-6 w-6 ${enabled ? "text-red-500" : "text-gray-600"}`}
       stroke="white"
       strokeWidth={1.5}
     >
