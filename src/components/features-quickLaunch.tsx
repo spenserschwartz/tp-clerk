@@ -10,9 +10,6 @@ const FeaturesQuickLaunch = () => {
         aria-hidden="true"
       ></div>
 
-      {/* Vertical line */}
-      <div className="absolute bottom-0 left-0 right-0 m-auto h-20 w-px translate-y-1/2 transform bg-gray-200 p-px"></div>
-
       <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
         <div className="pt-12 md:pt-20">
           {/* Section header */}
