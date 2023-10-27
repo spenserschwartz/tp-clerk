@@ -1,6 +1,6 @@
 "use client";
 
-import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -56,11 +56,12 @@ export default function Header() {
 
               {/* Header Sign In Links */}
               <SignedIn>
-                <SignOutButton>
+                {/* <SignOutButton>
                   <button className="btn-sm ml-3 bg-gray-900 text-gray-200 hover:bg-gray-800">
                     Sign Out
                   </button>
-                </SignOutButton>
+                </SignOutButton> */}
+                <UserButton />
               </SignedIn>
               <SignedOut>
                 <li>
