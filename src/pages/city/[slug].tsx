@@ -13,7 +13,6 @@ import {
   RootLayout,
   Searchbar,
 } from "~/components";
-import MakeItineraryForm from "~/components/forms/makeItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { findAverageRecDays } from "~/utils/common";
 import { type NextPageWithLayout } from "../_app";
@@ -37,6 +36,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     name: cityName,
   });
 
+  // Parse AI message to JSON
   useEffect(() => {
     if (generatedAIMessage) {
       try {
