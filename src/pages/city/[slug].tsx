@@ -26,7 +26,7 @@ interface ParsedAIMessageInterface {
 }
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
-  const { user } = useUser();
+  const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [modalContent, setModalContent] = useState("");
@@ -71,7 +71,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   const visitedCityHandler = () => {
-    setModalContent("VisitedCityForm");
+    setModalContent(isSignedIn ? "VisitedCityForm" : "LoginModal");
     setOpenModal(true);
   };
 

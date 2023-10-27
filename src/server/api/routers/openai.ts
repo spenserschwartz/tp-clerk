@@ -1,7 +1,7 @@
 // import OpenAI from "openai";
 import { z } from "zod";
 import openai from "~/utils/openai";
-import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 interface QueryInputInterface {
   cityName: string;
