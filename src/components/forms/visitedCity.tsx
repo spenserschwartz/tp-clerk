@@ -1,3 +1,4 @@
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
@@ -14,6 +15,10 @@ const VisitedCityForm = ({
 }: VisitedCityFormProps) => {
   const ctx = api.useContext();
   const [recDaysInput, setRecDaysInput] = useState("");
+  const pathname = usePathname();
+  const cityName = pathname?.split("/")[2];
+
+  console.log("cityName", cityName);
 
   // Upsert a new recommendation
   const { mutate, isLoading: creatingRec } =
@@ -34,10 +39,11 @@ const VisitedCityForm = ({
       },
       onSettled: () => onFormSubmit(),
     });
+
   // Get the user's previous recommendation
   const { data: userRecommendationData, isLoading: userRecIsLoading } =
     api.recommendedDaysInCity.getUserRecommendation.useQuery({
-      cityName: "London",
+      cityName: cityName ?? "",
     });
   const recommendedDays = userRecommendationData?.recommendedDays ?? undefined;
 

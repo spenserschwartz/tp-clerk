@@ -96,6 +96,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     );
   };
 
+  console.log("allCityRecs", allCityRecs);
+
   return (
     <div className="flex w-full flex-col items-center px-2 pt-16">
       <Head>
