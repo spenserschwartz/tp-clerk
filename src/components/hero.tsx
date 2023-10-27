@@ -49,6 +49,7 @@ export default function Hero() {
         <div className="flex flex-col items-center pb-12 pt-32 md:pb-20 md:pt-40">
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
+            {/* Page Title */}
             <h1
               className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl"
               data-aos="zoom-y-out"
@@ -58,6 +59,8 @@ export default function Hero() {
                 Perfect
               </span>
             </h1>
+
+            {/* Description */}
             <div className="mx-auto max-w-3xl">
               <p
                 className="mb-8 text-xl text-gray-600"
