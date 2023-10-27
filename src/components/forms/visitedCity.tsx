@@ -1,24 +1,27 @@
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
+import { displayCityName } from "~/utils/common";
 import { LoadingSpinner } from "../loading";
 
+type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
+
 interface VisitedCityFormProps {
+  cityData?: GetCityByNameType;
   onFormCancel: () => void;
   onFormSubmit: () => void;
 }
 
 const VisitedCityForm = ({
+  cityData,
   onFormCancel,
   onFormSubmit,
 }: VisitedCityFormProps) => {
   const ctx = api.useContext();
   const [recDaysInput, setRecDaysInput] = useState("");
-  const pathname = usePathname();
-  const cityName = pathname?.split("/")[2];
-
-  console.log("cityName", cityName);
+  const pathname = usePathname(); // Get the current pathname to find the city name
+  const cityName = displayCityName(pathname?.split("/")[2]); // Get the city name from the pathname
 
   // Upsert a new recommendation
   const { mutate, isLoading: creatingRec } =
@@ -60,7 +63,8 @@ const VisitedCityForm = ({
 
     if (!recDaysInput) return;
     mutate({
-      cityId: "cll5m4ihx0000z4mruvrk2hi4",
+      // cityId: "cll5m4ihx0000z4mruvrk2hi4",
+      cityId: cityData?.id ?? "",
       id: userRecommendationData?.id ?? "",
       recommendedDays: Number(recDaysInput),
     });

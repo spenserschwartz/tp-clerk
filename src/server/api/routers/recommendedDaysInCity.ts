@@ -1,12 +1,12 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { z } from "zod";
 import {
   createTRPCRouter,
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 
 // Create a new ratelimiter, that allows 5 requests per 1 minute
 const ratelimit = new Ratelimit({
@@ -70,7 +70,9 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
   upsert: privateProcedure
     .input(
       z.object({
-        cityId: z.string(),
+        cityId: z.string().optional(),
+        cityName: z.string().optional(),
+
         id: z.string(),
         recommendedDays: z.number(),
       })
