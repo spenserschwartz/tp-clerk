@@ -1,4 +1,3 @@
-import MakeItineraryForm from "../forms/makeItinerary";
 import VisitedCityForm from "../forms/visitedCity";
 
 interface ModalMapProps {
@@ -21,13 +20,6 @@ const ModalContent = ({
         />
       );
 
-    case "MakeItineraryForm":
-      return (
-        <MakeItineraryForm
-          onFormCancel={closeModalHandler}
-          onFormSubmit={handleFormSubmit}
-        />
-      );
     default:
       return <div>Modal content not found</div>;
   }
