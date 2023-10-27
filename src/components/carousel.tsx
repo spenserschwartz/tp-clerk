@@ -29,7 +29,11 @@ export default function Carousel({ slides }: CarouselProps) {
   }, [nextSlide]);
 
   return (
-    <div className="relative overflow-hidden">
+    <div
+      className="relative overflow-hidden"
+      data-aos="zoom-in"
+      data-aos-delay="500"
+    >
       <div
         className={`flex transition duration-500 ease-out`}
         style={{
