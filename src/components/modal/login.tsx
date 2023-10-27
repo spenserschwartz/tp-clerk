@@ -7,7 +7,7 @@ interface LoginModalProps {
 
 const LoginModal = ({ closeModalHandler }: LoginModalProps) => {
   return (
-    <div className="mt-2">
+    <div className="">
       {" "}
       <h2 className="text-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
         Login
