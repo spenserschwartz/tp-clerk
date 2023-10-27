@@ -32,7 +32,10 @@ export default function Features() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="pt-12 md:pt-20" id="explore_solutions">
           {/* Section header */}
-          <div className="mx-auto max-w-3xl pb-12 text-center md:pb-16">
+          <div
+            className="mx-auto max-w-3xl pb-12 text-center md:pb-16"
+            data-aos="fade-up"
+          >
             <h1 className="h2 mb-4">Explore the solutions</h1>
             <p className="text-xl text-gray-600">
               Use a combination of AI and real travel experience to make your
