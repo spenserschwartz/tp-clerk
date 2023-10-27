@@ -1,7 +1,7 @@
 // import OpenAI from "openai";
 import { z } from "zod";
 import openai from "~/utils/openai";
-import { createTRPCRouter, privateProcedure } from "../trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
 
 interface QueryInputInterface {
   cityName: string;
@@ -51,7 +51,7 @@ const generateQuery = (input: QueryInputInterface) => {
 };
 
 export const OpenAIRouter = createTRPCRouter({
-  generateTripItinerary: privateProcedure
+  generateTripItinerary: publicProcedure
     .input(
       z.object({
         cityName: z.string(),

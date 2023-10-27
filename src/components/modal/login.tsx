@@ -1,6 +1,10 @@
 import React from "react";
 
-const LoginModal = () => {
+interface LoginModalProps {
+  closeModalHandler: () => void;
+}
+
+const LoginModal = ({ closeModalHandler }: LoginModalProps) => {
   return <div>LoginModal</div>;
 };
 

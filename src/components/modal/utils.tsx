@@ -1,4 +1,5 @@
 import VisitedCityForm from "../forms/visitedCity";
+import LoginModal from "./login";
 
 interface ModalMapProps {
   handleModalAction: () => void;
@@ -19,6 +20,9 @@ const ModalContent = ({
           onFormSubmit={handleModalAction}
         />
       );
+
+    case "LoginModal":
+      return <LoginModal closeModalHandler={closeModalHandler} />;
 
     default:
       return <div>Modal content not found</div>;
