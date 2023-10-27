@@ -4,7 +4,8 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/sign-in/[[...index]]",
-    "/splash",
+    "/city/:slug", // Access city page without logging in
+
     "/api/trpc/posts.getAll", // Can be deleted
     "/api/trpc/city.getAll", // Get cities to populate combobox
     "/api/chat", // Chatbot
