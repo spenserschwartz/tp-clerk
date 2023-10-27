@@ -15,7 +15,7 @@ export default function Modal({
 }: ModalProps) {
   const closeModalHandler = () => setOpenModal(false);
 
-  const handleFormSubmit = () => {
+  const handleModalAction = () => {
     closeModalHandler();
   };
 
@@ -50,7 +50,7 @@ export default function Modal({
                 <ModalContent
                   name={content}
                   closeModalHandler={closeModalHandler}
-                  handleFormSubmit={handleFormSubmit}
+                  handleModalAction={handleModalAction}
                 />
               </Dialog.Panel>
             </Transition.Child>

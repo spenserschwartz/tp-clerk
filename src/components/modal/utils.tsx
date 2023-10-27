@@ -1,13 +1,13 @@
 import VisitedCityForm from "../forms/visitedCity";
 
 interface ModalMapProps {
-  handleFormSubmit: () => void;
+  handleModalAction: () => void;
   closeModalHandler: () => void;
   name: string;
 }
 
 const ModalContent = ({
-  handleFormSubmit,
+  handleModalAction,
   closeModalHandler,
   name,
 }: ModalMapProps) => {
@@ -16,7 +16,7 @@ const ModalContent = ({
       return (
         <VisitedCityForm
           onFormCancel={closeModalHandler}
-          onFormSubmit={handleFormSubmit}
+          onFormSubmit={handleModalAction}
         />
       );
 
