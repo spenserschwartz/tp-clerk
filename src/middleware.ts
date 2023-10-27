@@ -6,10 +6,8 @@ export default authMiddleware({
     "/sign-in/[[...index]]",
     "/city/:slug", // Access city page without logging in
 
-    "/api/trpc/posts.getAll", // Can be deleted
     "/api/trpc/city.getAll", // Get cities to populate combobox
     "/api/chat", // Chatbot
-    "/api/completion", // Chatbot
   ],
 });
 
