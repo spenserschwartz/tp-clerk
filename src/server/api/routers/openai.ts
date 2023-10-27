@@ -11,39 +11,43 @@ interface QueryInputInterface {
 }
 
 const generateQuery = (input: QueryInputInterface) => {
-  return `
-          [no prose]
-          [Output only JSON]
-          Give a day-to-day itinerary to ${input.cityName} from ${
-    input.startDate
-  } to ${input.endDate}.
-          Return the reply in the following format. 
-          ${
-            input.attractions?.length
-              ? `Make sure to include the following attractions: ${input.attractions.join(
-                  ", "
-                )}`
-              : ""
-          }
+  // General query that does not change between requests
+  const generalQuery = `
+  [no prose]
+  [Output only JSON]
+  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+  `;
 
-          Example response for September 29, 2023 to September 30, 2023 to Paris:
-          
-          [
-            {"dayOfWeek: "Friday",
-            "date": "September 29, 2023",
-            "morning": "Visit the Eiffel Tower",
-            "afternoon": "Visit the Louvre",
-            "evening": "Visit the Arc de Triomphe"},
+  //  Attractions query if attractions are specified to be included
+  const attractionsQuery = input.attractions?.length
+    ? `Make sure to include the following attractions: ${input.attractions.join(
+        ", "
+      )}. `
+    : "";
 
-            {"dayOfWeek: "Saturday",
-            "date": "September 30, 2023",
-            "morning": "Visit the Notre Dame",
-            "afternoon": "Visit the Sacre Coeur",
-            "evening": "Visit the Moulin Rouge"}
-          ]
+  // Format query in proper JSON format
+  const formatQuery = `Return the reply in the following format. 
+         
+  Example response for September 29, 2023 to September 30, 2023 to Paris:
+  
+  [
+    {"dayOfWeek: "Friday",
+    "date": "September 29, 2023",
+    "morning": "",
+    "afternoon": "",
+    "evening": ""},
 
-          Give at least two sentences of context for morning, afternoon, and evening activities.
-          `;
+    {"dayOfWeek: "Saturday",
+    "date": "September 30, 2023",
+    "morning": "",
+    "afternoon": "",
+    "evening": ""}
+  ]
+
+  Give at least two sentences of context for morning, afternoon, and evening activities.
+  `;
+
+  return generalQuery + attractionsQuery + formatQuery;
 };
 
 export const OpenAIRouter = createTRPCRouter({
@@ -58,7 +62,6 @@ export const OpenAIRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        console.log("before chat completion");
         const chatCompletion = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
@@ -70,8 +73,6 @@ export const OpenAIRouter = createTRPCRouter({
           ],
           max_tokens: 750,
         });
-        console.log("after chat completion");
-        console.log(chatCompletion);
 
         return chatCompletion;
       } catch (err) {
