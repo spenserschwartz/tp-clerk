@@ -13,7 +13,10 @@ const FeaturesQuickLaunch = () => {
       <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
         <div className="pt-12 md:pt-20">
           {/* Section header */}
-          <div className="mx-auto max-w-3xl pb-2 text-center md:pb-20">
+          <div
+            className="mx-auto max-w-3xl pb-2 text-center md:pb-20"
+            data-aos="fade-up"
+          >
             <h2 className="h2 mb-4">Plan a trip in seconds</h2>
             <p className="text-xl text-gray-600">
               Want a quick itinerary? Fill out the form below and we will
