@@ -67,7 +67,6 @@ export const OpenAIRouter = createTRPCRouter({
           messages: [
             {
               role: "user",
-              // content: "What is 2 + 2",
               content: generateQuery(input), // Query goes here
             },
           ],
