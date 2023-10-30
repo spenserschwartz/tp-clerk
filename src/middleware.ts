@@ -5,7 +5,6 @@ export default authMiddleware({
     "/",
     "/sign-in/[[...index]]",
     "/city/:slug", // Access city page without logging in
-    "/cities",
 
     "/api/trpc/:path+", // Public API to allow TRPC handle route protection (via publicProcedure, privateProcedure, etc.)
     "/api/chat:additionalDetails*", // Chatbot
