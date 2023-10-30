@@ -41,6 +41,7 @@ model City {
     createdAt DateTime @default(now())
 
     attractions     Attraction[]
+    // itinerary       Itinerary[]
     recommendedDays RecommendedDaysInCity[]
 
     authorId    String
@@ -49,6 +50,20 @@ model City {
 
     @@index([authorId])
 }
+
+// model Itinerary {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     city   City   @relation(fields: [cityId], references: [id])
+//     cityId String
+//     userId String
+
+//     details Json
+
+//     @@index([cityId])
+//     @@index([userId])
+// }
 
 model RecommendedDaysInCity {
     id        String   @id @default(cuid())
