@@ -132,7 +132,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <div className="flex justify-center">
         <p
           className="text-center text-blue-500 hover:cursor-pointer"
-          // onClick={() => setOpenModal(true)}
           onClick={visitedCityHandler}
         >{`Been to ${cityData.name}? Click here!`}</p>
       </div>
