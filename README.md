@@ -4,7 +4,7 @@ npx prisma db push
 npm i
 npm run dev
 
-# Create T3 App
+# TravelPerfect
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 

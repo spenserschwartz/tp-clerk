@@ -36,8 +36,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     name: cityName,
   });
 
-  console.log("cityData", cityData);
-
   // Parse AI message to JSON
   useEffect(() => {
     if (generatedAIMessage) {
