@@ -7,11 +7,8 @@ export default authMiddleware({
     "/city/:slug", // Access city page without logging in
     "/cities",
 
-    "/api/trpc/city.getAll:additionalDetails*", // City Page
-    "/api/trpc/city.getCityByName:additionalDetails*",
-
+    "/api/trpc/:path+", // Public API to allow TRPC handle route protection (via publicProcedure, privateProcedure, etc.)
     "/api/chat:additionalDetails*", // Chatbot
-    "/api/trpc/openAI.generateTripItinerary:additionalDetails*", // Generate itinerary
   ],
 });
 
