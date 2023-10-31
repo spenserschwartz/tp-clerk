@@ -1,10 +1,40 @@
+import { type GetStaticProps } from "next";
 import { type ReactElement } from "react";
 import { type NextPageWithLayout } from "../_app";
 
 import { RootLayout } from "~/components";
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
-const ItineraryPage: NextPageWithLayout = () => {
+const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
+  itineraryID,
+}) => {
+  console.log("itineraryID", itineraryID);
+
   return <div>Itinerary Page</div>;
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ssg = generateSSGHelper();
+
+  const id = context.params?.id;
+
+  if (typeof id !== "string") throw new Error("no slug");
+
+  const itineraryID = id.replace("@", "");
+
+  //   await ssg.profile.getUserByUsername.prefetch({ username });
+  //   await ssg.city.getCityByName.prefetch({ name: cityName });
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      itineraryID,
+    },
+  };
+};
+
+export const getStaticPaths = () => {
+  return { paths: [], fallback: "blocking" };
 };
 
 ItineraryPage.getLayout = function getLayout(page: ReactElement) {
