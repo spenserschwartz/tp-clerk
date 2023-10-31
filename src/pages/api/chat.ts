@@ -4,12 +4,20 @@ import openai from "~/utils/openai";
 
 // https://sdk.vercel.ai/docs/guides/frameworks/nextjs-pages
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log("This is req.body", req.body);
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument
+  const parsed = JSON.parse(req.body);
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  console.log("messages", parsed.messages[0].content);
+
   const aiResponse = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     stream: true,

@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
-import { Button, LoadingSection, LoadingSpinner, Select } from "~/components";
+import toast from "react-hot-toast";
+import { Itinerary, LoadingSection, Select } from "~/components";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
 
@@ -23,35 +24,40 @@ const QuickLaunch = () => {
     to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
+
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
-    const formattedStartDate = formatDate(
-      date?.from ?? new Date(),
-      "yyyy-MM-dd"
-    );
-    const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
+    // If no city is chosen, toast error
+    if (!chosenCityName) toast.error("Please choose a city!");
+    else {
+      const formattedStartDate = formatDate(
+        date?.from ?? new Date(),
+        "yyyy-MM-dd"
+      );
+      const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
-    mutate(
-      {
-        cityName: chosenCityName,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      },
-      {
-        onSettled(data, error) {
-          if (error) console.error(error);
-          console.log("onSettled data", data);
-
-          if (data) {
-            setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
-          }
+      mutate(
+        {
+          cityName: chosenCityName,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
         },
-      }
-    );
+        {
+          onSettled(data, error) {
+            if (error) console.error(error);
+            console.log("onSettled data", data);
+
+            if (data) {
+              setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
+            }
+          },
+        }
+      );
+    }
   };
 
   // Set parsedData that shows on generation
@@ -69,7 +75,7 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   return (
-    <div className="my-8 flex h-96 flex-col items-center">
+    <div className="my-8 flex h-full flex-col items-center">
       {/* Loading Page */}
       {isLoadingAI && <LoadingSection />}
 
@@ -129,35 +135,9 @@ const QuickLaunch = () => {
           </div>
         </div>
       )}
+
       {/* Display Generated Itinerary */}
-      {parsedData.length ? (
-        <div className="flex h-full max-w-5xl flex-col items-center">
-          {/* Button to create new itinerary */}
-          <Button
-            buttonText="Create new itinerary"
-            buttonClickHandler={() => setParsedData([])}
-          />
-
-          {/* Itinerary */}
-          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
-            {parsedData.map((itineraryDay) => (
-              <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
-                {/* Date and day of week */}
-                <p className="text-font-bold mt-2 text-center text-xl text-orange-500">
-                  {itineraryDay.date} - {itineraryDay.dayOfWeek}
-                </p>
-
-                {/* Morning, Afternoon, Evening */}
-                <ul className="ms-8 list-outside list-disc text-gray-300">
-                  <li className="mb-1">Morning: {itineraryDay.morning}</li>
-                  <li>Afternoon: {itineraryDay.afternoon}</li>
-                  <li>Evening: {itineraryDay.evening}</li>
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
+      <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
     </div>
   );
 };

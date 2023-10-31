@@ -4,11 +4,10 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/sign-in/[[...index]]",
-    "/splash",
-    "/api/trpc/posts.getAll", // Can be deleted
-    "/api/trpc/city.getAll", // Get cities to populate combobox
-    "/api/chat", // Chatbot
-    "/api/completion", // Chatbot
+    "/city/:slug", // Access city page without logging in
+
+    "/api/trpc/:path+", // Public API to allow TRPC handle route protection (via publicProcedure, privateProcedure, etc.)
+    "/api/chat:additionalDetails*", // Chatbot
   ],
 });
 

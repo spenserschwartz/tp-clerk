@@ -2,8 +2,7 @@ import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
-import { ThumbsUpIcon } from "public/icons";
-import { LoadingSpinner } from "~/components/loading";
+import { HeartIcon } from "public/icons";
 import { api, type RouterOutputs } from "~/utils/api";
 
 type Attraction = RouterOutputs["attractions"]["getAll"][0];
@@ -24,16 +23,13 @@ const GridElement = ({
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
+
   useEffect(() => {
     setAttractionUpvoted(userHasUpvotedAttraction);
   }, [userHasUpvotedAttraction]);
 
-  const { mutate, isLoading: isUpvoting } = api.upvotes.create.useMutation({
-    onSuccess: () => {
-      void ctx.upvotes.getAll.invalidate();
-      setUpvotes(upvotes + 1);
-      setAttractionUpvoted(true);
-    },
+  const { mutate } = api.upvotes.create.useMutation({
+    onSuccess: () => void ctx.upvotes.getAll.invalidate(),
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage?.[0]) {
@@ -41,71 +37,86 @@ const GridElement = ({
       } else {
         toast.error("Failed to upvote! Please try again later.");
       }
+
+      // Reset optimistic update on error
+      setUpvotes(upvotes - 1);
+      setAttractionUpvoted(false);
+    },
+    onMutate: () => {
+      // Optimistic update
+      setUpvotes(upvotes + 1);
+      setAttractionUpvoted(true);
     },
   });
-  const { mutate: mutateDelete, isLoading: isDeletingUpvote } =
-    api.upvotes.delete.useMutation({
-      onSuccess: () => {
-        void ctx.upvotes.getAll.invalidate();
-        setUpvotes(upvotes - 1);
-        setAttractionUpvoted(false);
-      },
-      onError: (e) => {
-        const errorMessage = e.data?.zodError?.fieldErrors.content;
-        if (errorMessage?.[0]) {
-          toast.error(errorMessage[0]);
-        } else {
-          toast.error("Failed to upvote! Please try again later.");
-        }
-      },
-    });
+  const { mutate: mutateDelete } = api.upvotes.delete.useMutation({
+    onSuccess: () => void ctx.upvotes.getAll.invalidate(),
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage?.[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to upvote! Please try again later.");
+      }
+
+      // Reset optimistic update on error
+      setUpvotes(upvotes + 1);
+      setAttractionUpvoted(true);
+    },
+
+    onMutate: () => {
+      // Optimistic Update
+      setUpvotes(upvotes - 1);
+      setAttractionUpvoted(false);
+    },
+  });
 
   const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    // If the user has already upvoted, remove their update
     if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
     else mutate({ attractionId: attraction.id });
   };
 
   return (
-    <div className="max-w-sm overflow-hidden rounded shadow-lg">
+    <div
+      className="max-w-sm overflow-hidden rounded shadow-lg"
+      data-aos="zoom-y-out"
+      data-aos-delay="150"
+    >
       {/* Image */}
-      <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+      <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
           src={attraction.imageURL || "/images/placeholder.png"}
           alt=""
-          className="pointer-events-none object-cover group-hover:opacity-75"
+          className="pointer-events-none object-cover"
           width={100}
           height={100}
           priority
           unoptimized
         />
+
+        {/* Overlay for icon in top right */}
+        <div className="absolute top-0 flex items-start justify-end">
+          <button onClick={upvoteHandler}>
+            <HeartIcon enabled={attractionUpvoted} />
+          </button>
+        </div>
       </div>
 
-      {/* Description */}
-      <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{attraction.name}</div>
-        <p className="h-18 line-clamp-3 text-base text-gray-700">
-          {attraction.description}
-        </p>
-      </div>
+      {/* Details */}
+      <div className="px-4 py-2">
+        {/* Attraction Name */}
+        <div className="flex h-14 items-center justify-center text-center text-xl font-bold">
+          {attraction.name}
+        </div>
 
-      {/* Button */}
-      <div className="flex justify-center ">
-        <button
-          className="inline-flex w-16 items-center justify-center rounded-md  bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-sm"
-          onClick={upvoteHandler}
-          disabled={isUpvoting}
-        >
-          {isUpvoting || isDeletingUpvote ? (
-            <LoadingSpinner />
-          ) : (
-            <ThumbsUpIcon enabled={attractionUpvoted} />
-          )}
-          <span className={`mx-2 ${attractionUpvoted ? "text-green-500" : ""}`}>
-            {upvotes}
-          </span>
-        </button>
+        {/* Description */}
+        <div>
+          <p className="line-clamp-3 h-20  py-2 text-base text-gray-700">
+            {attraction.description}
+          </p>
+        </div>
       </div>
 
       {/* Tags */}

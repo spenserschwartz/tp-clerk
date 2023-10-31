@@ -1,66 +1,77 @@
 // import OpenAI from "openai";
 import { z } from "zod";
 import openai from "~/utils/openai";
-import { createTRPCRouter, privateProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 interface QueryInputInterface {
   cityName: string;
   startDate: string;
   endDate: string;
+  attractions?: string[];
 }
 
 const generateQuery = (input: QueryInputInterface) => {
-  return `
-          [no prose]
-          [Output only JSON]
-          Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
-          Return the reply in the following format. 
+  // General query that does not change between requests
+  const generalQuery = `
+  [no prose]
+  [Output only JSON]
+  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+  `;
 
-          Example response for September 29, 2023 to September 30, 2023 to Paris:
-          
-          [
-            {"dayOfWeek: "Friday",
-            "date": "September 29, 2023",
-            "morning": "Visit the Eiffel Tower",
-            "afternoon": "Visit the Louvre",
-            "evening": "Visit the Arc de Triomphe"},
+  //  Attractions query if attractions are specified to be included
+  const attractionsQuery = input.attractions?.length
+    ? `Make sure to include the following attractions: ${input.attractions.join(
+        ", "
+      )}. `
+    : "";
 
-            {"dayOfWeek: "Saturday",
-            "date": "September 30, 2023",
-            "morning": "Visit the Notre Dame",
-            "afternoon": "Visit the Sacre Coeur",
-            "evening": "Visit the Moulin Rouge"}
-          ]
+  // Format query in proper JSON format
+  const formatQuery = `Return the reply in the following format. 
+         
+  Example response for September 29, 2023 to September 30, 2023 to Paris:
+  
+  [
+    {"dayOfWeek: "Friday",
+    "date": "September 29, 2023",
+    "morning": "",
+    "afternoon": "",
+    "evening": ""},
 
-          Give at least two sentences of context for morning, afternoon, and evening activities.
-          `;
+    {"dayOfWeek: "Saturday",
+    "date": "September 30, 2023",
+    "morning": "",
+    "afternoon": "",
+    "evening": ""}
+  ]
+
+  Give at least two sentences of context for morning, afternoon, and evening activities.
+  `;
+
+  return generalQuery + attractionsQuery + formatQuery;
 };
 
 export const OpenAIRouter = createTRPCRouter({
-  generateTripItinerary: privateProcedure
+  generateTripItinerary: publicProcedure
     .input(
       z.object({
         cityName: z.string(),
         startDate: z.string(),
         endDate: z.string(),
+        attractions: z.array(z.string()).optional(),
       })
     )
     .mutation(async ({ input }) => {
       try {
-        console.log("before chat completion");
         const chatCompletion = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
             {
               role: "user",
-              // content: "What is 2 + 2",
               content: generateQuery(input), // Query goes here
             },
           ],
           max_tokens: 750,
         });
-        console.log("after chat completion");
-        console.log(chatCompletion);
 
         return chatCompletion;
       } catch (err) {

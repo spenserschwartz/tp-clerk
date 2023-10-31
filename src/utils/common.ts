@@ -1,6 +1,8 @@
 import type { RouterOutputs } from "~/utils/api";
 
-export const displayCityName = (city: string): string => {
+export const displayCityName = (city: string | undefined): string => {
+  if (!city) return "";
+
   return city
     .split("_") // split from underscores
     .map((word) => word.charAt(0).toUpperCase() + word.substring(1)) // capitalize first letter

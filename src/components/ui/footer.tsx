@@ -3,7 +3,7 @@ import { footerNavigation } from "./utils";
 export default function Footer() {
   return (
     <footer>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto mt-8 max-w-6xl px-4 sm:px-6">
         {/* Bottom area */}
         <div className="border-t border-gray-200 py-4 md:flex md:items-center md:justify-between md:py-8">
           {/* Social Media Icons */}

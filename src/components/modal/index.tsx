@@ -1,16 +1,25 @@
-import { type Dispatch, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import VisitedCityForm from "../forms/visitedCity";
+import { Fragment, type Dispatch } from "react";
+import type { RouterOutputs } from "~/utils/api";
+import ModalContent from "./utils";
 
+type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 interface ModalProps {
+  content: string;
+  data?: GetCityByNameType;
   openModal: boolean;
   setOpenModal: Dispatch<boolean>;
 }
 
-export default function Modal({ openModal, setOpenModal }: ModalProps) {
+export default function Modal({
+  content,
+  data,
+  openModal,
+  setOpenModal,
+}: ModalProps) {
   const closeModalHandler = () => setOpenModal(false);
 
-  const handleFormSubmit = () => {
+  const handleModalAction = () => {
     closeModalHandler();
   };
 
@@ -41,12 +50,13 @@ export default function Modal({ openModal, setOpenModal }: ModalProps) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-                <div>
-                  <VisitedCityForm
-                    onFormCancel={closeModalHandler}
-                    onFormSubmit={handleFormSubmit}
-                  />
-                </div>
+                {/* Modal Content */}
+                <ModalContent
+                  closeModalHandler={closeModalHandler}
+                  data={data}
+                  handleModalAction={handleModalAction}
+                  name={content}
+                />
               </Dialog.Panel>
             </Transition.Child>
           </div>

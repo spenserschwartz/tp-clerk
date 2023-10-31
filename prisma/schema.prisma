@@ -20,20 +20,6 @@ model Post {
     @@index([authorId])
 }
 
-model City {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-
-    attractions     Attraction[]
-    recommendedDays RecommendedDaysInCity[]
-
-    authorId    String
-    description String?
-    name        String
-
-    @@index([authorId])
-}
-
 model Attraction {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
@@ -50,19 +36,34 @@ model Attraction {
     @@index([cityId])
 }
 
-model Upvotes {
+model City {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    attraction   Attraction @relation(fields: [attractionId], references: [id])
-    attractionId String
+    attractions     Attraction[]
+    // itinerary       Itinerary[]
+    recommendedDays RecommendedDaysInCity[]
 
-    userId String
+    authorId    String
+    description String?
+    name        String  @unique
 
-    @@unique([attractionId, userId]) // https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-a-unique-field
-    @@index([attractionId])
-    @@index([userId])
+    @@index([authorId])
 }
+
+// model Itinerary {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     city   City   @relation(fields: [cityId], references: [id])
+//     cityId String
+//     userId String
+
+//     details Json
+
+//     @@index([cityId])
+//     @@index([userId])
+// }
 
 model RecommendedDaysInCity {
     id        String   @id @default(cuid())
@@ -76,5 +77,19 @@ model RecommendedDaysInCity {
 
     @@unique([cityId, userId])
     @@index([cityId])
+    @@index([userId])
+}
+
+model Upvotes {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    attraction   Attraction @relation(fields: [attractionId], references: [id])
+    attractionId String
+
+    userId String
+
+    @@unique([attractionId, userId]) // https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-a-unique-field
+    @@index([attractionId])
     @@index([userId])
 }

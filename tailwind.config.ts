@@ -8,6 +8,7 @@ export default {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./public/icons/*.{ts,tsx}",
   ],
   theme: {
     extend: {
