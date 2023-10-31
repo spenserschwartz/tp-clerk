@@ -10,13 +10,12 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "images.clerk.dev",
-      "images.unsplash.com",
-      "tailwindui.com",
-      "travelperfect-bucket.s3.us-west-1.amazonaws.com",
+    remotePatterns: [
+      { hostname: "images.clerk.dev" },
+      { hostname: "images.unsplash.com" },
+      { hostname: "tailwindui.com" },
+      { hostname: "travelperfect-bucket.s3.us-west-1.amazonaws.com" },
     ],
-    // images.unsplash is for tailwind demos
   },
 
   /**
