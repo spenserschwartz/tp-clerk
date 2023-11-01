@@ -27,7 +27,7 @@ const VisitedCityForm = ({
   const { mutate, isLoading: creatingRec } =
     api.recommendedDaysInCity.upsert.useMutation({
       onSuccess: () => {
-        void ctx.recommendedDaysInCity.getAll.invalidate();
+        void ctx.recommendedDaysInCity.getAllByCity.invalidate();
         toast.success("Your recommendation has been logged!");
       },
       onError: (e) => {
