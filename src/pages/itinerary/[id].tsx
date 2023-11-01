@@ -4,11 +4,15 @@ import { type NextPageWithLayout } from "../_app";
 
 import { RootLayout } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { api } from "~/utils/api";
 
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
   console.log("itineraryID", itineraryID);
+  const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+
+  console.log("Itinerary data", data);
 
   return <div>Itinerary Page</div>;
 };
@@ -22,8 +26,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const itineraryID = id.replace("@", "");
 
-  //   await ssg.profile.getUserByUsername.prefetch({ username });
   //   await ssg.city.getCityByName.prefetch({ name: cityName });
+  await ssg.itinerary.getByID.prefetch({ id: itineraryID });
 
   return {
     props: {
