@@ -1,12 +1,11 @@
-import type { RouterOutputs } from "~/utils/api";
+import { type GetCityByNameType } from "~/types/router";
 import VisitedCityForm from "../forms/visitedCity";
 import LoginModal from "./login";
 
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 interface ModalMapProps {
   handleModalAction: () => void;
   closeModalHandler: () => void;
-  data?: GetCityByNameType;
+  data?: GetCityByNameType; // add more as needed
   name: string;
 }
 

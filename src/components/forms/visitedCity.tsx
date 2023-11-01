@@ -1,11 +1,11 @@
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { api, type RouterOutputs } from "~/utils/api";
+
+import type { GetCityByNameType } from "~/types/router";
+import { api } from "~/utils/api";
 import { displayCityName } from "~/utils/common";
 import { LoadingSpinner } from "../loading";
-
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 
 interface VisitedCityFormProps {
   cityData?: GetCityByNameType;
