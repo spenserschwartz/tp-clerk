@@ -8,7 +8,6 @@ interface ParsedAIMessageInterface {
 
 interface ItineraryProps {
   parsedData: ParsedAIMessageInterface[];
-  // setParsedData: Dispatch<ParsedAIMessageInterface[]>;
 }
 
 const Itinerary = ({ parsedData }: ItineraryProps) => {
