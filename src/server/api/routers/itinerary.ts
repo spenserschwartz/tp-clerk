@@ -62,6 +62,7 @@ export const itineraryRouter = createTRPCRouter({
         data: {
           city: { connect: { id: input.cityId } },
           userId: userId,
+          details: input.details,
         },
       });
 

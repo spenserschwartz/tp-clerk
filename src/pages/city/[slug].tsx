@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
+import toast from "react-hot-toast";
 import {
   ImageGrid,
   Itinerary,
@@ -52,8 +53,27 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
 
   if (!cityData) return <div>404 City Not Found</div>;
 
-  const { mutate, isLoading: isLoadingAI } =
+  const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
+
+  const { mutate: createItinerary, isLoading: isCreatingItinerary } =
+    api.itinerary.create.useMutation({
+      onSuccess: () => {
+        console.log("CreateItinerary Success");
+      },
+      onError: (e) => {
+        const errorMessage = e.data?.zodError?.fieldErrors.content;
+        if (errorMessage?.[0]) {
+          toast.error(errorMessage[0]);
+        } else {
+          toast.error("Failed to create itinerary! Please try again later.");
+        }
+      },
+      onSettled(data, error) {
+        if (error) console.error(error);
+        console.log("itinerary onSettled data", data);
+      },
+    });
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
@@ -76,7 +96,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   };
 
   const makeItineraryHandler = () => {
-    mutate(
+    generateAI(
       {
         cityName: cityData.name,
         startDate: "2021-09-01",
@@ -86,10 +106,21 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       {
         onSettled(data, error) {
           if (error) console.error(error);
-          console.log("onSettled data", data);
+          console.log("AI onSettled data", data);
 
           if (data) {
-            setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
+            // setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
+
+            // ! Editing here
+            const newParsedData = JSON.parse(
+              data?.choices[0]?.message.content ?? ""
+            ) as ParsedAIMessageInterface[];
+
+            setParsedData(newParsedData);
+
+            console.log("newParsedData", newParsedData);
+
+            createItinerary({ cityId: cityData.id, details: newParsedData });
           }
         },
       }
@@ -101,6 +132,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
+
+      {isCreatingItinerary && <LoadingSection />}
 
       {/* City Details */}
       <div className="flex w-full max-w-6xl justify-center px-5">
