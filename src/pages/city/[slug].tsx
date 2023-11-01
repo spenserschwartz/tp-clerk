@@ -16,6 +16,7 @@ import {
 } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { findAverageRecDays } from "~/utils/common";
+import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 import { type NextPageWithLayout } from "../_app";
 
 interface ParsedAIMessageInterface {
@@ -35,30 +36,12 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
+  const { createItinerary, isCreatingItinerary } = useCreateItinerary();
 
   if (!cityData) return <div>404 City Not Found</div>;
 
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
-
-  const { mutate: createItinerary, isLoading: isCreatingItinerary } =
-    api.itinerary.create.useMutation({
-      onSuccess: () => {
-        console.log("CreateItinerary Success");
-      },
-      onError: (e) => {
-        const errorMessage = e.data?.zodError?.fieldErrors.content;
-        if (errorMessage?.[0]) {
-          toast.error(errorMessage[0]);
-        } else {
-          toast.error("Failed to create itinerary! Please try again later.");
-        }
-      },
-      onSettled(data, error) {
-        if (error) console.error(error);
-        console.log("itinerary onSettled data", data);
-      },
-    });
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
