@@ -110,10 +110,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
 
-      {isCreatingItinerary && <LoadingSection />}
-
       {/* City Details */}
-      <div className="flex w-full max-w-6xl justify-center px-5">
+      <div className="flex w-full max-w-6xl flex-col justify-center px-5">
         <div className="relative flex w-full items-center justify-center ">
           {/* City Name */}
           <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
@@ -125,11 +123,12 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
             <AddIcon />
           </button>
         </div>
-      </div>
 
-      <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-        {cityData.description}
-      </p>
+        {/* City Description */}
+        <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+          {cityData.description}
+        </p>
+      </div>
 
       {/* Recommended time in city */}
       <p className="text-center text-amber-600">
@@ -157,7 +156,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       {/* City Itinerary */}
       <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
-        {isLoadingAI && <LoadingSection />}
+        {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
         <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
       </div>
 

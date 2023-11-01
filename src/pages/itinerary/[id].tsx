@@ -2,9 +2,17 @@ import { type GetStaticProps } from "next";
 import { type ReactElement } from "react";
 import { type NextPageWithLayout } from "../_app";
 
-import { RootLayout } from "~/components";
+import { Itinerary, RootLayout } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
+
+interface ParsedAIMessageInterface {
+  dayOfWeek: string;
+  date: string;
+  morning: string;
+  afternoon: string;
+  evening: string;
+}
 
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
@@ -12,9 +20,15 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   console.log("itineraryID", itineraryID);
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
 
+  const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
+
   console.log("Itinerary data", data);
 
-  return <div>Itinerary Page</div>;
+  return (
+    <div>
+      <Itinerary parsedData={parsedData ?? []} setParsedData={() => null} />
+    </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

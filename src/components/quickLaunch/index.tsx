@@ -25,26 +25,6 @@ const QuickLaunch = () => {
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
 
-  // ! Remove this
-  console.log("parsedData", parsedData);
-  const { mutate: createItinerary } = api.itinerary.create.useMutation({
-    onSuccess: () => {
-      console.log("success");
-    },
-    onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content;
-      if (errorMessage?.[0]) {
-        toast.error(errorMessage[0]);
-      } else {
-        toast.error("Failed to create itinerary! Please try again later.");
-      }
-    },
-    onSettled(data, error) {
-      if (error) console.error(error);
-      console.log("onSettled data", data);
-    },
-  });
-
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
