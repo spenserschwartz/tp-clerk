@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { useEffect, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
@@ -29,27 +29,12 @@ interface ParsedAIMessageInterface {
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
-  const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [modalContent, setModalContent] = useState("");
   const [filterInputValue, setFilterInputValue] = useState("");
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
-
-  // Parse AI message to JSON
-  useEffect(() => {
-    if (generatedAIMessage) {
-      try {
-        const newParsedData = JSON.parse(
-          generatedAIMessage
-        ) as ParsedAIMessageInterface[];
-        setParsedData(newParsedData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, [generatedAIMessage]);
 
   if (!cityData) return <div>404 City Not Found</div>;
 
@@ -105,21 +90,13 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       },
       {
         onSettled(data, error) {
-          if (error) console.error(error);
-          console.log("AI onSettled data", data);
-
+          if (error) toast.error("Failed to generate itinerary!");
           if (data) {
-            // setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
-
-            // ! Editing here
             const newParsedData = JSON.parse(
               data?.choices[0]?.message.content ?? ""
             ) as ParsedAIMessageInterface[];
 
             setParsedData(newParsedData);
-
-            console.log("newParsedData", newParsedData);
-
             createItinerary({ cityId: cityData.id, details: newParsedData });
           }
         },
