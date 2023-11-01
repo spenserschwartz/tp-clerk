@@ -1,5 +1,3 @@
-import React, { type Dispatch } from "react";
-
 interface ParsedAIMessageInterface {
   dayOfWeek: string;
   date: string;
