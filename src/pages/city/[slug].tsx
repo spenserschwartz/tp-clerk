@@ -157,7 +157,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
         {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
-        <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
+        <Itinerary parsedData={parsedData} />
       </div>
 
       <ImageGrid

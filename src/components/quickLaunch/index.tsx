@@ -4,7 +4,7 @@ import { type DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 
 import toast from "react-hot-toast";
-import { Itinerary, LoadingSection, Select } from "~/components";
+import { Button, Itinerary, LoadingSection, Select } from "~/components";
 import { api } from "~/utils/api";
 import { quickLaunchCities } from "../utils";
 
@@ -137,7 +137,17 @@ const QuickLaunch = () => {
       )}
 
       {/* Display Generated Itinerary */}
-      <Itinerary parsedData={parsedData} setParsedData={setParsedData} />
+      {parsedData.length > 0 && (
+        <div className="flex flex-col items-center">
+          {/* Button to create new itinerary */}
+          <Button
+            buttonText="Create new itinerary"
+            buttonClickHandler={() => setParsedData([])}
+            size="xl"
+          />
+          <Itinerary parsedData={parsedData} />
+        </div>
+      )}
     </div>
   );
 };

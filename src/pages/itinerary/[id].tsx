@@ -26,7 +26,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   return (
     <div>
-      <Itinerary parsedData={parsedData ?? []} setParsedData={() => null} />
+      <Itinerary parsedData={parsedData ?? []} />
     </div>
   );
 };
