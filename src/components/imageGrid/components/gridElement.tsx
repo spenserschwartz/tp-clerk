@@ -18,7 +18,7 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-  const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0);
+  const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0); // +5 can be removed once we have enough real data
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
