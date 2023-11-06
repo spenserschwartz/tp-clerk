@@ -1,10 +1,4 @@
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import { type ParsedAIMessageInterface } from "~/types";
 
 interface ItineraryProps {
   parsedData: ParsedAIMessageInterface[];

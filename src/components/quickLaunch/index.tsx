@@ -1,20 +1,13 @@
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
-
 import toast from "react-hot-toast";
-import { Button, Itinerary, LoadingSection, Select } from "~/components";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
-import { quickLaunchCities } from "../utils";
 
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import { Button, Itinerary, LoadingSection, Select } from "~/components";
+import { type ParsedAIMessageInterface } from "~/types";
+import { quickLaunchCities } from "../utils";
 
 const QuickLaunch = () => {
   const [chosenCityName, setChosenCityName] = useState("");

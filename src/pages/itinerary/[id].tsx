@@ -1,18 +1,11 @@
 import { type GetStaticProps } from "next";
 import { type ReactElement } from "react";
+import { api } from "~/utils/api";
 import { type NextPageWithLayout } from "../_app";
 
 import { Itinerary, RootLayout } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import { api } from "~/utils/api";
-
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import { type ParsedAIMessageInterface } from "~/types";
 
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,

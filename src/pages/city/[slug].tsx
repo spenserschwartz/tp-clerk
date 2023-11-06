@@ -2,10 +2,10 @@ import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useState, type ReactElement } from "react";
+import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import toast from "react-hot-toast";
 import {
   ImageGrid,
   Itinerary,
@@ -15,17 +15,10 @@ import {
   Searchbar,
 } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { type ParsedAIMessageInterface } from "~/types";
 import { findAverageRecDays } from "~/utils/common";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 import { type NextPageWithLayout } from "../_app";
-
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
