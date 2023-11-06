@@ -16,9 +16,9 @@ import {
 } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
+import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
-import { type NextPageWithLayout } from "../_app";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();

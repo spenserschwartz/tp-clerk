@@ -1,7 +1,7 @@
 import { type GetStaticProps } from "next";
 import { type ReactElement } from "react";
+import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
-import { type NextPageWithLayout } from "../_app";
 
 import { Itinerary, RootLayout } from "~/components";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
@@ -10,7 +10,6 @@ import { type ParsedAIMessageInterface } from "~/types";
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
-  console.log("itineraryID", itineraryID);
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
 
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
