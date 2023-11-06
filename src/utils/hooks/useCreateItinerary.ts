@@ -1,4 +1,3 @@
-// hooks/useCreateItinerary.ts
 import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 

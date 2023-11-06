@@ -22,7 +22,7 @@ const generateQuery = (input: QueryInputInterface) => {
   const attractionsQuery = input.attractions?.length
     ? `Make sure to include the following attractions: ${input.attractions.join(
         ", "
-      )}. `
+      )}. Fill in any additional time with other popular attractions. `
     : "";
 
   // Format query in proper JSON format

@@ -14,6 +14,7 @@ import {
   RootLayout,
   Searchbar,
 } from "~/components";
+import CityLaunch from "~/components/cityLaunch";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type NextPageWithLayout } from "~/types/pages";
@@ -85,6 +86,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
+
+      <CityLaunch cityData={cityData} />
 
       {/* City Details */}
       <div className="flex w-full max-w-6xl flex-col justify-center px-5">
