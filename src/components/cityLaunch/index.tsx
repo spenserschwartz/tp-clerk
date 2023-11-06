@@ -17,7 +17,8 @@ interface CityLaunchProps {
 
 const CityLaunch = ({ cityData }: CityLaunchProps) => {
   const { isSignedIn, user } = useUser();
-  const { createItinerary, isCreatingItinerary } = useCreateItinerary();
+  const { createItinerary, isCreatingItinerary, itineraryCreated } =
+    useCreateItinerary();
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
@@ -33,6 +34,8 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name
   );
+
+  console.log("itin created", itineraryCreated);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
@@ -73,12 +76,20 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
   return (
     <div className="my-8 flex h-full flex-col items-center">
       {" "}
+      <div>itineraryCreated: {itineraryCreated ? "true" : "false"}</div>
       {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
       <div className="mx-auto w-full md:w-96 md:max-w-full">
         <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
           <form onSubmit={handleFormSubmit}>
             {/* Destination */}
-            <div className="mb-6 block w-[300px]">London HARDCODED</div>
+            <div className="mb-6 block w-[300px] text-white">
+              <p className="text-gray-300">Included Attractions</p>
+              <ul className="">
+                {attractionsUpvotedByUser?.map((attraction) => {
+                  return <li key={attraction}>{attraction}</li>;
+                })}
+              </ul>
+            </div>
 
             {/* Date Range Picker */}
             <span className="text-gray-300">Choose your dates</span>
