@@ -1,23 +1,21 @@
 import { useUser } from "@clerk/nextjs";
 import { addDays, format as formatDate } from "date-fns";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
-import { Button, Itinerary, LoadingSection, Select } from "~/components";
+import { LoadingSection } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
-import { GetCityByNameType } from "~/types/router";
+import { type GetCityByNameType } from "~/types/router";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 interface CityLaunchProps {
   cityData: GetCityByNameType;
 }
 
 const CityLaunch = ({ cityData }: CityLaunchProps) => {
-  const { isSignedIn, user } = useUser();
-  const router = useRouter();
+  const { user } = useUser();
   const {
     createItinerary,
     isCreatingItinerary,
@@ -32,15 +30,11 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
     from: new Date(),
     to: addDays(new Date(), 3),
   });
-
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
-
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name
   );
-
-  console.log("itin data", itineraryData);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
