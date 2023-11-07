@@ -6,6 +6,7 @@ const useCreateItinerary = () => {
     mutate: createItinerary,
     isLoading: isCreatingItinerary,
     isSuccess: itineraryCreated,
+    data: itineraryData,
   } = api.itinerary.create.useMutation({
     onSuccess: () => {
       console.log("CreateItinerary Success");
@@ -24,7 +25,12 @@ const useCreateItinerary = () => {
     },
   });
 
-  return { createItinerary, isCreatingItinerary, itineraryCreated };
+  return {
+    createItinerary,
+    isCreatingItinerary,
+    itineraryCreated,
+    itineraryData,
+  };
 };
 
 export default useCreateItinerary;

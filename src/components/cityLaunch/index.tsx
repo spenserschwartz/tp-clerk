@@ -1,24 +1,29 @@
+import { useUser } from "@clerk/nextjs";
 import { addDays, format as formatDate } from "date-fns";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
-import { useUser } from "@clerk/nextjs";
 import { Button, Itinerary, LoadingSection, Select } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { GetCityByNameType } from "~/types/router";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
-
 interface CityLaunchProps {
   cityData: GetCityByNameType;
 }
 
 const CityLaunch = ({ cityData }: CityLaunchProps) => {
   const { isSignedIn, user } = useUser();
-  const { createItinerary, isCreatingItinerary, itineraryCreated } =
-    useCreateItinerary();
+  const router = useRouter();
+  const {
+    createItinerary,
+    isCreatingItinerary,
+    itineraryCreated,
+    itineraryData,
+  } = useCreateItinerary();
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
@@ -35,7 +40,7 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
     (upvote) => upvote.attraction.name
   );
 
-  console.log("itin created", itineraryCreated);
+  console.log("itin data", itineraryData);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
@@ -81,10 +86,18 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
       <div className="mx-auto w-full md:w-96 md:max-w-full">
         <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
           {itineraryCreated ? (
-            <div className="flex flex-col">
-              <button className="focus:shadow-outline h-10 rounded-lg bg-green-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-green-800">
-                Go to itinerary
-              </button>
+            <div className="flex justify-between">
+              {/* Open itinerary in new window (<a> settings to help with popup blockers) */}
+              <a
+                href={`/itinerary/${itineraryData?.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="focus:shadow-outline h-10 rounded-lg bg-green-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-green-800">
+                  Go to itinerary
+                </button>
+              </a>
+
               <button className="focus:shadow-outline h-10 rounded-lg bg-indigo-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-indigo-800">
                 New Itinerary
               </button>
