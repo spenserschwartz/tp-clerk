@@ -16,6 +16,8 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   console.log("Itinerary data", data);
 
+  if (!data) return <div>404 Itinerary Not Found</div>;
+
   return (
     <div>
       <Itinerary parsedData={parsedData ?? []} />
