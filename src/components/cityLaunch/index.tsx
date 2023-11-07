@@ -39,6 +39,8 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
 
+    console.log("handleFormSubmit");
+
     const formattedStartDate = formatDate(
       date?.from ?? new Date(),
       "yyyy-MM-dd"
@@ -74,82 +76,61 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
 
   return (
     <div className="my-8 flex h-full flex-col items-center">
-      {" "}
-      <div>itineraryCreated: {itineraryCreated ? "true" : "false"}</div>
       {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
-      <div className="mx-auto w-full md:w-96 md:max-w-full">
-        <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
-          {itineraryCreated ? (
-            <div className="flex justify-between">
-              {/* Open itinerary in new window (<a> settings to help with popup blockers) */}
-              <a
-                href={`/itinerary/${itineraryData?.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="focus:shadow-outline h-10 rounded-lg bg-green-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-green-800">
-                  Go to itinerary
-                </button>
-              </a>
 
-              <button className="focus:shadow-outline h-10 rounded-lg bg-indigo-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-indigo-800">
-                New Itinerary
-              </button>
+      {/* Launcher */}
+      <form
+        className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
+        onSubmit={handleFormSubmit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleFormSubmit(e);
+        }}
+      >
+        <h2 className="mt-4 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          City Planner
+        </h2>
+        <div className="">
+          <div className="">
+            {/* Date Range Picker */}
+            <div className="px-4">
+              <span className="font-semibold text-gray-900">
+                Choose your dates
+              </span>
+              <DatePickerWithRange date={date} setDate={setDate} />
             </div>
-          ) : (
-            <form onSubmit={handleFormSubmit}>
-              {/* Destination */}
-              <div className="mb-6 block w-[300px] text-white">
-                <p className="text-gray-300">Included Attractions</p>
-                <ul className="">
-                  {attractionsUpvotedByUser?.map((attraction) => {
+
+            {/* Included Attractions, alphabetized */}
+            <div className="mt-4 flex w-full flex-col px-4">
+              <div className="mb-6 block w-full">
+                <p className="font-semibold text-gray-900">
+                  Included Attractions
+                </p>
+                <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
+                  {attractionsUpvotedByUser?.sort().map((attraction) => {
                     return <li key={attraction}>{attraction}</li>;
                   })}
                 </ul>
               </div>
-
-              {/* Date Range Picker */}
-              <span className="text-gray-300">Choose your dates</span>
-              <DatePickerWithRange date={date} setDate={setDate} />
-
-              {/* Adventure Option */}
-              <div className="mt-4 flex flex-col">
-                <label className="fl">
-                  <input
-                    name="adventureOption"
-                    type="checkbox"
-                    className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
-                  />
-                  <span className="ml-2 text-gray-300">
-                    Add some extra adventure!
-                  </span>
-                </label>
-
-                <label className="fl">
-                  <input
-                    name="adventureOption"
-                    type="checkbox"
-                    className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
-                  />
-                  <span className="ml-2 text-gray-300">
-                    Give some extra time to explore!
-                  </span>
-                </label>
-              </div>
-
-              {/* Submit Button */}
-              <div className="mt-6 flex justify-center">
-                <button
-                  type="submit"
-                  className="focus:shadow-outline h-10 rounded-lg bg-indigo-700 px-5 text-indigo-100 transition-colors duration-150 hover:bg-indigo-800"
-                >
-                  Make an itinerary!
-                </button>
-              </div>
-            </form>
-          )}
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* Buttons */}
+        <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+          <button
+            className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
+            type="submit"
+          >
+            Make Itinerary
+          </button>
+          <a
+            href={"#"}
+            className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+          >
+            Cancel
+          </a>
+        </div>
+      </form>
     </div>
   );
 };
