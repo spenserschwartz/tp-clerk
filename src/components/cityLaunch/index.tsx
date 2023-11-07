@@ -12,9 +12,10 @@ import { type GetCityByNameType } from "~/types/router";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 interface CityLaunchProps {
   cityData: GetCityByNameType;
+  setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CityLaunch = ({ cityData }: CityLaunchProps) => {
+const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
   const { user } = useUser();
   const {
     createItinerary,
@@ -123,12 +124,12 @@ const CityLaunch = ({ cityData }: CityLaunchProps) => {
           >
             Make Itinerary
           </button>
-          <a
-            href={"#"}
+          <button
             className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+            onClick={() => setShowCityLaunch(false)}
           >
             Cancel
-          </a>
+          </button>
         </div>
       </form>
     </div>

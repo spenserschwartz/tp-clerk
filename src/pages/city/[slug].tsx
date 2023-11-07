@@ -24,6 +24,7 @@ import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
+  const [showCityLaunch, setShowCityLaunch] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [filterInputValue, setFilterInputValue] = useState("");
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
@@ -57,37 +58,16 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setOpenModal(true);
   };
 
-  const makeItineraryHandler = () => {
-    generateAI(
-      {
-        cityName: cityData.name,
-        startDate: "2021-09-01",
-        endDate: "2021-09-03",
-        attractions: attractionsUpvotedByUser ?? [],
-      },
-      {
-        onSettled(data, error) {
-          if (error) toast.error("Failed to generate itinerary!");
-          if (data) {
-            const newParsedData = JSON.parse(
-              data?.choices[0]?.message.content ?? ""
-            ) as ParsedAIMessageInterface[];
-
-            setParsedData(newParsedData);
-            createItinerary({ cityId: cityData.id, details: newParsedData });
-          }
-        },
-      }
-    );
-  };
-
   return (
     <div className="flex w-full flex-col items-center px-2 pt-16">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
 
-      <CityLaunch cityData={cityData} />
+      {/* CityLaunch */}
+      {showCityLaunch && (
+        <CityLaunch cityData={cityData} setShowCityLaunch={setShowCityLaunch} />
+      )}
 
       {/* City Details */}
       <div className="flex w-full max-w-6xl flex-col justify-center px-5">
@@ -97,8 +77,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
             {cityData.name}
           </h1>
 
-          {/* Make Itinerary Button */}
-          <button className="absolute right-0" onClick={makeItineraryHandler}>
+          {/* Show CityLaunch component */}
+          <button
+            className="absolute right-0"
+            onClick={() => setShowCityLaunch(true)}
+          >
             <AddIcon />
           </button>
         </div>
