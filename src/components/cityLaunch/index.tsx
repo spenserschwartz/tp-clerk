@@ -95,32 +95,32 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
         <h2 className="mt-2 text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Make an Itinerary
         </h2>
-        {showLoading && <LoadingSpinner size={100} />}
+        {!showLoading && (
+          <div className="flex justify-center">
+            <LoadingSpinner size={100} />
+          </div>
+        )}
         {!showLoading && (
           <div>
-            <div className="">
-              <div className="">
-                {/* Date Range Picker */}
-                <div className="px-4">
-                  <span className="font-semibold text-gray-900">
-                    Choose your dates
-                  </span>
-                  <DatePickerWithRange date={date} setDate={setDate} />
-                </div>
+            {/* Date Range Picker */}
+            <div className="px-4">
+              <span className="font-semibold text-gray-900">
+                Choose your dates
+              </span>
+              <DatePickerWithRange date={date} setDate={setDate} />
+            </div>
 
-                {/* Included Attractions, alphabetized */}
-                <div className="mt-4 flex w-full flex-col px-4">
-                  <div className="mb-6 block w-full">
-                    <p className="font-semibold text-gray-900">
-                      Included Attractions
-                    </p>
-                    <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
-                      {attractionsUpvotedByUser?.sort().map((attraction) => {
-                        return <li key={attraction}>{attraction}</li>;
-                      })}
-                    </ul>
-                  </div>
-                </div>
+            {/* Included Attractions, alphabetized */}
+            <div className="mt-4 flex w-full flex-col px-4">
+              <div className="mb-6 block w-full">
+                <p className="font-semibold text-gray-900">
+                  Included Attractions
+                </p>
+                <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
+                  {attractionsUpvotedByUser?.sort().map((attraction) => {
+                    return <li key={attraction}>{attraction}</li>;
+                  })}
+                </ul>
               </div>
             </div>
           </div>

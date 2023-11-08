@@ -2,24 +2,14 @@ import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useState, type ReactElement } from "react";
-import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import {
-  ImageGrid,
-  Itinerary,
-  LoadingSection,
-  Modal,
-  RootLayout,
-  Searchbar,
-} from "~/components";
+import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import CityLaunch from "~/components/cityLaunch";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import { type ParsedAIMessageInterface } from "~/types";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
-import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
@@ -27,16 +17,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const [showCityLaunch, setShowCityLaunch] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [filterInputValue, setFilterInputValue] = useState("");
-  const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
-  const { createItinerary, isCreatingItinerary } = useCreateItinerary();
 
   if (!cityData) return <div>404 City Not Found</div>;
-
-  const { mutate: generateAI, isLoading: isLoadingAI } =
-    api.openAI.generateTripItinerary.useMutation({});
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
@@ -48,9 +33,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     }
   );
 
-  const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
-    (upvote) => upvote.attraction.name
-  );
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   const visitedCityHandler = () => {
@@ -113,13 +95,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           inputValue={filterInputValue}
           setInputValue={setFilterInputValue}
         />
-      </div>
-
-      {/* City Itinerary */}
-      <div className="my-8 flex h-full flex-col items-center">
-        {/* Loading Page */}
-        {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
-        <Itinerary parsedData={parsedData} />
       </div>
 
       <ImageGrid
