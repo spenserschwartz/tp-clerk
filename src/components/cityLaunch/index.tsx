@@ -95,7 +95,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
         <h2 className="mt-2 text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Make an Itinerary
         </h2>
-        {!showLoading && (
+        {showLoading && (
           <div className="flex justify-center">
             <LoadingSpinner size={100} />
           </div>
