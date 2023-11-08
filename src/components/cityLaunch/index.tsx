@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
@@ -116,6 +116,20 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
                 <p className="font-semibold text-gray-900">
                   Included Attractions
                 </p>
+                <SignedOut>
+                  <p className=" text-red-800">
+                    **Please sign in to personalize your itinerary
+                  </p>
+                </SignedOut>
+
+                <SignedIn>
+                  {attractionsUpvotedByUser?.length === 0 && (
+                    <p className=" text-red-800">
+                      **Please add attractions to your itinerary
+                    </p>
+                  )}
+                </SignedIn>
+
                 <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
                   {attractionsUpvotedByUser?.sort().map((attraction) => {
                     return <li key={attraction}>{attraction}</li>;

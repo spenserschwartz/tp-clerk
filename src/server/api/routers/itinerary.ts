@@ -37,7 +37,7 @@ export const itineraryRouter = createTRPCRouter({
       return itinerary;
     }),
 
-  create: privateProcedure
+  create: publicProcedure
     .input(
       z.object({
         cityId: z.string(),
@@ -53,7 +53,7 @@ export const itineraryRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.userId;
+      const userId = ctx.userId ?? "not-logged-in";
 
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
