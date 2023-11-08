@@ -10,7 +10,7 @@ const Itinerary = ({ parsedData }: ItineraryProps) => {
       {parsedData.length ? (
         <div className="flex h-full max-w-5xl flex-col items-center">
           {/* Itinerary */}
-          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
+          <div className="my-4 flex h-full flex-col overflow-y-auto rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 {/* Date and day of week */}
