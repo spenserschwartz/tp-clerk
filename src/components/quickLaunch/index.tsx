@@ -68,7 +68,7 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   return (
-    <div className="my-8 flex h-full flex-col items-center">
+    <div className="my-8 flex h-full flex-col items-center" data-aos="fade-up">
       {/* Loading Page */}
       {isLoadingAI && <LoadingSection />}
 
