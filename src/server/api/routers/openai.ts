@@ -31,13 +31,13 @@ const generateQuery = (input: QueryInputInterface) => {
   Example response for September 29, 2023 to September 30, 2023 to Paris:
   
   [
-    {"dayOfWeek: "Friday",
+    {"dayOfWeek": "Friday",
     "date": "September 29, 2023",
     "morning": "",
     "afternoon": "",
     "evening": ""},
 
-    {"dayOfWeek: "Saturday",
+    {"dayOfWeek": "Saturday",
     "date": "September 30, 2023",
     "morning": "",
     "afternoon": "",
