@@ -1,12 +1,12 @@
 import { useUser } from "@clerk/nextjs";
 import { addDays, format as formatDate } from "date-fns";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
-import { LoadingSection } from "~/components";
+import { LoadingSpinner } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
 import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
@@ -31,6 +31,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     from: new Date(),
     to: addDays(new Date(), 3),
   });
+  const [showLoading, setShowLoading] = useState(false);
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
@@ -39,8 +40,6 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
-
-    console.log("handleFormSubmit");
 
     const formattedStartDate = formatDate(
       date?.from ?? new Date(),
@@ -75,10 +74,13 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     );
   };
 
+  useEffect(() => {
+    if (isLoadingAI || isCreatingItinerary) setShowLoading(true);
+    else setShowLoading(false);
+  }, [isLoadingAI, isCreatingItinerary]);
+
   return (
     <div className="my-8 flex h-full flex-col items-center">
-      {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
-
       {/* Launcher */}
       <form
         className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
@@ -87,43 +89,69 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
           if (e.key === "Enter") handleFormSubmit(e);
         }}
       >
-        <h2 className="mt-4 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          City Planner
+        <h2 className="mt-2 text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Make an Itinerary
         </h2>
-        <div className="">
-          <div className="">
-            {/* Date Range Picker */}
-            <div className="px-4">
-              <span className="font-semibold text-gray-900">
-                Choose your dates
-              </span>
-              <DatePickerWithRange date={date} setDate={setDate} />
-            </div>
+        {showLoading && <LoadingSpinner size={100} />}
+        {!showLoading && (
+          <div>
+            <div className="">
+              <div className="">
+                {/* Date Range Picker */}
+                <div className="px-4">
+                  <span className="font-semibold text-gray-900">
+                    Choose your dates
+                  </span>
+                  <DatePickerWithRange date={date} setDate={setDate} />
+                </div>
 
-            {/* Included Attractions, alphabetized */}
-            <div className="mt-4 flex w-full flex-col px-4">
-              <div className="mb-6 block w-full">
-                <p className="font-semibold text-gray-900">
-                  Included Attractions
-                </p>
-                <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
-                  {attractionsUpvotedByUser?.sort().map((attraction) => {
-                    return <li key={attraction}>{attraction}</li>;
-                  })}
-                </ul>
+                {/* Included Attractions, alphabetized */}
+                <div className="mt-4 flex w-full flex-col px-4">
+                  <div className="mb-6 block w-full">
+                    <p className="font-semibold text-gray-900">
+                      Included Attractions
+                    </p>
+                    <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
+                      {attractionsUpvotedByUser?.sort().map((attraction) => {
+                        return <li key={attraction}>{attraction}</li>;
+                      })}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Buttons */}
-        <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-          <button
-            className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
-            type="submit"
-          >
-            Make Itinerary
-          </button>
+        <div className="grid grid-cols-1">
+          {!showLoading && itineraryCreated && (
+            <a
+              href={`/itinerary/${itineraryData?.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-x-2.5 bg-blue-300 p-3 font-semibold text-gray-900 hover:bg-blue-100"
+            >
+              Go to Itinerary
+            </a>
+          )}
+        </div>
+
+        <div
+          className={`grid grid-cols-${
+            showLoading ? "1" : "2"
+          } divide-x divide-gray-900/5 bg-gray-50`}
+        >
+          {!showLoading && (
+            <button
+              className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
+              type="submit"
+            >
+              Make Itinerary
+            </button>
+          )}
+
+          {/* Cancel*/}
           <button
             className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
             onClick={() => setShowCityLaunch(false)}
