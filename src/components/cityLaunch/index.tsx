@@ -23,15 +23,17 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     itineraryCreated,
     itineraryData,
   } = useCreateItinerary();
-  const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
-    cityId: cityData?.id ?? "",
-    userId: user ? user.id : "",
-  });
+
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
   const [showLoading, setShowLoading] = useState(false);
+
+  const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
+    cityId: cityData?.id ?? "",
+    userId: user ? user.id : "",
+  });
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
@@ -74,6 +76,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     );
   };
 
+  // set showLoading to true when isLoadingAI or isCreatingItinerary is true
   useEffect(() => {
     if (isLoadingAI || isCreatingItinerary) setShowLoading(true);
     else setShowLoading(false);
