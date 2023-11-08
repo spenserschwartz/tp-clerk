@@ -23,6 +23,7 @@ export const RootLayout = (props: PropsWithChildren) => {
       <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
         <Header />
 
+        {/* Spacing between header and main content */}
         <div className="mb-24 md:mb-32" />
 
         {props.children}
