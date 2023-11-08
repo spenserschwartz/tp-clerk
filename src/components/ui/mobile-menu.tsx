@@ -5,7 +5,6 @@ import {
   SignOutButton,
   SignedIn,
   SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
