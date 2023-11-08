@@ -142,6 +142,19 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
 
         {/* Buttons */}
         <div className="grid grid-cols-1">
+          {/* Cancel Button shows when loading results */}
+          {showLoading && (
+            <div className="grid grid-cols-1">
+              <button
+                className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+                onClick={() => setShowCityLaunch(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+
+          {/* Go to Itinerary button shows when itinerary is created */}
           {!showLoading && itineraryCreated && (
             <a
               href={`/itinerary/${itineraryData?.id}`}
@@ -154,28 +167,27 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
           )}
         </div>
 
-        <div
-          className={`grid grid-cols-${
-            showLoading ? "1" : "2"
-          } divide-x divide-gray-900/5 bg-gray-50`}
-        >
-          {!showLoading && (
+        {/* Make Itinerary and Cancel button (side by side) show when nothing is loading */}
+        {!showLoading && (
+          <div
+            className={`grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50`}
+          >
             <button
               className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
               type="submit"
             >
               Make Itinerary
             </button>
-          )}
 
-          {/* Cancel*/}
-          <button
-            className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
-            onClick={() => setShowCityLaunch(false)}
-          >
-            Cancel
-          </button>
-        </div>
+            {/* Cancel*/}
+            <button
+              className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+              onClick={() => setShowCityLaunch(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
