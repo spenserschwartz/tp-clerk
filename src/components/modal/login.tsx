@@ -24,6 +24,13 @@ const LoginModal = ({ closeModalHandler }: LoginModalProps) => {
             Sign In
           </button>
         </SignInButton>
+
+        <button
+          className="rounded-md px-3 py-2 text-sm font-semibold text-gray-500 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={closeModalHandler}
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );
