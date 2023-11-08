@@ -80,8 +80,7 @@ const GridElement = ({
   return (
     <div
       className="max-w-sm overflow-hidden rounded shadow-lg"
-      data-aos="zoom-y-out"
-      data-aos-delay="150"
+      data-aos="fade-up"
     >
       {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
