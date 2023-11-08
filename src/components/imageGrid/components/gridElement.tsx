@@ -1,9 +1,11 @@
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
+import { Modal } from "~/components";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {
@@ -17,11 +19,13 @@ const GridElement = ({
   cityName,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
+  const { isSignedIn } = useUser();
   const ctx = api.useContext();
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0); // +5 can be removed once we have enough real data
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setAttractionUpvoted(userHasUpvotedAttraction);
@@ -72,9 +76,12 @@ const GridElement = ({
   const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // If the user has already upvoted, remove their update
-    if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
-    else mutate({ attractionId: attraction.id });
+    if (!isSignedIn) return setOpenModal(true);
+    else {
+      // If the user has already upvoted, remove their update
+      if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
+      else mutate({ attractionId: attraction.id });
+    }
   };
 
   return (
@@ -129,6 +136,13 @@ const GridElement = ({
           #{cityName}
         </span>
       </div>
+
+      {/* Log In Modal */}
+      <Modal
+        content="LoginModal"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   );
 };
