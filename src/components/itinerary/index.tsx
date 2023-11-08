@@ -1,32 +1,14 @@
-import React, { type Dispatch } from "react";
-
-import { Button } from "~/components";
-
-interface ParsedAIMessageInterface {
-  dayOfWeek: string;
-  date: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-}
+import { type ParsedAIMessageInterface } from "~/types";
 
 interface ItineraryProps {
   parsedData: ParsedAIMessageInterface[];
-  setParsedData: Dispatch<ParsedAIMessageInterface[]>;
 }
 
-const Itinerary = ({ parsedData, setParsedData }: ItineraryProps) => {
+const Itinerary = ({ parsedData }: ItineraryProps) => {
   return (
     <div>
       {parsedData.length ? (
         <div className="flex h-full max-w-5xl flex-col items-center">
-          {/* Button to create new itinerary */}
-          <Button
-            buttonText="Create new itinerary"
-            buttonClickHandler={() => setParsedData([])}
-            size="xl"
-          />
-
           {/* Itinerary */}
           <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
             {parsedData.map((itineraryDay) => (

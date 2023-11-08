@@ -22,7 +22,7 @@ const generateQuery = (input: QueryInputInterface) => {
   const attractionsQuery = input.attractions?.length
     ? `Make sure to include the following attractions: ${input.attractions.join(
         ", "
-      )}. `
+      )}. Fill in any additional time with other popular attractions. `
     : "";
 
   // Format query in proper JSON format
@@ -63,7 +63,7 @@ export const OpenAIRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       try {
         const chatCompletion = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo",
+          model: "gpt-3.5-turbo-1106",
           messages: [
             {
               role: "user",

@@ -1,8 +1,7 @@
-import type { RouterOutputs } from "~/utils/api";
-
-type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
-type GetUpvotesByUserInCityType =
-  RouterOutputs["upvotes"]["getAllByUserInCity"];
+import {
+  type GetCityByNameType,
+  type GetUpvotesByUserInCityType,
+} from "~/types/router";
 
 export interface ImageGridProps {
   cityData: GetCityByNameType;

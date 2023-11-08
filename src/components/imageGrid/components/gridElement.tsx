@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
+import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-import { api, type RouterOutputs } from "~/utils/api";
-
-type Attraction = RouterOutputs["attractions"]["getAll"][0];
+import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {
-  attraction: Attraction;
+  attraction: AttractionType;
   cityName: string;
   userHasUpvotedAttraction: boolean;
 }
@@ -19,7 +18,7 @@ const GridElement = ({
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const ctx = api.useContext();
-  const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0);
+  const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0); // +5 can be removed once we have enough real data
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );

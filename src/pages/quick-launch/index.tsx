@@ -1,5 +1,5 @@
 import { type ReactElement } from "react";
-import { type NextPageWithLayout } from "../_app";
+import { type NextPageWithLayout } from "~/types/pages";
 
 import { QuickLaunch, RootLayout } from "~/components";
 
