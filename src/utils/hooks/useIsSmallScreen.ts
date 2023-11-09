@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 
 function useIsSmallScreen() {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640); // Example: 640px is Tailwind's 'sm' breakpoint
+  // Initialize state with undefined or a default value
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    typeof window !== "undefined" ? window.innerWidth < 640 : false
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 640);
-    };
+    // Ensure window is defined
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        setIsSmallScreen(window.innerWidth < 640); // Adjust the breakpoint as needed
+      };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize);
+      handleResize(); // Set the initial value
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   return isSmallScreen;
