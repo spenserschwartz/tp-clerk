@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import CityLaunch from "~/components/cityLaunch";
+import { type ModalName } from "~/components/modal/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
@@ -15,7 +16,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState<ModalName>("LoginModal");
   const [filterInputValue, setFilterInputValue] = useState("");
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,

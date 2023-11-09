@@ -32,7 +32,10 @@ const GridElement = ({
   }, [userHasUpvotedAttraction]);
 
   const { mutate } = api.upvotes.create.useMutation({
-    onSuccess: () => void ctx.upvotes.getAll.invalidate(),
+    onSuccess: () => {
+      void ctx.upvotes.getAll.invalidate();
+      void ctx.city.getCityByName.invalidate();
+    },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage?.[0]) {
