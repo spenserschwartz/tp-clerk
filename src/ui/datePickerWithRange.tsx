@@ -10,6 +10,7 @@ import { type Dispatch } from "react";
 import { Button } from "~/ui/button";
 import { Calendar } from "~/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "~/ui/popover";
+import useIsSmallScreen from "~/utils/hooks/useIsSmallScreen";
 
 interface DatePickerWithRangeProps {
   date: DateRange | undefined;
@@ -21,6 +22,8 @@ export function DatePickerWithRange({
   date,
   setDate,
 }: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) {
+  const isSmallScreen = useIsSmallScreen();
+
   return (
     <div className={cn("grid", className)}>
       <Popover>
@@ -55,7 +58,7 @@ export function DatePickerWithRange({
             defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
-            numberOfMonths={2}
+            numberOfMonths={isSmallScreen ? 1 : 2}
           />
         </PopoverContent>
       </Popover>
