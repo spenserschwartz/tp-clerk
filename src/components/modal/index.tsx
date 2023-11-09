@@ -2,10 +2,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, type Dispatch } from "react";
 
 import { type GetCityByNameType } from "~/types/router";
-import ModalContent from "./utils";
+import ModalContent, { type ModalName } from "./utils";
 
 interface ModalProps {
-  content: string;
+  content: ModalName;
   data?: GetCityByNameType;
   openModal: boolean;
   setOpenModal: Dispatch<boolean>;
