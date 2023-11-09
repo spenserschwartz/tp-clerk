@@ -81,4 +81,8 @@ export default {
       visibility: ["group-hover"],
     },
   },
+
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } satisfies Config;
