@@ -47,11 +47,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
 
-      {/* CityLaunch */}
-      {showCityLaunch && (
-        <CityLaunch cityData={cityData} setShowCityLaunch={setShowCityLaunch} />
-      )}
-
       {/* City Details */}
       <div className="flex w-full max-w-6xl flex-col justify-center px-5">
         <div className="relative flex w-full items-center justify-center ">
@@ -98,11 +93,18 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         />
       </div>
 
-      <ImageGrid
-        cityData={cityData}
-        userUpvoteData={userUpvoteData}
-        filterInputValue={filterInputValue}
-      />
+      {/* CityLaunch */}
+      {showCityLaunch && (
+        <CityLaunch cityData={cityData} setShowCityLaunch={setShowCityLaunch} />
+      )}
+
+      {!showCityLaunch && (
+        <ImageGrid
+          cityData={cityData}
+          userUpvoteData={userUpvoteData}
+          filterInputValue={filterInputValue}
+        />
+      )}
 
       <Modal
         content={modalContent}
