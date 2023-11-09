@@ -184,6 +184,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
             <button
               className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
               onClick={() => setShowCityLaunch(false)}
+              type="button"
             >
               Cancel
             </button>
