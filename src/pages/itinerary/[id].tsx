@@ -16,10 +16,13 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
+  console.log("iPage data", data);
+
   return (
     <main className="flex flex-col items-center">
       <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        Itinerary # {itineraryID}
+        <p>Itinerary: {itineraryID}</p>
+        <p>{itineraryID}</p>
       </h1>
       <Itinerary parsedData={parsedData ?? []} />
     </main>
