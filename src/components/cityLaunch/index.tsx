@@ -9,7 +9,8 @@ import { api } from "~/utils/api";
 import { LoadingSpinner } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
-import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
+import { useCreateItinerary } from "~/utils/hooks";
+
 interface CityLaunchProps {
   cityData: GetCityByNameType;
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
