@@ -1,6 +1,7 @@
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import { screenshots } from "~/utils/images";
 
@@ -10,6 +11,9 @@ interface FeaturesTabProps {
 }
 
 const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
+  const [isClicked, setIsClicked] = useState(false); // for mobile
+  const handleClick = () => setIsClicked(!isClicked);
+
   const heightFix = () => {
     if (tabs.current?.parentElement)
       tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
@@ -29,9 +33,14 @@ const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
       beforeEnter={() => heightFix()}
       unmount={false}
     >
-      <div className="group relative inline-flex flex-col rounded-lg shadow-2xl ">
+      <div
+        className="group relative inline-flex flex-col rounded-lg shadow-2xl"
+        onClick={handleClick}
+      >
         <Image
-          className="mx-auto rounded md:max-w-none md:group-hover:blur"
+          className={`mx-auto rounded group-hover:blur md:max-w-none ${
+            isClicked ? "blur" : "" // should be blurred if clicked (for mobile) or hovered
+          }`}
           src={screenshots.londonSplash}
           width={500}
           height="462"
@@ -39,7 +48,12 @@ const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
         />
 
         {/* Button to anchor quickLaunch */}
-        <div className="animate-float invisible absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform justify-center rounded-md md:max-w-none md:group-hover:visible">
+        <div
+          className={`animate-float ${
+            isClicked ? "" : "invisible" // should be invisible if not clicked (for mobile) or hovered
+          } absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform justify-center rounded-md group-hover:visible md:max-w-none`}
+        >
+          {" "}
           <button
             type="button"
             className="rounded-md  bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
