@@ -13,10 +13,15 @@ import { useCreateItinerary } from "~/utils/hooks";
 
 interface CityLaunchProps {
   cityData: GetCityByNameType;
+  isMutating: boolean;
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
+const CityLaunch = ({
+  cityData,
+  isMutating,
+  setShowCityLaunch,
+}: CityLaunchProps) => {
   const { user } = useUser();
   const {
     createItinerary,
@@ -78,11 +83,11 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     );
   };
 
-  // set showLoading to true when isLoadingAI or isCreatingItinerary is true
+  // set showLoading to true when isLoadingAI or isCreatingItinerary or isMutating is true
   useEffect(() => {
-    if (isLoadingAI || isCreatingItinerary) setShowLoading(true);
+    if (isLoadingAI || isCreatingItinerary || isMutating) setShowLoading(true);
     else setShowLoading(false);
-  }, [isLoadingAI, isCreatingItinerary]);
+  }, [isLoadingAI, isCreatingItinerary, isMutating]);
 
   return (
     <div className="my-8 flex h-full flex-col items-center">

@@ -11,12 +11,14 @@ import { type AttractionType } from "~/types/router";
 interface GridElementProps {
   attraction: AttractionType;
   cityName: string;
+  setIsMutating: (isMutating: boolean) => void;
   userHasUpvotedAttraction: boolean;
 }
 
 const GridElement = ({
   attraction,
   cityName,
+  setIsMutating,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
   const { isSignedIn } = useUser();
@@ -35,6 +37,7 @@ const GridElement = ({
     onSuccess: () => {
       void ctx.upvotes.getAllByUserInCity.invalidate();
       void ctx.city.getCityByName.invalidate();
+      setIsMutating(false);
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -52,6 +55,7 @@ const GridElement = ({
       // Optimistic update
       setUpvotes(upvotes + 1);
       setAttractionUpvoted(true);
+      setIsMutating(true);
     },
   });
   const { mutate: mutateDelete } = api.upvotes.delete.useMutation({

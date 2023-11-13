@@ -18,6 +18,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const [showCityLaunch, setShowCityLaunch] = useState(false);
   const [modalContent, setModalContent] = useState<ModalName>("LoginModal");
   const [filterInputValue, setFilterInputValue] = useState("");
+  const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
+
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
@@ -95,7 +97,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
 
       {/* CityLaunch */}
       {showCityLaunch && (
-        <CityLaunch cityData={cityData} setShowCityLaunch={setShowCityLaunch} />
+        <CityLaunch
+          cityData={cityData}
+          setShowCityLaunch={setShowCityLaunch}
+          isMutating={isMutating}
+        />
       )}
 
       {!showCityLaunch && (
@@ -103,6 +109,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           cityData={cityData}
           userUpvoteData={userUpvoteData}
           filterInputValue={filterInputValue}
+          setIsMutating={setIsMutating}
         />
       )}
 
