@@ -10,7 +10,8 @@ const Itinerary = ({ parsedData }: ItineraryProps) => {
       {parsedData.length ? (
         <div className="flex h-full max-w-5xl flex-col items-center">
           {/* Itinerary */}
-          <div className="my-4 flex h-full flex-col overflow-y-scroll rounded-xl bg-gray-800 pr-2 shadow-xl sm:h-80">
+          <div className="my-4 flex h-full flex-col overflow-y-auto rounded-xl bg-gray-800 pb-3 pr-2 shadow-xl sm:max-h-80">
+            {/* Map through each day */}
             {parsedData.map((itineraryDay) => (
               <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
                 {/* Date and day of week */}
@@ -20,9 +21,9 @@ const Itinerary = ({ parsedData }: ItineraryProps) => {
 
                 {/* Morning, Afternoon, Evening */}
                 <ul className="ms-8 list-outside list-disc text-gray-300">
-                  <li className="mb-1">Morning: {itineraryDay.morning}</li>
-                  <li>Afternoon: {itineraryDay.afternoon}</li>
-                  <li>Evening: {itineraryDay.evening}</li>
+                  <li className="my-1">Morning: {itineraryDay.morning}</li>
+                  <li className="my-1">Afternoon: {itineraryDay.afternoon}</li>
+                  <li className="my-1">Evening: {itineraryDay.evening}</li>
                 </ul>
               </div>
             ))}

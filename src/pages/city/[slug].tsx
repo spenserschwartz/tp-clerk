@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import CityLaunch from "~/components/cityLaunch";
+import { type ModalName } from "~/components/modal/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
@@ -15,8 +16,10 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState<ModalName>("LoginModal");
   const [filterInputValue, setFilterInputValue] = useState("");
+  const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
+
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
@@ -45,11 +48,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>
-
-      {/* CityLaunch */}
-      {showCityLaunch && (
-        <CityLaunch cityData={cityData} setShowCityLaunch={setShowCityLaunch} />
-      )}
 
       {/* City Details */}
       <div className="flex w-full max-w-6xl flex-col justify-center px-5">
@@ -97,11 +95,23 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         />
       </div>
 
-      <ImageGrid
-        cityData={cityData}
-        userUpvoteData={userUpvoteData}
-        filterInputValue={filterInputValue}
-      />
+      {/* CityLaunch */}
+      {showCityLaunch && (
+        <CityLaunch
+          cityData={cityData}
+          setShowCityLaunch={setShowCityLaunch}
+          isMutating={isMutating}
+        />
+      )}
+
+      {!showCityLaunch && (
+        <ImageGrid
+          cityData={cityData}
+          userUpvoteData={userUpvoteData}
+          filterInputValue={filterInputValue}
+          setIsMutating={setIsMutating}
+        />
+      )}
 
       <Modal
         content={modalContent}

@@ -60,7 +60,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
         data: {
           city: { connect: { id: input.cityId } },
           recommendedDays: input.recommendedDays,
-          userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
+          userId: userId ?? "userNotFound",
         },
       });
 
@@ -91,7 +91,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
         create: {
           city: { connect: { id: input.cityId } },
           recommendedDays: input.recommendedDays,
-          userId: "user_2T2MppjE6PnFtHWN32Td3co50J9",
+          userId: userId ?? "userNotFound",
         },
       });
 

@@ -5,6 +5,7 @@ const ImageGrid = ({
   cityData,
   userUpvoteData,
   filterInputValue,
+  setIsMutating,
 }: ImageGridProps) => {
   if (!cityData) return null;
   const { attractions } = cityData;
@@ -34,6 +35,7 @@ const ImageGrid = ({
             key={attraction.id}
             attraction={attraction}
             cityName={cityData.name}
+            setIsMutating={setIsMutating}
             userHasUpvotedAttraction={userHasUpvotedAttraction}
           />
         );

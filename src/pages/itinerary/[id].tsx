@@ -18,8 +18,9 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   return (
     <main className="flex flex-col items-center">
-      <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        Itinerary # {itineraryID}
+      <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+        <p>Itinerary #</p>
+        <p className="truncate">{itineraryID}</p>
       </h1>
       <Itinerary parsedData={parsedData ?? []} />
     </main>

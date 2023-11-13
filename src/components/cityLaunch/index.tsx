@@ -9,13 +9,19 @@ import { api } from "~/utils/api";
 import { LoadingSpinner } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
-import useCreateItinerary from "~/utils/hooks/useCreateItinerary";
+import { useCreateItinerary } from "~/utils/hooks";
+
 interface CityLaunchProps {
   cityData: GetCityByNameType;
+  isMutating: boolean;
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
+const CityLaunch = ({
+  cityData,
+  isMutating,
+  setShowCityLaunch,
+}: CityLaunchProps) => {
   const { user } = useUser();
   const {
     createItinerary,
@@ -34,6 +40,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
   });
+
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
@@ -76,11 +83,11 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     );
   };
 
-  // set showLoading to true when isLoadingAI or isCreatingItinerary is true
+  // set showLoading to true when isLoadingAI or isCreatingItinerary or isMutating is true
   useEffect(() => {
-    if (isLoadingAI || isCreatingItinerary) setShowLoading(true);
+    if (isLoadingAI || isCreatingItinerary || isMutating) setShowLoading(true);
     else setShowLoading(false);
-  }, [isLoadingAI, isCreatingItinerary]);
+  }, [isLoadingAI, isCreatingItinerary, isMutating]);
 
   return (
     <div className="my-8 flex h-full flex-col items-center">
@@ -142,6 +149,19 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
 
         {/* Buttons */}
         <div className="grid grid-cols-1">
+          {/* Cancel Button shows when loading results */}
+          {showLoading && (
+            <div className="grid grid-cols-1">
+              <button
+                className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+                onClick={() => setShowCityLaunch(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+
+          {/* Go to Itinerary button shows when itinerary is created */}
           {!showLoading && itineraryCreated && (
             <a
               href={`/itinerary/${itineraryData?.id}`}
@@ -154,28 +174,28 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
           )}
         </div>
 
-        <div
-          className={`grid grid-cols-${
-            showLoading ? "1" : "2"
-          } divide-x divide-gray-900/5 bg-gray-50`}
-        >
-          {!showLoading && (
+        {/* Make Itinerary and Cancel button (side by side) show when nothing is loading */}
+        {!showLoading && (
+          <div
+            className={`grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50`}
+          >
             <button
               className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
               type="submit"
             >
               Make Itinerary
             </button>
-          )}
 
-          {/* Cancel*/}
-          <button
-            className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
-            onClick={() => setShowCityLaunch(false)}
-          >
-            Cancel
-          </button>
-        </div>
+            {/* Cancel*/}
+            <button
+              className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
+              onClick={() => setShowCityLaunch(false)}
+              type="button"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

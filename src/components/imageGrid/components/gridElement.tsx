@@ -1,34 +1,44 @@
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
+import { Modal } from "~/components";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {
   attraction: AttractionType;
   cityName: string;
+  setIsMutating: (isMutating: boolean) => void;
   userHasUpvotedAttraction: boolean;
 }
 
 const GridElement = ({
   attraction,
   cityName,
+  setIsMutating,
   userHasUpvotedAttraction,
 }: GridElementProps) => {
+  const { isSignedIn } = useUser();
   const ctx = api.useContext();
   const [upvotes, setUpvotes] = useState(attraction.upvotes.length + 5 || 0); // +5 can be removed once we have enough real data
   const [attractionUpvoted, setAttractionUpvoted] = useState(
     userHasUpvotedAttraction
   );
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setAttractionUpvoted(userHasUpvotedAttraction);
   }, [userHasUpvotedAttraction]);
 
   const { mutate } = api.upvotes.create.useMutation({
-    onSuccess: () => void ctx.upvotes.getAll.invalidate(),
+    onSuccess: () => {
+      void ctx.upvotes.getAllByUserInCity.invalidate();
+      void ctx.city.getCityByName.invalidate();
+      setIsMutating(false);
+    },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage?.[0]) {
@@ -45,6 +55,7 @@ const GridElement = ({
       // Optimistic update
       setUpvotes(upvotes + 1);
       setAttractionUpvoted(true);
+      setIsMutating(true);
     },
   });
   const { mutate: mutateDelete } = api.upvotes.delete.useMutation({
@@ -72,16 +83,18 @@ const GridElement = ({
   const upvoteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // If the user has already upvoted, remove their update
-    if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
-    else mutate({ attractionId: attraction.id });
+    if (!isSignedIn) return setOpenModal(true);
+    else {
+      // If the user has already upvoted, remove their update
+      if (attractionUpvoted) mutateDelete({ attractionId: attraction.id });
+      else mutate({ attractionId: attraction.id });
+    }
   };
 
   return (
     <div
       className="max-w-sm overflow-hidden rounded shadow-lg"
-      data-aos="zoom-y-out"
-      data-aos-delay="150"
+      data-aos="fade-up"
     >
       {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
@@ -130,6 +143,13 @@ const GridElement = ({
           #{cityName}
         </span>
       </div>
+
+      {/* Log In Modal */}
+      <Modal
+        content="LoginModal"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   );
 };
