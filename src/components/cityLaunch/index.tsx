@@ -35,6 +35,7 @@ const CityLaunch = ({ cityData, setShowCityLaunch }: CityLaunchProps) => {
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
   });
+
   const { mutate: generateAI, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(

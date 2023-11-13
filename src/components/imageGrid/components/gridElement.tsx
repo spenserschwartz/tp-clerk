@@ -33,7 +33,7 @@ const GridElement = ({
 
   const { mutate } = api.upvotes.create.useMutation({
     onSuccess: () => {
-      void ctx.upvotes.getAll.invalidate();
+      void ctx.upvotes.getAllByUserInCity.invalidate();
       void ctx.city.getCityByName.invalidate();
     },
     onError: (e) => {
