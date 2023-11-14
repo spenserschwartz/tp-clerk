@@ -5,9 +5,9 @@ import { api } from "~/utils/api";
 import { RootLayout } from "~/components";
 
 const ItinerariesPage: NextPageWithLayout = () => {
-  const { data } = api.itinerary.getAll.useQuery();
+  const { data: allItineraries } = api.itinerary.getAllWithCityInfo.useQuery();
 
-  console.log("data here", data);
+  console.log("allItineraries", allItineraries);
 
   return <div>ItinerariesPage</div>;
 };

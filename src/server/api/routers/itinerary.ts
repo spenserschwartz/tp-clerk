@@ -25,6 +25,16 @@ export const itineraryRouter = createTRPCRouter({
     return itineraries;
   }),
 
+  getAllWithCityInfo: privateProcedure.query(async ({ ctx }) => {
+    const itineraries = await ctx.prisma.itinerary.findMany({
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+      include: { city: true },
+    });
+
+    return itineraries;
+  }),
+
   getByID: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
