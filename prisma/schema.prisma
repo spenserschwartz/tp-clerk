@@ -46,6 +46,7 @@ model City {
 
     authorId    String
     description String?
+    imageURL    String?
     name        String  @unique
 
     @@index([authorId])
@@ -55,9 +56,10 @@ model Itinerary {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    city   City   @relation(fields: [cityId], references: [id])
-    cityId String
-    userId String
+    city         City    @relation(fields: [cityId], references: [id])
+    cityId       String
+    userId       String
+    userImageURL String?
 
     details Json?
 

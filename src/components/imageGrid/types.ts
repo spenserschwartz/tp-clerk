@@ -1,6 +1,6 @@
-import {
-  type GetCityByNameType,
-  type GetUpvotesByUserInCityType,
+import type {
+  GetCityByNameType,
+  GetUpvotesByUserInCityType,
 } from "~/types/router";
 
 export interface ImageGridProps {
