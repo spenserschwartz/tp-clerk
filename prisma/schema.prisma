@@ -46,6 +46,7 @@ model City {
 
     authorId    String
     description String?
+    imageURL    String?
     name        String  @unique
 
     @@index([authorId])
