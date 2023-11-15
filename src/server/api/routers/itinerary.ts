@@ -47,6 +47,18 @@ export const itineraryRouter = createTRPCRouter({
       return itinerary;
     }),
 
+  getByUserId: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const itinerariesByUser = await ctx.prisma.itinerary.findMany({
+        where: { userId: input.userId },
+        take: 100,
+        orderBy: [{ createdAt: "desc" }],
+      });
+
+      return itinerariesByUser;
+    }),
+
   create: publicProcedure
     .input(
       z.object({
