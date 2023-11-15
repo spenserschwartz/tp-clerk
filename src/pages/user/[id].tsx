@@ -8,9 +8,11 @@ import { api } from "~/utils/api";
 const UserPage: NextPageWithLayout<{ userId: string }> = ({ userId }) => {
   console.log("userId", userId);
 
-  const { data } = api.itinerary.getByUserId.useQuery({ userId });
+  const { data: itinerariesByUser } = api.itinerary.getByUserId.useQuery({
+    userId,
+  });
 
-  console.log("data", data);
+  console.log("itinerariesByUser", itinerariesByUser);
 
   return <div>UserPage</div>;
 };
