@@ -52,6 +52,7 @@ export const itineraryRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const itinerariesByUser = await ctx.prisma.itinerary.findMany({
         where: { userId: input.userId },
+        include: { city: true },
         take: 100,
         orderBy: [{ createdAt: "desc" }],
       });
