@@ -1,14 +1,16 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
-import type { ParsedAIMessageInterface } from "~/types";
 
-import { type ItineraryWithCityInfoType } from "~/types/router";
+import type { ParsedAIMessageInterface } from "~/types";
+import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryGridElementProps {
   itinerary: ItineraryWithCityInfoType;
 }
 
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
+  const router = useRouter();
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const {
     city: { name: cityName, imageURL: cityImageURL },
@@ -16,11 +18,17 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const { length: numberOfDays } = details;
 
   const itineraryName = `${numberOfDays} days in ${cityName}`;
+  const itineraryDescription = details[0]?.afternoon;
+
+  const gridElementClickHandler = () => {
+    void router.push(`/itinerary/${itinerary.id}`);
+  };
 
   return (
     <div
       className="max-w-sm overflow-hidden rounded shadow-lg"
       data-aos="fade-up"
+      onClick={gridElementClickHandler}
     >
       {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
@@ -46,7 +54,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
         {/* Description */}
         <div>
           <p className="line-clamp-3 h-20  py-2 text-base text-gray-700">
-            Itinerary description here
+            {itineraryDescription}
           </p>
         </div>
       </div>
