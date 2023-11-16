@@ -11,13 +11,11 @@ interface ItineraryGridElementProps {
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const {
-    city: { imageURL: cityImageURL, name: cityName },
+    city: { name: cityName, imageURL: cityImageURL },
   } = itinerary;
   const { length: numberOfDays } = details;
 
   const itineraryName = `${numberOfDays} days in ${cityName}`;
-
-  console.log("numberOfDays", numberOfDays);
 
   return (
     <div
@@ -27,7 +25,8 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
       {/* Image */}
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
         <Image
-          src={(cityImageURL as string) ?? "/images/placeholder.png"}
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          src={cityImageURL ?? "/images/placeholder.png"}
           alt=""
           className="pointer-events-none object-cover"
           width={100}
