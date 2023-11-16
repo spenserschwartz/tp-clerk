@@ -1,12 +1,11 @@
 import { type GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
-import { Itinerary, RootLayout } from "~/components";
-import ItineraryImageGrid from "~/components/itineraryImageGrid";
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import type { ParsedAIMessageInterface } from "~/types";
-import { type NextPageWithLayout } from "~/types/pages";
-import { ItineraryWithCityInfoType } from "~/types/router";
 import { api } from "~/utils/api";
+
+import { ItineraryImageGrid, RootLayout } from "~/components";
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import type { NextPageWithLayout } from "~/types/pages";
+import type { ItineraryWithCityInfoType } from "~/types/router";
 
 const UserPage: NextPageWithLayout<{ userId: string }> = ({ userId }) => {
   const { data: itinerariesByUser } = api.itinerary.getByUserId.useQuery({
@@ -17,17 +16,6 @@ const UserPage: NextPageWithLayout<{ userId: string }> = ({ userId }) => {
 
   return (
     <main>
-      {/* {itinerariesByUser?.map((itinerary) => {
-        const parsedData =
-          itinerary.details as unknown as ParsedAIMessageInterface[];
-
-        return (
-          <div key={itinerary.id}>
-            <h1>{itinerary.id}</h1>
-            <Itinerary parsedData={parsedData} />
-          </div>
-        );
-      })} */}
       <ItineraryImageGrid
         itineraries={itinerariesByUser as ItineraryWithCityInfoType[]}
       />
