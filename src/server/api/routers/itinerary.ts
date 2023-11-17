@@ -40,6 +40,7 @@ export const itineraryRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const itinerary = await ctx.prisma.itinerary.findUnique({
         where: { id: input.id },
+        include: { city: true },
       });
 
       if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
