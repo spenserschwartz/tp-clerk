@@ -4,7 +4,6 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Breadcrumbs from "./breadcrumbs";
 import Logo from "./logo";
 import MobileMenu from "./mobile-menu";
 import { headerNavigation } from "./utils";
