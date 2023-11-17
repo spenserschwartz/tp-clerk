@@ -9,5 +9,7 @@ export const filterUserForClient = (user: User) => {
       user.externalAccounts.find(
         (externalAccount) => externalAccount.provider === "oauth_github"
       )?.username ?? null,
+    firstName: user.firstName,
+    lastName: user.lastName,
   };
 };
