@@ -47,7 +47,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
       </div>
 
       {/* Details */}
-      <div className="px-4 py-2" onClick={gridElementClickHandler}>
+      <div className="px-4 py-2">
         {/* Itinerary Name */}
         <div className="flex h-14 items-center justify-center text-center text-xl font-bold">
           <p
