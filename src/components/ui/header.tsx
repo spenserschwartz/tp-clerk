@@ -1,6 +1,7 @@
 "use client";
 
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -8,7 +9,20 @@ import Logo from "./logo";
 import MobileMenu from "./mobile-menu";
 import { headerNavigation } from "./utils";
 
+// export const headerNavigation = (user: User | null | undefined) => {
+//   console.log("user", user);
+
+//   return {
+//     links: [
+//       { name: "Quick Launch", href: "/quick-launch" },
+//       { name: "London", href: "/city/london" },
+//       { name: "Berlin", href: "/city/berlin" },
+//     ],
+//   };
+// };
+
 export default function Header() {
+  const { user } = useUser();
   const [top, setTop] = useState<boolean>(true);
 
   // Detect whether user has scrolled the page down by 10px
@@ -41,7 +55,7 @@ export default function Header() {
             <ul className="flex grow flex-wrap items-center justify-end">
               {/* Header Navigation Links */}
               <div className="flex grow flex-wrap items-center">
-                {headerNavigation.links.map((link) => (
+                {headerNavigation(user).links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}

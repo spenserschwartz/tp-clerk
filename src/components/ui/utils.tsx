@@ -1,12 +1,19 @@
+import type { UserResource } from "@clerk/types";
+
 import GitHubIcon from "~/icons/GitHub";
 import LinkedInIcon from "~/icons/LinkedIn";
 
-export const headerNavigation = {
-  links: [
-    { name: "Quick Launch", href: "/quick-launch" },
-    { name: "London", href: "/city/london" },
-    { name: "Berlin", href: "/city/berlin" },
-  ],
+export const headerNavigation = (user: UserResource | null | undefined) => {
+  const { id } = user ?? { id: "" }; // profile page is /user/:id
+
+  return {
+    links: [
+      { name: "My Profile", href: `/user/${id}` },
+      { name: "Quick Launch", href: "/quick-launch" },
+      { name: "London", href: "/city/london" },
+      { name: "Berlin", href: "/city/berlin" },
+    ],
+  };
 };
 
 export const footerNavigation = {
