@@ -90,7 +90,7 @@ const CityLaunch = ({
   }, [isLoadingAI, isCreatingItinerary, isMutating]);
 
   return (
-    <div className="my-8 flex h-full flex-col items-center">
+    <div className="my-8 flex h-full flex-col items-center" data-aos="zoom-in">
       {/* Launcher */}
       <form
         className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
