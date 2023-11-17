@@ -63,8 +63,6 @@ export const profileRouter = createTRPCRouter({
           });
         }
 
-        console.log("USERZ", user);
-
         return filterUserForClient(user);
       }
 
