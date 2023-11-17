@@ -12,10 +12,19 @@ const UserPage: NextPageWithLayout<{ userId: string }> = ({ userId }) => {
     userId,
   });
 
+  const { data: user } = api.profile.getUserById.useQuery({ userId });
+
+  console.log("user", user);
+
   console.log("itinerariesByUser", itinerariesByUser);
 
   return (
-    <main>
+    <main className="flex w-full flex-col items-center px-2">
+      <div className="relative flex w-full items-center justify-center">
+        <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+          {userId}
+        </h1>
+      </div>
       <ItineraryImageGrid
         itineraries={itinerariesByUser as ItineraryWithCityInfoType[]}
       />

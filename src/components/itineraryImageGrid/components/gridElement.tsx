@@ -28,10 +28,12 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     <div
       className="max-w-sm overflow-hidden rounded shadow-lg"
       data-aos="fade-up"
-      onClick={gridElementClickHandler}
     >
       {/* Image */}
-      <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+      <div
+        className="group aspect-h-7 aspect-w-10 relative block w-full cursor-pointer overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:opacity-75"
+        onClick={gridElementClickHandler}
+      >
         <Image
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           src={cityImageURL ?? "/images/placeholder.png"}
@@ -45,10 +47,15 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
       </div>
 
       {/* Details */}
-      <div className="px-4 py-2">
+      <div className="px-4 py-2" onClick={gridElementClickHandler}>
         {/* Itinerary Name */}
         <div className="flex h-14 items-center justify-center text-center text-xl font-bold">
-          {itineraryName}
+          <p
+            className="cursor-pointer hover:opacity-75"
+            onClick={gridElementClickHandler}
+          >
+            {itineraryName}
+          </p>
         </div>
 
         {/* Description */}

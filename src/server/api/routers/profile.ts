@@ -62,6 +62,9 @@ export const profileRouter = createTRPCRouter({
             message: "User not found",
           });
         }
+
+        console.log("USERZ", user);
+
         return filterUserForClient(user);
       }
 
