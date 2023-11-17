@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import Breadcrumbs from "./breadcrumbs";
 import Logo from "./logo";
 import MobileMenu from "./mobile-menu";
 import { headerNavigation } from "./utils";
@@ -31,7 +32,6 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Site branding */}
-
           <div className="mr-8 shrink-0">
             <Logo />
           </div>
