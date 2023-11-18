@@ -1,9 +1,8 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import type { PropsWithChildren } from "react";
-import { useEffect } from "react";
-import Footer from "./ui/footer";
-import Header from "./ui/header";
+import { useEffect, type PropsWithChildren } from "react";
+
+import { Footer, Header } from "~/components/ui";
 
 // Todo: add font-inter to global styles
 

@@ -40,11 +40,25 @@ export const itineraryRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const itinerary = await ctx.prisma.itinerary.findUnique({
         where: { id: input.id },
+        include: { city: true },
       });
 
       if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
 
       return itinerary;
+    }),
+
+  getByUserId: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const itinerariesByUser = await ctx.prisma.itinerary.findMany({
+        where: { userId: input.userId },
+        include: { city: true },
+        take: 100,
+        orderBy: [{ createdAt: "desc" }],
+      });
+
+      return itinerariesByUser;
     }),
 
   create: publicProcedure

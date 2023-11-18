@@ -11,16 +11,19 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+  const details = data?.details as unknown as ParsedAIMessageInterface[];
+  const { length: numberOfDays } = details;
 
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
+  const itineraryName = `${numberOfDays} days in ${data.city.name}`;
+
   return (
     <main className="flex flex-col items-center">
       <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <p>Itinerary #</p>
-        <p className="truncate">{itineraryID}</p>
+        <p className="truncate">{itineraryName}</p>
       </h1>
       <Itinerary parsedData={parsedData ?? []} />
     </main>

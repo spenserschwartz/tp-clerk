@@ -15,6 +15,9 @@ export type GetCityByNameType = RouterOutputs["city"]["getCityByName"];
 */
 export type ItineraryType = RouterOutputs["itinerary"]["getAll"][0];
 
+export type ItineraryWithCityInfoType =
+  RouterOutputs["itinerary"]["getAllWithCityInfo"][0];
+
 /*
     UPVOTES
 */

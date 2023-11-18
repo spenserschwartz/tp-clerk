@@ -5,6 +5,7 @@ import Footer from "./footer";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
 import Itinerary from "./itinerary";
+import ItineraryImageGrid from "./itineraryImageGrid";
 import { RootLayout } from "./layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./modal";
@@ -20,6 +21,7 @@ export {
   Hero,
   ImageGrid,
   Itinerary,
+  ItineraryImageGrid,
   LoadingPage,
   LoadingSection,
   LoadingSpinner,

@@ -5,11 +5,14 @@ import toast from "react-hot-toast";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
+import { useUser } from "@clerk/nextjs";
 import { Button, Itinerary, LoadingSection, Select } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
+import { useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities } from "../utils";
 
 const QuickLaunch = () => {
+  const { isSignedIn } = useUser();
   const [chosenCityName, setChosenCityName] = useState("");
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [date, setDate] = useState<DateRange | undefined>({
@@ -17,6 +20,8 @@ const QuickLaunch = () => {
     to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
+
+  const { createItinerary, isCreatingItinerary } = useCreateItinerary();
 
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
@@ -53,6 +58,27 @@ const QuickLaunch = () => {
     }
   };
 
+  const { data: cityData, refetch } = api.city.getCityByName.useQuery({
+    name: chosenCityName,
+  });
+
+  useEffect(() => {
+    refetch;
+  }, [chosenCityName, refetch]);
+
+  const saveItineraryHandler = () => {
+    if (!isSignedIn) {
+      toast.error("Please sign in to save your itinerary!");
+      return;
+    }
+    if (parsedData.length > 0) {
+      createItinerary({
+        cityId: cityData?.id ?? "city not found",
+        details: parsedData,
+      });
+    }
+  };
+
   // Set parsedData that shows on generation
   useEffect(() => {
     if (generatedAIMessage) {
@@ -70,7 +96,7 @@ const QuickLaunch = () => {
   return (
     <div className="my-8 flex h-full flex-col items-center" data-aos="fade-up">
       {/* Loading Page */}
-      {isLoadingAI && <LoadingSection />}
+      {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
 
       {/* Quick Launch Form */}
       {!isLoadingAI && !parsedData.length && (
@@ -132,12 +158,21 @@ const QuickLaunch = () => {
       {/* Display Generated Itinerary */}
       {parsedData.length > 0 && (
         <div className="flex flex-col items-center">
-          {/* Button to create new itinerary */}
-          <Button
-            buttonText="Create new itinerary"
-            buttonClickHandler={() => setParsedData([])}
-            size="xl"
-          />
+          <div className="flex">
+            {/* Button to create new itinerary */}
+            <Button
+              buttonText="Create new itinerary"
+              buttonClickHandler={() => setParsedData([])}
+              size="xl"
+            />
+
+            <button
+              className="ml-4 rounded bg-green-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              onClick={saveItineraryHandler}
+            >
+              Save Itinerary
+            </button>
+          </div>
           <Itinerary parsedData={parsedData} />
         </div>
       )}
