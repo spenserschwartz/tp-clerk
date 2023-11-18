@@ -58,6 +58,14 @@ const QuickLaunch = () => {
     }
   };
 
+  const { data: cityData, refetch } = api.city.getCityByName.useQuery({
+    name: chosenCityName,
+  });
+
+  useEffect(() => {
+    refetch;
+  }, [chosenCityName, refetch]);
+
   const saveItineraryHandler = () => {
     if (!isSignedIn) {
       toast.error("Please sign in to save your itinerary!");
@@ -65,7 +73,7 @@ const QuickLaunch = () => {
     }
     if (parsedData.length > 0) {
       createItinerary({
-        cityId: "clp39k0740000z4gekfebbloh",
+        cityId: cityData?.id ?? "city not found",
         details: parsedData,
       });
     }
