@@ -9,18 +9,6 @@ import Logo from "./logo";
 import MobileMenu from "./mobile-menu";
 import { headerNavigation } from "./utils";
 
-// export const headerNavigation = (user: User | null | undefined) => {
-//   console.log("user", user);
-
-//   return {
-//     links: [
-//       { name: "Quick Launch", href: "/quick-launch" },
-//       { name: "London", href: "/city/london" },
-//       { name: "Berlin", href: "/city/berlin" },
-//     ],
-//   };
-// };
-
 export default function Header() {
   const { user } = useUser();
   const [top, setTop] = useState<boolean>(true);
