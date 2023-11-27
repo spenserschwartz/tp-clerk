@@ -2,6 +2,7 @@ import type { WebhookEvent } from "@clerk/clerk-sdk-node";
 import type { IncomingHttpHeaders } from "http";
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { Webhook, type WebhookRequiredHeaders } from "svix";
+import { prisma } from "~/server/db";
 
 type NextApiRequestWithSvixRequiredHeaders = NextApiRequest & {
   headers: IncomingHttpHeaders & WebhookRequiredHeaders;
@@ -55,6 +56,12 @@ export default function handler(
     case EventTypes.userCreated: {
       // user created logic
       console.log("USER CREATED EVENT");
+
+      // Get the ID and type
+      const { id } = evt.data;
+      const eventType = evt.type;
+      console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+      console.log("This is evt", evt);
     }
 
     case EventTypes.userUpdated: {

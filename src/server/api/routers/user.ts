@@ -16,5 +16,33 @@ const ratelimit = new Ratelimit({
 });
 
 export const userRouter = createTRPCRouter({
+  getAll: privateProcedure.query(async ({ ctx }) => {
+    const users = await ctx.prisma.user.findMany({
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+    });
+
+    return users;
+  }),
+
+  create: publicProcedure
+    .input(z.object({ id: z.string(), image: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId ?? "not-logged-in";
+      console.log("CREATE userId", userId);
+
+      const { success } = await ratelimit.limit(userId);
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
+
+      const newItinerary = await ctx.prisma.user.create({
+        data: {
+          id: input.id,
+          image: input.image,
+        },
+      });
+
+      return newItinerary;
+    }),
+
   // More routers here...
 });
