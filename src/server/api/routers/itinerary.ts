@@ -40,7 +40,6 @@ export const itineraryRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const itinerary = await ctx.prisma.itinerary.findUnique({
         where: { id: input.id },
-        include: { city: true },
       });
 
       if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
@@ -85,7 +84,7 @@ export const itineraryRouter = createTRPCRouter({
       const newItinerary = await ctx.prisma.itinerary.create({
         data: {
           city: { connect: { id: input.cityId } },
-          userId: userId,
+          user: { connect: { id: userId } },
           details: input.details,
         },
       });
