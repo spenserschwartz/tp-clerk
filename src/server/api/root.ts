@@ -8,6 +8,7 @@ import {
   profileRouter,
   recommendedDaysInCityRouter,
   upvotesRouter,
+  userRouter,
 } from "./routers";
 
 /**
@@ -24,6 +25,7 @@ export const appRouter = createTRPCRouter({
   profile: profileRouter,
   recommendedDaysInCity: recommendedDaysInCityRouter,
   upvotes: upvotesRouter,
+  user: userRouter,
 });
 
 // export type definition of API
