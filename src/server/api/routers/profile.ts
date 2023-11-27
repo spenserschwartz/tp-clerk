@@ -13,8 +13,6 @@ export const profileRouter = createTRPCRouter({
         username: [input.username],
       });
 
-      console.log("USER ", user);
-
       if (!user) {
         // if we hit here we need a unsantized username so hit api once more and find the user.
         const users = await clerkClient.users.getUserList({
@@ -43,8 +41,6 @@ export const profileRouter = createTRPCRouter({
       const [user] = await clerkClient.users.getUserList({
         userId: [input.userId],
       });
-
-      console.log("USER ", user);
 
       if (!user) {
         // if we hit here we need a unsantized username so hit api once more and find the user.
