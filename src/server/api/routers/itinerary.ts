@@ -93,5 +93,21 @@ export const itineraryRouter = createTRPCRouter({
       return newItinerary;
     }),
 
+  delete: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const itinerary = await ctx.prisma.itinerary.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
+
+      await ctx.prisma.itinerary.delete({
+        where: { id: input.id },
+      });
+
+      return { success: true };
+    }),
+
   // More routers here...
 });
