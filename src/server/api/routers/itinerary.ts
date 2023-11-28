@@ -78,6 +78,7 @@ export const itineraryRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId ?? "not-logged-in";
+      console.log("This is userId", userId);
 
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
