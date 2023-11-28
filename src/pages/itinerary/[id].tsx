@@ -1,6 +1,8 @@
 import { SignedIn } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
-import { type ReactElement } from "react";
+import { useRouter } from "next/router";
+import { useEffect, type ReactElement } from "react";
+import toast from "react-hot-toast";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
@@ -12,8 +14,8 @@ import { useDeleteItinerary } from "~/utils/hooks";
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
-  const { deleteItinerary, isDeletingItinerary, itineraryDeleted } =
-    useDeleteItinerary();
+  const router = useRouter();
+  const { deleteItinerary, itineraryDeleted } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
@@ -23,6 +25,16 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   if (!data) return <div>404 Itinerary Not Found</div>;
 
   const itineraryName = `${numberOfDays} days in ${data.city.name}`;
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (itineraryDeleted) {
+      toast.success("Itinerary deleted. You will be redirected.");
+      setTimeout(() => {
+        router.back();
+      }, 3000);
+    }
+  }, [itineraryDeleted, router]);
 
   return (
     <main className="flex flex-col items-center">
@@ -38,6 +50,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
           Delete Itinerary
         </button>
       </SignedIn>
+      <div>itineraryDeleted: {itineraryDeleted ? "true" : "false"}</div>
     </main>
   );
 };
