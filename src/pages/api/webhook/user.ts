@@ -12,8 +12,6 @@ export default async function handler(
   req: NextApiRequestWithSvixRequiredHeaders,
   res: NextApiResponse
 ) {
-  console.log("incoming request");
-
   if (
     !req.headers["svix-id"] ||
     !req.headers["svix-timestamp"] ||
@@ -48,22 +46,6 @@ export default async function handler(
   const { image_url } = userData;
 
   if (eventType === "user.created" || eventType === "user.updated") {
-    console.log("USER CREATED EVENT");
-    console.log("eventType:", eventType);
-
-    // try {
-    //   await prisma.user
-    //     .create({
-    //       data: { id: id, imageURL: image_url },
-    //     })
-    // .then(() =>
-    //   res.status(200).json({ message: "User created successfully" })
-    // );
-    // } catch (error) {
-    //   console.error("Error creating user:", error);
-    //   return res.status(500).json({ error: "Error creating user" });
-    // }
-
     try {
       await prisma.user
         .upsert({
@@ -75,7 +57,6 @@ export default async function handler(
           res.status(200).json({ message: "User upserted successfully" })
         );
     } catch (error) {
-      console.error("Error creating user:", error);
       return res.status(500).json({ error: "Error creating user" });
     }
   }
