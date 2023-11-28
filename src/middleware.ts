@@ -9,6 +9,10 @@ export default authMiddleware({
 
     "/api/trpc/:path+", // Public API to allow TRPC handle route protection (via publicProcedure, privateProcedure, etc.)
     "/api/chat:additionalDetails*", // Chatbot
+
+    "/api/webhook/user", // Webhooks
+    "/api/webhook(.*)", // Open any webhooks up
+    "api/test",
   ],
 });
 

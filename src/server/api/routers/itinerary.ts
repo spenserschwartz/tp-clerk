@@ -85,7 +85,7 @@ export const itineraryRouter = createTRPCRouter({
       const newItinerary = await ctx.prisma.itinerary.create({
         data: {
           city: { connect: { id: input.cityId } },
-          userId: userId,
+          user: { connect: { id: userId } },
           details: input.details,
         },
       });
