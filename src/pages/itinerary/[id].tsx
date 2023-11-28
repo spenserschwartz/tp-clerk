@@ -7,6 +7,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
+import DropdownMenu from "~/components/dropdownMenu";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useDeleteItinerary } from "~/utils/hooks";
@@ -51,6 +52,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
         </button>
       </SignedIn>
       <div>itineraryDeleted: {itineraryDeleted ? "true" : "false"}</div>
+      <DropdownMenu />
     </main>
   );
 };
