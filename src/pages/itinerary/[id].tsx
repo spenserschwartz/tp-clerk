@@ -1,13 +1,13 @@
 import { SignedIn } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { useEffect, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import toast from "react-hot-toast";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import { Itinerary, RootLayout } from "~/components";
-import DropdownMenu from "~/components/dropdownMenu";
+import { Itinerary, Modal, RootLayout } from "~/components";
+import DeleteItinerary from "~/components/modal/deleteItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useDeleteItinerary } from "~/utils/hooks";
@@ -16,6 +16,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
   const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
   const { deleteItinerary, itineraryDeleted } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
@@ -46,13 +47,23 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <SignedIn>
         <button
           className="rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700"
-          onClick={() => deleteItinerary({ id: itineraryID })}
+          // onClick={() => deleteItinerary({ id: itineraryID })}
+          onClick={() => setOpenModal(true)}
         >
           Delete Itinerary
         </button>
       </SignedIn>
-      <div>itineraryDeleted: {itineraryDeleted ? "true" : "false"}</div>
-      <DropdownMenu />
+
+      {/* <Modal
+        content="DeleteItinerary"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      /> */}
+      <DeleteItinerary
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        itineraryID={itineraryID}
+      />
     </main>
   );
 };
