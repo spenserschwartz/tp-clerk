@@ -1,12 +1,10 @@
 import { SignedIn } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
-import { useRouter } from "next/router";
-import { useEffect, useState, type ReactElement } from "react";
-import toast from "react-hot-toast";
+import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import { Itinerary, Modal, RootLayout } from "~/components";
+import { Itinerary, RootLayout } from "~/components";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -15,9 +13,8 @@ import { useDeleteItinerary } from "~/utils/hooks";
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
-  const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
-  const { deleteItinerary, itineraryDeleted } = useDeleteItinerary();
+  const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
@@ -28,16 +25,6 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   const itineraryName = `${numberOfDays} days in ${data.city.name}`;
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    if (itineraryDeleted) {
-      toast.success("Itinerary deleted. You will be redirected.");
-      setTimeout(() => {
-        router.back();
-      }, 3000);
-    }
-  }, [itineraryDeleted, router]);
-
   return (
     <main className="flex flex-col items-center">
       <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
@@ -46,19 +33,17 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <Itinerary parsedData={parsedData ?? []} />
       <SignedIn>
         <button
-          className="rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700"
-          // onClick={() => deleteItinerary({ id: itineraryID })}
+          className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
+            isDeletingItinerary && "cursor-not-allowed opacity-50"
+          }`}
           onClick={() => setOpenModal(true)}
+          disabled={isDeletingItinerary}
         >
           Delete Itinerary
         </button>
       </SignedIn>
 
-      {/* <Modal
-        content="DeleteItinerary"
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-      /> */}
+      {/* Modal */}
       <DeleteItinerary
         openModal={openModal}
         setOpenModal={setOpenModal}

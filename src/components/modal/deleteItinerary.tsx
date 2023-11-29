@@ -1,6 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { Dispatch, Fragment, useRef, useState } from "react";
+import router from "next/router";
+import { Fragment, useEffect, useRef, type Dispatch } from "react";
+import toast from "react-hot-toast";
+
+import { useDeleteItinerary } from "~/utils/hooks";
 
 interface DeleteItineraryProps {
   itineraryID: string;
@@ -13,9 +17,25 @@ const DeleteItinerary = ({
   openModal,
   setOpenModal,
 }: DeleteItineraryProps) => {
-  //   const [open, setOpen] = useState(true);
-
   const cancelButtonRef = useRef(null);
+  const { deleteItinerary, isDeletingItinerary, itineraryDeleted } =
+    useDeleteItinerary();
+
+  const deleteButtonHandler = () => {
+    deleteItinerary({ id: itineraryID });
+  };
+
+  // When itineraryDeleted is true, show toast, redirect back to the previous page, close modal
+  useEffect(() => {
+    if (itineraryDeleted) {
+      toast.success("Itinerary deleted. You will be redirected.");
+      setTimeout(() => {
+        router.back();
+      }, 3000);
+
+      setOpenModal(false);
+    }
+  }, [itineraryDeleted, setOpenModal]);
 
   return (
     <Transition.Root show={openModal} as={Fragment}>
@@ -61,13 +81,13 @@ const DeleteItinerary = ({
                       as="h3"
                       className="text-base font-semibold leading-6 text-gray-900"
                     >
-                      Deactivate account
+                      Delete Itinerary
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed from our servers
-                        forever. This action cannot be undone.
+                        Are you sure you want to delete this itinerary? It will
+                        be permanently removed from our servers forever. This
+                        action cannot be undone.
                       </p>
                     </div>
                   </div>
@@ -75,10 +95,11 @@ const DeleteItinerary = ({
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setOpenModal(false)}
+                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50 sm:ml-3 sm:w-auto"
+                    disabled={isDeletingItinerary}
+                    onClick={deleteButtonHandler}
                   >
-                    Deactivate
+                    Delete
                   </button>
                   <button
                     type="button"
