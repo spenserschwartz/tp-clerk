@@ -1,5 +1,9 @@
 import { Menu } from "@headlessui/react";
-import { PencilIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import {
+  PencilIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/20/solid";
 
 const DropdownMenu = () => {
   return (
@@ -21,7 +25,7 @@ const DropdownMenu = () => {
                   className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                   aria-hidden="true"
                 />
-                View
+                Edit (in progress)
               </button>
             )}
           </Menu.Item>
@@ -32,6 +36,10 @@ const DropdownMenu = () => {
                   active ? "bg-gray-100 text-gray-900" : "text-gray-700"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
+                <TrashIcon
+                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
                 Delete Itinerary
               </button>
             )}
