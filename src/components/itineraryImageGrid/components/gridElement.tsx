@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
 
+import DropdownMenu from "~/components/dropdownMenu";
 import type { ParsedAIMessageInterface } from "~/types";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
@@ -31,9 +31,16 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     >
       {/* Image */}
       <div
-        className="group aspect-h-7 aspect-w-10 relative block w-full cursor-pointer overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:opacity-75"
+        className="group aspect-h-7 aspect-w-10 relative block w-full cursor-pointer overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
         onClick={gridElementClickHandler}
       >
+        <div
+          className="absolute bottom-auto left-auto z-10 h-auto w-auto p-2"
+          onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler from being called
+        >
+          <DropdownMenu />
+        </div>
+
         <Image
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           src={cityImageURL ?? "/images/placeholder.png"}

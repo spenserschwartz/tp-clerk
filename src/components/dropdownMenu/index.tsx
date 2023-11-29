@@ -1,11 +1,10 @@
 import { Menu } from "@headlessui/react";
-import { PencilIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { PencilIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 
 const DropdownMenu = () => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-900">
+      <Menu.Button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-gray-700 opacity-50 hover:bg-gray-500 hover:text-gray-900">
         <PencilIcon className="h-5 w-5" aria-hidden="true" />
       </Menu.Button>
 
@@ -18,7 +17,11 @@ const DropdownMenu = () => {
                   active ? "bg-gray-100 text-gray-900" : "text-gray-700"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
-                Remove Tag
+                <PencilSquareIcon
+                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                View
               </button>
             )}
           </Menu.Item>
@@ -29,40 +32,7 @@ const DropdownMenu = () => {
                   active ? "bg-gray-100 text-gray-900" : "text-gray-700"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
-                Download
-              </button>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                className={`${
-                  active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              >
-                Make profile picture
-              </button>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                className={`${
-                  active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              >
-                Make cover photo
-              </button>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                className={`${
-                  active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              >
-                Report photo
+                Delete Itinerary
               </button>
             )}
           </Menu.Item>
