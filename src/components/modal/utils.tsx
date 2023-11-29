@@ -1,5 +1,6 @@
 import { type GetCityByNameType } from "~/types/router";
 import VisitedCityForm from "../forms/visitedCity";
+
 import LoginModal from "./login";
 
 export type ModalName = "VisitedCityForm" | "LoginModal";
@@ -18,6 +19,9 @@ const ModalContent = ({
   name,
 }: ModalMapProps) => {
   switch (name) {
+    case "LoginModal":
+      return <LoginModal closeModalHandler={closeModalHandler} />;
+
     case "VisitedCityForm":
       return (
         <VisitedCityForm
@@ -26,9 +30,6 @@ const ModalContent = ({
           onFormSubmit={handleModalAction}
         />
       );
-
-    case "LoginModal":
-      return <LoginModal closeModalHandler={closeModalHandler} />;
 
     default:
       return <div>Modal content not found</div>;
