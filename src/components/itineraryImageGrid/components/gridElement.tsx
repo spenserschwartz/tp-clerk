@@ -29,18 +29,20 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
       className="max-w-sm overflow-hidden rounded shadow-lg"
       data-aos="fade-up"
     >
-      {/* Image */}
+      {/* Image & pencil icon*/}
       <div
         className="group aspect-h-7 aspect-w-10 relative block w-full cursor-pointer overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
         onClick={gridElementClickHandler}
       >
+        {/* Pencil icon in top right of image */}
         <div
           className="absolute bottom-auto left-auto z-10 h-auto w-auto p-2"
           onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler from being called
         >
-          <DropdownMenu />
+          <DropdownMenu itineraryID={itinerary.id} />
         </div>
 
+        {/* Image */}
         <Image
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           src={cityImageURL ?? "/images/placeholder.png"}
