@@ -6,7 +6,7 @@ interface ItineraryProps {
 
 const Itinerary = ({ parsedData }: ItineraryProps) => {
   return (
-    <div>
+    <div data-aos="zoom-in">
       {parsedData.length ? (
         <div className="flex h-full max-w-5xl flex-col items-center">
           {/* Itinerary */}
@@ -21,6 +21,7 @@ const Itinerary = ({ parsedData }: ItineraryProps) => {
 
                 {/* Morning, Afternoon, Evening */}
                 <ul className="ms-8 list-outside list-disc text-gray-300">
+                  {/* <li className="my-1">Morning: {itineraryDay.morning}</li> */}
                   <li className="my-1">Morning: {itineraryDay.morning}</li>
                   <li className="my-1">Afternoon: {itineraryDay.afternoon}</li>
                   <li className="my-1">Evening: {itineraryDay.evening}</li>
