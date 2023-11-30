@@ -7,8 +7,6 @@ interface ItineraryImageGridProps {
 }
 
 const ItineraryImageGrid = ({ itineraries }: ItineraryImageGridProps) => {
-  console.log("itineraries", itineraries);
-
   return (
     <ul
       role="list"
