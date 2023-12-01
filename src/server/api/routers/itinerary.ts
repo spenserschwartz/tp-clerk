@@ -78,6 +78,7 @@ export const itineraryRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId ?? "not-logged-in";
+      console.log("This is userId", userId);
 
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
@@ -91,6 +92,22 @@ export const itineraryRouter = createTRPCRouter({
       });
 
       return newItinerary;
+    }),
+
+  delete: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const itinerary = await ctx.prisma.itinerary.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
+
+      await ctx.prisma.itinerary.delete({
+        where: { id: input.id },
+      });
+
+      return { success: true };
     }),
 
   // More routers here...

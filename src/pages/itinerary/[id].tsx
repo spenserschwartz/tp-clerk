@@ -1,15 +1,20 @@
+import { SignedIn } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
-import { type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
+import DeleteItinerary from "~/components/modal/deleteItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
+import { useDeleteItinerary } from "~/utils/hooks";
 
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
@@ -26,6 +31,24 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
         <p className="truncate">{itineraryName}</p>
       </h1>
       <Itinerary parsedData={parsedData ?? []} />
+      <SignedIn>
+        <button
+          className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
+            isDeletingItinerary && "cursor-not-allowed opacity-50"
+          }`}
+          onClick={() => setOpenModal(true)}
+          disabled={isDeletingItinerary}
+        >
+          Delete Itinerary
+        </button>
+      </SignedIn>
+
+      {/* Modal */}
+      <DeleteItinerary
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        itineraryID={itineraryID}
+      />
     </main>
   );
 };
