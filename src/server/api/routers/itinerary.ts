@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
+import { unknownClerkUser } from "~/components/utils";
 import {
   createTRPCRouter,
   privateProcedure,
@@ -77,7 +78,7 @@ export const itineraryRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.userId ?? "not-logged-in";
+      const userId = ctx.userId ?? unknownClerkUser.id;
       console.log("This is userId", userId);
 
       const { success } = await ratelimit.limit(userId);

@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import { Itinerary, RootLayout } from "~/components";
 import Avatar from "~/components/avatar";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
+import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useDeleteItinerary } from "~/utils/hooks";
@@ -22,7 +23,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
-  const itineraryUserId = data?.userId ?? "";
+  const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
   const itineraryName = `${numberOfDays} days in ${data?.city.name}`;
 
