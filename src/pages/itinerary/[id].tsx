@@ -5,6 +5,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
+import Avatar from "~/components/avatar";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -18,6 +19,9 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+  const { data: itineraryUserData } = api.profile.getUserById.useQuery({
+    userId: userId ?? "",
+  });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
   const itineraryUserId = data?.userId;
@@ -26,11 +30,16 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
+  console.log("data", itineraryUserData);
+
   return (
     <main className="flex flex-col items-center">
       <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <p className="truncate">{itineraryName}</p>
       </h1>
+      <div>
+        <Avatar />
+      </div>
       <Itinerary parsedData={parsedData ?? []} />
 
       {/* User can only delete itinerary if they are the current user */}
