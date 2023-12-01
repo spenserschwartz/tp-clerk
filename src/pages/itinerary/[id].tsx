@@ -19,18 +19,14 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
-  const { data: itineraryUserData } = api.profile.getUserById.useQuery({
-    userId: userId ?? "",
-  });
+
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
-  const itineraryUserId = data?.userId;
+  const itineraryUserId = data?.userId ?? "";
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
   const itineraryName = `${numberOfDays} days in ${data?.city.name}`;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
-
-  console.log("data", itineraryUserData);
 
   return (
     <main className="flex flex-col items-center">
@@ -38,7 +34,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
         <p className="truncate">{itineraryName}</p>
       </h1>
       <div>
-        <Avatar />
+        <Avatar userId={itineraryUserId} />
       </div>
       <Itinerary parsedData={parsedData ?? []} />
 

@@ -1,33 +1,55 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import AvatarPlaceholder from "public/icons/avatarPlaceholder";
+import { api } from "~/utils/api";
 
-export default function Avatar() {
+interface AvatarProps {
+  userId: string | null;
+}
+
+export default function Avatar({ userId }: AvatarProps) {
+  const router = useRouter();
+  const { data: itineraryUserData } = api.profile.getUserById.useQuery({
+    userId: userId ?? "",
+  });
+
+  const { firstName, lastName, profileImageUrl } = itineraryUserData ?? {};
+  const displayName = firstName ? `${firstName} ${lastName}` : "Unknown User";
+
+  const clickHandler = () => {
+    void router.push(`/user/${userId}`);
+  };
+
   return (
-    <a href="#" className="group block flex-shrink-0">
+    <div
+      className="group block flex-shrink-0 cursor-pointer"
+      onClick={clickHandler}
+    >
       <div className="flex items-center">
+        {/* Show profile image or placeholder */}
         <div>
-          {/* <img
-            className="inline-block h-9 w-9 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          /> */}
-          <Image
-            className="inline-block h-9 w-9 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-            width={36} // width of the image in pixels
-            height={36} // height of the image in pixels
-            layout="fixed"
-          />
+          {profileImageUrl ? (
+            <Image
+              className="inline-block h-9 w-9 rounded-full"
+              src={profileImageUrl ?? ""}
+              alt="Itinerary Creator Profile Image"
+              width={36} // width of the image in pixels
+              height={36} // height of the image in pixels
+              layout="fixed"
+            />
+          ) : (
+            <AvatarPlaceholder />
+          )}
         </div>
         <div className="ml-3">
           <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-            Tom Cook
+            {displayName}
           </p>
           <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
             View profile
           </p>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
