@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import AvatarPlaceholder from "public/icons/avatarPlaceholder";
 import { api } from "~/utils/api";
+import { unknownClerkUser } from "./utils";
 
 interface AvatarProps {
   userId: string | null;
@@ -15,8 +16,10 @@ export default function Avatar({ userId }: AvatarProps) {
 
   const { firstName, lastName, profileImageUrl } = itineraryUserData ?? {};
   const displayName = firstName ? `${firstName} ${lastName}` : "Unknown User";
+  const isFakeUser = !userId || userId === unknownClerkUser.id;
 
   const clickHandler = () => {
+    if (isFakeUser) return;
     void router.push(`/user/${userId}`);
   };
 
@@ -45,9 +48,11 @@ export default function Avatar({ userId }: AvatarProps) {
           <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
             {displayName}
           </p>
-          <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-            View profile
-          </p>
+          {!isFakeUser && (
+            <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+              View profile
+            </p>
+          )}
         </div>
       </div>
     </div>
