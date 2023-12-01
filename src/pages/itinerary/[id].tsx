@@ -1,4 +1,4 @@
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
 import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
@@ -13,17 +13,18 @@ import { useDeleteItinerary } from "~/utils/hooks";
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
+  const { user } = useUser();
+  const userId = user?.id;
   const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const details = data?.details as unknown as ParsedAIMessageInterface[];
   const { length: numberOfDays } = details;
-
+  const itineraryUserId = data?.userId;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
+  const itineraryName = `${numberOfDays} days in ${data?.city.name}`;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
-
-  const itineraryName = `${numberOfDays} days in ${data.city.name}`;
 
   return (
     <main className="flex flex-col items-center">
@@ -31,16 +32,20 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
         <p className="truncate">{itineraryName}</p>
       </h1>
       <Itinerary parsedData={parsedData ?? []} />
+
+      {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
-        <button
-          className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
-            isDeletingItinerary && "cursor-not-allowed opacity-50"
-          }`}
-          onClick={() => setOpenModal(true)}
-          disabled={isDeletingItinerary}
-        >
-          Delete Itinerary
-        </button>
+        {userId === itineraryUserId && (
+          <button
+            className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
+              isDeletingItinerary && "cursor-not-allowed opacity-50"
+            }`}
+            onClick={() => setOpenModal(true)}
+            disabled={isDeletingItinerary}
+          >
+            Delete Itinerary
+          </button>
+        )}
       </SignedIn>
 
       {/* Modal */}
