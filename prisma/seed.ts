@@ -32,3 +32,10 @@ main()
   .finally(() => {
     void prisma.$disconnect();
   });
+
+/* 
+    https://www.prisma.io/docs/guides/migrate/seed-database
+    https://www.youtube.com/watch?v=QxyqR4yh1GI
+
+    npx prisma db seed
+*/
