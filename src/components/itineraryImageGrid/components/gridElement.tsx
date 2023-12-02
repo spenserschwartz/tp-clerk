@@ -16,6 +16,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     city: { name: cityName, imageURL: cityImageURL },
   } = itinerary;
   const { length: numberOfDays } = details;
+  const itineraryUserId = itinerary.userId ?? "";
 
   const itineraryName = `${numberOfDays} days in ${cityName}`;
   const itineraryDescription = details[0]?.afternoon;
@@ -39,7 +40,10 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
           className="absolute bottom-auto left-auto z-10 h-auto w-auto p-2"
           onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler from being called
         >
-          <DropdownMenu itineraryID={itinerary.id} />
+          <DropdownMenu
+            itineraryID={itinerary.id}
+            itineraryUserID={itineraryUserId}
+          />
         </div>
 
         {/* Image */}
