@@ -1,4 +1,4 @@
-import { type ChangeEvent, type Dispatch, type MouseEvent } from "react";
+import { type ChangeEvent, type Dispatch } from "react";
 
 interface NumberInputProps {
   value: number;
