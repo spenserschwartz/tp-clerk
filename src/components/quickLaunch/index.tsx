@@ -6,7 +6,13 @@ import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
 import { useUser } from "@clerk/nextjs";
-import { Button, Itinerary, LoadingSection, Select } from "~/components";
+import {
+  Button,
+  Itinerary,
+  LoadingSection,
+  NumberInput,
+  Select,
+} from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities } from "../utils";
@@ -116,6 +122,7 @@ const QuickLaunch = () => {
               <span className="text-gray-300">Choose your dates</span>
               <DatePickerWithRange date={date} setDate={setDate} />
 
+              <NumberInput />
               {/* Adventure Option */}
               <div className="mt-4 flex flex-col">
                 <label className="fl">
