@@ -22,10 +22,7 @@ const NumberInput = ({
   };
 
   return (
-    <div
-      className="inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-slate-900"
-      data-hs-input-number
-    >
+    <div className="inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-slate-900">
       <div className="flex items-center gap-x-1.5">
         {/* Minus Button */}
         <button
