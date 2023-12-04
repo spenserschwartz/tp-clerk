@@ -9,7 +9,6 @@ import ItineraryImageGrid from "./itineraryImageGrid";
 import { RootLayout } from "./layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./modal";
-import NumberInput from "./numberInput";
 import QuickLaunch from "./quickLaunch";
 import Searchbar from "./searchbar";
 import Select from "./select";
@@ -27,7 +26,6 @@ export {
   LoadingSection,
   LoadingSpinner,
   Modal,
-  NumberInput,
   QuickLaunch,
   RootLayout,
   Searchbar,

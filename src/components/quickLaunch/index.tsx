@@ -6,13 +6,7 @@ import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
 import { useUser } from "@clerk/nextjs";
-import {
-  Button,
-  Itinerary,
-  LoadingSection,
-  NumberInput,
-  Select,
-} from "~/components";
+import { Button, Itinerary, LoadingSection, Select } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities } from "../utils";
@@ -20,16 +14,15 @@ import { quickLaunchCities } from "../utils";
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
   const [chosenCityName, setChosenCityName] = useState("");
+  const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
-  const [rangeChoice, setRangeChoice] = useState<"date" | "number">("date");
-  const [numberOfDays, setNumberOfDays] = useState(3); // Default to 3 days
-  const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
 
   const { createItinerary, isCreatingItinerary } = useCreateItinerary();
+
   const { mutate, isLoading: isLoadingAI } =
     api.openAI.generateTripItinerary.useMutation({});
 
@@ -100,9 +93,6 @@ const QuickLaunch = () => {
     }
   }, [generatedAIMessage]);
 
-  const toggleRangeChoice = () =>
-    setRangeChoice(rangeChoice === "date" ? "number" : "date");
-
   return (
     <div className="my-8 flex h-full flex-col items-center" data-aos="fade-up">
       {/* Loading Page */}
@@ -111,7 +101,7 @@ const QuickLaunch = () => {
       {/* Quick Launch Form */}
       {!isLoadingAI && !parsedData.length && (
         <div className="mx-auto w-full md:w-96 md:max-w-full">
-          <div className="flex flex-col items-center border-gray-600 bg-gray-800 p-6 sm:rounded-md">
+          <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
             <form onSubmit={handleFormSubmit}>
               {/* Destination */}
               <div className="mb-6 block w-[300px]">
@@ -123,32 +113,8 @@ const QuickLaunch = () => {
               </div>
 
               {/* Date Range Picker */}
-              <div className="flex justify-between text-gray-300">
-                <p>
-                  {rangeChoice === "date"
-                    ? "Choose your dates"
-                    : "Number of Days"}
-                </p>
-                <p
-                  className="cursor-pointer text-blue-600 hover:text-blue-800"
-                  onClick={toggleRangeChoice}
-                >
-                  {rangeChoice === "date" ? "Use # days" : "Use dates"}
-                </p>
-              </div>
-
-              <div className="h-7">
-                {rangeChoice === "date" && (
-                  <DatePickerWithRange date={date} setDate={setDate} />
-                )}
-
-                {rangeChoice === "number" && (
-                  <NumberInput
-                    value={numberOfDays}
-                    setValue={setNumberOfDays}
-                  />
-                )}
-              </div>
+              <span className="text-gray-300">Choose your dates</span>
+              <DatePickerWithRange date={date} setDate={setDate} />
 
               {/* Adventure Option */}
               <div className="mt-4 flex flex-col">
