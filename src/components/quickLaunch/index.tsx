@@ -25,6 +25,7 @@ const QuickLaunch = () => {
     from: new Date(),
     to: addDays(new Date(), 3),
   });
+  const [numberOfDays, setNumberOfDays] = useState(3); // Default to 3 days
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
 
   const { createItinerary, isCreatingItinerary } = useCreateItinerary();
@@ -122,7 +123,7 @@ const QuickLaunch = () => {
               <span className="text-gray-300">Choose your dates</span>
               <DatePickerWithRange date={date} setDate={setDate} />
 
-              <NumberInput />
+              <NumberInput value={numberOfDays} setValue={setNumberOfDays} />
               {/* Adventure Option */}
               <div className="mt-4 flex flex-col">
                 <label className="fl">
