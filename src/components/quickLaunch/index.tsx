@@ -16,7 +16,6 @@ import {
 import { type ParsedAIMessageInterface } from "~/types";
 import { useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities } from "../utils";
-import { Toggle } from "./components";
 
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
