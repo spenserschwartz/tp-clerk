@@ -34,7 +34,6 @@ const Itinerary = ({
 
                 {/* Morning, Afternoon, Evening */}
                 <ul className="ms-8 list-outside list-disc text-gray-300">
-                  {/* <li className="my-1">Morning: {itineraryDay.morning}</li> */}
                   <li className="my-1">Morning: {itineraryDay.morning}</li>
                   <li className="my-1">Afternoon: {itineraryDay.afternoon}</li>
                   <li className="my-1">Evening: {itineraryDay.evening}</li>
@@ -45,16 +44,34 @@ const Itinerary = ({
         </div>
       ) : null}
 
-      <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md">
-        <div className="p-4">
-          <h1 className="text-xl font-semibold text-gray-800">Trip to Paris</h1>
+      <div className="w-full max-w-5xl overflow-hidden rounded-lg bg-gray-100 shadow-xl">
+        {/* Title */}
+        <div className="flex items-center justify-between p-4">
+          <h1 className="text-4xl font-bold text-gray-900">Itinerary</h1>
+          <Avatar userId={itineraryUserId} />
+        </div>
+
+        {/* Content */}
+        <div className="px-4">
+          {/* <h1 className="text-xl font-semibold text-gray-800">Trip to Paris</h1>
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>12/1 - 12/9</span>
-            <div className="flex items-center">
-              <Avatar userId={itineraryUserId} />
-              {/* Placeholder for additional options icon */}
-            </div>
-          </div>
+          </div> */}
+
+          {parsedData.length ? (
+            <>
+              {parsedData.map((itineraryDay) => (
+                <div key={`generatedAIMessage:${itineraryDay.dayOfWeek}`}>
+                  <h1 className="text-xl font-semibold text-gray-800">
+                    {itineraryDay.date} - {itineraryDay.dayOfWeek}
+                  </h1>
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span>12/1 - 12/9</span>
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : null}
         </div>
       </div>
     </div>
