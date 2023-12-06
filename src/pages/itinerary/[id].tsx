@@ -37,7 +37,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <div>
         <Avatar userId={itineraryUserId} />
       </div>
-      <Itinerary parsedData={parsedData ?? []} />
+      <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
