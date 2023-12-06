@@ -1,10 +1,23 @@
 import { type ParsedAIMessageInterface } from "~/types";
+import { api } from "~/utils/api";
+import Avatar from "../avatar";
+
+import { unknownClerkUser } from "../utils";
 
 interface ItineraryProps {
   parsedData: ParsedAIMessageInterface[];
+  itineraryID?: string;
 }
 
-const Itinerary = ({ parsedData }: ItineraryProps) => {
+const Itinerary = ({
+  parsedData,
+  itineraryID = unknownClerkUser.id,
+}: ItineraryProps) => {
+  const { data: itineraryUserData } = api.itinerary.getByID.useQuery({
+    id: itineraryID,
+  });
+  const itineraryUserId = itineraryUserData?.userId ?? unknownClerkUser.id;
+
   return (
     <div data-aos="zoom-in">
       {parsedData.length ? (
@@ -31,6 +44,19 @@ const Itinerary = ({ parsedData }: ItineraryProps) => {
           </div>
         </div>
       ) : null}
+
+      <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md">
+        <div className="p-4">
+          <h1 className="text-xl font-semibold text-gray-800">Trip to Paris</h1>
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span>12/1 - 12/9</span>
+            <div className="flex items-center">
+              <Avatar userId={itineraryUserId} />
+              {/* Placeholder for additional options icon */}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
