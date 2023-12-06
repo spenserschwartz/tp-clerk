@@ -7,6 +7,7 @@ export default authMiddleware({
     "/city/:slug", // Access city page without logging in
     "/itinerary/:id", // Access itinerary page without logging in
     "/user/:id", // Access user page without logging in
+    "/quick-launch",
 
     "/api/trpc/:path+", // Public API to allow TRPC handle route protection (via publicProcedure, privateProcedure, etc.)
     "/api/chat:additionalDetails*", // Chatbot
