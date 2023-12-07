@@ -22,14 +22,13 @@ const Itinerary = ({
 
   return (
     <div data-aos="zoom-in">
-      <div className="w-full max-w-5xl overflow-hidden overflow-y-auto rounded-lg bg-gray-100 shadow-xl sm:max-h-80">
+      <div className="w-full max-w-5xl overflow-hidden overflow-y-auto rounded-lg bg-gray-100 shadow-xl sm:max-h-96">
         {/* Title */}
         <div className="flex items-center justify-between p-4">
           <h1 className="text-4xl font-bold text-gray-900">Itinerary</h1>
           {itineraryID !== unknownItinerary.id && (
             <Avatar userId={itineraryUserId} />
           )}
-          {/* <Avatar userId={itineraryUserId} /> */}
         </div>
 
         {/* Content */}
