@@ -32,30 +32,30 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   return (
     <main className="flex flex-col items-center">
-      <div className="w-full max-w-4xl">
+      {/* <div className="w-full max-w-4xl">
         <PageHeader />
-      </div>
+      </div> */}
 
       <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <p className="truncate">{itineraryName}</p>
       </h1>
-      <div>
-        <Avatar userId={itineraryUserId} />
-      </div>
+
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
         {userId === itineraryUserId && (
-          <button
-            className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
-              isDeletingItinerary && "cursor-not-allowed opacity-50"
-            }`}
-            onClick={() => setOpenModal(true)}
-            disabled={isDeletingItinerary}
-          >
-            Delete Itinerary
-          </button>
+          <div className="mt-4">
+            <button
+              className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
+                isDeletingItinerary && "cursor-not-allowed opacity-50"
+              }`}
+              onClick={() => setOpenModal(true)}
+              disabled={isDeletingItinerary}
+            >
+              Delete Itinerary
+            </button>
+          </div>
         )}
       </SignedIn>
 
