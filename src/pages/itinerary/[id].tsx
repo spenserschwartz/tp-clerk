@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import { Itinerary, RootLayout } from "~/components";
 import Avatar from "~/components/avatar";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
+import PageHeader from "~/components/pageHeader";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -31,6 +32,10 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   return (
     <main className="flex flex-col items-center">
+      <div className="w-full max-w-4xl">
+        <PageHeader />
+      </div>
+
       <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <p className="truncate">{itineraryName}</p>
       </h1>
