@@ -38,7 +38,6 @@ export default function Avatar({ userId }: AvatarProps) {
               alt="Itinerary Creator Profile Image"
               width={36} // width of the image in pixels
               height={36} // height of the image in pixels
-              layout="fixed"
             />
           ) : (
             <AvatarPlaceholder />

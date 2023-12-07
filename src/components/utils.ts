@@ -39,3 +39,7 @@ export const quickLaunchCities = [
 export const unknownClerkUser = {
   id: "user_2YxVp66u0zvMgoN7zOSm6sJiiHb",
 };
+
+export const unknownItinerary = {
+  id: "fake",
+};
