@@ -1,10 +1,9 @@
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
-import { ChangeEvent, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import { PencilIcon } from "@heroicons/react/20/solid";
 import { Itinerary, RootLayout } from "~/components";
 import ItineraryTitle from "~/components/itinerary/components/title";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
@@ -22,17 +21,8 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
 
-  const details = data?.details as unknown as ParsedAIMessageInterface[];
-  const { length: numberOfDays } = details;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
-
-  const [isEditing, setEditing] = useState(false);
-  const [text, setText] = useState("Notes");
-
-  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
-  };
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
