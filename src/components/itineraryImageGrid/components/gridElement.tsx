@@ -12,6 +12,8 @@ interface ItineraryGridElementProps {
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
+  const itineraryTitle = itinerary.title;
+
   const {
     city: { name: cityName, imageURL: cityImageURL },
   } = itinerary;
@@ -67,7 +69,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
             className="cursor-pointer hover:opacity-75"
             onClick={gridElementClickHandler}
           >
-            {itineraryName}
+            {itineraryTitle ?? itineraryName}
           </p>
         </div>
 
