@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { api } from "~/utils/api";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
+import { useEditItineraryTitle } from "~/utils/hooks";
 
 interface ItineraryTitleProps {
   itineraryID: string;
@@ -15,11 +16,13 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
     details,
     city: { name: cityName },
   } = data as ItineraryWithCityInfoType;
+  const { editItineraryTitle, isEditingItineraryTitle, itineraryTitleEdited } =
+    useEditItineraryTitle();
   const { length: numberOfDays } = details as unknown as { length: number };
   const [isEditing, setEditing] = useState(false);
   const [text, setText] = useState<string>(
     title ?? `${numberOfDays} days in ${cityName}`
-  ); // Assuming the title is coming from the data
+  );
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -34,11 +37,12 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
     if (event.key === "Enter") {
       setEditing(false);
       // Call API to update the title here if needed
+      editItineraryTitle({ id: itineraryID, title: text });
     }
   };
 
   return (
-    <div className="h-20 max-w-xl items-center py-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+    <div className="h-20 max-w-2xl items-center py-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
       {isEditing && (
         <div className="h-full border border-red-400 ">
           <input
