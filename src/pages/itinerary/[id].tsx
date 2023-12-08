@@ -39,14 +39,6 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   return (
     <main className="flex flex-col items-center">
       {/* Itinerary Title */}
-      <h1 className="relative flex items-center px-9 py-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 hover:bg-gray-300 dark:text-white md:text-5xl lg:text-6xl">
-        <p className="truncate">itinerary name here</p>
-
-        <div className="absolute right-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-gray-700 opacity-50 hover:bg-gray-500 hover:text-gray-900">
-          <PencilIcon className="h-5 w-5" aria-hidden="true" />
-        </div>
-      </h1>
-
       <ItineraryTitle itineraryID={itineraryID} />
 
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
