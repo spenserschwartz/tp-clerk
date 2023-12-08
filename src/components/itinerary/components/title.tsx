@@ -42,15 +42,15 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
   };
 
   return (
-    <div className="h-20 max-w-2xl items-center py-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+    <div className="h-20 max-w-2xl py-2 font-extrabold leading-none  dark:text-white ">
       {isEditing && (
-        <div className="h-full border border-red-400 ">
+        <div className="h-full">
           <input
             type="text"
             value={text}
             onChange={handleTextChange}
             autoFocus
-            className="max-w-xl border-none bg-transparent text-center text-4xl leading-none focus:h-full focus:items-center focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
+            className="leading-nonetext-gray-900 max-w-xl border-none bg-transparent text-center text-4xl focus:h-full focus:items-center focus:rounded-md focus:bg-gray-200 focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
           />
@@ -61,7 +61,7 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
         <h1 className="relative px-9">
           <p className="truncate md:text-5xl lg:text-6xl">{text}</p>
           {/* Pencil icon */}
-          <div className="absolute right-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-gray-700 opacity-50 hover:bg-gray-500 hover:text-gray-900">
+          <div className="absolute right-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-4xl tracking-tight text-gray-900 opacity-50 hover:bg-gray-500 hover:text-gray-900 md:text-5xl lg:text-6xl">
             <PencilIcon
               className="h-5 w-5"
               aria-hidden="true"
