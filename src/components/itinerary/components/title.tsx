@@ -2,6 +2,8 @@ import { PencilIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 
+import { type ItineraryWithCityInfoType } from "~/types/router";
+
 interface ItineraryTitleProps {
   itineraryID: string;
 }
@@ -10,6 +12,8 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
   const [isEditing, setEditing] = useState(false);
   const [text, setText] = useState<string>("first title"); // Assuming the title is coming from the data
+
+  const { title, details } = data as ItineraryWithCityInfoType;
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -36,7 +40,7 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
             value={text}
             onChange={handleTextChange}
             autoFocus
-            className="w-full border-none bg-transparent text-center text-4xl leading-none focus:h-full focus:items-center focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
+            className="w-full border-none border-purple-600 bg-transparent text-center text-4xl leading-none focus:h-full focus:items-center focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
           />
