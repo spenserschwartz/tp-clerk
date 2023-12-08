@@ -6,9 +6,8 @@ import { api } from "~/utils/api";
 
 import { PencilIcon } from "@heroicons/react/20/solid";
 import { Itinerary, RootLayout } from "~/components";
-
+import ItineraryTitle from "~/components/itinerary/components/title";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
-import PageHeader from "~/components/pageHeader";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -27,7 +26,6 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const { length: numberOfDays } = details;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
-  const itineraryName = `${numberOfDays} days in ${data?.city.name}`;
 
   const [isEditing, setEditing] = useState(false);
   const [text, setText] = useState("Notes");
@@ -38,34 +36,18 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
-  console.log("data", data);
-
   return (
     <main className="flex flex-col items-center">
       {/* Itinerary Title */}
       <h1 className="relative flex items-center px-9 py-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 hover:bg-gray-300 dark:text-white md:text-5xl lg:text-6xl">
-        <p className="truncate">{itineraryName}</p>
+        <p className="truncate">itinerary name here</p>
 
         <div className="absolute right-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-gray-700 opacity-50 hover:bg-gray-500 hover:text-gray-900">
           <PencilIcon className="h-5 w-5" aria-hidden="true" />
         </div>
       </h1>
 
-      <div className="group relative">
-        <input
-          type="text"
-          value={text}
-          onChange={handleTextChange}
-          className="rounded-md border border-gray-300 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onFocus={() => setEditing(true)}
-          onBlur={() => setEditing(false)}
-        />
-        <div
-          className={`absolute right-2 top-1/2 -translate-y-1/2 transform ${
-            isEditing ? "hidden" : "group-hover:block"
-          }`}
-        ></div>
-      </div>
+      <ItineraryTitle itineraryID={itineraryID} />
 
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
