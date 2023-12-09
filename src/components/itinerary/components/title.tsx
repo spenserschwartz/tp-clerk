@@ -42,35 +42,77 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
   };
 
   return (
-    <div className="h-20 max-w-2xl py-2 font-extrabold leading-none  dark:text-white ">
-      {isEditing && (
-        <div className="h-full">
-          <input
-            type="text"
-            value={text}
-            onChange={handleTextChange}
-            autoFocus
-            className="leading-nonetext-gray-900 max-w-xl border-none bg-transparent text-center text-4xl focus:h-full focus:items-center focus:rounded-md focus:bg-gray-200 focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
-            onBlur={handleBlur}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
-      )}
+    // <div className="mb-4 max-h-12 max-w-md  font-extrabold leading-none dark:text-white md:max-h-20 md:max-w-2xl">
+    //   {isEditing && (
+    //     <div className="h-full">
+    //       <input
+    // type="text"
+    // value={text}
+    // onChange={handleTextChange}
+    // autoFocus
+    // className="max-w-xl bg-transparent text-center text-4xl leading-none text-gray-900 focus:h-full focus:items-center focus:rounded-md focus:bg-gray-200 focus:tracking-tight focus:ring-0 dark:text-white md:text-5xl lg:text-6xl"
+    // onBlur={handleBlur}
+    // onKeyDown={handleKeyDown}
+    //       />
+    //     </div>
+    //   )}
 
-      {!isEditing && (
-        <h1 className="relative px-9">
-          <p className="truncate md:text-5xl lg:text-6xl">{text}</p>
-          {/* Pencil icon */}
-          <div className="absolute right-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-4xl tracking-tight text-gray-900 opacity-50 hover:bg-gray-500 hover:text-gray-900 md:text-5xl lg:text-6xl">
-            <PencilIcon
-              className="h-5 w-5"
-              aria-hidden="true"
-              onClick={() => setEditing(true)}
+    //   {!isEditing && (
+    //     <h1 className="relative flex h-full items-center px-9">
+    //       <p className="truncate text-4xl md:text-5xl lg:text-6xl">{text}</p>
+    //       {/* Pencil icon */}
+    //       <div className="absolute right-0 flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-4xl tracking-tight text-gray-900 opacity-50 hover:bg-gray-500 hover:text-gray-900 md:top-0 md:text-5xl lg:text-6xl">
+    //         <PencilIcon
+    //           className="h-5 w-5"
+    //           aria-hidden="true"
+    //           onClick={() => setEditing(true)}
+    //         />
+    //       </div>
+    //     </h1>
+    //   )}
+    // </div>
+
+    <>
+      {/* <div className="mb-4 h-20 w-64 border border-red-500 text-xl">
+        {isEditing && (
+          <div className="">
+            <input
+              type="text"
+              value={text}
+              onChange={handleTextChange}
+              autoFocus
+              className="focus: w-full text-xl focus:h-20 focus:p-0"
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
             />
           </div>
-        </h1>
-      )}
-    </div>
+        )}
+
+        {!isEditing && (
+          <h1 className="flex h-full items-center border border-green-400">
+            {text}
+          </h1>
+        )}
+      </div>
+      <button
+        className="rounded-sm bg-slate-400"
+        onClick={() => setEditing(!isEditing)}
+      >
+        EDIT
+      </button> */}
+
+      <div className="h-20 border border-red-500 text-xl">
+        <input
+          type="text"
+          value={text}
+          onChange={handleTextChange}
+          autoFocus
+          className="h-full truncate"
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+    </>
   );
 };
 
