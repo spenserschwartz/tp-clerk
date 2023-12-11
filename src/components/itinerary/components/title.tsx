@@ -113,12 +113,13 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
           onKeyDown={handleKeyDown}
         />
       </div> */}
-      <div className="group relative inline-flex w-full max-w-4xl items-center justify-center border border-red-400">
+      <div className="group relative inline-flex w-full max-w-4xl items-center justify-center ">
         <input
           type="text"
           value={text}
           onChange={handleTextChange}
-          className="w-full truncate rounded-full border  border-gray-300 px-8 py-2 text-center text-4xl transition duration-150 ease-in-out focus:w-auto focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          onKeyDown={handleKeyDown}
+          className="w-full truncate rounded-full border-0 p-0 px-8 text-center text-4xl font-extrabold outline-none transition duration-150 ease-in-out hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-0 md:text-5xl lg:text-6xl"
         />
         <PencilIcon className="pointer-events-none invisible absolute right-3 h-5 w-5 text-gray-500 group-hover:visible" />
       </div>
