@@ -1,5 +1,5 @@
 import { PencilIcon } from "@heroicons/react/20/solid";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "~/utils/api";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
@@ -20,9 +20,11 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
     useEditItineraryTitle();
   const { length: numberOfDays } = details as unknown as { length: number };
   const [isEditing, setEditing] = useState(false);
+
   const [text, setText] = useState<string>(
     title ?? `${numberOfDays} days in ${cityName}`
   );
+  const span = useRef();
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -100,8 +102,7 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
       >
         EDIT
       </button> */}
-
-      <div className="h-20 border border-red-500 text-xl">
+      {/* <div className="h-20 border border-red-500 text-xl">
         <input
           type="text"
           value={text}
@@ -111,6 +112,15 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
         />
+      </div> */}
+      <div className="group relative inline-flex items-center justify-center border border-red-400">
+        <input
+          type="text"
+          value={text}
+          onChange={handleTextChange}
+          className="truncate rounded-full border border-gray-300 px-4 py-2 text-4xl transition duration-150 ease-in-out focus:w-auto focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+        <PencilIcon className="pointer-events-none invisible absolute right-3 h-5 w-5 text-gray-500 group-hover:visible" />
       </div>
     </>
   );
