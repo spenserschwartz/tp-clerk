@@ -1,9 +1,11 @@
+import { useUser } from "@clerk/nextjs";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import router from "next/router";
-import { Fragment, useEffect, useRef, type Dispatch } from "react";
+import { useRouter } from "next/router";
+import { Fragment, useEffect, useRef, useState, type Dispatch } from "react";
 import toast from "react-hot-toast";
 
+import { api } from "~/utils/api";
 import { useDeleteItinerary } from "~/utils/hooks";
 
 interface DeleteItineraryProps {
@@ -17,7 +19,11 @@ const DeleteItinerary = ({
   openModal,
   setOpenModal,
 }: DeleteItineraryProps) => {
+  const router = useRouter();
+  const { user } = useUser();
+  const ctx = api.useContext();
   const cancelButtonRef = useRef(null);
+  const [deleteCount, setDeleteCount] = useState(0);
   const { deleteItinerary, isDeletingItinerary, itineraryDeleted } =
     useDeleteItinerary();
 
@@ -27,15 +33,34 @@ const DeleteItinerary = ({
 
   // When itineraryDeleted is true, show toast, redirect back to the previous page, close modal
   useEffect(() => {
-    if (itineraryDeleted) {
-      toast.success("Itinerary deleted. You will be redirected.");
+    if (itineraryDeleted && deleteCount === 0) {
+      setDeleteCount(1);
+      const userId = user?.id ?? "";
+      const lookingAtSingleItinerary = router.pathname.includes("itinerary");
+
+      if (lookingAtSingleItinerary)
+        toast.success("Itinerary deleted. You will be redirected.");
+      else {
+        toast.success("Itinerary deleted.");
+        void ctx.itinerary.getByUserId.invalidate();
+      }
+
       setTimeout(() => {
-        router.back();
+        // router.back();
+
+        lookingAtSingleItinerary ? void router.push(`/user/${userId}`) : null;
       }, 3000);
 
       setOpenModal(false);
     }
-  }, [itineraryDeleted, setOpenModal]);
+  }, [
+    ctx.itinerary.getByUserId,
+    deleteCount,
+    itineraryDeleted,
+    router,
+    setOpenModal,
+    user?.id,
+  ]);
 
   return (
     <Transition.Root show={openModal} as={Fragment}>
