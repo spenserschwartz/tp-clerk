@@ -55,10 +55,10 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
         onChange={handleTextChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        className="w-full truncate rounded-full border-0 p-0 px-8 text-center text-4xl font-extrabold outline-none transition duration-150 ease-in-out hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-0 md:text-5xl lg:text-6xl"
+        className="w-full truncate rounded-full border-0 p-0 text-center text-3xl font-extrabold outline-none transition duration-150 ease-in-out hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-0 md:px-8 md:text-5xl lg:text-6xl"
         disabled={isEditingItineraryTitle}
       />
-      <PencilIcon className="pointer-events-none invisible absolute right-3 h-5 w-5 text-gray-500 group-hover:visible" />
+      <PencilIcon className="pointer-events-none invisible absolute right-3 h-5 w-5 text-gray-500 md:group-hover:visible" />
     </div>
   );
 };
