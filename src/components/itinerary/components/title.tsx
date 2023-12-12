@@ -20,7 +20,9 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
     useEditItineraryTitle();
   const { length: numberOfDays } = details as unknown as { length: number };
 
-  const [currentTitle, setCurrentTitle] = useState<string>(title ?? "");
+  const [currentTitle, setCurrentTitle] = useState<string>(
+    title ?? `${numberOfDays} days in ${cityName}`
+  );
   const [inputText, setInputText] = useState<string>(
     title ?? `${numberOfDays} days in ${cityName}`
   );
