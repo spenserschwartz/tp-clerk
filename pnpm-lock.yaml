@@ -110,6 +110,9 @@ dependencies:
   ts-node:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@18.16.0)(typescript@5.0.4)
+  use-places-autocomplete:
+    specifier: ^4.0.1
+    version: 4.0.1(react@18.2.0)
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -4633,6 +4636,14 @@ packages:
       '@types/react': 18.2.33
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-places-autocomplete@4.0.1(react@18.2.0):
+    resolution: {integrity: sha512-AybOR/qzXcdaMCGSFveycfL3kztwseAOdagbYoJD8c3amll+gEiPmUkSNhYNUEBqbR+JmJG6/oBTRgihNbE+1A==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /use-sidecar@1.1.2(@types/react@18.2.33)(react@18.2.0):
