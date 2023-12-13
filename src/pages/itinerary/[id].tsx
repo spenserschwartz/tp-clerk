@@ -1,11 +1,13 @@
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
 import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
+import ItineraryTitle from "~/components/itinerary/components/title";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
+import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useDeleteItinerary } from "~/utils/hooks";
@@ -13,34 +15,40 @@ import { useDeleteItinerary } from "~/utils/hooks";
 const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
+  const { user } = useUser();
+  const userId = user?.id;
   const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
-  const details = data?.details as unknown as ParsedAIMessageInterface[];
-  const { length: numberOfDays } = details;
 
+  const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 
-  const itineraryName = `${numberOfDays} days in ${data.city.name}`;
-
   return (
     <main className="flex flex-col items-center">
-      <h1 className="my-4 w-full text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <p className="truncate">{itineraryName}</p>
-      </h1>
-      <Itinerary parsedData={parsedData ?? []} />
+      {/* Itinerary Title */}
+      <ItineraryTitle itineraryID={itineraryID} />
+
+      {/* Itinerary */}
+      <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
+
+      {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
-        <button
-          className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
-            isDeletingItinerary && "cursor-not-allowed opacity-50"
-          }`}
-          onClick={() => setOpenModal(true)}
-          disabled={isDeletingItinerary}
-        >
-          Delete Itinerary
-        </button>
+        {userId === itineraryUserId && (
+          <div className="mt-4">
+            <button
+              className={`rounded bg-red-600 px-4 py-1 text-white hover:bg-red-700 ${
+                isDeletingItinerary && "cursor-not-allowed opacity-50"
+              }`}
+              onClick={() => setOpenModal(true)}
+              disabled={isDeletingItinerary}
+            >
+              Delete Itinerary
+            </button>
+          </div>
+        )}
       </SignedIn>
 
       {/* Modal */}

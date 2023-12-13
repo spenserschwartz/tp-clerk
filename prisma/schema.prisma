@@ -63,6 +63,7 @@ model Itinerary {
     userId       String?
     userImageURL String?
 
+    title   String?
     details Json?
 
     @@index([cityId])

@@ -12,10 +12,13 @@ interface ItineraryGridElementProps {
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
+  const itineraryTitle = itinerary.title;
+
   const {
     city: { name: cityName, imageURL: cityImageURL },
   } = itinerary;
   const { length: numberOfDays } = details;
+  const itineraryUserId = itinerary.userId ?? "";
 
   const itineraryName = `${numberOfDays} days in ${cityName}`;
   const itineraryDescription = details[0]?.afternoon;
@@ -39,7 +42,10 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
           className="absolute bottom-auto left-auto z-10 h-auto w-auto p-2"
           onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler from being called
         >
-          <DropdownMenu itineraryID={itinerary.id} />
+          <DropdownMenu
+            itineraryID={itinerary.id}
+            itineraryUserID={itineraryUserId}
+          />
         </div>
 
         {/* Image */}
@@ -63,7 +69,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
             className="cursor-pointer hover:opacity-75"
             onClick={gridElementClickHandler}
           >
-            {itineraryName}
+            {itineraryTitle ?? itineraryName}
           </p>
         </div>
 
@@ -77,9 +83,6 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
 
       {/* Tags */}
       <div className="px-6 pb-2 pt-4">
-        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-          #travel
-        </span>
         <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
           {`#${cityName}`}
         </span>

@@ -44,7 +44,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   };
 
   return (
-    <div className="flex w-full flex-col items-center px-10">
+    <div className="flex w-full flex-col items-center">
       <Head>
         <title>{`${cityData.name} - TravelPerfect`}</title>
       </Head>

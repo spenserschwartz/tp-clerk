@@ -14,8 +14,6 @@ const UserPage: NextPageWithLayout<{ userId: string }> = ({ userId }) => {
 
   const { data: user } = api.profile.getUserById.useQuery({ userId });
 
-  console.log("itinerariesByUser", itinerariesByUser);
-
   const pageTitle =
     user?.firstName && user?.lastName
       ? `${user.firstName} ${user.lastName}`

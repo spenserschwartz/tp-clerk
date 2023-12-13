@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import { Menu } from "@headlessui/react";
 import {
   PencilIcon,
@@ -11,9 +12,12 @@ import DeleteItinerary from "../modal/deleteItinerary";
 
 interface DropdownMenuProps {
   itineraryID: string;
+  itineraryUserID: string;
 }
 
-const DropdownMenu = ({ itineraryID }: DropdownMenuProps) => {
+const DropdownMenu = ({ itineraryID, itineraryUserID }: DropdownMenuProps) => {
+  const { user } = useUser();
+  const userId = user?.id;
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
 
@@ -48,22 +52,25 @@ const DropdownMenu = ({ itineraryID }: DropdownMenuProps) => {
               )}
             </Menu.Item>
 
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => setOpenModal(true)}
-                >
-                  <TrashIcon
-                    className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                  Delete
-                </button>
-              )}
-            </Menu.Item>
+            {/* User can only delete itinerary if they made itinerary */}
+            {userId === itineraryUserID && (
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => setOpenModal(true)}
+                  >
+                    <TrashIcon
+                      className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                    Delete
+                  </button>
+                )}
+              </Menu.Item>
+            )}
           </div>
         </Menu.Items>
       </Menu>

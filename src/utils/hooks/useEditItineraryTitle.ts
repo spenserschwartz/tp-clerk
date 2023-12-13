@@ -1,36 +1,35 @@
 import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 
-const useCreateItinerary = () => {
+const useEditItineraryTitle = () => {
   const {
-    mutate: createItinerary,
-    isLoading: isCreatingItinerary,
-    isSuccess: itineraryCreated,
+    mutate: editItineraryTitle,
+    isLoading: isEditingItineraryTitle,
+    isSuccess: itineraryTitleEdited,
     data: itineraryData,
-  } = api.itinerary.create.useMutation({
+  } = api.itinerary.editTitle.useMutation({
     onSuccess: () => {
-      toast.success("Itinerary created!");
+      toast.success("Itinerary Title Updated!");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage?.[0]) {
         toast.error(errorMessage[0]);
       } else {
-        toast.error("Failed to create itinerary! Please try again later.");
+        toast.error("Failed to edit itinerary title! Please try again later.");
       }
     },
     onSettled(data, error) {
       if (error) console.error(error);
-      console.log("itinerary onSettled data", data);
     },
   });
 
   return {
-    createItinerary,
-    isCreatingItinerary,
-    itineraryCreated,
+    editItineraryTitle,
+    isEditingItineraryTitle,
+    itineraryTitleEdited,
     itineraryData,
   };
 };
 
-export default useCreateItinerary;
+export default useEditItineraryTitle;

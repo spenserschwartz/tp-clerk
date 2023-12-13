@@ -15,6 +15,7 @@ const config = {
       { hostname: "images.unsplash.com" },
       { hostname: "tailwindui.com" },
       { hostname: "travelperfect-bucket.s3.us-west-1.amazonaws.com" },
+      { hostname: "www.gravatar.com" },
     ],
   },
 
