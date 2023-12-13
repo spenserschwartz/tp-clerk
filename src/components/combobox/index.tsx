@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox as HeadlessCombobox } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -22,14 +22,6 @@ export default function Combobox({ options }: ComboboxProps) {
   const [query, setQuery] = useState<string>("");
   const [selectedOption, setSelectedOption] =
     useState<ComboboxOptionsType | null>(null);
-
-  // Used for combobox filtering
-  const filteredOptions =
-    query === ""
-      ? options
-      : options.filter((option) => {
-          return option.name.toLowerCase().includes(query.toLowerCase());
-        });
 
   const comboboxChangeHandler = (option: ComboboxOptionsType) => {
     setSelectedOption(option); // This line isn't really used, we can clean up the useState above
@@ -63,9 +55,9 @@ export default function Combobox({ options }: ComboboxProps) {
           />
         </HeadlessCombobox.Button>
 
-        {filteredOptions.length > 0 && (
+        {options?.length > 0 && (
           <HeadlessCombobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {filteredOptions.map((option) => (
+            {options?.map((option) => (
               <HeadlessCombobox.Option
                 key={option.id}
                 value={option}
