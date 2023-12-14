@@ -2,7 +2,9 @@ import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo, useState } from "react";
-import usePlacesAutocomplete from "use-places-autocomplete";
+import usePlacesAutocomplete, {
+  type Suggestion,
+} from "use-places-autocomplete";
 
 interface PlacesAutoCompleteProps {
   setSelected: (value: string) => void;
@@ -36,7 +38,12 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
       <div className="w-60">
         {/* <MyCombobox options={fakeOptions} /> */}
         {/* <input value={value} onChange={(e) => setValue(e.target.value)} /> */}
-        <Combobox as="div" value={value} onChange={setSelected}>
+        <Combobox
+          as="div"
+          value={value}
+          onChange={setSelected}
+          disabled={!ready}
+        >
           <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
             Assigned to
           </Combobox.Label>
@@ -44,7 +51,7 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
             <Combobox.Input
               className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               onChange={(event) => setValue(event.target.value)}
-              displayValue={(place) => place.description}
+              displayValue={(place: Suggestion) => place.description}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
               <ChevronUpDownIcon
