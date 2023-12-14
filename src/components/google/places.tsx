@@ -17,7 +17,9 @@ const GooglePlaces = () => {
 
 function Map() {
   const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState<string | null>(null);
+
+  console.log("selected", selected);
 
   return (
     <>

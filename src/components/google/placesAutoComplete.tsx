@@ -8,11 +8,11 @@ interface PlacesAutoCompleteProps {
   setSelected: (value: string) => void;
 }
 
-function classNames(...classes) {
+function classNames(...classes: (string | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-const PlacesAutoComplete = ({ setSelected }) => {
+const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
   const {
     ready,
     value,
