@@ -47,7 +47,8 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             console.log("result", result);
 
-            console.log("getPhoto", result?.photos[0]?.getUrl());
+            if (result?.photos)
+              console.log("getPhoto", result?.photos[0]?.getUrl());
           }
         }
       );
