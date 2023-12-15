@@ -4,12 +4,12 @@ import {
   useLoadScript,
   type Libraries,
 } from "@react-google-maps/api";
-import { useMemo, useState } from "react";
-
+import { useEffect, useMemo, useState } from "react";
 import PlacesAutoComplete from "./placesAutoComplete";
 
+const libraries: Libraries = ["places"];
+
 const GooglePlaces = () => {
-  const libraries: Libraries = ["places"];
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
@@ -22,7 +22,7 @@ const GooglePlaces = () => {
 
 function Map() {
   const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null); //place_id
 
   console.log("selected", selected);
 

@@ -26,6 +26,13 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
   const handleSelect = (address: string) => {
     setValue(address, false);
     clearSuggestions();
+
+    const place_id = data.find(
+      (place: Suggestion) => place.description === address
+    )?.place_id;
+    console.log("place_id", place_id);
+
+    setSelected(address);
   };
 
   console.log("value", value);
