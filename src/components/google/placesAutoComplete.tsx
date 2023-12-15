@@ -32,6 +32,29 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     )?.place_id;
     console.log("place_id", place_id);
 
+    const fetchDetails = () => {
+      if (!place_id) return;
+
+      const map = new window.google.maps.Map(document.createElement("div"));
+      const service = new window.google.maps.places.PlacesService(map);
+
+      service.getDetails(
+        {
+          placeId: place_id,
+          fields: ["name", "formatted_address", "geometry", "photo"],
+        },
+        (result, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            console.log("result", result);
+
+            console.log("getPhoto", result?.photos[0]?.getUrl());
+          }
+        }
+      );
+    };
+
+    fetchDetails();
+
     setSelected(address);
   };
 
