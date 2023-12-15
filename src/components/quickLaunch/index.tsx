@@ -107,11 +107,13 @@ const QuickLaunch = () => {
     }
   }, [generatedAIMessage]);
 
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
     isLoaded && (
       <div
         className="my-8 flex h-full flex-col items-center"
-        data-aos="fade-up"
+        // ! data-aos="fade-up"  >>> Let's remove for better library
       >
         {/* Loading Page */}
         {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
@@ -122,8 +124,6 @@ const QuickLaunch = () => {
             <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
               <form onSubmit={handleFormSubmit}>
                 {/* Destination */}
-
-                {/* //! WORKING BELOW, COMMENTED OUT ABOVE */}
                 <div className="mb-6 block w-[300px] font-medium leading-6 text-gray-300">
                   <p className="flex justify-between">
                     <span>Where do you want to go?</span>

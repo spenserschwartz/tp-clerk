@@ -71,9 +71,6 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
           onChange={handleSelect}
           disabled={!ready}
         >
-          {/* <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-            Assigned to
-          </Combobox.Label> */}
           <div className="relative">
             <Combobox.Input
               className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
