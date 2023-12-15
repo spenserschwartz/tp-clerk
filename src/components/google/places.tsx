@@ -1,13 +1,18 @@
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  useLoadScript,
+  type Libraries,
+} from "@react-google-maps/api";
 import { useMemo, useState } from "react";
-import usePlacesAutocomplete from "use-places-autocomplete";
-import MyCombobox from "../combobox";
+
 import PlacesAutoComplete from "./placesAutoComplete";
 
 const GooglePlaces = () => {
+  const libraries: Libraries = ["places"];
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
-    libraries: ["places"],
+    libraries,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -26,14 +31,6 @@ function Map() {
       <div>
         <PlacesAutoComplete setSelected={setSelected} />
       </div>
-
-      {/* <GoogleMap
-        zoom={10}
-        center={center}
-        mapContainerClassName="w-full h-full"
-      >
-        <Marker position={center} />
-      </GoogleMap> */}
     </>
   );
 }
