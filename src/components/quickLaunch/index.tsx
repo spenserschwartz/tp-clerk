@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import { addDays, format as formatDate } from "date-fns";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
@@ -23,6 +24,7 @@ const libraries: Libraries = ["places"];
 
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
+  const router = useRouter();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
@@ -38,7 +40,13 @@ const QuickLaunch = () => {
   const { data: cityData, refetch } = api.city.getCityByName.useQuery({
     name: chosenCityName,
   });
-  const { createItinerary, isCreatingItinerary } = useCreateItinerary();
+  const {
+    createItinerary,
+    isCreatingItinerary,
+    itineraryCreated,
+    itineraryData,
+  } = useCreateItinerary();
+
   const {
     generateAIItinerary,
     isLoadingAI,
@@ -105,6 +113,8 @@ const QuickLaunch = () => {
   }, [generatedAIMessage]);
 
   if (!isLoaded) return <div>Loading...</div>;
+
+  console.log("itineraryData", itineraryData);
 
   return (
     isLoaded && (
@@ -206,6 +216,17 @@ const QuickLaunch = () => {
                   onClick={saveItineraryHandler}
                 >
                   Save Itinerary
+                </button>
+              )}
+
+              {itineraryCreated && (
+                <button
+                  className="ml-4 rounded bg-blue-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  onClick={() =>
+                    void router.push(`/itinerary/${itineraryData?.id}`)
+                  }
+                >
+                  Go to Itinerary
                 </button>
               )}
             </div>
