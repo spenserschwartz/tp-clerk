@@ -2,7 +2,12 @@ import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 
 const useAIGenerateItinerary = () => {
-  const {} = api.openAI.generateTripItinerary.useMutation({
+  const {
+    mutate: generateAIItinerary,
+    isLoading: isGeneratingAIItinerary,
+    isSuccess: itineraryAIGenerated,
+    data: itineraryAI,
+  } = api.openAI.generateTripItinerary.useMutation({
     onSuccess: () => {
       toast.success("Itinerary generated via AI!");
     },
@@ -20,6 +25,13 @@ const useAIGenerateItinerary = () => {
       if (error) console.error(error);
     },
   });
+
+  return {
+    generateAIItinerary,
+    isGeneratingAIItinerary,
+    itineraryAIGenerated,
+    itineraryAI,
+  };
 };
 
 export default useAIGenerateItinerary;
