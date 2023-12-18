@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
@@ -6,7 +7,6 @@ import toast from "react-hot-toast";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
-import { useUser } from "@clerk/nextjs";
 import {
   Button,
   Itinerary,
