@@ -16,8 +16,7 @@ import {
   Select,
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
-import { useCreateItinerary } from "~/utils/hooks";
-import useAIGenerateItinerary from "~/utils/hooks/useAIGenerateItinerary";
+import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities } from "../utils";
 
 const libraries: Libraries = ["places"];
