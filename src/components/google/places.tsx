@@ -5,11 +5,12 @@ import {
   type Libraries,
 } from "@react-google-maps/api";
 import { useEffect, useMemo, useState } from "react";
+
 import PlacesAutoComplete from "./placesAutoComplete";
 
-const libraries: Libraries = ["places"];
-
+// TODO: Ready to be used for more Google Maps components
 const GooglePlaces = () => {
+  const libraries: Libraries = ["places"];
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
