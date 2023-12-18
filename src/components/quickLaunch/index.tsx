@@ -16,6 +16,7 @@ import {
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useCreateItinerary } from "~/utils/hooks";
+import useAIGenerateItinerary from "~/utils/hooks/useAIGenerateItinerary";
 import { quickLaunchCities } from "../utils";
 
 const libraries: Libraries = ["places"];
@@ -34,11 +35,16 @@ const QuickLaunch = () => {
     to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
-
+  const { data: cityData, refetch } = api.city.getCityByName.useQuery({
+    name: chosenCityName,
+  });
   const { createItinerary, isCreatingItinerary } = useCreateItinerary();
-
-  const { mutate, isLoading: isLoadingAI } =
-    api.openAI.generateTripItinerary.useMutation({});
+  const {
+    generateAIItinerary,
+    isLoadingAI,
+    itineraryAIGenerated,
+    itineraryAI,
+  } = useAIGenerateItinerary();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
@@ -52,33 +58,13 @@ const QuickLaunch = () => {
       );
       const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
-      mutate(
-        {
-          cityName: chosenCityName,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
-        },
-        {
-          onSettled(data, error) {
-            if (error) console.error(error);
-            console.log("onSettled data", data);
-
-            if (data) {
-              setGeneratedAIMessage(data?.choices[0]?.message.content ?? "");
-            }
-          },
-        }
-      );
+      generateAIItinerary({
+        cityName: chosenCityName,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      });
     }
   };
-
-  const { data: cityData, refetch } = api.city.getCityByName.useQuery({
-    name: chosenCityName,
-  });
-
-  useEffect(() => {
-    refetch;
-  }, [chosenCityName, refetch]);
 
   const saveItineraryHandler = () => {
     if (!isSignedIn) {
@@ -92,6 +78,17 @@ const QuickLaunch = () => {
       });
     }
   };
+
+  // Set generatedAIMessage once itineraryAI is generated
+  useEffect(() => {
+    if (itineraryAIGenerated && itineraryAI)
+      setGeneratedAIMessage(itineraryAI?.choices[0]?.message.content ?? "");
+  }, [itineraryAIGenerated, itineraryAI]);
+
+  // Refetch city data when chosenCityName changes
+  useEffect(() => {
+    refetch;
+  }, [chosenCityName, refetch]);
 
   // Set parsedData that shows on generation
   useEffect(() => {

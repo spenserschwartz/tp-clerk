@@ -4,7 +4,7 @@ import { api } from "~/utils/api";
 const useAIGenerateItinerary = () => {
   const {
     mutate: generateAIItinerary,
-    isLoading: isGeneratingAIItinerary,
+    isLoading: isLoadingAI,
     isSuccess: itineraryAIGenerated,
     data: itineraryAI,
   } = api.openAI.generateTripItinerary.useMutation({
@@ -28,7 +28,7 @@ const useAIGenerateItinerary = () => {
 
   return {
     generateAIItinerary,
-    isGeneratingAIItinerary,
+    isLoadingAI,
     itineraryAIGenerated,
     itineraryAI,
   };
