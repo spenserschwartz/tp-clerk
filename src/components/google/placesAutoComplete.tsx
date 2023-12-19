@@ -8,10 +8,6 @@ interface PlacesAutoCompleteProps {
   setSelected: (value: string) => void;
 }
 
-function classNames(...classes: (string | false)[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
 const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
   const {
     ready,
@@ -42,10 +38,7 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
         },
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            console.log("result", result);
-
-            if (result?.photos)
-              console.log("getPhoto", result?.photos[0]?.getUrl());
+            // Do something with the result object here
           }
         }
       );
@@ -87,29 +80,26 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
                     key={place_id}
                     value={description}
                     className={({ active }) =>
-                      classNames(
-                        "relative cursor-default select-none py-2 pl-3 pr-9",
-                        active ? "bg-indigo-600 text-white" : "text-gray-900"
-                      )
+                      `relative cursor-default select-none py-2 pl-3 pr-9 
+                        ${active ? "bg-indigo-600 text-white" : "text-gray-900"}
+                        `
                     }
                   >
                     {({ active, selected }) => (
                       <>
                         <span
-                          className={classNames(
-                            "block truncate",
+                          className={`block truncate ${
                             selected && "font-semibold"
-                          )}
+                          }`}
                         >
                           {description}
                         </span>
 
                         {selected && (
                           <span
-                            className={classNames(
-                              "absolute inset-y-0 right-0 flex items-center pr-4",
+                            className={`absolute inset-y-0 right-0 flex items-center pr-4 ${
                               active ? "text-white" : "text-indigo-600"
-                            )}
+                            }`}
                           >
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
