@@ -59,9 +59,6 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     setSelected(address);
   };
 
-  console.log("value", value);
-  console.log("data", data);
-
   return (
     <>
       <div className="w-full">
