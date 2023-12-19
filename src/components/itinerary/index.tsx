@@ -18,8 +18,6 @@ const Itinerary = ({
   });
   const itineraryUserId = itineraryUserData?.userId ?? unknownClerkUser.id;
 
-  console.log("itineraryUserId", itineraryUserId);
-
   return (
     <div data-aos="zoom-in">
       <div className="w-full max-w-5xl overflow-hidden overflow-y-auto rounded-lg bg-gray-100 shadow-xl ">

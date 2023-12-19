@@ -113,8 +113,6 @@ const QuickLaunch = () => {
 
   if (!isLoaded) return <div>Loading...</div>;
 
-  console.log("itineraryData", itineraryData);
-
   return (
     isLoaded && (
       <div
