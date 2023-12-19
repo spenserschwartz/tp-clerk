@@ -1,7 +1,5 @@
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useMemo, useState } from "react";
 import usePlacesAutocomplete, {
   type Suggestion,
 } from "use-places-autocomplete";
@@ -30,7 +28,6 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     const place_id = data.find(
       (place: Suggestion) => place.description === address
     )?.place_id;
-    console.log("place_id", place_id);
 
     const fetchDetails = () => {
       if (!place_id) return;
