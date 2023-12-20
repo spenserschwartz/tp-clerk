@@ -36,6 +36,10 @@ export const quickLaunchCities = [
   "Vatican City",
 ];
 
+export const unknownClerkCity = {
+  id: "fake",
+};
+
 export const unknownClerkUser = {
   id: "user_2YxVp66u0zvMgoN7zOSm6sJiiHb",
 };
