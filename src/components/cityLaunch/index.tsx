@@ -76,6 +76,7 @@ const CityLaunch = ({
             createItinerary({
               cityId: cityData?.id ?? "",
               details: newParsedData,
+              title: `${newParsedData.length} days in ${cityData?.name}`,
             });
           }
         },

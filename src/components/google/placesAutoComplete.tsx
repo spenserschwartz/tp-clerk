@@ -15,6 +15,7 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     setValue,
     suggestions: { status, data },
     clearSuggestions,
+    // } = usePlacesAutocomplete({ requestOptions: { types: ["establishment"] } });
   } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
 
   const handleSelect = (address: string) => {
@@ -39,6 +40,8 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             // Do something with the result object here
+
+            console.log("result", result);
           }
         }
       );
@@ -48,6 +51,8 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
 
     setSelected(address);
   };
+
+  console.log("data", data);
 
   return (
     <>
