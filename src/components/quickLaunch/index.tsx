@@ -17,7 +17,7 @@ import {
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
-import { quickLaunchCities } from "../utils";
+import { quickLaunchCities, unknownClerkCity } from "../utils";
 
 const libraries: Libraries = ["places"];
 
@@ -79,9 +79,12 @@ const QuickLaunch = () => {
       return;
     }
     if (parsedData.length > 0) {
+      const itineraryTitle = `${parsedData.length} days in ${chosenCityName}`;
+
       createItinerary({
-        cityId: cityData?.id ?? "city not found",
+        cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
+        title: itineraryTitle ?? null,
       });
     }
   };
@@ -207,14 +210,12 @@ const QuickLaunch = () => {
                 size="xl"
               />
 
-              {!customCity && (
-                <button
-                  className="ml-4 rounded bg-green-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                  onClick={saveItineraryHandler}
-                >
-                  Save Itinerary
-                </button>
-              )}
+              <button
+                className="ml-4 rounded bg-green-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onClick={saveItineraryHandler}
+              >
+                Save Itinerary
+              </button>
 
               {itineraryCreated && (
                 <button
