@@ -76,6 +76,7 @@ export const itineraryRouter = createTRPCRouter({
           })
         ),
         title: z.string().nullable(),
+        imageURL: z.optional(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
