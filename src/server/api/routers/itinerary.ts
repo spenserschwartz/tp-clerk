@@ -75,6 +75,7 @@ export const itineraryRouter = createTRPCRouter({
             evening: z.string(),
           })
         ),
+        title: z.string().nullable(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -88,6 +89,7 @@ export const itineraryRouter = createTRPCRouter({
           city: { connect: { id: input.cityId } },
           user: { connect: { id: userId } },
           details: input.details,
+          title: input.title ?? null,
         },
       });
 
