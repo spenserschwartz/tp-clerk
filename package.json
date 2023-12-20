@@ -28,6 +28,7 @@
     "@trpc/next": "^10.26.0",
     "@trpc/react-query": "^10.26.0",
     "@trpc/server": "^10.26.0",
+    "@types/google.maps": "^3.54.10",
     "@upstash/ratelimit": "^0.4.3",
     "@upstash/redis": "^1.22.0",
     "ai": "^2.2.15",
