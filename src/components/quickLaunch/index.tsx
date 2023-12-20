@@ -210,12 +210,14 @@ const QuickLaunch = () => {
                 size="xl"
               />
 
-              <button
-                className="ml-4 rounded bg-green-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                onClick={saveItineraryHandler}
-              >
-                Save Itinerary
-              </button>
+              {!itineraryCreated && (
+                <button
+                  className="ml-4 rounded bg-green-500 px-3.5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  onClick={saveItineraryHandler}
+                >
+                  Save Itinerary
+                </button>
+              )}
 
               {itineraryCreated && (
                 <button
