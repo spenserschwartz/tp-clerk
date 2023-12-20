@@ -59,12 +59,12 @@ model Itinerary {
     city   City   @relation(fields: [cityId], references: [id])
     cityId String
 
-    user         User?   @relation(fields: [userId], references: [id])
-    userId       String?
-    userImageURL String?
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
 
-    title   String?
-    details Json?
+    title    String?
+    imageURL String?
+    details  Json?
 
     @@index([cityId])
     @@index([userId])
