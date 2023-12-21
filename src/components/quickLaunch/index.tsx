@@ -5,10 +5,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
-import { type DetailsResult } from "use-places-autocomplete";
 import { api } from "~/utils/api";
 
-import { custom } from "zod";
 import {
   Button,
   Itinerary,
@@ -133,6 +131,7 @@ const QuickLaunch = () => {
     }
   }, [generatedAIMessage]);
 
+  // Set chosenCityName and cityPhoto when chosenCustomCity changes
   useEffect(() => {
     setChosenCityName(chosenCustomCity?.formatted_address ?? "");
 
