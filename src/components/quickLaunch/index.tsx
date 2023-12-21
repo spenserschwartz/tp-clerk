@@ -140,10 +140,6 @@ const QuickLaunch = () => {
     setCustomCityPhoto(cityPhoto);
   }, [chosenCustomCity]);
 
-  console.log("customCityPhoto", customCityPhoto);
-  console.log("chosenCustomCity", chosenCustomCity);
-  console.log("chosenCityName", chosenCityName);
-
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
