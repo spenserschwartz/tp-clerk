@@ -63,7 +63,7 @@ model Itinerary {
     userId String?
 
     title    String?
-    imageURL String?
+    imageURL String? @db.VarChar(500)
     details  Json?
 
     @@index([cityId])
