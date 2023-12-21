@@ -3,9 +3,11 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import usePlacesAutocomplete, {
   type Suggestion,
 } from "use-places-autocomplete";
+import type { PlacePhoto, PlaceResult } from "~/types/google";
 
 interface PlacesAutoCompleteProps {
-  setSelected: (value: string) => void;
+  // setSelected: (value: string) => void;
+  setSelected: (value: PlaceResult | null) => void;
 }
 
 const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
@@ -40,8 +42,13 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             // Do something with the result object here
-            // const placeResult: PlaceResult | null = result
-            // const placePhoto: PlacePhoto | undefined = result?.photos?.[0];
+            const placeResult: PlaceResult | null = result;
+            const placePhoto: PlacePhoto | undefined = result?.photos?.[0];
+
+            console.log("placeResult", placeResult);
+            console.log("placePhoto", placePhoto);
+
+            setSelected(placeResult);
           }
         }
       );
@@ -49,7 +56,7 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
 
     fetchDetails();
 
-    setSelected(address);
+    // setSelected(address);
   };
 
   console.log("data", data);

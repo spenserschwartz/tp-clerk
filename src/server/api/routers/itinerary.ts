@@ -91,6 +91,7 @@ export const itineraryRouter = createTRPCRouter({
           user: { connect: { id: userId } },
           details: input.details,
           title: input.title ?? null,
+          imageURL: input.imageURL ?? null,
         },
       });
 

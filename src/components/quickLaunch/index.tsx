@@ -5,9 +5,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
+import { type DetailsResult } from "use-places-autocomplete";
 import { api } from "~/utils/api";
 
+import { custom } from "zod";
 import {
   Button,
   Itinerary,
@@ -16,6 +17,8 @@ import {
   Select,
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
+import { type PlaceResult } from "~/types/google";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities, unknownClerkCity } from "../utils";
 
@@ -28,6 +31,12 @@ const QuickLaunch = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
+  const [chosenCustomCity, setChosenCustomCity] = useState<PlaceResult | null>(
+    null
+  );
+  const [customCityPhoto, setCustomCityPhoto] = useState<string | undefined>(
+    undefined
+  );
   const [chosenCityName, setChosenCityName] = useState("");
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [customCity, setCustomCity] = useState(false);
@@ -84,10 +93,17 @@ const QuickLaunch = () => {
           ? `${parsedData.length} days in ${chosenCityName}`
           : null;
 
+      const imageURL = customCity
+        ? chosenCustomCity?.photos?.[0]?.getUrl()
+        : undefined;
+      console.log("THIS IS imageURL", imageURL);
+
       createItinerary({
         cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
         title: itineraryTitle,
+        imageURL: customCityPhoto,
+        // imageURL: customCity ? customCityPhoto : null,
       });
     }
   };
@@ -116,6 +132,17 @@ const QuickLaunch = () => {
       }
     }
   }, [generatedAIMessage]);
+
+  useEffect(() => {
+    setChosenCityName(chosenCustomCity?.formatted_address ?? "");
+
+    const cityPhoto = chosenCustomCity?.photos?.[0]?.getUrl() ?? undefined;
+    setCustomCityPhoto(cityPhoto);
+  }, [chosenCustomCity]);
+
+  console.log("customCityPhoto", customCityPhoto);
+  console.log("chosenCustomCity", chosenCustomCity);
+  console.log("chosenCityName", chosenCityName);
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -154,7 +181,7 @@ const QuickLaunch = () => {
                     />
                   ) : (
                     <div>
-                      <PlacesAutoComplete setSelected={setChosenCityName} />
+                      <PlacesAutoComplete setSelected={setChosenCustomCity} />
                     </div>
                   )}
                 </div>
