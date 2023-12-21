@@ -79,12 +79,15 @@ const QuickLaunch = () => {
       return;
     }
     if (parsedData.length > 0) {
-      const itineraryTitle = `${parsedData.length} days in ${chosenCityName}`;
+      const itineraryTitle =
+        parsedData.length && chosenCityName
+          ? `${parsedData.length} days in ${chosenCityName}`
+          : null;
 
       createItinerary({
         cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
-        title: itineraryTitle ?? null,
+        title: itineraryTitle,
       });
     }
   };

@@ -40,8 +40,8 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             // Do something with the result object here
-
-            console.log("result", result);
+            // const placeResult: PlaceResult | null = result
+            // const placePhoto: PlacePhoto | undefined = result?.photos?.[0];
           }
         }
       );
