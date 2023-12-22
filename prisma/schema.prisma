@@ -39,6 +39,7 @@ model Attraction {
 model City {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
+    name      String   @unique
 
     attractions     Attraction[]
     itinerary       Itinerary[]
@@ -47,7 +48,6 @@ model City {
     authorId    String
     description String?
     imageURL    String?
-    name        String  @unique
 
     @@index([authorId])
 }
