@@ -41,7 +41,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
         {/* Pencil icon in top right of image */}
         <div
           className="absolute bottom-auto left-auto z-10 h-auto w-auto p-2"
-          onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler from being called
+          onClick={(e) => e.stopPropagation()} // prevents gridElementClickHandler in parent from being called
         >
           <DropdownMenu
             itineraryID={itinerary.id}
