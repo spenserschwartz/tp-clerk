@@ -25,13 +25,9 @@ function Map() {
   const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
   const [selected, setSelected] = useState<string | null>(null); //place_id
 
-  console.log("selected", selected);
-
   return (
     <>
-      <div>
-        <PlacesAutoComplete setSelected={setSelected} />
-      </div>
+      <div></div>
     </>
   );
 }
