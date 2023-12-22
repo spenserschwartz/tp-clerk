@@ -13,6 +13,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const itineraryTitle = itinerary.title;
+  const itineraryImageURL = itinerary.imageURL;
 
   const {
     city: { name: cityName, imageURL: cityImageURL },
@@ -51,7 +52,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
         {/* Image */}
         <Image
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          src={cityImageURL ?? "/images/placeholder.png"}
+          src={itineraryImageURL ?? cityImageURL ?? "/images/placeholder.png"}
           alt=""
           className="pointer-events-none object-cover"
           width={100}
