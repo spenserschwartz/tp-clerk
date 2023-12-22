@@ -10,6 +10,9 @@ interface PlacesAutoCompleteProps {
   setSelected: (value: PlaceResult | null) => void;
 }
 
+const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
+const SEARCH_RADIUS = 10000; // 10 kilometers radius
+
 const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
   const {
     ready,
@@ -17,7 +20,13 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     setValue,
     suggestions: { status, data },
     clearSuggestions,
-    // } = usePlacesAutocomplete({ requestOptions: { types: ["establishment"] } });
+    // } = usePlacesAutocomplete({
+    //   requestOptions: {
+    //     types: ["establishment"],
+    //     location: new window.google.maps.LatLng(LONDON_COORDINATES),
+    //     radius: SEARCH_RADIUS,
+    //   },
+    // });
   } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
 
   const handleSelect = (address: string) => {
@@ -50,8 +59,6 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
     };
 
     fetchDetails();
-
-    // setSelected(address);
   };
 
   return (
@@ -67,7 +74,6 @@ const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
             <Combobox.Input
               className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               onChange={(event) => setValue(event.target.value)}
-              // displayValue={(place: Suggestion) => place.description}
               displayValue={() => value}
               placeholder="Search for a place"
             />
