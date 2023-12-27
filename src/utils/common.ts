@@ -1,4 +1,4 @@
-import type { RouterOutputs } from "~/utils/api";
+import { type GetRecommendedDaysByCityType } from "~/types/router";
 
 export const displayCityName = (city: string | undefined): string => {
   if (!city) return "";
@@ -9,11 +9,8 @@ export const displayCityName = (city: string | undefined): string => {
     .join(" "); // join back to string
 };
 
-type GetRecomendedDaysByCityType =
-  RouterOutputs["recommendedDaysInCity"]["getAllByCity"];
-
 export const findAverageRecDays = (
-  allCityRecs: GetRecomendedDaysByCityType | undefined
+  allCityRecs: GetRecommendedDaysByCityType | undefined
 ) => {
   if (!allCityRecs ?? !allCityRecs?.length) return undefined;
   // Find average
