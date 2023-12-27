@@ -28,8 +28,7 @@ const CityLaunch = ({
     itineraryCreated,
     itineraryData,
   } = useCreateItinerary();
-  const { generateAIItinerary, isLoadingAI, itineraryAIGenerated } =
-    useAIGenerateItinerary();
+  const { generateAIItinerary, isLoadingAI } = useAIGenerateItinerary();
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
@@ -82,10 +81,14 @@ const CityLaunch = ({
   };
 
   // set showLoading to true when isLoadingAI or isCreatingItinerary or isMutating is true
-  useEffect(() => {
-    if (isLoadingAI || isCreatingItinerary || isMutating) setShowLoading(true);
-    else setShowLoading(false);
-  }, [isLoadingAI, isCreatingItinerary, isMutating]);
+  useEffect(
+    function showLoadingEffect() {
+      if (isLoadingAI || isCreatingItinerary || isMutating)
+        setShowLoading(true);
+      else setShowLoading(false);
+    },
+    [isLoadingAI, isCreatingItinerary, isMutating]
+  );
 
   return (
     <div className="my-8 flex h-full flex-col items-center" data-aos="zoom-in">
