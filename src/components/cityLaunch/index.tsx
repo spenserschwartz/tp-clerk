@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
-import { LoadingSpinner } from "~/components";
+import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
+import { sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 
 interface CityLaunchProps {
@@ -118,6 +119,14 @@ const CityLaunch = ({
               <DatePickerWithRange date={date} setDate={setDate} />
             </div>
 
+            {/* Date Range Picker */}
+            <div className="px-4">
+              <span className="font-semibold text-gray-900">
+                Add an attraction
+              </span>
+              placesAutoComplete here
+            </div>
+
             {/* Included Attractions, alphabetized */}
             <div className="mt-4 flex w-full flex-col px-4">
               <div className="mb-6 block w-full">
@@ -136,13 +145,15 @@ const CityLaunch = ({
                       **Please add attractions to your itinerary
                     </p>
                   )}
-                </SignedIn>
 
-                <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
-                  {attractionsUpvotedByUser?.sort().map((attraction) => {
-                    return <li key={attraction}>{attraction}</li>;
-                  })}
-                </ul>
+                  <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
+                    {sortWithoutPrefix(attractionsUpvotedByUser).map(
+                      (attraction) => {
+                        return <li key={attraction}>{attraction}</li>;
+                      }
+                    )}
+                  </ul>
+                </SignedIn>
               </div>
             </div>
           </div>

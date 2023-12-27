@@ -32,3 +32,22 @@ export const findDifferenceInDays = (date1: string, date2: string) => {
   );
   return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
 };
+
+// Sort without prefix
+export const sortWithoutPrefix = (titles: string[] | undefined) => {
+  if (!titles?.length) return [];
+
+  return titles.sort((a, b) => {
+    const removeThe = (title: string) =>
+      title.startsWith("The ") || title.startsWith("the ")
+        ? title.substring(4)
+        : title;
+
+    // Apply the function to both titles
+    const adjustedA = removeThe(a);
+    const adjustedB = removeThe(b);
+
+    // Compare the adjusted titles
+    return adjustedA.localeCompare(adjustedB);
+  });
+};
