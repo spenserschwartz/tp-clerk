@@ -2,14 +2,13 @@ import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
-import toast from "react-hot-toast";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { api } from "~/utils/api";
 
 import { LoadingSpinner } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
-import { useCreateItinerary } from "~/utils/hooks";
+import { DatePickerWithRange } from "~/ui/datePickerWithRange";
+import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 
 interface CityLaunchProps {
   cityData: GetCityByNameType;
@@ -29,6 +28,8 @@ const CityLaunch = ({
     itineraryCreated,
     itineraryData,
   } = useCreateItinerary();
+  const { generateAIItinerary, isLoadingAI, itineraryAIGenerated } =
+    useAIGenerateItinerary();
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
@@ -41,8 +42,6 @@ const CityLaunch = ({
     userId: user ? user.id : "",
   });
 
-  const { mutate: generateAI, isLoading: isLoadingAI } =
-    api.openAI.generateTripItinerary.useMutation({});
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name
   );
@@ -56,7 +55,7 @@ const CityLaunch = ({
     );
     const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
-    generateAI(
+    generateAIItinerary(
       {
         cityName: cityData?.name ?? "",
         startDate: formattedStartDate,
@@ -64,9 +63,7 @@ const CityLaunch = ({
         attractions: attractionsUpvotedByUser ?? [],
       },
       {
-        onSettled(data, error) {
-          if (error) toast.error("Failed to generate itinerary!");
-
+        onSettled(data) {
           //   Create a row in Itinerary table
           if (data) {
             const newParsedData = JSON.parse(
