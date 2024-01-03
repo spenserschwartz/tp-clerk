@@ -1,4 +1,31 @@
+import { LatLng } from "use-places-autocomplete";
+import { AutocompleteRequest, RequestOptionType } from "~/types/google";
 import { type GetRecommendedDaysByCityType } from "~/types/router";
+
+export function createRequestOptions(
+  requestOptionType: RequestOptionType,
+  input: string,
+  location: LatLng,
+  radius?: number
+): AutocompleteRequest {
+  switch (requestOptionType) {
+    case RequestOptionType.Cities:
+      return {
+        input,
+        types: ["(cities)"],
+      };
+    case RequestOptionType.Establishment:
+      return {
+        input,
+        types: ["establishment"],
+        location: new google.maps.LatLng(location.lat, location.lng),
+        radius: radius ?? 10000, // default radius if not provided
+      };
+
+    default:
+      throw new Error("Invalid search type");
+  }
+}
 
 export const displayCityName = (city: string | undefined): string => {
   if (!city) return "";
