@@ -1,5 +1,5 @@
-import { LatLng } from "use-places-autocomplete";
-import { AutocompleteRequest, RequestOptionType } from "~/types/google";
+import { type LatLng } from "use-places-autocomplete";
+import { RequestOptionType, type AutocompleteRequest } from "~/types/google";
 import { type GetRecommendedDaysByCityType } from "~/types/router";
 
 export function createRequestOptions(
