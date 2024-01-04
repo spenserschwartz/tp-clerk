@@ -15,6 +15,7 @@ export function createRequestOptions(
         types: ["(cities)"],
       };
     case RequestOptionType.Establishment:
+      if (!location) throw new Error("Location must be provided");
       return {
         input: input ?? "",
         types: ["establishment"],
