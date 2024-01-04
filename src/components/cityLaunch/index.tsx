@@ -1,4 +1,5 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
@@ -146,10 +147,30 @@ const CityLaunch = ({
                     </p>
                   )}
 
-                  <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
+                  {/* <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
                     {sortWithoutPrefix(attractionsUpvotedByUser).map(
                       (attraction) => {
                         return <li key={attraction}>{attraction}</li>;
+                      }
+                    )}
+                  </ul> */}
+                  <ul className="max-h-40 w-full overflow-y-auto rounded-md">
+                    {sortWithoutPrefix(attractionsUpvotedByUser).map(
+                      (attraction) => {
+                        return (
+                          <li
+                            key={attraction}
+                            className="group relative flex items-center pl-1 hover:rounded hover:bg-gray-100"
+                          >
+                            {attraction}
+                            <span
+                              onClick={() => console.log("hey")}
+                              className="absolute right-0 hidden cursor-pointer group-hover:inline"
+                            >
+                              <XMarkIcon className="h-5 w-5 text-red-800" />
+                            </span>
+                          </li>
+                        );
                       }
                     )}
                   </ul>
