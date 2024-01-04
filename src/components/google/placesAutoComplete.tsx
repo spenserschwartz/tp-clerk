@@ -3,12 +3,8 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import usePlacesAutocomplete, {
   type Suggestion,
 } from "use-places-autocomplete";
-import {
-  RequestOptionType,
-  type AutocompleteRequest,
-  type PlaceResult,
-} from "~/types/google";
-import { createRequestOptions } from "~/utils/common";
+
+import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 
 interface PlacesAutoCompleteProps {
   setSelected: (value: PlaceResult | null) => void;
@@ -26,7 +22,6 @@ const PlacesAutoComplete = ({
     setValue,
     suggestions: { status, data },
     clearSuggestions,
-    // } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
   } = usePlacesAutocomplete({ requestOptions });
 
   const handleSelect = (address: string) => {

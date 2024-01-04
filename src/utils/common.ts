@@ -37,6 +37,8 @@ export function createRequestOptions(
 //   SEARCH_RADIUS
 // );
 
+// } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
+
 export const displayCityName = (city: string | undefined): string => {
   if (!city) return "";
 
