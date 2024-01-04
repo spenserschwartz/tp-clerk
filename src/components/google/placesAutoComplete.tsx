@@ -8,7 +8,6 @@ import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 
 interface PlacesAutoCompleteProps {
   setSelected: (value: PlaceResult | null) => void;
-  // types?: string[];
   requestOptions: AutocompleteRequest;
 }
 
