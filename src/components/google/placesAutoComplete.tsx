@@ -3,31 +3,31 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import usePlacesAutocomplete, {
   type Suggestion,
 } from "use-places-autocomplete";
-import type { PlaceResult } from "~/types/google";
+import {
+  RequestOptionType,
+  type AutocompleteRequest,
+  type PlaceResult,
+} from "~/types/google";
+import { createRequestOptions } from "~/utils/common";
 
 interface PlacesAutoCompleteProps {
-  // setSelected: (value: string) => void;
   setSelected: (value: PlaceResult | null) => void;
+  // types?: string[];
+  requestOptions: AutocompleteRequest;
 }
 
-const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
-const SEARCH_RADIUS = 10000; // 10 kilometers radius
-
-const PlacesAutoComplete = ({ setSelected }: PlacesAutoCompleteProps) => {
+const PlacesAutoComplete = ({
+  requestOptions,
+  setSelected,
+}: PlacesAutoCompleteProps) => {
   const {
     ready,
     value,
     setValue,
     suggestions: { status, data },
     clearSuggestions,
-    // } = usePlacesAutocomplete({
-    //   requestOptions: {
-    //     types: ["establishment"],
-    //     location: new window.google.maps.LatLng(LONDON_COORDINATES),
-    //     radius: SEARCH_RADIUS,
-    //   },
-    // });
-  } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
+    // } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
+  } = usePlacesAutocomplete({ requestOptions });
 
   const handleSelect = (address: string) => {
     setValue(address, false);

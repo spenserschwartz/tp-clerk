@@ -15,8 +15,9 @@ import {
   Select,
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
-import { type PlaceResult } from "~/types/google";
+import { RequestOptionType, type PlaceResult } from "~/types/google";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
+import { createRequestOptions } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities, unknownClerkCity } from "../utils";
 
@@ -29,6 +30,7 @@ const QuickLaunch = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
+  const requestOptions = createRequestOptions(RequestOptionType.Cities);
   const [chosenCustomCity, setChosenCustomCity] = useState<PlaceResult | null>(
     null
   );
@@ -176,7 +178,10 @@ const QuickLaunch = () => {
                     />
                   ) : (
                     <div>
-                      <PlacesAutoComplete setSelected={setChosenCustomCity} />
+                      <PlacesAutoComplete
+                        setSelected={setChosenCustomCity}
+                        requestOptions={requestOptions}
+                      />
                     </div>
                   )}
                 </div>
