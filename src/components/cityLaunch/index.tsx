@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
+import { HeartIcon } from "public/icons";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { type GetCityByNameType } from "~/types/router";
@@ -31,13 +32,12 @@ const CityLaunch = ({
     itineraryData,
   } = useCreateItinerary();
   const { generateAIItinerary, isLoadingAI } = useAIGenerateItinerary();
-
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
-  const [showLoading, setShowLoading] = useState(false);
 
+  const [showLoading, setShowLoading] = useState(false);
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
@@ -46,6 +46,8 @@ const CityLaunch = ({
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name
   );
+
+  const [includedAttractions, setIncludedAttractions] = useState<string[]>([]);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
@@ -61,7 +63,7 @@ const CityLaunch = ({
         cityName: cityData?.name ?? "",
         startDate: formattedStartDate,
         endDate: formattedEndDate,
-        attractions: attractionsUpvotedByUser ?? [],
+        attractions: includedAttractions ?? [],
       },
       {
         onSettled(data) {
@@ -92,6 +94,13 @@ const CityLaunch = ({
     [isLoadingAI, isCreatingItinerary, isMutating]
   );
 
+  const handleAddUpvotedAttractions = () =>
+    setIncludedAttractions(attractionsUpvotedByUser ?? []);
+
+  const handleRemoveAttraction = (attraction: string) => {
+    setIncludedAttractions((prev) => prev.filter((a) => a !== attraction));
+  };
+
   return (
     <div className="my-8 flex h-full flex-col items-center" data-aos="zoom-in">
       {/* Launcher */}
@@ -121,7 +130,7 @@ const CityLaunch = ({
             </div>
 
             {/* Date Range Picker */}
-            <div className="px-4">
+            <div className="px-4 py-2">
               <span className="font-semibold text-gray-900">
                 Add an attraction
               </span>
@@ -131,9 +140,6 @@ const CityLaunch = ({
             {/* Included Attractions, alphabetized */}
             <div className="mt-4 flex w-full flex-col px-4">
               <div className="mb-6 block w-full">
-                <p className="font-semibold text-gray-900">
-                  Included Attractions
-                </p>
                 <SignedOut>
                   <p className=" text-red-800">
                     **Please sign in to personalize your itinerary
@@ -141,21 +147,25 @@ const CityLaunch = ({
                 </SignedOut>
 
                 <SignedIn>
-                  {attractionsUpvotedByUser?.length === 0 && (
+                  <p className="font-semibold text-gray-900">
+                    Included Attractions
+                  </p>
+                  <button
+                    className="flex text-red-400"
+                    onClick={handleAddUpvotedAttractions}
+                    type="button"
+                  >
+                    <span>Add</span>
+                    <HeartIcon enabled />
+                  </button>
+                  {includedAttractions?.length === 0 && (
                     <p className=" text-red-800">
                       **Please add attractions to your itinerary
                     </p>
                   )}
 
-                  {/* <ul className="max-h-40 w-full list-inside list-disc overflow-y-auto rounded-md ">
-                    {sortWithoutPrefix(attractionsUpvotedByUser).map(
-                      (attraction) => {
-                        return <li key={attraction}>{attraction}</li>;
-                      }
-                    )}
-                  </ul> */}
                   <ul className="max-h-40 w-full overflow-y-auto rounded-md">
-                    {sortWithoutPrefix(attractionsUpvotedByUser).map(
+                    {sortWithoutPrefix(includedAttractions).map(
                       (attraction) => {
                         return (
                           <li
@@ -164,8 +174,8 @@ const CityLaunch = ({
                           >
                             {attraction}
                             <span
-                              onClick={() => console.log("hey")}
-                              className="absolute right-0 hidden cursor-pointer group-hover:inline"
+                              onClick={() => handleRemoveAttraction(attraction)}
+                              className="absolute right-0 cursor-pointer group-hover:inline sm:hidden"
                             >
                               <XMarkIcon className="h-5 w-5 text-red-800" />
                             </span>
