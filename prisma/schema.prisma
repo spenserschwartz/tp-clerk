@@ -49,6 +49,8 @@ model City {
     description String?
     imageURL    String?
 
+    placeResult Json?
+
     @@index([authorId])
 }
 

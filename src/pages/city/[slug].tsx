@@ -43,6 +43,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setOpenModal(true);
   };
 
+  console.log("cityData", cityData);
+
   return (
     <div className="flex w-full flex-col items-center">
       <Head>
