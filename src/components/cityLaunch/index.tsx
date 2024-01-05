@@ -7,7 +7,6 @@ import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-import { LatLng } from "use-places-autocomplete";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {

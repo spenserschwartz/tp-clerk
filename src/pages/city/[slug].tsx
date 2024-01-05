@@ -106,14 +106,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         >{`Been to ${cityData.name}? Click here!`}</p>
       </div>
 
-      {/* Filter attraction name */}
-      <div className="flex w-full justify-center ">
-        <Searchbar
-          inputValue={filterInputValue}
-          setInputValue={setFilterInputValue}
-        />
-      </div>
-
       {/* CityLaunch */}
       {showCityLaunch && (
         <CityLaunch
@@ -124,12 +116,21 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       )}
 
       {!showCityLaunch && (
-        <ImageGrid
-          cityData={cityData}
-          userUpvoteData={userUpvoteData}
-          filterInputValue={filterInputValue}
-          setIsMutating={setIsMutating}
-        />
+        <div>
+          {/* Filter attraction name */}
+          <div className="flex w-full justify-center ">
+            <Searchbar
+              inputValue={filterInputValue}
+              setInputValue={setFilterInputValue}
+            />
+          </div>
+          <ImageGrid
+            cityData={cityData}
+            userUpvoteData={userUpvoteData}
+            filterInputValue={filterInputValue}
+            setIsMutating={setIsMutating}
+          />
+        </div>
       )}
 
       <Modal
