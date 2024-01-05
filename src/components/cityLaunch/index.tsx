@@ -1,18 +1,18 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
-import { Libraries, useLoadScript } from "@react-google-maps/api";
 import { HeartIcon } from "public/icons";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {
-  AutocompleteRequest,
-  PlaceResult,
   RequestOptionType,
+  type AutocompleteRequest,
+  type PlaceResult,
 } from "~/types/google";
 import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
