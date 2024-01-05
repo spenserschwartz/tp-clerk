@@ -28,8 +28,6 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     void router.push(`/itinerary/${itinerary.id}`);
   };
 
-  console.log(itinerary.title, itinerary.imageURL);
-
   return (
     <div
       className="max-w-sm overflow-hidden rounded shadow-lg"
