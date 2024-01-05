@@ -105,8 +105,22 @@ const CityLaunch = ({
     [isLoadingAI, isCreatingItinerary, isMutating]
   );
 
-  const handleAddUpvotedAttractions = () =>
-    setIncludedAttractions(attractionsUpvotedByUser ?? []);
+  const handleAddUpvotedAttractions = () => {
+    if (attractionsUpvotedByUser) {
+      setIncludedAttractions((prev) => {
+        // Create a new Set from the existing attractions
+        const updatedAttractionsSet = new Set(prev);
+
+        // Add only new attractions that aren't already included
+        attractionsUpvotedByUser.forEach((attraction) => {
+          updatedAttractionsSet.add(attraction);
+        });
+
+        // Convert the Set back into an array
+        return Array.from(updatedAttractionsSet);
+      });
+    }
+  };
 
   const handleAddAttraction = (place: PlaceResult | null) => {
     setIncludedAttractions((prev) => [...prev, place?.name ?? ""]);
