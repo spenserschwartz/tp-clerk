@@ -79,6 +79,7 @@ export const travelQuotes = [
 
 export const unknownClerkCity = {
   id: "fake",
+  name: "Unknown Clerk City",
 };
 
 export const unknownClerkUser = {

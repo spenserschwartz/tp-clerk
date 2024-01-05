@@ -9,12 +9,12 @@ import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import CityLaunch from "~/components/cityLaunch";
 import { type ModalName } from "~/components/modal/utils";
+import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
-  const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -27,12 +27,12 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   });
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
-    cityId: cityData.id,
+    cityId: cityData?.id ?? unknownClerkCity.id,
     userId: user ? user.id : "",
   });
   const { data: allCityRecs } = api.recommendedDaysInCity.getAllByCity.useQuery(
     {
-      cityName: cityData.name,
+      cityName: cityData?.name ?? unknownClerkCity.name,
     }
   );
 
