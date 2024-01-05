@@ -109,25 +109,19 @@ const CityLaunch = ({
     setIncludedAttractions(attractionsUpvotedByUser ?? []);
 
   const handleAddAttraction = (place: PlaceResult | null) => {
-    console.log("PlaceResult", place);
+    setIncludedAttractions((prev) => [...prev, place?.name ?? ""]);
   };
 
   const handleRemoveAttraction = (attraction: string) => {
     setIncludedAttractions((prev) => prev.filter((a) => a !== attraction));
   };
 
-  const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
-  const SEARCH_RADIUS = 10000; // 10 kilometers radius
-  // const requestOptions = createRequestOptions(
-  //   RequestOptionType.Establishment,
-  //   "", // Add the user's input here
-  //   LONDON_COORDINATES,
-  //   SEARCH_RADIUS
-  // );
-
+  // Set up request options for PlacesAutoComplete once useLoadScript is loaded
   useEffect(() => {
     if (isLoaded) {
-      // Assuming createRequestOptions is a function that generates your request options
+      const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
+      const SEARCH_RADIUS = 10000; // 10 kilometers radius
+
       setRequestOptions(
         createRequestOptions(
           RequestOptionType.Establishment,
@@ -169,7 +163,7 @@ const CityLaunch = ({
               <DatePickerWithRange date={date} setDate={setDate} />
             </div>
 
-            {/* Date Range Picker */}
+            {/* PlacesAutoComplete (custom attractions) */}
             <div className="px-4 py-2">
               <span className="font-semibold text-gray-900">
                 Add an attraction
