@@ -15,6 +15,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
+  const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -42,6 +43,22 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setModalContent(isSignedIn ? "VisitedCityForm" : "LoginModal");
     setOpenModal(true);
   };
+
+  // Close cityLaunch when route changes
+  useEffect(() => {
+    // Set setShowCityLaunch to false when the route changes
+    const handleRouteChange = () => {
+      setShowCityLaunch(false);
+    };
+
+    // Add an event listener for route changes
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  });
 
   if (!cityData) return <div>404 City Not Found</div>;
 
