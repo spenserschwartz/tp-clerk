@@ -28,17 +28,6 @@ export function createRequestOptions(
   }
 }
 
-// const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
-// const SEARCH_RADIUS = 10000; // 10 kilometers radius
-// const requestOptions = createRequestOptions(
-//   RequestOptionType.Establishment,
-//   "", // Add the user's input here
-//   LONDON_COORDINATES,
-//   SEARCH_RADIUS
-// );
-
-// } = usePlacesAutocomplete({ requestOptions: { types: ["(cities)"] } });
-
 export const displayCityName = (city: string | undefined): string => {
   if (!city) return "";
 

@@ -1,5 +1,6 @@
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useEffect } from "react";
 import usePlacesAutocomplete, {
   type Suggestion,
 } from "use-places-autocomplete";
@@ -21,6 +22,7 @@ const PlacesAutoComplete = ({
     setValue,
     suggestions: { status, data },
     clearSuggestions,
+    clearCache,
   } = usePlacesAutocomplete({ requestOptions });
 
   const handleSelect = (address: string) => {
@@ -48,6 +50,10 @@ const PlacesAutoComplete = ({
             const placeResult: PlaceResult | null = result;
             setSelected(placeResult);
             console.log("placeResult", placeResult);
+            console.log(
+              "placeResult lat",
+              placeResult?.geometry?.location?.lat()
+            );
             // console.log("lat", placeResult?.geometry?.location.lat());
           }
         }
@@ -57,7 +63,13 @@ const PlacesAutoComplete = ({
     fetchDetails();
   };
 
-  console.log("data", data);
+  // Clear cache on unmount for when accessing this component from a different page
+  useEffect(
+    function clearCacheOnUnmount() {
+      clearCache();
+    },
+    [clearCache]
+  );
 
   return (
     <>

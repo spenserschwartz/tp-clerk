@@ -36,18 +36,6 @@ export const quickLaunchCities = [
   "Vatican City",
 ];
 
-export const unknownClerkCity = {
-  id: "fake",
-};
-
-export const unknownClerkUser = {
-  id: "user_2YxVp66u0zvMgoN7zOSm6sJiiHb",
-};
-
-export const unknownItinerary = {
-  id: "fake",
-};
-
 export const travelQuotes = [
   {
     author: "Susan Sontag",
@@ -88,3 +76,15 @@ export const travelQuotes = [
     quote: `The world is a book and those who do not travel read only one page.`,
   },
 ];
+
+export const unknownClerkCity = {
+  id: "fake",
+};
+
+export const unknownClerkUser = {
+  id: "user_2YxVp66u0zvMgoN7zOSm6sJiiHb",
+};
+
+export const unknownItinerary = {
+  id: "fake",
+};

@@ -1,7 +1,8 @@
 import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { useState, type ReactElement } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
@@ -13,6 +14,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
+  const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -23,8 +25,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
   });
-
-  if (!cityData) return <div>404 City Not Found</div>;
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData.id,
@@ -43,7 +43,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setOpenModal(true);
   };
 
-  console.log("cityData", cityData);
+  if (!cityData) return <div>404 City Not Found</div>;
 
   return (
     <div className="flex w-full flex-col items-center">

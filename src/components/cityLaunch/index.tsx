@@ -7,12 +7,14 @@ import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
+import { LatLng } from "use-places-autocomplete";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {
   RequestOptionType,
   type AutocompleteRequest,
   type PlaceResult,
+  type PlaceResultWithLatLng,
 } from "~/types/google";
 import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
@@ -94,6 +96,7 @@ const CityLaunch = ({
       }
     );
   };
+  const placeResult = cityData?.placeResult as unknown as PlaceResultWithLatLng;
 
   // set showLoading to true when isLoadingAI or isCreatingItinerary or isMutating is true
   useEffect(
@@ -132,20 +135,25 @@ const CityLaunch = ({
 
   // Set up request options for PlacesAutoComplete once useLoadScript is loaded
   useEffect(() => {
-    if (isLoaded) {
-      const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
+    if (isLoaded && placeResult?.geometry?.location) {
       const SEARCH_RADIUS = 10000; // 10 kilometers radius
+
+      const lat = placeResult.geometry.location.lat;
+      const lng = placeResult.geometry.location.lng;
+      const CITY_COORDINATES = { lat, lng };
+
+      console.log("CITY_COORDINATES", CITY_COORDINATES);
 
       setRequestOptions(
         createRequestOptions(
           RequestOptionType.Establishment,
           "", // Add the user's input here
-          LONDON_COORDINATES,
+          CITY_COORDINATES,
           SEARCH_RADIUS
         )
       );
     }
-  }, [isLoaded]);
+  }, [isLoaded, placeResult.geometry.location]);
 
   if (!isLoaded) return <div>Loading..</div>;
 
