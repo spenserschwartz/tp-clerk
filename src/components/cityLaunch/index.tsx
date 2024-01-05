@@ -213,13 +213,21 @@ const CityLaunch = ({
                       <HeartIcon enabled />
                     </button>
                   </div>
-                  {includedAttractions?.length === 0 && (
-                    <p className=" text-red-800">
-                      **Please add attractions to your itinerary
-                    </p>
-                  )}
 
-                  <ul className="max-h-40 w-full overflow-y-auto rounded-md">
+                  {/* List of included attractions */}
+                  <ul
+                    className={`h-40 w-full overflow-y-auto rounded-md  ${
+                      includedAttractions.length > 0
+                        ? "border border-gray-300"
+                        : null
+                    }`}
+                  >
+                    {includedAttractions?.length === 0 && (
+                      <p className=" text-red-800">
+                        **Please add attractions to your itinerary
+                      </p>
+                    )}
+
                     {sortWithoutPrefix(includedAttractions).map(
                       (attraction) => {
                         return (
