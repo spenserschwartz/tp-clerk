@@ -5,12 +5,18 @@ import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
+import { Libraries, useLoadScript } from "@react-google-maps/api";
 import { HeartIcon } from "public/icons";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
+import {
+  AutocompleteRequest,
+  PlaceResult,
+  RequestOptionType,
+} from "~/types/google";
 import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
-import { sortWithoutPrefix } from "~/utils/common";
+import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 
 interface CityLaunchProps {
@@ -19,11 +25,17 @@ interface CityLaunchProps {
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const libraries: Libraries = ["places"];
+
 const CityLaunch = ({
   cityData,
   isMutating,
   setShowCityLaunch,
 }: CityLaunchProps) => {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
+    libraries,
+  });
   const { user } = useUser();
   const {
     createItinerary,
@@ -36,18 +48,17 @@ const CityLaunch = ({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
-
   const [showLoading, setShowLoading] = useState(false);
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
     userId: user ? user.id : "",
   });
-
+  const [includedAttractions, setIncludedAttractions] = useState<string[]>([]);
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name
   );
-
-  const [includedAttractions, setIncludedAttractions] = useState<string[]>([]);
+  const [requestOptions, setRequestOptions] =
+    useState<AutocompleteRequest | null>(null);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the browser from reloading the page
@@ -97,12 +108,41 @@ const CityLaunch = ({
   const handleAddUpvotedAttractions = () =>
     setIncludedAttractions(attractionsUpvotedByUser ?? []);
 
+  const handleAddAttraction = (place: PlaceResult | null) => {
+    console.log("PlaceResult", place);
+  };
+
   const handleRemoveAttraction = (attraction: string) => {
     setIncludedAttractions((prev) => prev.filter((a) => a !== attraction));
   };
 
+  const LONDON_COORDINATES = { lat: 51.5074, lng: -0.1278 }; // Central London coordinates
+  const SEARCH_RADIUS = 10000; // 10 kilometers radius
+  // const requestOptions = createRequestOptions(
+  //   RequestOptionType.Establishment,
+  //   "", // Add the user's input here
+  //   LONDON_COORDINATES,
+  //   SEARCH_RADIUS
+  // );
+
+  useEffect(() => {
+    if (isLoaded) {
+      // Assuming createRequestOptions is a function that generates your request options
+      setRequestOptions(
+        createRequestOptions(
+          RequestOptionType.Establishment,
+          "", // Add the user's input here
+          LONDON_COORDINATES,
+          SEARCH_RADIUS
+        )
+      );
+    }
+  }, [isLoaded]);
+
+  if (!isLoaded) return <div>Loading..</div>;
+
   return (
-    <div className="my-8 flex h-full flex-col items-center" data-aos="zoom-in">
+    <div className="my-8 flex h-full flex-col items-center">
       {/* Launcher */}
       <form
         className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
@@ -134,7 +174,12 @@ const CityLaunch = ({
               <span className="font-semibold text-gray-900">
                 Add an attraction
               </span>
-              placesAutoComplete here
+              {requestOptions && (
+                <PlacesAutoComplete
+                  requestOptions={requestOptions}
+                  setSelected={handleAddAttraction}
+                />
+              )}
             </div>
 
             {/* Included Attractions, alphabetized */}
@@ -147,17 +192,19 @@ const CityLaunch = ({
                 </SignedOut>
 
                 <SignedIn>
-                  <p className="font-semibold text-gray-900">
-                    Included Attractions
-                  </p>
-                  <button
-                    className="flex text-red-400"
-                    onClick={handleAddUpvotedAttractions}
-                    type="button"
-                  >
-                    <span>Add</span>
-                    <HeartIcon enabled />
-                  </button>
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-900">
+                      Included Attractions
+                    </p>
+                    <button
+                      className="text-md flex items-center rounded bg-blue-300 px-1  font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                      onClick={handleAddUpvotedAttractions}
+                      type="button"
+                    >
+                      <span className="mr-1">Add</span>
+                      <HeartIcon enabled />
+                    </button>
+                  </div>
                   {includedAttractions?.length === 0 && (
                     <p className=" text-red-800">
                       **Please add attractions to your itinerary
