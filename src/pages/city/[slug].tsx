@@ -1,18 +1,21 @@
 import { useUser } from "@clerk/nextjs";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { useState, type ReactElement } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
 import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
 import CityLaunch from "~/components/cityLaunch";
 import { type ModalName } from "~/components/modal/utils";
+import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
+  const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -24,15 +27,13 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     name: cityName,
   });
 
-  if (!cityData) return <div>404 City Not Found</div>;
-
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
-    cityId: cityData.id,
+    cityId: cityData?.id ?? unknownClerkCity.id,
     userId: user ? user.id : "",
   });
   const { data: allCityRecs } = api.recommendedDaysInCity.getAllByCity.useQuery(
     {
-      cityName: cityData.name,
+      cityName: cityData?.name ?? unknownClerkCity.name,
     }
   );
 
@@ -42,6 +43,24 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     setModalContent(isSignedIn ? "VisitedCityForm" : "LoginModal");
     setOpenModal(true);
   };
+
+  // Close cityLaunch when route changes
+  useEffect(() => {
+    // Set setShowCityLaunch to false when the route changes
+    const handleRouteChange = () => {
+      setShowCityLaunch(false);
+    };
+
+    // Add an event listener for route changes
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  });
+
+  if (!cityData) return <div>404 City Not Found</div>;
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -87,14 +106,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         >{`Been to ${cityData.name}? Click here!`}</p>
       </div>
 
-      {/* Filter attraction name */}
-      <div className="flex w-full justify-center ">
-        <Searchbar
-          inputValue={filterInputValue}
-          setInputValue={setFilterInputValue}
-        />
-      </div>
-
       {/* CityLaunch */}
       {showCityLaunch && (
         <CityLaunch
@@ -105,12 +116,21 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       )}
 
       {!showCityLaunch && (
-        <ImageGrid
-          cityData={cityData}
-          userUpvoteData={userUpvoteData}
-          filterInputValue={filterInputValue}
-          setIsMutating={setIsMutating}
-        />
+        <div>
+          {/* Filter attraction name */}
+          <div className="flex w-full justify-center ">
+            <Searchbar
+              inputValue={filterInputValue}
+              setInputValue={setFilterInputValue}
+            />
+          </div>
+          <ImageGrid
+            cityData={cityData}
+            userUpvoteData={userUpvoteData}
+            filterInputValue={filterInputValue}
+            setIsMutating={setIsMutating}
+          />
+        </div>
       )}
 
       <Modal

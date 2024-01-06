@@ -75,11 +75,12 @@ export const itineraryRouter = createTRPCRouter({
             evening: z.string(),
           })
         ),
+        title: z.string().nullable(),
+        imageURL: z.optional(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId ?? unknownClerkUser.id;
-      console.log("This is userId", userId);
 
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
@@ -89,6 +90,8 @@ export const itineraryRouter = createTRPCRouter({
           city: { connect: { id: input.cityId } },
           user: { connect: { id: userId } },
           details: input.details,
+          title: input.title ?? null,
+          imageURL: input.imageURL ?? null,
         },
       });
 

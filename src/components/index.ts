@@ -2,6 +2,7 @@ import Button from "./button";
 import Features from "./features";
 import FeaturesQuickLaunch from "./features-quickLaunch";
 import Footer from "./footer";
+import PlacesAutoComplete from "./google/placesAutoComplete";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
 import Itinerary from "./itinerary";
@@ -26,6 +27,7 @@ export {
   LoadingSection,
   LoadingSpinner,
   Modal,
+  PlacesAutoComplete,
   QuickLaunch,
   RootLayout,
   Searchbar,
