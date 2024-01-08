@@ -1,6 +1,6 @@
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ZoomInWrapper } from "@framer-motion";
 
@@ -16,11 +16,10 @@ export default function Carousel({ slides }: CarouselProps) {
     else setCurrent(current - 1);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (current === slides.length - 1) setCurrent(0);
     else setCurrent(current + 1);
-  };
+  }, [current, slides.length]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
