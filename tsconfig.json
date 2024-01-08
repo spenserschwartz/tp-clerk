@@ -24,7 +24,8 @@
     "paths": {
       "~/*": [
         "./src/*"
-      ]
+      ],
+      "@framer-motion": ["./src/components/framer-motion"]
     },
     "plugins": [
       {
