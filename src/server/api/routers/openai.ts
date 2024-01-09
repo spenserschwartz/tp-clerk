@@ -8,6 +8,9 @@ interface QueryInputInterface {
   startDate: string;
   endDate: string;
   attractions?: string[];
+
+  adventureToggle?: boolean;
+  relaxationToggle?: boolean;
 }
 
 const generateQuery = (input: QueryInputInterface) => {
@@ -47,7 +50,23 @@ const generateQuery = (input: QueryInputInterface) => {
   Give at least two sentences of context for morning, afternoon, and evening activities.
   `;
 
-  return generalQuery + attractionsQuery + formatQuery;
+  const adventureQuery = input.adventureToggle
+    ? "Choose more adventurous activities. "
+    : "";
+  const relaxationQuery = input.relaxationToggle
+    ? "Give at least one day a week to relax with nothing on that day's itinerary."
+    : "";
+
+  console.log("INPUT.ADVENTURETOGGLE", input.adventureToggle);
+  console.log("INPUT.RELAXATIONTOGGLE", input.relaxationToggle);
+
+  return (
+    generalQuery +
+    attractionsQuery +
+    formatQuery +
+    adventureQuery +
+    relaxationQuery
+  );
 };
 
 export const OpenAIRouter = createTRPCRouter({
@@ -58,6 +77,8 @@ export const OpenAIRouter = createTRPCRouter({
         startDate: z.string(),
         endDate: z.string(),
         attractions: z.array(z.string()).optional(),
+        adventureToggle: z.boolean().optional(),
+        relaxationToggle: z.boolean().optional(),
       })
     )
     .mutation(async ({ input }) => {
