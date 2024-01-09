@@ -50,10 +50,7 @@ export default function Hero() {
           <ZoomInUpWrapper>
             <div className="pb-12 text-center md:pb-16">
               {/* Page Title */}
-              <h1
-                className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl"
-                data-aos="zoom-y-out"
-              >
+              <h1 className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl">
                 Travel{" "}
                 <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
                   Perfect
@@ -63,20 +60,12 @@ export default function Hero() {
               {/* Description */}
 
               <div className="mx-auto max-w-3xl">
-                <p
-                  className="mb-8 text-xl text-gray-600"
-                  // data-aos="zoom-y-out"
-                  // data-aos-delay="150"
-                >
+                <p className="mb-8 text-xl text-gray-600">
                   TravelPerfect is a travel planning tool that helps you plan
                   your next vacation.
                 </p>
 
-                <div
-                  className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
-                  data-aos="zoom-y-out"
-                  data-aos-delay="300"
-                >
+                <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
                   <div>
                     <a
                       className="btn mb-4 w-full bg-blue-600 text-white hover:bg-blue-700 sm:mb-0 sm:w-auto"
