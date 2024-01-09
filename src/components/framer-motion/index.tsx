@@ -1,4 +1,5 @@
+import FadeUpWrapper from "./FadeUp";
 import ZoomInWrapper from "./ZoomIn";
 import ZoomInUpWrapper from "./ZoomInUp";
 
-export { ZoomInUpWrapper, ZoomInWrapper };
+export { FadeUpWrapper, ZoomInUpWrapper, ZoomInWrapper };
