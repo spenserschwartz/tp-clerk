@@ -144,7 +144,7 @@ export default function Features() {
                     <TabItemCitySplash tab={tab} tabs={tabs} />
 
                     {/* Item 3 */}
-                    {/* TODO: Add third tab */}
+                    {/* //TODO: Add third tab */}
                   </div>
                 </div>
               </div>
