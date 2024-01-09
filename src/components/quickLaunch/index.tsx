@@ -76,6 +76,9 @@ const QuickLaunch = () => {
       );
       const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
+      setAdventureToggle(false);
+      setRelaxationToggle(false);
+
       generateAIItinerary({
         cityName: chosenCityName,
         startDate: formattedStartDate,
