@@ -131,7 +131,6 @@ export default function Features() {
                 <div className="transition-all">
                   <div
                     className="relative flex flex-col text-center lg:text-right"
-                    data-aos="zoom-y-out"
                     ref={tabs}
                   >
                     {/* Item 1 */}
