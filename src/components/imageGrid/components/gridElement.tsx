@@ -94,10 +94,7 @@ const GridElement = ({
 
   return (
     <ScrollFadeInWrapper>
-      <div
-        className="max-w-sm overflow-hidden rounded shadow-lg"
-        // data-aos="fade-up"
-      >
+      <div className="max-w-sm overflow-hidden rounded shadow-lg">
         {/* Image */}
         <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
           <Image
