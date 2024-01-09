@@ -1,3 +1,4 @@
+import ScrollFadeInWrapper from "./scrollFadeIn";
 import ZoomInWrapper from "./zoom-in";
 
-export { ZoomInWrapper };
+export { ScrollFadeInWrapper, ZoomInWrapper };
