@@ -1,9 +1,9 @@
-import { ScrollFadeInWrapper } from "./framer-motion";
+import { ScrollFadeUpWrapper } from "./framer-motion";
 import QuickLaunch from "./quickLaunch";
 
 const FeaturesQuickLaunch = () => {
   return (
-    <ScrollFadeInWrapper>
+    <ScrollFadeUpWrapper>
       <section className="relative" id="quick_launch">
         {/* Section background (needs .relative class on parent and next sibling elements) */}
         <div
@@ -28,7 +28,7 @@ const FeaturesQuickLaunch = () => {
           <QuickLaunch />
         </div>
       </section>
-    </ScrollFadeInWrapper>
+    </ScrollFadeUpWrapper>
   );
 };
 

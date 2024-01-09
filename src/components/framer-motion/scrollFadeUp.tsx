@@ -1,7 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 import { type ReactNode } from "react";
 
-interface ScrollFadeInWrapperProps {
+interface ScrollFadeUpWrapperProps {
   children: ReactNode;
 }
 
@@ -20,7 +20,7 @@ const variants: Variants = {
   },
 };
 
-const ScrollFadeInWrapper = ({ children }: ScrollFadeInWrapperProps) => {
+const ScrollFadeUpWrapper = ({ children }: ScrollFadeUpWrapperProps) => {
   return (
     <motion.div
       initial="offscreen"
@@ -32,4 +32,4 @@ const ScrollFadeInWrapper = ({ children }: ScrollFadeInWrapperProps) => {
   );
 };
 
-export default ScrollFadeInWrapper;
+export default ScrollFadeUpWrapper;

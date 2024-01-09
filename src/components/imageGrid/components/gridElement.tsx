@@ -4,7 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
-import { ScrollFadeInWrapper } from "@framer-motion";
+import { ScrollFadeUpWrapper } from "@framer-motion";
 import { HeartIcon } from "public/icons";
 import { Modal } from "~/components";
 import { type AttractionType } from "~/types/router";
@@ -93,7 +93,7 @@ const GridElement = ({
   };
 
   return (
-    <ScrollFadeInWrapper>
+    <ScrollFadeUpWrapper>
       <div className="max-w-sm overflow-hidden rounded shadow-lg">
         {/* Image */}
         <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
@@ -150,7 +150,7 @@ const GridElement = ({
           setOpenModal={setOpenModal}
         />
       </div>
-    </ScrollFadeInWrapper>
+    </ScrollFadeUpWrapper>
   );
 };
 
