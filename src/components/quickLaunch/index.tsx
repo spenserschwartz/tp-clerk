@@ -40,6 +40,8 @@ const QuickLaunch = () => {
   const [chosenCityName, setChosenCityName] = useState("");
   const [generatedAIMessage, setGeneratedAIMessage] = useState("");
   const [customCity, setCustomCity] = useState(false);
+  const [adventureToggle, setAdventureToggle] = useState(false);
+  const [relaxationToggle, setRelaxationToggle] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
@@ -74,10 +76,15 @@ const QuickLaunch = () => {
       );
       const formattedEndDate = formatDate(date?.to ?? new Date(), "yyyy-MM-dd");
 
+      setAdventureToggle(false);
+      setRelaxationToggle(false);
+
       generateAIItinerary({
         cityName: chosenCityName,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
+        adventureToggle,
+        relaxationToggle,
       });
     }
   };
@@ -93,17 +100,11 @@ const QuickLaunch = () => {
           ? `${parsedData.length} days in ${chosenCityName}`
           : null;
 
-      const imageURL = customCity
-        ? chosenCustomCity?.photos?.[0]?.getUrl()
-        : undefined;
-      console.log("THIS IS imageURL", imageURL);
-
       createItinerary({
         cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
         title: itineraryTitle,
         imageURL: customCityPhoto,
-        // imageURL: customCity ? customCityPhoto : null,
       });
     }
   };
@@ -194,6 +195,7 @@ const QuickLaunch = () => {
                       name="adventureOption"
                       type="checkbox"
                       className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
+                      onChange={() => setAdventureToggle((prev) => !prev)}
                     />
                     <span className="ml-2 text-gray-300">
                       Add some extra adventure!
@@ -205,9 +207,10 @@ const QuickLaunch = () => {
                       name="adventureOption"
                       type="checkbox"
                       className="rounded-full border-gray-600 bg-transparent  placeholder-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0"
+                      onChange={() => setRelaxationToggle((prev) => !prev)}
                     />
                     <span className="ml-2 text-gray-300">
-                      Give some extra time to explore!
+                      Give some time to relax!
                     </span>
                   </label>
                 </div>
