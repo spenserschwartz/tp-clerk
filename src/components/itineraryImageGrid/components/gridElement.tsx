@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import DropdownMenu from "~/components/dropdownMenu";
 import { FadeUpWrapper } from "~/components/framer-motion";
+import { unknownClerkCity } from "~/components/utils";
 import type { ParsedAIMessageInterface } from "~/types";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
@@ -15,6 +16,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const itineraryTitle = itinerary.title;
   const itineraryImageURL = itinerary.imageURL;
+  const isCustomCity = itinerary.cityId === unknownClerkCity.id;
 
   const {
     city: { name: cityName, imageURL: cityImageURL },
@@ -51,7 +53,13 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
           {/* Image */}
           <Image
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            src={itineraryImageURL ?? cityImageURL ?? "/images/placeholder.png"}
+            src={
+              isCustomCity
+                ? "/images/placeholder.png"
+                : cityImageURL ?? "/images/placeholder.png"
+            }
+            // src={itineraryImageURL ?? cityImageURL ?? "/images/placeholder.png"}
+
             alt=""
             className="pointer-events-none object-cover"
             width={100}
