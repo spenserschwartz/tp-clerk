@@ -42,10 +42,7 @@ export default function Features() {
             {/* Section content */}
             <div className="md:grid md:grid-cols-12 md:gap-6">
               {/* Content */}
-              <div
-                className="mx-auto max-w-xl md:col-span-7 md:mt-6 md:w-full md:max-w-none lg:col-span-6"
-                data-aos="fade-right"
-              >
+              <div className="mx-auto max-w-xl md:col-span-7 md:mt-6 md:w-full md:max-w-none lg:col-span-6">
                 <div className="mb-8 md:pr-4 lg:pr-12 xl:pr-16">
                   <h3 className="h3 mb-3">Powerful suite of tools</h3>
                   <p className="text-xl text-gray-600">
