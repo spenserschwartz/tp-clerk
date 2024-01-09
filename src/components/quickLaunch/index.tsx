@@ -89,8 +89,6 @@ const QuickLaunch = () => {
     }
   };
 
-  console.log("adv", adventureToggle);
-
   const saveItineraryHandler = () => {
     if (!isSignedIn) {
       toast.error("Please sign in to save your itinerary!");
@@ -102,17 +100,11 @@ const QuickLaunch = () => {
           ? `${parsedData.length} days in ${chosenCityName}`
           : null;
 
-      const imageURL = customCity
-        ? chosenCustomCity?.photos?.[0]?.getUrl()
-        : undefined;
-      console.log("THIS IS imageURL", imageURL);
-
       createItinerary({
         cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
         title: itineraryTitle,
         imageURL: customCityPhoto,
-        // imageURL: customCity ? customCityPhoto : null,
       });
     }
   };

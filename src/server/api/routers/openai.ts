@@ -57,9 +57,6 @@ const generateQuery = (input: QueryInputInterface) => {
     ? "Give at least one day a week to relax with nothing on that day's itinerary."
     : "";
 
-  console.log("INPUT.ADVENTURETOGGLE", input.adventureToggle);
-  console.log("INPUT.RELAXATIONTOGGLE", input.relaxationToggle);
-
   return (
     generalQuery +
     attractionsQuery +
