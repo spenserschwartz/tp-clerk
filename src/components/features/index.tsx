@@ -1,5 +1,5 @@
-import { ScrollFadeUpWrapper } from "@framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { ScrollFadeUpWrapper } from "~/components/framer-motion";
 import { TabItemCitySplash, TabItemQuickLaunch } from "./components";
 
 export default function Features() {

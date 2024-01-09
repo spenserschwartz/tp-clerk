@@ -15,8 +15,6 @@ const zoomInUpVariants = {
   },
 };
 
-//zoom
-
 const ZoomInUpWrapper = ({ children }: ZoomInUpWrapperProps) => {
   return (
     <motion.div initial="initial" animate="animate" variants={zoomInUpVariants}>

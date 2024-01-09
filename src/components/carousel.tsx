@@ -2,7 +2,7 @@ import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
-import { ZoomInWrapper } from "@framer-motion";
+import { ZoomInWrapper } from "./framer-motion";
 
 interface CarouselProps {
   slides: string[];

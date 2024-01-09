@@ -4,9 +4,9 @@ import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
-import { ScrollFadeUpWrapper } from "@framer-motion";
 import { HeartIcon } from "public/icons";
 import { Modal } from "~/components";
+import { ScrollFadeUpWrapper } from "~/components/framer-motion";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {

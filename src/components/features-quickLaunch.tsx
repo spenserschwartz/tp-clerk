@@ -1,4 +1,4 @@
-import { ScrollFadeUpWrapper } from "@framer-motion";
+import { ScrollFadeUpWrapper } from "./framer-motion";
 import QuickLaunch from "./quickLaunch";
 
 const FeaturesQuickLaunch = () => {
