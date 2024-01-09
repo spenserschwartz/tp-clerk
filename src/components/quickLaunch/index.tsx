@@ -145,10 +145,7 @@ const QuickLaunch = () => {
 
   return (
     isLoaded && (
-      <div
-        className="my-8 flex h-full flex-col items-center"
-        // ! data-aos="fade-up"  >>> Let's remove for better library
-      >
+      <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
         {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
 

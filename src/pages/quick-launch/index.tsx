@@ -2,6 +2,7 @@ import { type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 
 import { QuickLaunch, RootLayout } from "~/components";
+import { FadeUpWrapper } from "~/components/framer-motion";
 
 const QuickLaunchPage: NextPageWithLayout = () => {
   return (
@@ -37,23 +38,21 @@ const QuickLaunchPage: NextPageWithLayout = () => {
           </g>
         </svg>
       </div>
-
-      <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
-        <div className="">
-          {/* Section header */}
-          <div
-            className="mx-auto max-w-3xl pb-2 text-center md:pb-20"
-            data-aos="fade-up"
-          >
-            <h2 className="h2 mb-4">Plan a trip in seconds</h2>
-            <p className="text-xl text-gray-600">
-              Want a quick itinerary? Fill out the form below and we will
-              generate a trip for you using the best attractions in the city.
-            </p>
+      <FadeUpWrapper>
+        <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
+          <div className="">
+            {/* Section header */}
+            <div className="mx-auto max-w-3xl pb-2 text-center md:pb-20">
+              <h2 className="h2 mb-4">Plan a trip in seconds</h2>
+              <p className="text-xl text-gray-600">
+                Want a quick itinerary? Fill out the form below and we will
+                generate a trip for you using the best attractions in the city.
+              </p>
+            </div>
           </div>
+          <QuickLaunch />
         </div>
-        <QuickLaunch />
-      </div>
+      </FadeUpWrapper>
     </section>
   );
 };

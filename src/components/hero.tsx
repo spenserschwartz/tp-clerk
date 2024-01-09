@@ -1,7 +1,5 @@
-// import ModalVideo from "@/components/modal-video";
-// import VideoThumb from "@/public/images/hero-image.png";
-
 import Carousel from "./carousel";
+import { ZoomInUpWrapper } from "./framer-motion";
 
 const slides: string[] = [
   "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
@@ -48,52 +46,46 @@ export default function Hero() {
         {/* Hero content */}
         <div className="flex flex-col items-center pb-12 md:pb-20 ">
           {/* Section header */}
-          <div className="pb-12 text-center md:pb-16">
-            {/* Page Title */}
-            <h1
-              className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl"
-              data-aos="zoom-y-out"
-            >
-              Travel{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
-                Perfect
-              </span>
-            </h1>
 
-            {/* Description */}
-            <div className="mx-auto max-w-3xl">
-              <p
-                className="mb-8 text-xl text-gray-600"
-                data-aos="zoom-y-out"
-                data-aos-delay="150"
-              >
-                TravelPerfect is a travel planning tool that helps you plan your
-                next vacation.
-              </p>
-              <div
-                className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
-                data-aos="zoom-y-out"
-                data-aos-delay="300"
-              >
-                <div>
-                  <a
-                    className="btn mb-4 w-full bg-blue-600 text-white hover:bg-blue-700 sm:mb-0 sm:w-auto"
-                    href="#quick_launch"
-                  >
-                    Quick Launch
-                  </a>
-                </div>
-                <div>
-                  <a
-                    className="btn w-full bg-gray-900 text-white hover:bg-gray-800 sm:ml-4 sm:w-auto"
-                    href="#explore_solutions"
-                  >
-                    Learn more
-                  </a>
+          <ZoomInUpWrapper>
+            <div className="pb-12 text-center md:pb-16">
+              {/* Page Title */}
+              <h1 className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl">
+                Travel{" "}
+                <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+                  Perfect
+                </span>
+              </h1>
+
+              {/* Description */}
+
+              <div className="mx-auto max-w-3xl">
+                <p className="mb-8 text-xl text-gray-600">
+                  TravelPerfect is a travel planning tool that helps you plan
+                  your next vacation.
+                </p>
+
+                <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
+                  <div>
+                    <a
+                      className="btn mb-4 w-full bg-blue-600 text-white hover:bg-blue-700 sm:mb-0 sm:w-auto"
+                      href="#quick_launch"
+                    >
+                      Quick Launch
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      className="btn w-full bg-gray-900 text-white hover:bg-gray-800 sm:ml-4 sm:w-auto"
+                      href="#explore_solutions"
+                    >
+                      Learn more
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ZoomInUpWrapper>
 
           {/* Image Carousel */}
           <div className="max-w-2xl">
