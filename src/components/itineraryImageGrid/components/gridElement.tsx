@@ -1,21 +1,26 @@
+import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import DropdownMenu from "~/components/dropdownMenu";
 import { FadeUpWrapper } from "~/components/framer-motion";
 import { unknownClerkCity } from "~/components/utils";
 import type { ParsedAIMessageInterface } from "~/types";
+import { PlaceResult } from "~/types/google";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryGridElementProps {
   itinerary: ItineraryWithCityInfoType;
 }
 
+const libraries: Libraries = ["places"];
+
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
+
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const itineraryTitle = itinerary.title;
-  const itineraryImageURL = itinerary.imageURL;
   const isCustomCity = itinerary.cityId === unknownClerkCity.id;
 
   const {
@@ -30,6 +35,42 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const gridElementClickHandler = () => {
     void router.push(`/itinerary/${itinerary.id}`);
   };
+
+  useEffect(() => {
+    const fetchDetails = () => {
+      if (!itinerary.placeId) return;
+
+      const map = new window.google.maps.Map(document.createElement("div"));
+      const service = new window.google.maps.places.PlacesService(map);
+
+      service.getDetails(
+        {
+          placeId: itinerary?.placeId as string,
+          fields: [
+            "name",
+            "formatted_address",
+            "geometry",
+            "photo",
+            "place_id",
+          ],
+        },
+        (result, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            // Do something with the result object here
+            const placeResult: PlaceResult | null = result;
+            console.log("placeResult", placeResult);
+            console.log(
+              "placeResult lat",
+              placeResult?.geometry?.location?.lat()
+            );
+            // console.log("lat", placeResult?.geometry?.location.lat());
+          }
+        }
+      );
+    };
+
+    fetchDetails();
+  });
 
   return (
     <FadeUpWrapper>
