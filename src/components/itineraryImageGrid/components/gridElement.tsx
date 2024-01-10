@@ -1,4 +1,3 @@
-import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -7,14 +6,12 @@ import DropdownMenu from "~/components/dropdownMenu";
 import { FadeUpWrapper } from "~/components/framer-motion";
 import { unknownClerkCity } from "~/components/utils";
 import type { ParsedAIMessageInterface } from "~/types";
-import { PlaceResult } from "~/types/google";
+import { type PlaceResult } from "~/types/google";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryGridElementProps {
   itinerary: ItineraryWithCityInfoType;
 }
-
-const libraries: Libraries = ["places"];
 
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
@@ -45,7 +42,8 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
 
       service.getDetails(
         {
-          placeId: itinerary?.placeId as string,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          placeId: itinerary.placeId, // `Using itinerary.placeId as string` gives unnecessary type assertion. eslint-disable unsafe any for now
           fields: [
             "name",
             "formatted_address",
