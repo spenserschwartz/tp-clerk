@@ -42,7 +42,13 @@ const PlacesAutoComplete = ({
       service.getDetails(
         {
           placeId: place_id,
-          fields: ["name", "formatted_address", "geometry", "photo"],
+          fields: [
+            "name",
+            "formatted_address",
+            "geometry",
+            "photo",
+            "place_id",
+          ],
         },
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
