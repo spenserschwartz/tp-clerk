@@ -1,6 +1,6 @@
 import React from "react";
 import { type ItineraryWithCityInfoType } from "~/types/router";
-import ItineraryGridElement from "./components/gridElement";
+import ItineraryGridElement from "./components/GridElement";
 
 interface ItineraryImageGridProps {
   itineraries: ItineraryWithCityInfoType[];
