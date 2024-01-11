@@ -144,10 +144,6 @@ const QuickLaunch = () => {
   }, [chosenCustomCity]);
 
   if (!isLoaded) return <div>Loading...</div>;
-
-  console.log("chosenCustomCity", chosenCustomCity);
-  console.log("customCityPhoto", customCityPhoto);
-
   return (
     isLoaded && (
       <div className="my-8 flex h-full flex-col items-center">
