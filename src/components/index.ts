@@ -1,3 +1,4 @@
+import Avatar from "./Avatar";
 import Button from "./Button";
 import CityLaunch from "./CityLaunch";
 import DropdownMenu from "./DropdownMenu";
@@ -17,6 +18,7 @@ import Searchbar from "./Searchbar";
 import Select from "./select";
 
 export {
+  Avatar,
   Button,
   CityLaunch,
   DropdownMenu,

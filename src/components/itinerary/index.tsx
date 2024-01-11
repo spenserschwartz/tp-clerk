@@ -1,6 +1,6 @@
+import { Avatar } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import { api } from "~/utils/api";
-import Avatar from "../avatar";
 
 import { ZoomInUpWrapper } from "../framer-motion";
 import { unknownClerkUser, unknownItinerary } from "../utils";
