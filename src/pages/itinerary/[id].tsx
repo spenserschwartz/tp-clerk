@@ -5,7 +5,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
-import ItineraryTitle from "~/components/itinerary/components/title";
+import ItineraryTitle from "~/components/Itinerary/components/Title";
 import DeleteItinerary from "~/components/modal/deleteItinerary";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
