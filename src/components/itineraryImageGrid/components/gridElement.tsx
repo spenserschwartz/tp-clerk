@@ -3,11 +3,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import DropdownMenu from "~/components/dropdownMenu";
+import { DropdownMenu } from "~/components";
 import { FadeUpWrapper } from "~/components/framer-motion";
 import { unknownClerkCity } from "~/components/utils";
 import type { ParsedAIMessageInterface } from "~/types";
-import { type PlaceResult } from "~/types/google";
+import type { PlaceResult } from "~/types/google";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryGridElementProps {

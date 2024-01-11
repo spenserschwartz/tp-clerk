@@ -6,7 +6,7 @@ import {
 } from "@react-google-maps/api";
 import { useEffect, useMemo, useState } from "react";
 
-import PlacesAutoComplete from "./placesAutoComplete";
+import PlacesAutoComplete from "./heyhey";
 
 // TODO: Ready to be used for more Google Maps components
 const GooglePlaces = () => {

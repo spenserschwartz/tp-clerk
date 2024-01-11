@@ -1,8 +1,10 @@
-import Button from "./button";
-import Features from "./features";
+import Button from "./Button";
+import CityLaunch from "./CityLaunch";
+import DropdownMenu from "./DropdownMenu";
+import Features from "./Features";
 import FeaturesQuickLaunch from "./features-quickLaunch";
-import Footer from "./footer";
-import PlacesAutoComplete from "./google/placesAutoComplete";
+import Footer from "./Footer";
+import PlacesAutoComplete from "./google/heyhey";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
 import Itinerary from "./itinerary";
@@ -16,6 +18,8 @@ import Select from "./select";
 
 export {
   Button,
+  CityLaunch,
+  DropdownMenu,
   Features,
   FeaturesQuickLaunch,
   Footer,
