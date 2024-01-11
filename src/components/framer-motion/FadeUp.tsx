@@ -25,7 +25,7 @@ const FadeUpWrapper = ({ children }: FadeUpWrapperProps) => {
     <motion.div
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       <motion.div variants={variants}>{children}</motion.div>
     </motion.div>
