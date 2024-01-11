@@ -1,5 +1,6 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
+import Carousel from "./Carousel";
 import CityLaunch from "./CityLaunch";
 import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
@@ -20,6 +21,7 @@ import Select from "./select";
 export {
   Avatar,
   Button,
+  Carousel,
   CityLaunch,
   DropdownMenu,
   Features,

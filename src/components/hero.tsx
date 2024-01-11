@@ -1,4 +1,4 @@
-import Carousel from "./carousel";
+import { Carousel } from "~/components";
 import { ZoomInUpWrapper } from "./framer-motion";
 
 const slides: string[] = [
