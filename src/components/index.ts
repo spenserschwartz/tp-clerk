@@ -4,7 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
 import FeaturesQuickLaunch from "./features-quickLaunch";
 import Footer from "./Footer";
-import PlacesAutoComplete from "./google/heyhey";
+import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import Hero from "./hero";
 import ImageGrid from "./imageGrid";
 import Itinerary from "./itinerary";

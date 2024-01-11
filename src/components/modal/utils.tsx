@@ -1,5 +1,5 @@
 import { type GetCityByNameType } from "~/types/router";
-import VisitedCityForm from "../forms/visitedCity";
+import VisitedCityForm from "../forms/VisitedCity";
 
 import LoginModal from "./login";
 
