@@ -105,6 +105,7 @@ const QuickLaunch = () => {
         details: parsedData,
         title: itineraryTitle,
         imageURL: customCityPhoto,
+        placeId: chosenCustomCity?.place_id,
       });
     }
   };
@@ -143,6 +144,9 @@ const QuickLaunch = () => {
   }, [chosenCustomCity]);
 
   if (!isLoaded) return <div>Loading...</div>;
+
+  console.log("chosenCustomCity", chosenCustomCity);
+  console.log("customCityPhoto", customCityPhoto);
 
   return (
     isLoaded && (
