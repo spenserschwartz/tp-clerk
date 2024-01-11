@@ -4,19 +4,19 @@ import Carousel from "./Carousel";
 import CityLaunch from "./CityLaunch";
 import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
-import FeaturesQuickLaunch from "./features-quickLaunch";
+import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
 import Footer from "./Footer";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
-import Hero from "./hero";
+import Hero from "./Hero";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
 import ItineraryImageGrid from "./ItineraryImageGrid";
-import { RootLayout } from "./layout";
+import { RootLayout } from "./Layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./Modal";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
-import Select from "./select";
+import Select from "./Select";
 
 export {
   Avatar,
