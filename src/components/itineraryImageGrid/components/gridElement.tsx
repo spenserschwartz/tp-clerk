@@ -1,7 +1,7 @@
 import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import DropdownMenu from "~/components/dropdownMenu";
 import { FadeUpWrapper } from "~/components/framer-motion";
@@ -22,6 +22,9 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
+  const [customImageURL, setCustomImageURL] = useState<string | undefined>(
+    undefined
+  );
 
   const details = itinerary.details as unknown as ParsedAIMessageInterface[];
   const itineraryTitle = itinerary.title;
@@ -68,7 +71,11 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
               "placeResult lat",
               placeResult?.geometry?.location?.lat()
             );
-            // console.log("lat", placeResult?.geometry?.location.lat());
+
+            const customCityPhotoURL =
+              placeResult?.photos?.[0]?.getUrl() ?? undefined;
+
+            setCustomImageURL(customCityPhotoURL);
           }
         }
       );
@@ -101,7 +108,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             src={
               isCustomCity
-                ? "/images/placeholder.png"
+                ? customImageURL ?? "/images/placeholder.png"
                 : cityImageURL ?? "/images/placeholder.png"
             }
             // src={itineraryImageURL ?? cityImageURL ?? "/images/placeholder.png"}
