@@ -1,5 +1,5 @@
 import { FadeUpWrapper } from "./framer-motion";
-import QuickLaunch from "./quickLaunch";
+import QuickLaunch from "./QuickLaunch";
 
 const FeaturesQuickLaunch = () => {
   return (

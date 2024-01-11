@@ -1,6 +1,6 @@
-import Footer from "./footer";
-import Header from "./header";
-import Logo from "./logo";
-import MobileMenu from "./mobile-menu";
+import Footer from "../Footer";
+import Header from "./Header";
+import Logo from "./Logo";
+import MobileMenu from "./MobileMenu";
 
 export { Footer, Header, Logo, MobileMenu };
