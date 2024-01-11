@@ -8,7 +8,7 @@ import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import Hero from "./hero";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
-import ItineraryImageGrid from "./itineraryImageGrid";
+import ItineraryImageGrid from "./ItineraryImageGrid";
 import { RootLayout } from "./layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import Modal from "./modal";
