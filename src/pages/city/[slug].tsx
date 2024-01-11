@@ -13,7 +13,7 @@ import {
   RootLayout,
   Searchbar,
 } from "~/components";
-import { type ModalName } from "~/components/modal/utils";
+import { type ModalName } from "~/components/Modal/utils";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";

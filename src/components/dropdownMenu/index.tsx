@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import DeleteItinerary from "../modal/deleteItinerary";
+import DeleteItinerary from "../Modal/DeleteItinerary";
 
 interface DropdownMenuProps {
   itineraryID: string;

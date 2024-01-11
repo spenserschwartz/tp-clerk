@@ -1,7 +1,7 @@
 import { type GetCityByNameType } from "~/types/router";
 import VisitedCityForm from "../forms/VisitedCity";
 
-import LoginModal from "./login";
+import LoginModal from "./Login";
 
 export type ModalName = "VisitedCityForm" | "LoginModal";
 

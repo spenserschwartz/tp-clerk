@@ -11,7 +11,7 @@ import Itinerary from "./Itinerary";
 import ItineraryImageGrid from "./ItineraryImageGrid";
 import { RootLayout } from "./layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
-import Modal from "./modal";
+import Modal from "./Modal";
 import QuickLaunch from "./quickLaunch";
 import Searchbar from "./searchbar";
 import Select from "./select";
