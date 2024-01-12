@@ -3,21 +3,12 @@ import StarterKit from "@tiptap/starter-kit";
 import React from "react";
 
 const TextEditor = () => {
-  // const editor = useEditor({
-  //   extensions: [Document, Paragraph, Text, BulletList, ListItem],
-  //   content: `
-  //       <ul>
-  //         <li>A list item</li>
-  //         <li>And another one</li>
-  //       </ul>
-  //     `,
-  // });
   const editor = useEditor({
     extensions: [StarterKit],
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none",
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-1 focus:outline-none",
       },
     },
     content: `
@@ -82,8 +73,9 @@ const TextEditor = () => {
       >
         liftListItem
       </button>
-
-      <EditorContent editor={editor} />
+      <div className="border border-red-300">
+        <EditorContent editor={editor} />
+      </div>
     </>
   );
 };
