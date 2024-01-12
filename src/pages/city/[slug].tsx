@@ -6,14 +6,18 @@ import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import { ImageGrid, Modal, RootLayout, Searchbar } from "~/components";
-import CityLaunch from "~/components/cityLaunch";
-import { type ModalName } from "~/components/modal/utils";
+import {
+  CityLaunch,
+  ImageGrid,
+  Modal,
+  RootLayout,
+  Searchbar,
+} from "~/components";
+import { type ModalName } from "~/components/Modal/utils";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
-
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();

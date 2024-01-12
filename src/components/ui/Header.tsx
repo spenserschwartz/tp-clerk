@@ -1,12 +1,10 @@
-"use client";
-
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Logo from "./logo";
-import MobileMenu from "./mobile-menu";
+import Logo from "./Logo";
+import MobileMenu from "./MobileMenu";
 import { headerNavigation } from "./utils";
 
 export default function Header() {

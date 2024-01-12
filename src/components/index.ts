@@ -1,21 +1,29 @@
-import Button from "./button";
-import Features from "./features";
-import FeaturesQuickLaunch from "./features-quickLaunch";
-import Footer from "./footer";
-import PlacesAutoComplete from "./google/placesAutoComplete";
-import Hero from "./hero";
-import ImageGrid from "./imageGrid";
-import Itinerary from "./itinerary";
-import ItineraryImageGrid from "./itineraryImageGrid";
-import { RootLayout } from "./layout";
+import Avatar from "./Avatar";
+import Button from "./Button";
+import Carousel from "./Carousel";
+import CityLaunch from "./CityLaunch";
+import DropdownMenu from "./DropdownMenu";
+import Features from "./Features";
+import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
+import Footer from "./Footer";
+import PlacesAutoComplete from "./google/PlacesAutoComplete";
+import Hero from "./Hero";
+import ImageGrid from "./ImageGrid";
+import Itinerary from "./Itinerary";
+import ItineraryImageGrid from "./ItineraryImageGrid";
+import { RootLayout } from "./Layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
-import Modal from "./modal";
-import QuickLaunch from "./quickLaunch";
-import Searchbar from "./searchbar";
-import Select from "./select";
+import Modal from "./Modal";
+import QuickLaunch from "./QuickLaunch";
+import Searchbar from "./Searchbar";
+import Select from "./Select";
 
 export {
+  Avatar,
   Button,
+  Carousel,
+  CityLaunch,
+  DropdownMenu,
   Features,
   FeaturesQuickLaunch,
   Footer,
