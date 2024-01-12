@@ -230,7 +230,7 @@ const QuickLaunch = () => {
         )}
 
         {/* Display Generated Itinerary */}
-        {parsedData.length > 0 && (
+        {parsedData.length > 0 && !isCreatingItinerary && (
           <div className="flex flex-col items-center">
             <div className="flex">
               {/* Button to create new itinerary */}
