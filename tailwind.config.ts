@@ -75,6 +75,7 @@ export default {
     require("@tailwindcss/aspect-ratio"), // Images with details from https://tailwindui.com/components/application-ui/lists/grid-lists
     require("@tailwindcss/forms"), // Combobox
     require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
   ],
   variants: {
     extend: {
