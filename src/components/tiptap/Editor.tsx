@@ -1,30 +1,25 @@
-import {
-  BubbleMenu,
-  EditorContent,
-  FloatingMenu,
-  useEditor,
-} from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-// define your extension array
-const extensions = [StarterKit];
-
-const content = "<p>Hello World!</p>";
-
-const Tiptap = () => {
+const Editor = () => {
   const editor = useEditor({
-    extensions,
-    content,
+    extensions: [StarterKit],
+    editorProps: {
+      attributes: {
+        class: "Editor",
+      },
+    },
+    content: `
+      <h1>Welcome to your fresh Tiptap Code Sandbox</h1>
+      <p>You can create a demo for your issue inside of this sandbox and share it with us.</p>
+    `,
   });
 
-  if (!editor) return <div>loading...</div>;
   return (
-    <>
+    <div className="">
       <EditorContent editor={editor} />
-      <FloatingMenu editor={editor}>This is the floating menu</FloatingMenu>
-      <BubbleMenu editor={editor}>This is the bubble menu</BubbleMenu>
-    </>
+    </div>
   );
 };
 
-export default Tiptap;
+export default Editor;

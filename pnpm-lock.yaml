@@ -35,6 +35,36 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^4.29.7
     version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
+  '@tiptap/extension-bold':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-code':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-document':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-history':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)(@tiptap/pm@2.1.16)
+  '@tiptap/extension-italic':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-link':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)(@tiptap/pm@2.1.16)
+  '@tiptap/extension-paragraph':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-strike':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-text':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
+  '@tiptap/extension-underline':
+    specifier: ^2.1.16
+    version: 2.1.16(@tiptap/core@2.1.16)
   '@tiptap/pm':
     specifier: ^2.1.16
     version: 2.1.16
@@ -1283,6 +1313,17 @@ packages:
       '@tiptap/core': 2.1.16(@tiptap/pm@2.1.16)
     dev: false
 
+  /@tiptap/extension-link@2.1.16(@tiptap/core@2.1.16)(@tiptap/pm@2.1.16):
+    resolution: {integrity: sha512-QIXYwxHi2kKU2sqDXngTpggO4ZmLm4vMxDlbWT9so1iUPAqQJW2ZRbdygFYy1txirWcoaJKocPwSJemyAeUzmw==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.16(@tiptap/pm@2.1.16)
+      '@tiptap/pm': 2.1.16
+      linkifyjs: 4.1.3
+    dev: false
+
   /@tiptap/extension-list-item@2.1.16(@tiptap/core@2.1.16):
     resolution: {integrity: sha512-RLUodzFispIe1adarCEzf+OfaGZna/WR/k/HqPnbflSiJ6/I2P5MqI+ELjGGvc53eanf3+KpsHlB2Pganp8sMA==}
     peerDependencies:
@@ -1317,6 +1358,14 @@ packages:
 
   /@tiptap/extension-text@2.1.16(@tiptap/core@2.1.16):
     resolution: {integrity: sha512-XzSJmAj32uYpaL/9FX3tRSU52DwZ9w+3yEffIcSN9MSwioqLsSolXOz7TuJfW6lSTar1ml9UPlRqX4dpayUTDQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.16(@tiptap/pm@2.1.16)
+    dev: false
+
+  /@tiptap/extension-underline@2.1.16(@tiptap/core@2.1.16):
+    resolution: {integrity: sha512-OXGzIlKz5fA9BRdqC+HOkLFfJULfq2kOXc0ipKLoUq5sNoMGvmxnJbgv+mczKCDoJR/F3NsDCHQXLmaW7AYvcw==}
     peerDependencies:
       '@tiptap/core': ^2.0.0
     dependencies:
@@ -3580,6 +3629,10 @@ packages:
     resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
     dependencies:
       uc.micro: 2.0.0
+    dev: false
+
+  /linkifyjs@4.1.3:
+    resolution: {integrity: sha512-auMesunaJ8yfkHvK4gfg1K0SaKX/6Wn9g2Aac/NwX+l5VdmFZzo/hdPGxEOETj+ryRa4/fiOPjeeKURSAJx1sg==}
     dev: false
 
   /locate-character@3.0.0:
