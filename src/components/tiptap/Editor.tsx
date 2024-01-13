@@ -1,4 +1,4 @@
-import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
 
@@ -8,7 +8,8 @@ const TextEditor = () => {
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-1 focus:outline-none",
+          // "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-1 focus:outline-none",
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
       },
     },
     content: `
@@ -55,25 +56,8 @@ const TextEditor = () => {
       >
         toggleBulletList
       </button>
-      <button
-        onClick={() => editor.chain().focus().splitListItem("listItem").run()}
-        disabled={!editor.can().splitListItem("listItem")}
-      >
-        splitListItem
-      </button>
-      <button
-        onClick={() => editor.chain().focus().sinkListItem("listItem").run()}
-        disabled={!editor.can().sinkListItem("listItem")}
-      >
-        sinkListItem
-      </button>
-      <button
-        onClick={() => editor.chain().focus().liftListItem("listItem").run()}
-        disabled={!editor.can().liftListItem("listItem")}
-      >
-        liftListItem
-      </button>
-      <div className="border border-red-300">
+
+      <div className="">
         <EditorContent editor={editor} />
       </div>
     </>
