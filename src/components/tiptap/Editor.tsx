@@ -1,6 +1,13 @@
+import {
+  AtSymbolIcon,
+  CodeBracketIcon,
+  LinkIcon,
+} from "@heroicons/react/20/solid";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
+import { useCallback } from "react";
+
+import { EditorToolbar } from "./components";
 
 const TextEditor = () => {
   const editor = useEditor({
@@ -8,59 +15,90 @@ const TextEditor = () => {
     editorProps: {
       attributes: {
         class:
-          // "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-1 focus:outline-none",
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
       },
     },
-    content: `
-      <h2>
-        Hi there,
-      </h2>
-      <p>
-        this is a basic <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-      </p>
-      <ul>
-        <li>
-          That’s a bullet list with one …
-        </li>
-        <li>
-          … or two list items.
-        </li>
-      </ul>
-      <p>
-        Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-      </p>
-  <pre><code class="language-css">body {
-    display: none;
-  }</code></pre>
-      <p>
-        I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-      </p>
-      <blockquote>
-        Wow, that’s amazing. Good work, boy! 👏
-        <br />
-        — Mom
-      </blockquote>
-    `,
+    //   content: `
+    //     <h2>
+    //       Hi there,
+    //     </h2>
+    //     <p>
+    //       this is a basic <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
+    //     </p>
+    //     <ul>
+    //       <li>
+    //         That’s a bullet list with one …
+    //       </li>
+    //       <li>
+    //         … or two list items.
+    //       </li>
+    //     </ul>
+    //     <p>
+    //       Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
+    //     </p>
+    // <pre><code class="language-css">body {
+    //   display: none;
+    // }</code></pre>
+    //     <p>
+    //       I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
+    //     </p>
+    //     <blockquote>
+    //       Wow, that’s amazing. Good work, boy! 👏
+    //       <br />
+    //       — Mom
+    //     </blockquote>
+    //   `,
+    content: "hey",
   });
+
+  const toggleBold = useCallback(() => {
+    editor?.chain().focus().toggleBold().run();
+  }, [editor]);
 
   if (!editor) {
     return null;
   }
 
-  return (
-    <>
-      <button
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "is-active" : ""}
-      >
-        toggleBulletList
-      </button>
+  // return (
+  //   <>
+  //     <button
+  //       onClick={() => editor.chain().focus().toggleBulletList().run()}
+  //       className={editor.isActive("bulletList") ? "is-active" : ""}
+  //     >
+  //       toggleBulletList
+  //     </button>
 
+  //     <div className="flex items-center space-x-2 border-2 border-gray-300 p-2">
+  //       <button className="p-2 font-bold hover:bg-gray-100">B</button>
+
+  //       <button className="p-2 italic hover:bg-gray-100">I</button>
+
+  //       <button className="p-2 underline hover:bg-gray-100">U</button>
+
+  //       <button className="p-2 line-through hover:bg-gray-100">S</button>
+
+  //       <textarea
+  //         className="flex-1 resize-none border-0 p-2"
+  //         placeholder="Start typing..."
+  //       ></textarea>
+  //     </div>
+
+  //     <div className="">
+  //       <EditorContent editor={editor} />
+  //     </div>
+  //   </>
+  // );
+
+  return (
+    <div className="flex max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+      {/* Toolbar */}
+      <EditorToolbar editor={editor} />
+
+      {/* Editor */}
       <div className="">
         <EditorContent editor={editor} />
       </div>
-    </>
+    </div>
   );
 };
 
