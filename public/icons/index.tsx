@@ -1,4 +1,5 @@
 import React from "react";
+import TextBoldIcon from "./textBold";
 
 interface IconProps {
   enabled: boolean;
@@ -61,4 +62,4 @@ const ThumbsUpIcon = ({ enabled }: IconProps) => {
   );
 };
 
-export { HeartIcon, StarIcon, ThumbsUpIcon };
+export { HeartIcon, StarIcon, TextBoldIcon, ThumbsUpIcon };
