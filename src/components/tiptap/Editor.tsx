@@ -1,11 +1,5 @@
-import {
-  AtSymbolIcon,
-  CodeBracketIcon,
-  LinkIcon,
-} from "@heroicons/react/20/solid";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useCallback } from "react";
 
 import { EditorToolbar } from "./components";
 
