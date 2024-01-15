@@ -51,43 +51,9 @@ const TextEditor = () => {
     content: "hey",
   });
 
-  const toggleBold = useCallback(() => {
-    editor?.chain().focus().toggleBold().run();
-  }, [editor]);
-
   if (!editor) {
     return null;
   }
-
-  // return (
-  //   <>
-  //     <button
-  //       onClick={() => editor.chain().focus().toggleBulletList().run()}
-  //       className={editor.isActive("bulletList") ? "is-active" : ""}
-  //     >
-  //       toggleBulletList
-  //     </button>
-
-  //     <div className="flex items-center space-x-2 border-2 border-gray-300 p-2">
-  //       <button className="p-2 font-bold hover:bg-gray-100">B</button>
-
-  //       <button className="p-2 italic hover:bg-gray-100">I</button>
-
-  //       <button className="p-2 underline hover:bg-gray-100">U</button>
-
-  //       <button className="p-2 line-through hover:bg-gray-100">S</button>
-
-  //       <textarea
-  //         className="flex-1 resize-none border-0 p-2"
-  //         placeholder="Start typing..."
-  //       ></textarea>
-  //     </div>
-
-  //     <div className="">
-  //       <EditorContent editor={editor} />
-  //     </div>
-  //   </>
-  // );
 
   return (
     <div className="flex max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
