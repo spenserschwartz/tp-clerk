@@ -1,6 +1,7 @@
 import React from "react";
 import TextBoldIcon from "./textBold";
 import TextItalicIcon from "./textItalic";
+import TextLinkIcon from "./textLink";
 import TextUnderlineIcon from "./textUnderline";
 
 interface IconProps {
@@ -69,6 +70,7 @@ export {
   StarIcon,
   TextBoldIcon,
   TextItalicIcon,
+  TextLinkIcon,
   TextUnderlineIcon,
   ThumbsUpIcon,
 };

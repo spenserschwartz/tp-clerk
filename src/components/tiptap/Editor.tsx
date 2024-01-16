@@ -1,3 +1,4 @@
+import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -6,7 +7,19 @@ import { EditorToolbar } from "./components";
 
 const TextEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+    extensions: [
+      StarterKit,
+      Link.configure({
+        linkOnPaste: false,
+        protocols: [
+          {
+            scheme: "tel",
+            optionalSlashes: true,
+          },
+        ],
+      }),
+      Underline,
+    ],
     editorProps: {
       attributes: {
         class:
