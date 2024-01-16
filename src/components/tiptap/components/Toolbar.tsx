@@ -1,5 +1,5 @@
 import { type Editor } from "@tiptap/react";
-import { TextBoldIcon, TextItalicIcon } from "public/icons";
+import { TextBoldIcon, TextItalicIcon, TextUnderlineIcon } from "public/icons";
 import { useCallback } from "react";
 
 interface EditorToolbarProps {
@@ -18,6 +18,10 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
 
   const toggleItalic = useCallback(() => {
     editor?.chain().focus().toggleItalic().run();
+  }, [editor]);
+
+  const toggleUnderline = useCallback(() => {
+    editor?.chain().focus().toggleUnderline().run();
   }, [editor]);
 
   return (
@@ -40,27 +44,16 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         >
           <TextItalicIcon />
         </button>
+
+        {/* Underline */}
         <button
-          className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          className={buttonClassName("underline")}
           type="button"
-          data-hs-editor-underline
+          onClick={toggleUnderline}
         >
-          <svg
-            className="h-4 w-4 flex-shrink-0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
-            <line x1="4" x2="20" y1="20" y2="20" />
-          </svg>
+          <TextUnderlineIcon />
         </button>
+
         <button
           className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           type="button"
