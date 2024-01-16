@@ -1,5 +1,5 @@
 import { type Editor } from "@tiptap/react";
-import { TextBoldIcon } from "public/icons";
+import { TextBoldIcon, TextItalicIcon } from "public/icons";
 import { useCallback } from "react";
 
 interface EditorToolbarProps {
@@ -7,6 +7,11 @@ interface EditorToolbarProps {
 }
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
+  const buttonClassName = (node: string) =>
+    `inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 ${
+      editor?.isActive(node) ? "bg-gray-200" : ""
+    }`;
+
   const toggleBold = useCallback(() => {
     editor?.chain().focus().toggleBold().run();
   }, [editor]);
@@ -15,16 +20,12 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     editor?.chain().focus().toggleItalic().run();
   }, [editor]);
 
-  console.log("isBold", editor?.isActive("bold"));
-
   return (
     <div>
       <div className="flex gap-x-0.5 border-b border-gray-200 px-2 py-0 align-middle dark:border-gray-700">
         {/* Bold */}
         <button
-          className={`inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 ${
-            editor?.isActive("bold") ? "bg-gray-200" : ""
-          }`}
+          className={buttonClassName("bold")}
           type="button"
           onClick={toggleBold}
         >
@@ -33,26 +34,11 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
 
         {/* Italic */}
         <button
-          className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          className={buttonClassName("italic")}
           type="button"
           onClick={toggleItalic}
         >
-          <svg
-            className="h-4 w-4 flex-shrink-0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="19" x2="10" y1="4" y2="4" />
-            <line x1="14" x2="5" y1="20" y2="20" />
-            <line x1="15" x2="9" y1="4" y2="20" />
-          </svg>
+          <TextItalicIcon />
         </button>
         <button
           className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
