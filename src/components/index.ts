@@ -13,7 +13,6 @@ import Itinerary from "./Itinerary";
 import ItineraryImageGrid from "./ItineraryImageGrid";
 import { RootLayout } from "./Layout";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
-import Modal from "./Modal";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
@@ -34,7 +33,6 @@ export {
   LoadingPage,
   LoadingSection,
   LoadingSpinner,
-  Modal,
   PlacesAutoComplete,
   QuickLaunch,
   RootLayout,

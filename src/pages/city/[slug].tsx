@@ -6,14 +6,9 @@ import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import {
-  CityLaunch,
-  ImageGrid,
-  Modal,
-  RootLayout,
-  Searchbar,
-} from "~/components";
-import { type ModalName } from "~/components/Modal/utils";
+import { CityLaunch, ImageGrid, RootLayout, Searchbar } from "~/components";
+import LoginModal from "~/components/Modal/Login";
+import VisitedCityModal from "~/components/forms/VisitedCity";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
@@ -21,9 +16,9 @@ import { findAverageRecDays } from "~/utils/common";
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();
-  const [openModal, setOpenModal] = useState(false);
   const [showCityLaunch, setShowCityLaunch] = useState(false);
-  const [modalContent, setModalContent] = useState<ModalName>("LoginModal");
+  const [openVisitedCityModal, setOpenVisitedCityModal] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
   const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
 
@@ -44,8 +39,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   const visitedCityHandler = () => {
-    setModalContent(isSignedIn ? "VisitedCityForm" : "LoginModal");
-    setOpenModal(true);
+    isSignedIn ? setOpenVisitedCityModal(true) : setOpenLoginModal(true);
   };
 
   // Close cityLaunch when route changes
@@ -137,11 +131,12 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
         </div>
       )}
 
-      <Modal
-        content={modalContent}
-        data={cityData}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+      {/* Modals */}
+      <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
+      <VisitedCityModal
+        cityData={cityData}
+        openModal={openVisitedCityModal}
+        setOpenModal={setOpenVisitedCityModal}
       />
     </div>
   );
