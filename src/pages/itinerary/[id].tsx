@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
 import ItineraryTitle from "~/components/Itinerary/components/Title";
-import DeleteItinerary from "~/components/modal/DeleteItinerary";
+import DeleteItinerary from "~/components/modalZZZ/DeleteItinerary";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";

@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
 import { FadeUpWrapper } from "~/components/framer-motion";
-import LoginModal from "~/components/modal/Login";
+import LoginModal from "~/components/modalZZZ/Login";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import { api } from "~/utils/api";
 import { useDeleteItinerary } from "~/utils/hooks";
-import ModalWrapper from "../modal/Wrapper";
+import ModalWrapper from "./Wrapper";
 
 interface DeleteItineraryModalProps {
   itineraryID: string;
