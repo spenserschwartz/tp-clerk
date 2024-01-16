@@ -1,6 +1,6 @@
 import { SignInButton } from "@clerk/nextjs";
 import React from "react";
-import ModalWrapper from "./Wrapper";
+import ModalWrapper from "../modal/Wrapper";
 
 interface LoginModalProps {
   openModal: boolean;

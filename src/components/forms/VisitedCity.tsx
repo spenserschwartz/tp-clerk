@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import type { GetCityByNameType } from "~/types/router";
 import { api } from "~/utils/api";
 import { displayCityName } from "~/utils/common";
-import ModalWrapper from "../Modal/Wrapper";
 import { LoadingSpinner } from "../loading";
+import ModalWrapper from "../modal/Wrapper";
 
 interface VisitedCityFormProps {
   cityData?: GetCityByNameType;

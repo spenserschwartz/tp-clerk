@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-import LoginModal from "~/components/Modal/Login";
 import { FadeUpWrapper } from "~/components/framer-motion";
+import LoginModal from "~/components/modal/Login";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {
