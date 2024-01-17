@@ -5,7 +5,8 @@ import {
   TextLinkIcon,
   TextUnderlineIcon,
 } from "public/icons";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import TextLinkModal from "~/components/modal/TextLink";
 
 interface EditorToolbarProps {
   editor: Editor | null;
@@ -16,6 +17,8 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     `inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 ${
       editor?.isActive(node) ? "bg-gray-200" : ""
     }`;
+
+  const [openTextLinkModal, setOpenTextLinkModal] = useState(false);
 
   const toggleBold = useCallback(() => {
     editor?.chain().focus().toggleBold().run();
@@ -30,24 +33,24 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   }, [editor]);
 
   const toggleLink = useCallback(() => {
-    let url = window.prompt("Enter the URL");
+    // let url = window.prompt("Enter the URL");
+    // // Validate and correct the URL if necessary
+    // if (url) {
+    //   // Add 'http://' if no protocol is specified
+    //   if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    //     url = "http://" + url;
+    //   }
+    //   editor
+    //     ?.chain()
+    //     .focus()
+    //     .extendMarkRange("link")
+    //     .setLink({ href: url })
+    //     .run();
+    // } else if (editor?.isActive("link")) {
+    //   editor.chain().focus().unsetLink().run();
+    // }
 
-    // Validate and correct the URL if necessary
-    if (url) {
-      // Add 'http://' if no protocol is specified
-      if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        url = "http://" + url;
-      }
-
-      editor
-        ?.chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url })
-        .run();
-    } else if (editor?.isActive("link")) {
-      editor.chain().focus().unsetLink().run();
-    }
+    setOpenTextLinkModal(true);
   }, [editor]);
 
   return (
@@ -185,6 +188,12 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
           </svg>
         </button>
       </div>
+
+      <TextLinkModal
+        openModal={openTextLinkModal}
+        setOpenModal={setOpenTextLinkModal}
+        editor={editor}
+      />
     </div>
   );
 };
