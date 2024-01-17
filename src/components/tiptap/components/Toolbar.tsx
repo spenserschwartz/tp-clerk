@@ -1,6 +1,7 @@
 import { type Editor } from "@tiptap/react";
 import {
   TextBoldIcon,
+  TextBulletListIcon,
   TextItalicIcon,
   TextLinkIcon,
   TextOrderedListIcon,
@@ -20,7 +21,6 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     }`;
 
   const [openTextLinkModal, setOpenTextLinkModal] = useState(false);
-  const [url, setUrl] = useState<string>("");
 
   const toggleBold = useCallback(() => {
     editor?.chain().focus().toggleBold().run();
@@ -36,7 +36,6 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
 
   const toggleLink = useCallback(() => {
     if (!openTextLinkModal) {
-      if (editor) setUrl(editor.getAttributes("link").href as string);
       setOpenTextLinkModal(true);
     } else {
       editor?.chain().focus().unsetLink().run();
@@ -47,7 +46,9 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     editor?.chain().focus().toggleOrderedList().run();
   }, [editor]);
 
-  console.log("toolbar url", url);
+  const toggleBulletList = useCallback(() => {
+    editor?.chain().focus().toggleBulletList().run();
+  }, [editor]);
 
   if (!editor) return null;
   return (
@@ -89,6 +90,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
           <TextLinkIcon />
         </button>
 
+        {/* Ordered List (Numbered) */}
         <button
           className={buttonClassName("orderedList")}
           type="button"
@@ -96,31 +98,16 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         >
           <TextOrderedListIcon />
         </button>
+
+        {/* Bullet List */}
         <button
-          className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          className={buttonClassName("bulletList")}
           type="button"
-          data-hs-editor-ul
+          onClick={toggleBulletList}
         >
-          <svg
-            className="h-4 w-4 flex-shrink-0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="8" x2="21" y1="6" y2="6" />
-            <line x1="8" x2="21" y1="12" y2="12" />
-            <line x1="8" x2="21" y1="18" y2="18" />
-            <line x1="3" x2="3.01" y1="6" y2="6" />
-            <line x1="3" x2="3.01" y1="12" y2="12" />
-            <line x1="3" x2="3.01" y1="18" y2="18" />
-          </svg>
+          <TextBulletListIcon />
         </button>
+
         <button
           className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           type="button"

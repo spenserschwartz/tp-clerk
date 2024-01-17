@@ -1,5 +1,6 @@
 import React from "react";
 import TextBoldIcon from "./textBold";
+import TextBulletListIcon from "./textBulletList";
 import TextItalicIcon from "./textItalic";
 import TextLinkIcon from "./textLink";
 import TextOrderedListIcon from "./textOrderedList";
@@ -70,6 +71,7 @@ export {
   HeartIcon,
   StarIcon,
   TextBoldIcon,
+  TextBulletListIcon,
   TextItalicIcon,
   TextLinkIcon,
   TextOrderedListIcon,
