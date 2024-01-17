@@ -1,5 +1,5 @@
 import { type Editor } from "@tiptap/react";
-import { useCallback, useRef, useState, type Dispatch } from "react";
+import { useCallback, useState, type Dispatch } from "react";
 import ModalWrapper from "./Wrapper";
 
 interface TextLinkModalProps {
@@ -13,7 +13,6 @@ const TextLinkModal = ({
   setOpenModal,
   editor,
 }: TextLinkModalProps) => {
-  const cancelButtonRef = useRef(null);
   const [url, setUrl] = useState<string>(
     editor.getAttributes("link").href as string
   );
@@ -21,6 +20,7 @@ const TextLinkModal = ({
   const saveLink = useCallback(() => {
     if (url) {
       let processedUrl = url;
+
       if (
         !processedUrl.startsWith("http://") &&
         !processedUrl.startsWith("https://")
@@ -34,20 +34,6 @@ const TextLinkModal = ({
         .extendMarkRange("link")
         .setLink({ href: processedUrl })
         .run();
-    }
-
-    // Validate and correct the URL if necessary
-    if (url) {
-      // Add 'http://' if no protocol is specified
-      // if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      //   setUrl("http://" + url);
-      // }
-      // editor
-      //   ?.chain()
-      //   .focus()
-      //   .extendMarkRange("link")
-      //   .setLink({ href: processedUrl })
-      //   .run();
     } else if (editor?.isActive("link")) {
       editor.chain().focus().unsetLink().run();
     }
@@ -55,7 +41,10 @@ const TextLinkModal = ({
     setOpenModal(false);
   }, [editor, url, setOpenModal]);
 
-  console.log("url", url);
+  const removeLink = useCallback(() => {
+    editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    setOpenModal(false);
+  }, [editor, setOpenModal]);
 
   return (
     <ModalWrapper openModal={openModal} setOpenModal={setOpenModal}>
@@ -86,11 +75,10 @@ const TextLinkModal = ({
           </button>
           <button
             type="button"
-            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-            onClick={() => setOpenModal(false)}
-            ref={cancelButtonRef}
+            className="mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-500 sm:col-start-1 sm:mt-0"
+            onClick={removeLink}
           >
-            Cancel
+            Remove
           </button>
         </div>
       </div>
