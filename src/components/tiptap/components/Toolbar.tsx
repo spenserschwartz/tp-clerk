@@ -19,6 +19,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     }`;
 
   const [openTextLinkModal, setOpenTextLinkModal] = useState(false);
+  const [url, setUrl] = useState<string>("");
 
   const toggleBold = useCallback(() => {
     editor?.chain().focus().toggleBold().run();
@@ -33,25 +34,30 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   }, [editor]);
 
   const toggleLink = useCallback(() => {
-    let url = window.prompt("Enter the URL");
-    // Validate and correct the URL if necessary
-    if (url) {
-      // Add 'http://' if no protocol is specified
-      if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        url = "http://" + url;
-      }
-      editor
-        ?.chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url })
-        .run();
-    } else if (editor?.isActive("link")) {
-      editor.chain().focus().unsetLink().run();
-    }
+    // let url = window.prompt("Enter the URL");
+    // // Validate and correct the URL if necessary
+    // if (url) {
+    //   // Add 'http://' if no protocol is specified
+    //   if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    //     url = "http://" + url;
+    //   }
+    //   editor
+    //     ?.chain()
+    //     .focus()
+    //     .extendMarkRange("link")
+    //     .setLink({ href: url })
+    //     .run();
+    // } else if (editor?.isActive("link")) {
+    //   editor.chain().focus().unsetLink().run();
+    // }
 
-    // setOpenTextLinkModal(true);
+    if (!openTextLinkModal) {
+      if (editor) setUrl(editor.getAttributes("link").href as string);
+      setOpenTextLinkModal(true);
+    }
   }, [editor]);
+
+  console.log("toolbar url", url);
 
   if (!editor) return null;
   return (
