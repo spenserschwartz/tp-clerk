@@ -3,6 +3,7 @@ import {
   TextBoldIcon,
   TextItalicIcon,
   TextLinkIcon,
+  TextOrderedListIcon,
   TextUnderlineIcon,
 } from "public/icons";
 import { useCallback, useState } from "react";
@@ -41,6 +42,10 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       editor?.chain().focus().unsetLink().run();
     }
   }, [editor, openTextLinkModal]);
+
+  const toggleOrderedList = useCallback(() => {
+    editor?.chain().focus().toggleOrderedList().run();
+  }, [editor]);
 
   console.log("toolbar url", url);
 
@@ -85,29 +90,11 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         </button>
 
         <button
-          className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          className={buttonClassName("orderedList")}
           type="button"
-          data-hs-editor-ol
+          onClick={toggleOrderedList}
         >
-          <svg
-            className="h-4 w-4 flex-shrink-0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="10" x2="21" y1="6" y2="6" />
-            <line x1="10" x2="21" y1="12" y2="12" />
-            <line x1="10" x2="21" y1="18" y2="18" />
-            <path d="M4 6h1v4" />
-            <path d="M4 10h2" />
-            <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
-          </svg>
+          <TextOrderedListIcon />
         </button>
         <button
           className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
