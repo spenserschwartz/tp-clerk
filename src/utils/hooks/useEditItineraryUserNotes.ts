@@ -7,7 +7,7 @@ const useEditItineraryUserNotes = () => {
     isLoading: isEditingItineraryUserNotes,
     isSuccess: itineraryUserNotesEdited,
     data: itineraryData,
-  } = api.itinerary.editTitle.useMutation({
+  } = api.itinerary.editUserNotes.useMutation({
     onSuccess: () => {
       toast.success("Itinerary Notes Updated!");
     },
