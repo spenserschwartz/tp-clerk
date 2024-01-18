@@ -42,9 +42,12 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
     },
     [editable] // dependencies, when editable changes it's updated
   );
+  const { userNotes, id } = data;
 
   const saveNotes = () => {
     if (!editor) return;
+
+    editItineraryUserNotes({ id, userNotes: editor.getHTML() });
   };
 
   console.log("data", data);

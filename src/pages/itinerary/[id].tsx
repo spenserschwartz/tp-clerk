@@ -39,7 +39,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
       {/* Itinerary Notes */}
-      <ItineraryNotes notes={userNotes} />
+      <ItineraryNotes notes={userNotes} data={data} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
