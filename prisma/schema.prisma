@@ -68,7 +68,8 @@ model Itinerary {
     imageURL String? @db.VarChar(500)
     details  Json?
 
-    placeId String? // used to retrieve place details from Google Places API
+    placeId   String? // used to retrieve place details from Google Places API
+    userNotes String?
 
     @@index([cityId])
     @@index([userId])
