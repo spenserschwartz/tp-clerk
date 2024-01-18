@@ -42,7 +42,7 @@ const TextEditor = ({ content, editable }: TextEditorProps) => {
 
   if (!editor) return null;
   return (
-    <div className="flex max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
       {/* Toolbar */}
       <EditorToolbar editor={editor} />
 

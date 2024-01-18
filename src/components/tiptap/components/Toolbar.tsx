@@ -53,6 +53,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   if (!editor) return null;
   return (
     <div>
+      {/* Buttons */}
       <div className="flex gap-x-0.5 border-b border-gray-200 px-2 py-0 align-middle dark:border-gray-700">
         {/* Bold */}
         <button
