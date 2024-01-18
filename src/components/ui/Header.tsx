@@ -22,8 +22,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", scrollHandler);
   }, [top]);
 
-  console.log("user");
-
   return (
     <header
       className={`fixed z-30 w-full transition duration-300 ease-in-out md:bg-opacity-90 ${
