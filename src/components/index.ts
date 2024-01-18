@@ -16,6 +16,7 @@ import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
+import TextEditor from "./tiptap/Editor";
 
 export {
   Avatar,
@@ -38,4 +39,5 @@ export {
   RootLayout,
   Searchbar,
   Select,
+  TextEditor,
 };
