@@ -7,6 +7,7 @@ import { EditorToolbar } from "./components";
 
 const TextEditor = () => {
   const editor = useEditor({
+    editable: false,
     extensions: [
       StarterKit,
       Link.configure({
@@ -67,7 +68,7 @@ const TextEditor = () => {
 
       {/* Editor */}
       <div className="">
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} disabled />
       </div>
     </div>
   );

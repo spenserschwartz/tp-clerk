@@ -2,7 +2,7 @@ import { TextEditor } from "~/components";
 
 const ItineraryNotes = () => {
   return (
-    <div>
+    <div className="mt-10">
       <TextEditor />
     </div>
   );

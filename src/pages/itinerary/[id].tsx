@@ -5,6 +5,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
+import ItineraryNotes from "~/components/Itinerary/components/Notes";
 import ItineraryTitle from "~/components/Itinerary/components/Title";
 import DeleteItinerary from "~/components/modal/DeleteItinerary";
 import { unknownClerkUser } from "~/components/utils";
@@ -33,6 +34,8 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
       {/* Itinerary */}
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
+
+      <ItineraryNotes />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
