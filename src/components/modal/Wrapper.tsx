@@ -1,28 +1,17 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, type Dispatch } from "react";
+import { Fragment, type Dispatch, type ReactNode } from "react";
 
-import { type GetCityByNameType } from "~/types/router";
-import ModalContent, { type ModalName } from "./utils";
-
-interface ModalProps {
-  content: ModalName;
-  data?: GetCityByNameType;
+interface ModalWrapperProps {
+  children: ReactNode;
   openModal: boolean;
   setOpenModal: Dispatch<boolean>;
 }
 
-export default function Modal({
-  content,
-  data,
+const ModalWrapper = ({
+  children,
   openModal,
   setOpenModal,
-}: ModalProps) {
-  const closeModalHandler = () => setOpenModal(false);
-
-  const handleModalAction = () => {
-    closeModalHandler();
-  };
-
+}: ModalWrapperProps) => {
   return (
     <Transition.Root show={openModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpenModal}>
@@ -49,14 +38,9 @@ export default function Modal({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 {/* Modal Content */}
-                <ModalContent
-                  closeModalHandler={closeModalHandler}
-                  data={data}
-                  handleModalAction={handleModalAction}
-                  name={content}
-                />
+                {children}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -64,4 +48,6 @@ export default function Modal({
       </Dialog>
     </Transition.Root>
   );
-}
+};
+
+export default ModalWrapper;

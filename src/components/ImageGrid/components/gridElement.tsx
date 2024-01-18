@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-import { Modal } from "~/components";
 import { FadeUpWrapper } from "~/components/framer-motion";
+import LoginModal from "~/components/modal/Login";
 import { type AttractionType } from "~/types/router";
 
 interface GridElementProps {
@@ -144,11 +144,7 @@ const GridElement = ({
         </div>
 
         {/* Log In Modal */}
-        <Modal
-          content="LoginModal"
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        />
+        <LoginModal openModal={openModal} setOpenModal={setOpenModal} />
       </div>
     </FadeUpWrapper>
   );

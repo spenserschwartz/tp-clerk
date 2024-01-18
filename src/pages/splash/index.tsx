@@ -1,6 +1,10 @@
+import Tiptap from "~/components/tiptap/Editor";
+
 const SplashPage = () => {
   return (
-    <div className="h-screen w-screen border-2 border-red-400">Splash</div>
+    <div className="px-5">
+      <Tiptap />
+    </div>
   );
 };
 

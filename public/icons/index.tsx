@@ -1,4 +1,10 @@
 import React from "react";
+import TextBoldIcon from "./textBold";
+import TextBulletListIcon from "./textBulletList";
+import TextItalicIcon from "./textItalic";
+import TextLinkIcon from "./textLink";
+import TextOrderedListIcon from "./textOrderedList";
+import TextUnderlineIcon from "./textUnderline";
 
 interface IconProps {
   enabled: boolean;
@@ -61,4 +67,14 @@ const ThumbsUpIcon = ({ enabled }: IconProps) => {
   );
 };
 
-export { HeartIcon, StarIcon, ThumbsUpIcon };
+export {
+  HeartIcon,
+  StarIcon,
+  TextBoldIcon,
+  TextBulletListIcon,
+  TextItalicIcon,
+  TextLinkIcon,
+  TextOrderedListIcon,
+  TextUnderlineIcon,
+  ThumbsUpIcon,
+};

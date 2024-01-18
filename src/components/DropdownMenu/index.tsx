@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import DeleteItinerary from "../Modal/DeleteItinerary";
+import { DeleteItineraryModal } from "../modal";
 
 interface DropdownMenuProps {
   itineraryID: string;
@@ -76,7 +76,7 @@ const DropdownMenu = ({ itineraryID, itineraryUserID }: DropdownMenuProps) => {
       </Menu>
 
       {/* Modal */}
-      <DeleteItinerary
+      <DeleteItineraryModal
         itineraryID={itineraryID}
         openModal={openModal}
         setOpenModal={setOpenModal}
