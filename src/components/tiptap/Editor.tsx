@@ -3,6 +3,7 @@ import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
+import { useState } from "react";
 import { type ItineraryWithCityInfoType } from "~/types/router";
 import { useEditItineraryUserNotes } from "~/utils/hooks";
 import { EditorToolbar } from "./components";
@@ -16,6 +17,20 @@ interface TextEditorProps {
 const TextEditor = ({ content, data, editable }: TextEditorProps) => {
   const { editItineraryUserNotes, isEditingItineraryUserNotes } =
     useEditItineraryUserNotes();
+  const { userNotes, id } = data;
+  const [currentNotes, setCurrentNotes] = useState<string>(
+    (userNotes as string) ?? ""
+  );
+
+  const handleBlur = () => {
+    if (!editor) return;
+    const newNotes = editor.getHTML();
+    if (newNotes !== currentNotes) {
+      setCurrentNotes(newNotes);
+      editItineraryUserNotes({ id, userNotes: newNotes });
+    }
+  };
+
   const editor = useEditor(
     {
       content,
@@ -39,37 +54,40 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
         }),
         Underline,
       ],
+      onBlur: handleBlur,
     },
     [editable] // dependencies, when editable changes it's updated
   );
-  const { userNotes, id } = data;
+
+  if (!editor) return null;
 
   const saveNotes = () => {
-    if (!editor) return;
-
     editItineraryUserNotes({ id, userNotes: editor.getHTML() });
   };
 
-  console.log("data", data);
-
-  if (!editor) return null;
   return (
-    <div className="flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-      {/* Toolbar */}
-      <EditorToolbar editor={editor} />
+    <>
+      <div
+        className={`flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 ${
+          editable ? "" : "mt-8"
+        }`}
+      >
+        {/* Toolbar */}
+        {editable && <EditorToolbar editor={editor} />}
 
-      {/* Editor */}
-      <div className="">
-        <EditorContent editor={editor} />
+        {/* Editor */}
+        <div>
+          <EditorContent editor={editor} />
+        </div>
       </div>
 
       <button
-        className={`rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700`}
+        className={`mt-4 rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700`}
         onClick={saveNotes}
       >
         Save
       </button>
-    </div>
+    </>
   );
 };
 
