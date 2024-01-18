@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { TextEditor } from "~/components";
+import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryNotesProps {
+  data: ItineraryWithCityInfoType;
   notes: string;
 }
 
-const ItineraryNotes = ({ notes }: ItineraryNotesProps) => {
+const ItineraryNotes = ({ data, notes }: ItineraryNotesProps) => {
   const [editable, setEditable] = useState(false);
 
   return (
@@ -17,7 +19,7 @@ const ItineraryNotes = ({ notes }: ItineraryNotesProps) => {
         Edit Notes
       </button>
 
-      <TextEditor editable={editable} content={notes} />
+      <TextEditor editable={editable} content={notes} data={data} />
     </div>
   );
 };

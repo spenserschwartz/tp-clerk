@@ -3,14 +3,19 @@ import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
+import { type ItineraryWithCityInfoType } from "~/types/router";
+import { useEditItineraryUserNotes } from "~/utils/hooks";
 import { EditorToolbar } from "./components";
 
 interface TextEditorProps {
+  data: ItineraryWithCityInfoType;
   editable?: boolean;
   content?: string;
 }
 
-const TextEditor = ({ content, editable }: TextEditorProps) => {
+const TextEditor = ({ content, data, editable }: TextEditorProps) => {
+  const { editItineraryUserNotes, isEditingItineraryUserNotes } =
+    useEditItineraryUserNotes();
   const editor = useEditor(
     {
       content,
@@ -38,7 +43,11 @@ const TextEditor = ({ content, editable }: TextEditorProps) => {
     [editable] // dependencies, when editable changes it's updated
   );
 
-  console.log("editable", editable);
+  const saveNotes = () => {
+    if (!editor) return;
+  };
+
+  console.log("data", data);
 
   if (!editor) return null;
   return (
@@ -48,8 +57,15 @@ const TextEditor = ({ content, editable }: TextEditorProps) => {
 
       {/* Editor */}
       <div className="">
-        <EditorContent editor={editor} disabled />
+        <EditorContent editor={editor} />
       </div>
+
+      <button
+        className={`rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700`}
+        onClick={saveNotes}
+      >
+        Save
+      </button>
     </div>
   );
 };
