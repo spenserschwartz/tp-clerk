@@ -19,7 +19,7 @@ const useEditItineraryUserNotes = () => {
         toast.error("Failed to edit itinerary notes! Please try again later.");
       }
     },
-    onSettled(data, error) {
+    onSettled(_, error) {
       if (error) console.error(error);
     },
   });
