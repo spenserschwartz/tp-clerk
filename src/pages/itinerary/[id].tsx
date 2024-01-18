@@ -24,8 +24,11 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const userId = user?.id;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
+  const userNotes = data?.userNotes as string;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
+
+  console.log("data", data);
 
   return (
     <main className="flex flex-col items-center">
@@ -36,7 +39,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
       {/* Itinerary Notes */}
-      <ItineraryNotes />
+      <ItineraryNotes notes={userNotes} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
