@@ -17,11 +17,11 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
   const { user } = useUser();
-  const userId = user?.id;
-  const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+  const [openModal, setOpenModal] = useState(false);
 
+  const userId = user?.id;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
 
@@ -35,6 +35,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       {/* Itinerary */}
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
+      {/* Itinerary Notes */}
       <ItineraryNotes />
 
       {/* User can only delete itinerary if they are the current user */}

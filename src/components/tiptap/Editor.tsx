@@ -5,9 +5,13 @@ import StarterKit from "@tiptap/starter-kit";
 
 import { EditorToolbar } from "./components";
 
-const TextEditor = () => {
+interface TextEditorProps {
+  editable?: boolean;
+}
+
+const TextEditor = ({ editable }: TextEditorProps) => {
   const editor = useEditor({
-    editable: false,
+    editable,
     extensions: [
       StarterKit,
       Link.configure({
@@ -27,7 +31,7 @@ const TextEditor = () => {
           "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2",
       },
     },
-    //   content: `
+    // content: `
     //     <h2>
     //       Hi there,
     //     </h2>
