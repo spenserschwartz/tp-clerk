@@ -5,8 +5,10 @@ import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
 import { Itinerary, RootLayout } from "~/components";
-import ItineraryNotes from "~/components/Itinerary/components/Notes";
-import ItineraryTitle from "~/components/Itinerary/components/Title";
+import {
+  ItineraryNotes,
+  ItineraryTitle,
+} from "~/components/Itinerary/components";
 import DeleteItinerary from "~/components/modal/DeleteItinerary";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";

@@ -11,11 +11,11 @@ import { EditorToolbar } from "./components";
 
 interface TextEditorProps {
   data: ItineraryWithCityInfoType;
-  editable?: boolean;
+
   content?: string;
 }
 
-const TextEditor = ({ content, data, editable }: TextEditorProps) => {
+const TextEditor = ({ content, data }: TextEditorProps) => {
   const { editItineraryUserNotes } = useEditItineraryUserNotes();
   const { userNotes, id } = data;
   const [currentNotes, setCurrentNotes] = useState<string>(userNotes! ?? "");
@@ -31,7 +31,7 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
 
   const editor = useEditor({
     content,
-    editable,
+
     editorProps: {
       attributes: {
         class:
@@ -69,9 +69,7 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
   return (
     <>
       <div
-        className={`flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 ${
-          editable ? "" : "mt-8"
-        }`}
+        className={`flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 `}
       >
         {/* Toolbar */}
         {/* {editable && <EditorToolbar editor={editor} />} */}
