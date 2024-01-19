@@ -69,7 +69,7 @@ model Itinerary {
     details  Json?
 
     placeId   String? // used to retrieve place details from Google Places API
-    userNotes String?
+    userNotes String? @db.Text
 
     @@index([cityId])
     @@index([userId])
