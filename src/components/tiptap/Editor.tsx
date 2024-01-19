@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
-import { BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
@@ -83,10 +83,9 @@ const TextEditor = ({ data }: TextEditorProps) => {
       </p>
 
       <div
-        className={`flex min-w-[35ch] max-w-[55ch] flex-col overflow-hidden rounded-lg border border-gray-200 `}
+        className={`flex min-w-[35ch] flex-col overflow-hidden rounded-lg border border-gray-200 sm:min-w-[40ch] sm:max-w-[55ch] `}
       >
-        {/* Toolbar */}
-        {/* {editable && <EditorToolbar editor={editor} />} */}
+        {/* Bubble Menu */}
         <EditorBubbleMenu editor={editor} />
 
         <EditorContent editor={editor} />
