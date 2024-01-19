@@ -2,8 +2,9 @@ import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
-import { useState } from "react";
 import { type ItineraryWithCityInfoType } from "~/types/router";
 import { useEditItineraryUserNotes } from "~/utils/hooks";
 import { EditorToolbar } from "./components";
@@ -18,9 +19,7 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
   const { editItineraryUserNotes, isEditingItineraryUserNotes } =
     useEditItineraryUserNotes();
   const { userNotes, id } = data;
-  const [currentNotes, setCurrentNotes] = useState<string>(
-    (userNotes as string) ?? ""
-  );
+  const [currentNotes, setCurrentNotes] = useState<string>(userNotes! ?? "");
 
   const handleBlur = () => {
     if (!editor) return;
@@ -59,12 +58,18 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
     [editable] // dependencies, when editable changes it's updated
   );
 
+  // Update userNotes if editor content has changed (debounced)
+  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000);
+  useEffect(() => {
+    if (!editor) return;
+    const newNotes = editor.getHTML();
+    if (newNotes !== currentNotes) {
+      setCurrentNotes(newNotes);
+      editItineraryUserNotes({ id, userNotes: newNotes });
+    }
+  }, [currentNotes, debouncedEditor, editItineraryUserNotes, editor, id]);
+
   if (!editor) return null;
-
-  const saveNotes = () => {
-    editItineraryUserNotes({ id, userNotes: editor.getHTML() });
-  };
-
   return (
     <>
       <div
@@ -80,13 +85,6 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
           <EditorContent editor={editor} />
         </div>
       </div>
-
-      <button
-        className={`mt-4 rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700`}
-        onClick={saveNotes}
-      >
-        Save
-      </button>
     </>
   );
 };
