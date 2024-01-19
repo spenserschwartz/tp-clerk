@@ -143,7 +143,7 @@ export const itineraryRouter = createTRPCRouter({
     }),
 
   editUserNotes: privateProcedure
-    .input(z.object({ id: z.string(), userNotes: z.string() }))
+    .input(z.object({ id: z.string(), userNotes: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
       // Ensure there is a logged-in user or fallback to a known ID (make sure this is handled correctly in your app logic).
       const userId = ctx.userId ?? unknownClerkUser.id;
