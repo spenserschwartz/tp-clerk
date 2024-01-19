@@ -142,5 +142,29 @@ export const itineraryRouter = createTRPCRouter({
       return newItinerary;
     }),
 
+  editUserNotes: privateProcedure
+    .input(z.object({ id: z.string(), userNotes: z.string().nullable() }))
+    .mutation(async ({ ctx, input }) => {
+      // Ensure there is a logged-in user or fallback to a known ID (make sure this is handled correctly in your app logic).
+      const userId = ctx.userId ?? unknownClerkUser.id;
+
+      // Retrieve the existing itinerary to check if the current user is allowed to update it.
+      const existingItinerary = await ctx.prisma.itinerary.findUnique({
+        where: { id: input.id },
+      });
+
+      // If the itinerary does not exist or the user does not have permission, handle accordingly.
+      if (!existingItinerary || existingItinerary.userId !== userId) {
+        throw new Error("Unauthorized or itinerary not found");
+      }
+
+      const newItinerary = await ctx.prisma.itinerary.update({
+        where: { id: input.id },
+        data: { userNotes: input.userNotes },
+      });
+
+      return newItinerary;
+    }),
+
   // More routers here...
 });

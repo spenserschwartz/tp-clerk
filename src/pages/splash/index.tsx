@@ -1,11 +1,5 @@
-import Tiptap from "~/components/tiptap/Editor";
-
 const SplashPage = () => {
-  return (
-    <div className="px-5">
-      <Tiptap />
-    </div>
-  );
+  return <div className="px-5">splash</div>;
 };
 
 export default SplashPage;

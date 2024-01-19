@@ -6,16 +6,18 @@ import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
 import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
 import Footer from "./Footer";
-import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import Hero from "./Hero";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
+import { ItineraryNotes, ItineraryTitle } from "./Itinerary/components";
 import ItineraryImageGrid from "./ItineraryImageGrid";
 import { RootLayout } from "./Layout";
-import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
+import PlacesAutoComplete from "./google/PlacesAutoComplete";
+import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
+import TextEditor from "./tiptap/Editor";
 
 export {
   Avatar,
@@ -30,6 +32,8 @@ export {
   ImageGrid,
   Itinerary,
   ItineraryImageGrid,
+  ItineraryNotes,
+  ItineraryTitle,
   LoadingPage,
   LoadingSection,
   LoadingSpinner,
@@ -38,4 +42,5 @@ export {
   RootLayout,
   Searchbar,
   Select,
+  TextEditor,
 };

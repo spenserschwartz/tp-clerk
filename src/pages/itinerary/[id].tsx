@@ -4,9 +4,13 @@ import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import { Itinerary, RootLayout } from "~/components";
-import ItineraryTitle from "~/components/Itinerary/components/Title";
-import DeleteItinerary from "~/components/modal/DeleteItinerary";
+import {
+  Itinerary,
+  ItineraryNotes,
+  ItineraryTitle,
+  RootLayout,
+} from "~/components";
+import { DeleteItineraryModal } from "~/components/modal";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -16,16 +20,15 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   itineraryID,
 }) => {
   const { user } = useUser();
-  const userId = user?.id;
-  const [openModal, setOpenModal] = useState(false);
   const { isDeletingItinerary } = useDeleteItinerary();
   const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+  const [openModal, setOpenModal] = useState(false);
 
+  const userId = user?.id;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
 
   if (!data) return <div>404 Itinerary Not Found</div>;
-
   return (
     <main className="flex flex-col items-center">
       {/* Itinerary Title */}
@@ -33,6 +36,9 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
 
       {/* Itinerary */}
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
+
+      {/* Itinerary Notes */}
+      <ItineraryNotes data={data} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
@@ -52,7 +58,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       </SignedIn>
 
       {/* Modal */}
-      <DeleteItinerary
+      <DeleteItineraryModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         itineraryID={itineraryID}

@@ -1,10 +1,8 @@
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Logo from "./Logo";
-import MobileMenu from "./MobileMenu";
+import { Logo, MobileMenu } from "./index";
 import { headerNavigation } from "./utils";
 
 export default function Header() {
@@ -21,8 +19,6 @@ export default function Header() {
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
   }, [top]);
-
-  console.log("user");
 
   return (
     <header

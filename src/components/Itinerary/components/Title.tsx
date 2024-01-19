@@ -1,5 +1,6 @@
 import { PencilIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { api } from "~/utils/api";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
@@ -46,6 +47,15 @@ const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
       target.blur();
     }
   };
+
+  // Effect to update the title when debouncedTitle changes
+  const [debouncedTitle] = useDebounce(inputText, 1000);
+  useEffect(() => {
+    if (debouncedTitle !== currentTitle) {
+      setCurrentTitle(debouncedTitle);
+      editItineraryTitle({ id: itineraryID, title: debouncedTitle });
+    }
+  }, [debouncedTitle, currentTitle, editItineraryTitle, itineraryID]);
 
   return (
     <div className="group relative mb-2 inline-flex w-full max-w-4xl items-center justify-center">
