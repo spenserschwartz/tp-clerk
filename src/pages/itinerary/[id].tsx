@@ -24,7 +24,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const userId = user?.id;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
-  const userNotes = data?.userNotes as string;
+  const userNotes = data?.userNotes ?? "";
 
   if (!data) return <div>404 Itinerary Not Found</div>;
 

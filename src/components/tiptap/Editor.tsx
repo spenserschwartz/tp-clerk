@@ -16,8 +16,7 @@ interface TextEditorProps {
 }
 
 const TextEditor = ({ content, data, editable }: TextEditorProps) => {
-  const { editItineraryUserNotes, isEditingItineraryUserNotes } =
-    useEditItineraryUserNotes();
+  const { editItineraryUserNotes } = useEditItineraryUserNotes();
   const { userNotes, id } = data;
   const [currentNotes, setCurrentNotes] = useState<string>(userNotes! ?? "");
 
@@ -30,33 +29,30 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
     }
   };
 
-  const editor = useEditor(
-    {
-      content,
-      editable,
-      editorProps: {
-        attributes: {
-          class:
-            "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2",
-        },
+  const editor = useEditor({
+    content,
+    editable,
+    editorProps: {
+      attributes: {
+        class:
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2",
       },
-      extensions: [
-        StarterKit,
-        Link.configure({
-          linkOnPaste: false,
-          protocols: [
-            {
-              scheme: "tel",
-              optionalSlashes: true,
-            },
-          ],
-        }),
-        Underline,
-      ],
-      onBlur: handleBlur,
     },
-    [editable] // dependencies, when editable changes it's updated
-  );
+    extensions: [
+      StarterKit,
+      Link.configure({
+        linkOnPaste: false,
+        protocols: [
+          {
+            scheme: "tel",
+            optionalSlashes: true,
+          },
+        ],
+      }),
+      Underline,
+    ],
+    onBlur: handleBlur,
+  });
 
   // Update userNotes if editor content has changed (debounced)
   const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000);
@@ -78,7 +74,7 @@ const TextEditor = ({ content, data, editable }: TextEditorProps) => {
         }`}
       >
         {/* Toolbar */}
-        {editable && <EditorToolbar editor={editor} />}
+        {/* {editable && <EditorToolbar editor={editor} />} */}
 
         {/* Editor */}
         <div>
