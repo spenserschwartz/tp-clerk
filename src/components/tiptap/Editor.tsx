@@ -59,9 +59,6 @@ const TextEditor = ({ content, data }: TextEditorProps) => {
     onBlur: handleBlur,
   });
 
-  console.log("editor content", content);
-  console.log("isEmpty", editor?.isEmpty);
-
   // Update userNotes if editor content has changed (debounced)
   const [debouncedEditor] = useDebounce(editor?.state.doc.content, 1000);
   useEffect(() => {
