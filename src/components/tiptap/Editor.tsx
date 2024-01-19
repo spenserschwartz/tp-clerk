@@ -55,7 +55,7 @@ const TextEditor = ({ content, data }: TextEditorProps) => {
   });
 
   // Update userNotes if editor content has changed (debounced)
-  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000);
+  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 1000);
   useEffect(() => {
     if (!editor) return;
     const newNotes = editor.getHTML();
