@@ -1,3 +1,4 @@
+import EditorBubbleMenu from "./BubbleMenu";
 import EditorToolbar from "./Toolbar";
 
-export { EditorToolbar };
+export { EditorBubbleMenu, EditorToolbar };

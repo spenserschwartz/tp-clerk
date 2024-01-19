@@ -2,13 +2,14 @@ import { useUser } from "@clerk/nextjs";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
-import { EditorContent, useEditor } from "@tiptap/react";
+import { BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
 import { useEditItineraryUserNotes } from "~/utils/hooks";
+import { EditorBubbleMenu } from "./components";
 
 interface TextEditorProps {
   data: ItineraryWithCityInfoType;
@@ -86,11 +87,9 @@ const TextEditor = ({ data }: TextEditorProps) => {
       >
         {/* Toolbar */}
         {/* {editable && <EditorToolbar editor={editor} />} */}
+        <EditorBubbleMenu editor={editor} />
 
-        {/* Editor */}
-        <div>
-          <EditorContent editor={editor} />
-        </div>
+        <EditorContent editor={editor} />
       </div>
     </div>
   );
