@@ -11,11 +11,9 @@ import { useEditItineraryUserNotes } from "~/utils/hooks";
 
 interface TextEditorProps {
   data: ItineraryWithCityInfoType;
-
-  content?: string;
 }
 
-const TextEditor = ({ content, data }: TextEditorProps) => {
+const TextEditor = ({ data }: TextEditorProps) => {
   const { editItineraryUserNotes } = useEditItineraryUserNotes();
   const { userNotes, id } = data;
   const [currentNotes, setCurrentNotes] = useState<string>(userNotes ?? "");
@@ -72,7 +70,7 @@ const TextEditor = ({ content, data }: TextEditorProps) => {
 
   if (!editor) return null;
   return (
-    <div className="border border-red-400">
+    <div>
       <p className="w-full truncate rounded-full border-0 p-0 text-center text-xl font-extrabold outline-none transition duration-150 ease-in-out md:px-8 md:text-3xl lg:text-4xl">
         User Notes
       </p>
@@ -84,7 +82,6 @@ const TextEditor = ({ content, data }: TextEditorProps) => {
         {/* {editable && <EditorToolbar editor={editor} />} */}
 
         {/* Editor */}
-
         <div>
           <EditorContent editor={editor} />
         </div>

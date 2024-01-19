@@ -4,12 +4,13 @@ import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import { Itinerary, RootLayout } from "~/components";
 import {
+  Itinerary,
   ItineraryNotes,
   ItineraryTitle,
-} from "~/components/Itinerary/components";
-import DeleteItinerary from "~/components/modal/DeleteItinerary";
+  RootLayout,
+} from "~/components";
+import { DeleteItineraryModal } from "~/components/modal";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type ParsedAIMessageInterface } from "~/types";
@@ -26,12 +27,8 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
   const userId = user?.id;
   const itineraryUserId = data?.userId ?? unknownClerkUser.id;
   const parsedData = data?.details as ParsedAIMessageInterface[] | undefined;
-  const userNotes = data?.userNotes ?? "";
 
   if (!data) return <div>404 Itinerary Not Found</div>;
-
-  console.log("data", data);
-
   return (
     <main className="flex flex-col items-center">
       {/* Itinerary Title */}
@@ -41,7 +38,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       <Itinerary parsedData={parsedData ?? []} itineraryID={itineraryID} />
 
       {/* Itinerary Notes */}
-      <ItineraryNotes notes={userNotes} data={data} />
+      <ItineraryNotes data={data} />
 
       {/* User can only delete itinerary if they are the current user */}
       <SignedIn>
@@ -61,7 +58,7 @@ const ItineraryPage: NextPageWithLayout<{ itineraryID: string }> = ({
       </SignedIn>
 
       {/* Modal */}
-      <DeleteItinerary
+      <DeleteItineraryModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         itineraryID={itineraryID}
