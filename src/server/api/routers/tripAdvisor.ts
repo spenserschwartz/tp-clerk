@@ -1,6 +1,6 @@
 // import OpenAI from "openai";
 import { z } from "zod";
-import { LocationDetails } from "~/types/tripAdvisor";
+import { type LocationDetails } from "~/types/tripAdvisor";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const tripAdvisorRouter = createTRPCRouter({
