@@ -14,7 +14,7 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
     name: slugToDatabaseName(placeName),
   });
 
-  console.log("data", data);
+  console.log("placePage data", data);
 
   return <div>PlacePage</div>;
 };

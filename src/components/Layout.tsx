@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from "react";
 import { Footer, Header } from "~/components/ui";
+import Breadcrumbs from "./ui/Breadcrumbs";
 
 // Todo: add font-inter to global styles
 
@@ -10,7 +11,9 @@ export const RootLayout = (props: PropsWithChildren) => {
         <Header />
 
         {/* Spacing between header and main content */}
-        <div className="mb-24 md:mb-32" />
+        <div className="mb-24 md:mb-20" />
+
+        <Breadcrumbs />
 
         {/* Main Content */}
         <main className="px-2 md:px-10">{props.children}</main>
