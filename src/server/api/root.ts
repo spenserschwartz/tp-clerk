@@ -7,6 +7,7 @@ import {
   postsRouter,
   profileRouter,
   recommendedDaysInCityRouter,
+  tripAdvisorRouter,
   upvotesRouter,
   userRouter,
 } from "./routers";
@@ -24,6 +25,7 @@ export const appRouter = createTRPCRouter({
   posts: postsRouter,
   profile: profileRouter,
   recommendedDaysInCity: recommendedDaysInCityRouter,
+  tripAdvisor: tripAdvisorRouter,
   upvotes: upvotesRouter,
   user: userRouter,
 });
