@@ -1,4 +1,3 @@
-import { tripAdvisorRouter } from "~/server/api/routers";
 import { api } from "~/utils/api";
 
 const SplashPage = () => {
