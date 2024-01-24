@@ -23,9 +23,6 @@ export default function Breadcrumbs() {
     return { name: getDisplayName(segment), href, current: isCurrentPage };
   });
 
-  // Don't render a breadcrumb trail on the home page
-  if (router.asPath === "/" || router.asPath.startsWith("/#")) return null;
-
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
