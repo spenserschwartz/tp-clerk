@@ -27,7 +27,7 @@ export default function Breadcrumbs() {
   if (router.asPath === "/" || router.asPath.startsWith("/#")) return null;
 
   return (
-    <nav className="ml-16 flex" aria-label="Breadcrumb">
+    <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <Link href="/" className="text-gray-400 hover:text-gray-500">

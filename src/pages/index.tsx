@@ -1,6 +1,7 @@
 import { type ReactElement } from "react";
 
-import { Features, FeaturesQuickLaunch, Hero, RootLayout } from "~/components";
+import { Features, FeaturesQuickLaunch, Hero } from "~/components";
+import HomeLayout from "~/components/layout/Home";
 
 const Home = () => {
   return (
@@ -13,7 +14,7 @@ const Home = () => {
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
+  return <HomeLayout>{page}</HomeLayout>;
 };
 
 export default Home;

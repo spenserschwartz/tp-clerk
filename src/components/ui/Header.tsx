@@ -22,11 +22,12 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed z-30 w-full transition duration-300 ease-in-out md:bg-opacity-90 ${
+      className={`fixed z-30 w-full px-2 transition duration-300 ease-in-out md:bg-opacity-90 md:px-10 lg:px-20 ${
         !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
       }`}
     >
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      {/* <div className="mx-auto max-w-6xl px-5 sm:px-6"> */}
+      <div>
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Site branding */}
           <div className="mr-8 shrink-0">
