@@ -55,12 +55,6 @@ const PlacesAutoComplete = ({
             // Do something with the result object here
             const placeResult: PlaceResult | null = result;
             setSelected(placeResult);
-            console.log("placeResult", placeResult);
-            console.log(
-              "placeResult lat",
-              placeResult?.geometry?.location?.lat()
-            );
-            // console.log("lat", placeResult?.geometry?.location.lat());
           }
         }
       );
