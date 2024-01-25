@@ -19,6 +19,7 @@ import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
+import { LoginModal } from "../modal";
 
 interface CityLaunchProps {
   cityData: GetCityByNameType;
@@ -37,7 +38,7 @@ const CityLaunch = ({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
     libraries,
   });
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const {
     createItinerary,
     isCreatingItinerary,
@@ -49,6 +50,7 @@ const CityLaunch = ({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState(false);
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
@@ -108,6 +110,11 @@ const CityLaunch = ({
   );
 
   const handleAddUpvotedAttractions = () => {
+    if (!isSignedIn) {
+      setOpenLoginModal(true);
+      return;
+    }
+
     if (attractionsUpvotedByUser) {
       setIncludedAttractions((prev) => {
         // Create a new Set from the existing attractions
@@ -140,8 +147,6 @@ const CityLaunch = ({
       const lat = placeResult.geometry.location.lat;
       const lng = placeResult.geometry.location.lng;
       const CITY_COORDINATES = { lat, lng };
-
-      console.log("CITY_COORDINATES", CITY_COORDINATES);
 
       setRequestOptions(
         createRequestOptions(
@@ -200,61 +205,51 @@ const CityLaunch = ({
             {/* Included Attractions, alphabetized */}
             <div className="mt-4 flex w-full flex-col px-4">
               <div className="mb-6 block w-full">
-                <SignedOut>
-                  <p className=" text-red-800">
-                    **Please sign in to personalize your itinerary
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-gray-900">
+                    Included Attractions
                   </p>
-                </SignedOut>
-
-                <SignedIn>
-                  <div className="flex items-center justify-between">
-                    <p className="font-semibold text-gray-900">
-                      Included Attractions
-                    </p>
-                    <button
-                      className="text-md flex items-center rounded bg-blue-300 px-1  font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                      onClick={handleAddUpvotedAttractions}
-                      type="button"
-                    >
-                      <span className="mr-1">Add</span>
-                      <HeartIcon enabled />
-                    </button>
-                  </div>
-
-                  {/* List of included attractions */}
-                  <ul
-                    className={`h-40 w-full overflow-y-auto rounded-md  ${
-                      includedAttractions.length > 0
-                        ? "border border-gray-300"
-                        : null
-                    }`}
+                  <button
+                    className="text-md flex items-center rounded bg-blue-300 px-1  font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    onClick={handleAddUpvotedAttractions}
+                    type="button"
                   >
-                    {includedAttractions?.length === 0 && (
-                      <p className=" text-red-800">
-                        **Please add attractions to your itinerary
-                      </p>
-                    )}
+                    <span className="mr-1">Add</span>
+                    <HeartIcon enabled />
+                  </button>
+                </div>
 
-                    {sortWithoutPrefix(includedAttractions).map(
-                      (attraction) => {
-                        return (
-                          <li
-                            key={attraction}
-                            className="group relative flex items-center pl-1 hover:rounded hover:bg-gray-100"
-                          >
-                            {attraction}
-                            <span
-                              onClick={() => handleRemoveAttraction(attraction)}
-                              className="absolute right-0 cursor-pointer group-hover:inline sm:hidden"
-                            >
-                              <XMarkIcon className="h-5 w-5 text-red-800" />
-                            </span>
-                          </li>
-                        );
-                      }
-                    )}
-                  </ul>
-                </SignedIn>
+                {/* List of included attractions */}
+                <ul
+                  className={`h-40 w-full overflow-y-auto rounded-md  ${
+                    includedAttractions.length > 0
+                      ? "border border-gray-300"
+                      : null
+                  }`}
+                >
+                  {includedAttractions?.length === 0 && (
+                    <p className=" text-red-800">
+                      **Please add attractions to your itinerary
+                    </p>
+                  )}
+
+                  {sortWithoutPrefix(includedAttractions).map((attraction) => {
+                    return (
+                      <li
+                        key={attraction}
+                        className="group relative flex items-center pl-1 hover:rounded hover:bg-gray-100"
+                      >
+                        {attraction}
+                        <span
+                          onClick={() => handleRemoveAttraction(attraction)}
+                          className="absolute right-0 cursor-pointer group-hover:inline sm:hidden"
+                        >
+                          <XMarkIcon className="h-5 w-5 text-red-800" />
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
           </div>
@@ -310,6 +305,8 @@ const CityLaunch = ({
           </div>
         )}
       </form>
+
+      <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
     </div>
   );
 };
