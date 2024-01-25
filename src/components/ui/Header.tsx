@@ -33,14 +33,18 @@ export default function Header() {
             className="flex flex-1 items-center align-middle md:justify-start"
             href="/"
             aria-label="TravelPerfect"
+            passHref
+            legacyBehavior
           >
-            <Logo />
-            <h1 className="leading-tigher flex items-center text-3xl font-extrabold tracking-tighter md:text-4xl">
-              Travel
-              <span className="bg-gradient-to-r from-purple-500 to-violet-400 bg-clip-text text-transparent">
-                Perfect
-              </span>
-            </h1>
+            <>
+              <Logo />
+              <h1 className="leading-tigher flex items-center text-3xl font-extrabold tracking-tighter md:text-4xl">
+                Travel
+                <span className="bg-gradient-to-r from-purple-500 to-violet-400 bg-clip-text text-transparent">
+                  Perfect
+                </span>
+              </h1>
+            </>
           </Link>
 
           {/* Desktop navigation */}
