@@ -2,7 +2,7 @@ import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { HeaderLogo, Logo, MobileMenu } from "./index";
+import { HeaderLogo, MobileMenu } from "./index";
 import { headerNavigation } from "./utils";
 
 export default function Header() {
