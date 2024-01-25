@@ -26,16 +26,25 @@ export default function Header() {
         !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
       }`}
     >
-      {/* <div className="mx-auto max-w-6xl px-5 sm:px-6"> */}
-      <div>
+      <div className="mx-auto">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Site branding */}
-          <div className="mr-8 shrink-0">
+          <Link
+            className="flex flex-1 items-center align-middle md:justify-start"
+            href="/"
+            aria-label="TravelPerfect"
+          >
             <Logo />
-          </div>
+            <h1 className="leading-tigher flex items-center text-3xl font-extrabold tracking-tighter md:text-4xl">
+              Travel
+              <span className="bg-gradient-to-r from-purple-500 to-violet-400 bg-clip-text text-transparent">
+                Perfect
+              </span>
+            </h1>
+          </Link>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex md:grow">
+          <nav className="hidden md:flex">
             {/* Desktop sign in links */}
             <ul className="flex grow flex-wrap items-center justify-end">
               {/* Header Navigation Links */}
@@ -51,42 +60,44 @@ export default function Header() {
                   </li>
                 ))}
               </div>
-
-              {/* Header Sign In Links */}
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-              <SignedOut>
-                <li>
-                  <Link
-                    href="/sign-in"
-                    className="flex items-center px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
-                  >
-                    Sign in
-                  </Link>
-                </li>
-                {/* Header Sign Up */}
-                <li>
-                  <Link
-                    href="/sign-in"
-                    className="btn-sm ml-3 bg-gray-900 text-gray-200 hover:bg-gray-800"
-                  >
-                    <span>Sign up</span>
-                    <svg
-                      className="-mr-1 ml-2 h-3 w-3 shrink-0 fill-current text-gray-400"
-                      viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                        fillRule="nonzero"
-                      />
-                    </svg>
-                  </Link>
-                </li>
-              </SignedOut>
             </ul>
           </nav>
+
+          <div className="hidden md:flex md:flex-1 md:justify-end">
+            {/* Header Sign In Links */}
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <li>
+                <Link
+                  href="/sign-in"
+                  className="flex items-center px-5 py-3 font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-900"
+                >
+                  Sign in
+                </Link>
+              </li>
+              {/* Header Sign Up */}
+              <li>
+                <Link
+                  href="/sign-in"
+                  className="btn-sm ml-3 bg-gray-900 text-gray-200 hover:bg-gray-800"
+                >
+                  <span>Sign up</span>
+                  <svg
+                    className="-mr-1 ml-2 h-3 w-3 shrink-0 fill-current text-gray-400"
+                    viewBox="0 0 12 12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+                      fillRule="nonzero"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            </SignedOut>
+          </div>
 
           <MobileMenu />
         </div>
