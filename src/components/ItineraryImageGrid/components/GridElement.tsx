@@ -66,12 +66,6 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             // Do something with the result object here
             const placeResult: PlaceResult | null = result;
-            console.log("placeResult", placeResult);
-            console.log(
-              "placeResult lat",
-              placeResult?.geometry?.location?.lat()
-            );
-
             const customCityPhotoURL =
               placeResult?.photos?.[0]?.getUrl() ?? undefined;
 
