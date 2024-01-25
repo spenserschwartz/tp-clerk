@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import { addDays, format as formatDate } from "date-fns";
