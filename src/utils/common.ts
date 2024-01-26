@@ -21,7 +21,6 @@ export function createRequestOptions(
       return {
         input: input ?? "",
         types: ["establishment"],
-        // location: new google.maps.LatLng(location.lat, location.lng),
         location: new googleMaps.LatLng(location.lat, location.lng),
         radius: radius ?? 10000, // default radius if not provided
       };
