@@ -1,22 +1,26 @@
+import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
-import { type NextPageWithLayout } from "~/types/pages";
 
 import { RootLayout } from "~/components";
+import PlacesProfile from "~/components/profiles/place";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import { api } from "~/utils/api";
+import { type NextPageWithLayout } from "~/types/pages";
+import { googleMapsRender } from "~/utils/google";
 
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   placeName,
 }) => {
-  const { data } = api.attractions.getByName.useQuery({
-    name: slugToDatabaseName(placeName),
-  });
-
-  console.log("placePage data", data);
-
-  return <div>PlacePage</div>;
+  return (
+    <GoogleMapsWrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      libraries={["places"]}
+      render={googleMapsRender}
+    >
+      <PlacesProfile placeName={placeName} />
+    </GoogleMapsWrapper>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -28,9 +32,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const placeName = slug.replace("@", "");
   const databaseName = slugToDatabaseName(placeName);
-
-  console.log("placeName: ", placeName);
-  console.log("display name", databaseName);
 
   await ssg.attractions.getByName.prefetch({ name: databaseName });
 
