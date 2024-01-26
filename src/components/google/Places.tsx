@@ -1,8 +1,3 @@
-// import {
-//   GoogleMap,
-//   Marker,
-//   type Libraries,
-// } from "@react-google-maps/api";
 // import { useEffect, useMemo, useState } from "react";
 
 // import PlacesAutoComplete from "./PlacesAutoComplete";

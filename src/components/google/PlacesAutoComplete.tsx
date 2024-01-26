@@ -75,7 +75,7 @@ const PlacesAutoComplete = ({
     },
     [clearCache]
   );
-  // if (!isLoaded) return <>Loading...</>;
+
   return (
     <>
       <div className="w-full">
