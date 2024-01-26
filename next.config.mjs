@@ -16,6 +16,7 @@ const config = {
       { hostname: "tailwindui.com" },
       { hostname: "travelperfect-bucket.s3.us-west-1.amazonaws.com" },
       { hostname: "www.gravatar.com" },
+      { hostname: "maps.googleapis.com" },
     ],
   },
 
