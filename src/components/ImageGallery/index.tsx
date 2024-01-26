@@ -13,6 +13,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           {/* Placeholder for large image */}
           <Image
             src={images[0] ?? "/images/placeholder.png"}
+            className="transition-opacity duration-300 ease-in-out hover:opacity-75"
             alt="Placeholder for large image"
             fill
             objectFit="cover"
