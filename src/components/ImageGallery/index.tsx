@@ -7,14 +7,16 @@ interface ImageGalleryProps {
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
   return (
-    <div className="flex w-full min-w-[400px] max-w-4xl flex-grow justify-center ">
-      <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-4 border border-green-400">
+    <div className="flex w-full min-w-[400px] max-w-4xl flex-grow justify-center overflow-hidden rounded-xl">
+      <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-2 border border-green-400">
         <div className="aspect-h-1 aspect-w-1 relative col-span-2 row-span-2 bg-gray-500">
           {/* Placeholder for large image */}
           <Image
             src={images[0] ?? "/images/placeholder.png"}
             alt="Placeholder for large image"
             fill
+            objectFit="cover"
+            objectPosition="center"
           />
         </div>
 
@@ -25,8 +27,10 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           >
             <Image
               src={image ?? "/images/placeholder.png"}
-              alt="Placeholder for large image"
+              alt="Placeholder for small images"
               fill
+              objectFit="cover"
+              objectPosition="center"
             />
           </div>
         ))}
