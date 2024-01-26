@@ -60,7 +60,6 @@ const PlacesAutoComplete = ({
               "placeResult lat",
               placeResult?.geometry?.location?.lat()
             );
-            // console.log("lat", placeResult?.geometry?.location.lat());
           }
         }
       );
@@ -76,7 +75,7 @@ const PlacesAutoComplete = ({
     },
     [clearCache]
   );
-
+  // if (!isLoaded) return <>Loading...</>;
   return (
     <>
       <div className="w-full">
