@@ -7,6 +7,7 @@ import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
+import { LatLng } from "use-places-autocomplete";
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {
@@ -18,6 +19,7 @@ import {
 import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
+// import { sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 
 interface CityLaunchProps {
@@ -137,12 +139,39 @@ const CityLaunch = ({
 
       console.log("CITY_COORDINATES", CITY_COORDINATES);
 
+      // function createRequestOptions(
+      //   requestOptionType: RequestOptionType,
+      //   input?: string,
+      //   location?: LatLng,
+      //   radius?: number
+      // ): AutocompleteRequest {
+      //   switch (requestOptionType) {
+      //     case RequestOptionType.Cities:
+      //       return {
+      //         input: input ?? "",
+      //         types: ["(cities)"],
+      //       };
+      //     case RequestOptionType.Establishment:
+      //       if (!location) throw new Error("Location must be provided");
+      //       return {
+      //         input: input ?? "",
+      //         types: ["establishment"],
+      //         location: new google.maps.LatLng(location.lat, location.lng),
+      //         radius: radius ?? 10000, // default radius if not provided
+      //       };
+
+      //     default:
+      //       throw new Error("Invalid search type");
+      //   }
+      // }
+
       setRequestOptions(
         createRequestOptions(
           RequestOptionType.Establishment,
           "", // Add the user's input here
           CITY_COORDINATES,
-          SEARCH_RADIUS
+          SEARCH_RADIUS,
+          google.maps
         )
       );
     }
@@ -151,6 +180,7 @@ const CityLaunch = ({
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      libraries={["places"]}
     >
       <div className="my-8 flex h-full flex-col items-center">
         {/* Launcher */}
