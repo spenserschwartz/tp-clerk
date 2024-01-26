@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface ImageGalleryProps {
@@ -6,17 +7,28 @@ interface ImageGalleryProps {
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
   return (
-    <div className="min-w-[400px] max-w-4xl flex-grow justify-center ">
+    <div className="flex w-full min-w-[400px] max-w-4xl flex-grow justify-center ">
       <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-4 border border-green-400">
         <div className="aspect-h-1 aspect-w-1 relative col-span-2 row-span-2 bg-gray-500">
           {/* Placeholder for large image */}
+          <Image
+            src={images[0] ?? "/images/placeholder.png"}
+            alt="Placeholder for large image"
+            fill
+          />
         </div>
 
         {images.slice(1).map((image, index) => (
           <div
             key={index}
             className="aspect-h-1 aspect-w-1 col-span-1 row-span-1 bg-gray-300"
-          ></div>
+          >
+            <Image
+              src={image ?? "/images/placeholder.png"}
+              alt="Placeholder for large image"
+              fill
+            />
+          </div>
         ))}
       </div>
     </div>

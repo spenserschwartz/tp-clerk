@@ -61,7 +61,7 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
   if (!databaseData) return null;
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-grow flex-col items-center">
       <ImageGallery images={images} />
     </div>
   );
