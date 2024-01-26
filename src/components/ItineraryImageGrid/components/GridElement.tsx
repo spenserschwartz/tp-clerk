@@ -1,4 +1,3 @@
-import { useLoadScript, type Libraries } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -14,14 +13,8 @@ interface ItineraryGridElementProps {
   itinerary: ItineraryWithCityInfoType;
 }
 
-const libraries: Libraries = ["places"];
-
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
-    libraries,
-  });
   const [customImageURL, setCustomImageURL] = useState<string | undefined>(
     undefined
   );
@@ -80,9 +73,8 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
         }
       );
     };
-
-    if (isCustomCity && isLoaded) fetchDetails();
-  }, [isCustomCity, isLoaded, itinerary.placeId]);
+    if (isCustomCity) fetchDetails();
+  }, [isCustomCity, itinerary.placeId]);
 
   return (
     <FadeUpWrapper>
@@ -111,8 +103,6 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
                 ? customImageURL ?? "/images/placeholder.png"
                 : cityImageURL ?? "/images/placeholder.png"
             }
-            // src={itineraryImageURL ?? cityImageURL ?? "/images/placeholder.png"}
-
             alt=""
             className="pointer-events-none object-cover"
             width={100}

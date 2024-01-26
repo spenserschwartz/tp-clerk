@@ -60,7 +60,6 @@ const PlacesAutoComplete = ({
               "placeResult lat",
               placeResult?.geometry?.location?.lat()
             );
-            // console.log("lat", placeResult?.geometry?.location.lat());
           }
         }
       );

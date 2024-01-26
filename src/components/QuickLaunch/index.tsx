@@ -1,8 +1,11 @@
 import { useUser } from "@clerk/nextjs";
-import { useLoadScript, type Libraries } from "@react-google-maps/api";
+import {
+  Status as GoogleMapsStatus,
+  Wrapper as GoogleMapsWrapper,
+} from "@googlemaps/react-wrapper";
 import { addDays, format as formatDate } from "date-fns";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
@@ -21,15 +24,15 @@ import { createRequestOptions } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities, unknownClerkCity } from "../utils";
 
-const libraries: Libraries = ["places"];
-
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
   const router = useRouter();
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
-    libraries,
-  });
+
+  const render = (status: GoogleMapsStatus): ReactElement => {
+    if (status === GoogleMapsStatus.FAILURE) return <div>Error</div>;
+    return <div>Loading..</div>;
+  };
+
   const requestOptions = createRequestOptions(RequestOptionType.Cities);
   const [chosenCustomCity, setChosenCustomCity] = useState<PlaceResult | null>(
     null
@@ -143,9 +146,12 @@ const QuickLaunch = () => {
     setCustomCityPhoto(cityPhoto);
   }, [chosenCustomCity]);
 
-  if (!isLoaded) return <div>Loading...</div>;
   return (
-    isLoaded && (
+    <GoogleMapsWrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      render={render}
+      libraries={["places"]}
+    >
       <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
         {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
@@ -264,7 +270,7 @@ const QuickLaunch = () => {
           </div>
         )}
       </div>
-    )
+    </GoogleMapsWrapper>
   );
 };
 

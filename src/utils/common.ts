@@ -6,7 +6,8 @@ export function createRequestOptions(
   requestOptionType: RequestOptionType,
   input?: string,
   location?: LatLng,
-  radius?: number
+  radius?: number,
+  googleMaps?: typeof google.maps
 ): AutocompleteRequest {
   switch (requestOptionType) {
     case RequestOptionType.Cities:
@@ -15,11 +16,12 @@ export function createRequestOptions(
         types: ["(cities)"],
       };
     case RequestOptionType.Establishment:
-      if (!location) throw new Error("Location must be provided");
+      if (!location || !googleMaps)
+        throw new Error("Location must be provided");
       return {
         input: input ?? "",
         types: ["establishment"],
-        location: new google.maps.LatLng(location.lat, location.lng),
+        location: new googleMaps.LatLng(location.lat, location.lng),
         radius: radius ?? 10000, // default radius if not provided
       };
 
