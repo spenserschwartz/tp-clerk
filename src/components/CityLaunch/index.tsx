@@ -127,7 +127,7 @@ const CityLaunch = ({
     setIncludedAttractions((prev) => prev.filter((a) => a !== attraction));
   };
 
-  // Set up request options for PlacesAutoComplete once useLoadScript is loaded
+  // Set up request options for PlacesAutoComplete
   useEffect(() => {
     if (placeResult?.geometry?.location) {
       const SEARCH_RADIUS = 10000; // 10 kilometers radius
