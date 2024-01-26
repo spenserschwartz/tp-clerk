@@ -68,31 +68,3 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
 };
 
 export default PlacesProfile;
-
-// return (
-//   <div>
-//     <div className="container mx-auto p-4">
-//       <div className="grid grid-cols-4 grid-rows-2 gap-4">
-//         {/* Large image */}
-//         <div className="col-span-2 row-span-2">
-//           <img
-//             src={images[0]}
-//             alt="Large Gallery Image"
-//             className="aspect-square relative h-full w-full object-cover"
-//           />
-//         </div>
-
-//         {/* Small images */}
-// {images.slice(1).map((image, index) => (
-//   <div key={index} className="col-span-1 row-span-1">
-//     <img
-//       src={image}
-//       alt={`Gallery Image ${index + 2}`}
-//       className="aspect-square relative h-full w-full object-cover"
-//     />
-//   </div>
-// ))}
-//       </div>
-//     </div>
-//   </div>
-// );
