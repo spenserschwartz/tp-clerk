@@ -25,7 +25,7 @@ export default function Breadcrumbs() {
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
-      <ol role="list" className="flex items-center space-x-4">
+      <ol role="list" className="mb-2 flex items-center space-x-4">
         <li>
           <Link href="/" className="text-gray-400 hover:text-gray-500">
             {/* <a href="./" className="text-gray-400 hover:text-gray-500"> */}
