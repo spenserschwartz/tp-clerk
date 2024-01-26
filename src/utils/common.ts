@@ -1,4 +1,3 @@
-import {} from "@googlemaps/react-wrapper";
 import { type LatLng } from "use-places-autocomplete";
 import { RequestOptionType, type AutocompleteRequest } from "~/types/google";
 import { type GetRecommendedDaysByCityType } from "~/types/router";
