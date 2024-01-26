@@ -7,6 +7,7 @@ import Features from "./Features";
 import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
 import Footer from "./Footer";
 import Hero from "./Hero";
+import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
 import { ItineraryNotes, ItineraryTitle } from "./Itinerary/components";
@@ -29,6 +30,7 @@ export {
   FeaturesQuickLaunch,
   Footer,
   Hero,
+  ImageGallery,
   ImageGrid,
   Itinerary,
   ItineraryImageGrid,

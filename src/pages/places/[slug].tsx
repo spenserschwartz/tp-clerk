@@ -18,7 +18,9 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
       libraries={["places"]}
       render={googleMapsRender}
     >
-      <PlacesProfile placeName={placeName} />
+      <main className="">
+        <PlacesProfile placeName={placeName} />
+      </main>
     </GoogleMapsWrapper>
   );
 };
