@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
 
-import ImageGallery from "~/components/ImageGallery";
+import { ImageGallery } from "~/components";
 import { slugToDatabaseName } from "~/lib/utils";
 import type { PlaceResult } from "~/types/google";
 
@@ -38,11 +38,6 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             const placeResult: PlaceResult | null = result;
-            // const customCityPhotoURL =
-            //   placeResult?.photos?.[0]?.getUrl() ?? undefined;
-
-            console.log("placeResult", placeResult);
-
             const photos = placeResult?.photos?.map((photo) => {
               return photo.getUrl();
             });
