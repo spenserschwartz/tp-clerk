@@ -21,6 +21,7 @@ export default function Carousel({ slides }: CarouselProps) {
     else setCurrent(current + 1);
   }, [current, slides.length]);
 
+  // Move to next slide every 4 seconds
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide();
@@ -39,7 +40,6 @@ export default function Carousel({ slides }: CarouselProps) {
           }}
         >
           {slides.map((slide) => {
-            //   return <img src={s} />;
             return (
               <Image
                 className="rounded-xl shadow-md"
