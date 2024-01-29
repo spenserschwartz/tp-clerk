@@ -13,11 +13,10 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           {/* Placeholder for large image */}
           <Image
             src={images[0] ?? "/images/placeholder.png"}
-            className="transition-opacity duration-300 ease-in-out hover:opacity-75"
+            className="object-cover object-center hover:opacity-75"
             alt="Placeholder for large image"
             fill
-            objectFit="cover"
-            objectPosition="center"
+            priority
           />
         </div>
 
@@ -28,10 +27,10 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           >
             <Image
               src={image ?? "/images/placeholder.png"}
+              className="object-cover object-center hover:opacity-75"
               alt="Placeholder for small images"
               fill
-              objectFit="cover"
-              objectPosition="center"
+              priority
             />
           </div>
         ))}
