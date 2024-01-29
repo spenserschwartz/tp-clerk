@@ -14,6 +14,7 @@ export default function Header() {
     window.scrollY > 10 ? setTop(false) : setTop(true);
   };
 
+  // Scroll effect on header
   useEffect(() => {
     scrollHandler();
     window.addEventListener("scroll", scrollHandler);
