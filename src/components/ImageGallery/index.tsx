@@ -6,6 +6,9 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
+  const largeImageSizes = "(min-width: 768px) 50vw, 100vw";
+  const smallImageSizes = "(min-width: 768px) 25vw, 50vw";
+
   return (
     <div className="flex w-full min-w-[400px] max-w-4xl flex-grow justify-center overflow-hidden rounded-xl">
       <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-2 border border-green-400">
@@ -16,6 +19,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             className="object-cover object-center hover:opacity-75"
             alt="Placeholder for large image"
             fill
+            sizes={largeImageSizes}
             priority
           />
         </div>
@@ -30,6 +34,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
               className="object-cover object-center hover:opacity-75"
               alt="Placeholder for small images"
               fill
+              sizes={smallImageSizes}
               priority
             />
           </div>
