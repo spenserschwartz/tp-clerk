@@ -7,7 +7,7 @@ import Breadcrumbs from "./ui/Breadcrumbs";
 export const RootLayout = (props: PropsWithChildren) => {
   return (
     <div className="bg-white tracking-tight text-gray-900 antialiased">
-      <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+      <div className="flex min-h-screen flex-col items-center overflow-hidden supports-[overflow:clip]:overflow-clip">
         <Header />
 
         {/* Padding is also in header component, localized because of fixed position */}

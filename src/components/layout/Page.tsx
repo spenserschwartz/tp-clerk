@@ -4,15 +4,12 @@ import Breadcrumbs from "../ui/Breadcrumbs";
 
 const PageLayout = (props: PropsWithChildren) => {
   return (
-    // <div className="bg-white tracking-tight text-gray-900 antialiased">
     <div className="flex flex-grow justify-center bg-white tracking-tight text-gray-900 antialiased">
-      {/* <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip"> */}
-      <div className="flex min-h-screen max-w-7xl flex-grow flex-col overflow-hidden border border-red-500 px-2 supports-[overflow:clip]:overflow-clip md:px-10 lg:px-20">
+      <div className="flex min-h-screen max-w-7xl flex-grow flex-col overflow-hidden  supports-[overflow:clip]:overflow-clip">
         <Header />
 
         {/* Padding is also in header component, localized because of fixed position */}
-        {/* <div className="px-2 md:px-10 lg:px-20"> */}
-        <div className="">
+        <div className="px-2 md:px-10 lg:px-20">
           {/* Spacing between header and main content */}
           <div className="mb-24 md:mb-20" />
 
