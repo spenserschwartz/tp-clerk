@@ -4,6 +4,7 @@ import { api } from "~/utils/api";
 import { ImageGallery } from "~/components";
 import { slugToDatabaseName } from "~/lib/utils";
 import type { PlaceResult } from "~/types/google";
+import { PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   placeName: string;
@@ -56,8 +57,14 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
   if (!databaseData) return null;
 
   return (
-    <div className="flex flex-grow flex-col items-center">
-      <ImageGallery images={images} />
+    // <div className="flex flex-grow flex-col items-center border border-red-400">
+    <div className="flex flex-grow justify-center">
+      {/* <div className="flex min-w-[400px] max-w-4xl flex-grow flex-col items-center border border-purple-500"> */}
+      <div className="flex flex-grow flex-col items-center border border-purple-500">
+        <PlaceTitle data={databaseData} />
+
+        <ImageGallery images={images} />
+      </div>
     </div>
   );
 };
