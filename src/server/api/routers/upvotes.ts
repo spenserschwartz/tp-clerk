@@ -37,6 +37,16 @@ export const upvotesRouter = createTRPCRouter({
       return upvotesByUserInThisCity;
     }),
 
+  getByUserAndId: publicProcedure
+    .input(z.object({ attractionId: z.string(), userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const upvotedAttraction = await ctx.prisma.upvotes.findFirst({
+        where: { userId: input.userId, attractionId: input.attractionId },
+      });
+
+      return upvotedAttraction;
+    }),
+
   create: privateProcedure
     .input(z.object({ attractionId: z.string() }))
     .mutation(async ({ ctx, input }) => {
