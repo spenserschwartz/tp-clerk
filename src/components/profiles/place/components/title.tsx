@@ -1,16 +1,25 @@
 import { HeartIcon } from "public/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { type AttractionByNameType } from "~/types/router";
+import { api } from "~/utils/api";
 
 interface PlaceTitleProps {
   data: AttractionByNameType;
 }
 
 const PlaceTitle = ({ data }: PlaceTitleProps) => {
-  const { name } = data ?? {};
+  const { name, id } = data ?? {};
 
-  console.log("PlaceTitle data", data);
-  console.log("PlaceTitle name", name);
+  const [hasUserUpvoted, setHasUserUpvoted] = useState(false);
+
+  const { data: placeData } = api.upvotes.getByUserAndId.useQuery({
+    attractionId: id ?? "",
+    userId: "user_2Yp2HNveOW22qJkeS4VLCHVowkL",
+  });
+
+  useEffect(() => {
+    if (placeData) setHasUserUpvoted(true);
+  }, [placeData]);
 
   return (
     <div className="mt-2 flex w-full md:flex md:items-center md:justify-between">
@@ -32,7 +41,7 @@ const PlaceTitle = ({ data }: PlaceTitleProps) => {
         >
           Publish
         </button> */}
-        <HeartIcon enabled />
+        <HeartIcon enabled={hasUserUpvoted} />
       </div>
     </div>
   );

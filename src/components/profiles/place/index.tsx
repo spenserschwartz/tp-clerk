@@ -13,10 +13,6 @@ interface PlacesProfileProps {
 }
 
 const PlacesProfile = ({ placeName, databaseData }: PlacesProfileProps) => {
-  const [hasUserUpvoted, setHasUserUpvoted] = useState(false);
-
-  console.log("profileData", databaseData);
-
   const [images, setImages] = useState<string[]>([]);
 
   // Fetch details from Google Places API
@@ -54,14 +50,9 @@ const PlacesProfile = ({ placeName, databaseData }: PlacesProfileProps) => {
     fetchDetails();
   }, [databaseData]);
 
-  console.log("database data", databaseData);
-
   if (!databaseData) return null;
-
   return (
-    // <div className="flex flex-grow flex-col items-center border border-red-400">
     <div className="flex w-full flex-grow justify-center">
-      {/* <div className="flex min-w-[400px] max-w-4xl flex-grow flex-col items-center border border-purple-500"> */}
       <div className="flex w-full flex-grow flex-col items-center">
         <PlaceTitle data={databaseData} />
 
