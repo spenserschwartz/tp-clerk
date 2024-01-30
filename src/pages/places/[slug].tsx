@@ -2,7 +2,7 @@ import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
 
-import { RootLayout } from "~/components";
+import PageLayout from "~/components/layout/Page";
 import PlacesProfile from "~/components/profiles/place";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
@@ -50,7 +50,7 @@ export const getStaticPaths = () => {
 };
 
 PlacePage.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
+  return <PageLayout>{page}</PageLayout>;
 };
 
 export default PlacePage;
