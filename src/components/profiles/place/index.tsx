@@ -4,16 +4,19 @@ import { api } from "~/utils/api";
 import { ImageGallery } from "~/components";
 import { slugToDatabaseName } from "~/lib/utils";
 import type { PlaceResult } from "~/types/google";
+import { AttractionByNameType } from "~/types/router";
 import { PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   placeName: string;
+  databaseData?: AttractionByNameType;
 }
 
-const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
-  const { data: databaseData } = api.attractions.getByName.useQuery({
-    name: slugToDatabaseName(placeName),
-  });
+const PlacesProfile = ({ placeName, databaseData }: PlacesProfileProps) => {
+  const [hasUserUpvoted, setHasUserUpvoted] = useState(false);
+
+  console.log("profileData", databaseData);
+
   const [images, setImages] = useState<string[]>([]);
 
   // Fetch details from Google Places API
@@ -42,13 +45,12 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
             const photos = placeResult?.photos?.map((photo) => {
               return photo.getUrl();
             });
-
-            console.log("photos", photos);
             setImages(photos?.slice(0, 5) ?? []);
           }
         }
       );
     };
+
     fetchDetails();
   }, [databaseData]);
 
@@ -58,9 +60,9 @@ const PlacesProfile = ({ placeName }: PlacesProfileProps) => {
 
   return (
     // <div className="flex flex-grow flex-col items-center border border-red-400">
-    <div className="flex flex-grow justify-center">
+    <div className="flex w-full flex-grow justify-center">
       {/* <div className="flex min-w-[400px] max-w-4xl flex-grow flex-col items-center border border-purple-500"> */}
-      <div className="flex flex-grow flex-col items-center border border-purple-500">
+      <div className="flex w-full flex-grow flex-col items-center">
         <PlaceTitle data={databaseData} />
 
         <ImageGallery images={images} />

@@ -7,11 +7,18 @@ import PlacesProfile from "~/components/profiles/place";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
+import { api } from "~/utils/api";
 import { googleMapsRender } from "~/utils/google";
 
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   placeName,
 }) => {
+  const { data: databaseData } = api.attractions.getByName.useQuery({
+    name: slugToDatabaseName(placeName),
+  });
+
+  console.log("PlacePage data", databaseData);
+
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
@@ -19,7 +26,7 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
       render={googleMapsRender}
     >
       <main className="">
-        <PlacesProfile placeName={placeName} />
+        <PlacesProfile placeName={placeName} databaseData={databaseData} />
       </main>
     </GoogleMapsWrapper>
   );
