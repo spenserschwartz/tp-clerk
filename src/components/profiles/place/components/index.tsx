@@ -1,3 +1,4 @@
-import PlaceTitle from "./title";
+import PlaceDetails from "./Details";
+import PlaceTitle from "./Title";
 
-export { PlaceTitle };
+export { PlaceDetails, PlaceTitle };
