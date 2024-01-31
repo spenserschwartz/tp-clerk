@@ -1,4 +1,5 @@
 import React from "react";
+import GoogleIcon from "./google";
 import TextBoldIcon from "./textBold";
 import TextBulletListIcon from "./textBulletList";
 import TextItalicIcon from "./textItalic";
@@ -68,6 +69,7 @@ const ThumbsUpIcon = ({ enabled }: IconProps) => {
 };
 
 export {
+  GoogleIcon,
   HeartIcon,
   StarIcon,
   TextBoldIcon,
