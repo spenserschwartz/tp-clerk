@@ -18,11 +18,12 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
     data: databaseData,
     isFetching,
     isLoading,
+    isInitialLoading,
   } = api.attractions.getByName.useQuery({
     name: slugToDatabaseName(placeName),
   });
 
-  if (isFetching || isLoading) return <LoadingPage />;
+  if (isFetching || isLoading || isInitialLoading) return <LoadingPage />;
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
