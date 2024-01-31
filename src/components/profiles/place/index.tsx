@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ImageGallery } from "~/components";
 import type { PlaceResult } from "~/types/google";
 import { type AttractionByNameType } from "~/types/router";
-import { PlaceTitle } from "./components";
+import { PlaceDetails, PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   databaseData?: AttractionByNameType;
@@ -30,6 +30,12 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
             "geometry",
             "photo",
             "place_id",
+            "rating",
+            "types",
+            "url",
+            "user_ratings_total",
+            "vicinity",
+            "website",
           ],
         },
         (result, status) => {
@@ -39,6 +45,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
               return photo.getUrl();
             });
             setImages(photos?.slice(0, 5) ?? []);
+
+            console.log("placeResult", placeResult);
           }
         }
       );
@@ -54,6 +62,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         <PlaceTitle data={databaseData} />
 
         <ImageGallery images={images} />
+
+        <PlaceDetails databaseData={databaseData} />
       </div>
     </div>
   );
