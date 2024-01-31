@@ -8,7 +8,6 @@ import PageLayout from "~/components/layout/Page";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
-
 import { googleMapsRender } from "~/utils/google";
 
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
