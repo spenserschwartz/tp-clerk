@@ -1,14 +1,14 @@
 import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
-import { LoadingPage } from "~/components";
+import { api } from "~/utils/api";
 
+import { LoadingPage, PlacesProfile } from "~/components";
 import PageLayout from "~/components/layout/Page";
-import PlacesProfile from "~/components/profiles/place";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
-import { api } from "~/utils/api";
+
 import { googleMapsRender } from "~/utils/google";
 
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
