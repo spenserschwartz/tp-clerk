@@ -4,7 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { LoginModal } from "~/components/modal";
 import { type AttractionByNameType } from "~/types/router";
 import { api } from "~/utils/api";
-import { useDeleteUpvoteFromUser } from "~/utils/hooks";
+import { useAddUpvoteFromUser, useDeleteUpvoteFromUser } from "~/utils/hooks";
 
 interface PlaceTitleProps {
   data: AttractionByNameType;
@@ -15,6 +15,8 @@ const PlaceTitle = ({ data }: PlaceTitleProps) => {
   const { name, id } = data ?? {};
   const { deleteUpvoteFromUser, isDeletingUpvote, upvoteDeleted } =
     useDeleteUpvoteFromUser();
+  const { isUpvoting, upvoteAttraction, upvoteSuccess } =
+    useAddUpvoteFromUser();
   const [userUpvoted, setUserUpvoted] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { data: placeData } = api.upvotes.getByUserAndId.useQuery({
@@ -37,6 +39,9 @@ const PlaceTitle = ({ data }: PlaceTitleProps) => {
         setUserUpvoted(false);
         // void api.upvotes.delete.mutation({ attractionId: id ?? "" });
         deleteUpvoteFromUser({ attractionId: id ?? "" });
+      } else {
+        setUserUpvoted(true);
+        upvoteAttraction({ attractionId: id ?? "" });
       }
     }
   };

@@ -6,7 +6,7 @@ import { type AttractionByNameType } from "~/types/router";
 import { PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
-  databaseData: AttractionByNameType;
+  databaseData?: AttractionByNameType;
 }
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
