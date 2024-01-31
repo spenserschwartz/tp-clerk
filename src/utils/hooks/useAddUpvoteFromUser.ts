@@ -7,6 +7,7 @@ const useAddUpvoteFromUser = () => {
     isLoading: isUpvoting,
     isSuccess: upvoteSuccess,
     data: upvoteData,
+    isError: upvoteError,
   } = api.upvotes.create.useMutation({
     onSuccess: () => {
       toast.success("Upvoted!");
@@ -29,6 +30,7 @@ const useAddUpvoteFromUser = () => {
     isUpvoting,
     upvoteSuccess,
     upvoteData,
+    upvoteError,
   };
 };
 

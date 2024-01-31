@@ -13,9 +13,13 @@ interface PlaceTitleProps {
 const PlaceTitle = ({ data }: PlaceTitleProps) => {
   const { user, isSignedIn, isLoaded } = useUser();
   const { name, id } = data ?? {};
-  const { deleteUpvoteFromUser, isDeletingUpvote, upvoteDeleted } =
-    useDeleteUpvoteFromUser();
-  const { isUpvoting, upvoteAttraction, upvoteSuccess } =
+  const {
+    deleteUpvoteFromUser,
+    isDeletingUpvote,
+    upvoteDeleted,
+    deleteUpvoteError,
+  } = useDeleteUpvoteFromUser();
+  const { isUpvoting, upvoteAttraction, upvoteSuccess, upvoteError } =
     useAddUpvoteFromUser();
   const [userUpvoted, setUserUpvoted] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -26,21 +30,28 @@ const PlaceTitle = ({ data }: PlaceTitleProps) => {
 
   console.log("userHasUpvoted", userUpvoted);
 
+  console.log("deleteUpvoteError", deleteUpvoteError);
+
   // Check if user has upvoted this place from the server
   useEffect(() => {
     if (placeData) setUserUpvoted(true);
   }, [placeData]);
+
+  // Remedy optimistic updates on error
+  useEffect(() => {
+    if (deleteUpvoteError) setUserUpvoted(true);
+    else if (upvoteError) setUserUpvoted(false);
+  }, [deleteUpvoteError, upvoteError]);
 
   const handleUpvote = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!isSignedIn) return setOpenModal(true);
     else {
       if (userUpvoted) {
-        setUserUpvoted(false);
-        // void api.upvotes.delete.mutation({ attractionId: id ?? "" });
+        setUserUpvoted(false); // optimistic update
         deleteUpvoteFromUser({ attractionId: id ?? "" });
       } else {
-        setUserUpvoted(true);
+        setUserUpvoted(true); // optimistic update
         upvoteAttraction({ attractionId: id ?? "" });
       }
     }

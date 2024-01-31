@@ -6,6 +6,7 @@ const useDeleteUpvoteFromUser = () => {
     mutate: deleteUpvoteFromUser,
     isLoading: isDeletingUpvote,
     isSuccess: upvoteDeleted,
+    isError: deleteUpvoteError,
   } = api.upvotes.delete.useMutation({
     onSuccess: () => {
       console.log("DeleteUpvote Success");
@@ -24,6 +25,7 @@ const useDeleteUpvoteFromUser = () => {
     deleteUpvoteFromUser,
     isDeletingUpvote,
     upvoteDeleted,
+    deleteUpvoteError,
   };
 };
 
