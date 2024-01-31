@@ -11,26 +11,16 @@ interface PlaceTitleProps {
 }
 
 const PlaceTitle = ({ data }: PlaceTitleProps) => {
-  const { user, isSignedIn, isLoaded } = useUser();
+  const { user, isSignedIn } = useUser();
   const { name, id } = data ?? {};
-  const {
-    deleteUpvoteFromUser,
-    isDeletingUpvote,
-    upvoteDeleted,
-    deleteUpvoteError,
-  } = useDeleteUpvoteFromUser();
-  const { isUpvoting, upvoteAttraction, upvoteSuccess, upvoteError } =
-    useAddUpvoteFromUser();
+  const { deleteUpvoteFromUser, deleteUpvoteError } = useDeleteUpvoteFromUser();
+  const { upvoteAttraction, upvoteError } = useAddUpvoteFromUser();
   const [userUpvoted, setUserUpvoted] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { data: placeData } = api.upvotes.getByUserAndId.useQuery({
     attractionId: id ?? "",
     userId: user ? user.id : "",
   });
-
-  console.log("userHasUpvoted", userUpvoted);
-
-  console.log("deleteUpvoteError", deleteUpvoteError);
 
   // Check if user has upvoted this place from the server
   useEffect(() => {
