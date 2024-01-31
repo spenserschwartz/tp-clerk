@@ -26,7 +26,7 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
       render={googleMapsRender}
     >
       <main className="">
-        <PlacesProfile placeName={placeName} databaseData={databaseData} />
+        <PlacesProfile databaseData={databaseData} />
       </main>
     </GoogleMapsWrapper>
   );

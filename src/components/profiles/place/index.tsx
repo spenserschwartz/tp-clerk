@@ -4,15 +4,14 @@ import { api } from "~/utils/api";
 import { ImageGallery } from "~/components";
 import { slugToDatabaseName } from "~/lib/utils";
 import type { PlaceResult } from "~/types/google";
-import { AttractionByNameType } from "~/types/router";
+import { type AttractionByNameType } from "~/types/router";
 import { PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
-  placeName: string;
-  databaseData?: AttractionByNameType;
+  databaseData: AttractionByNameType;
 }
 
-const PlacesProfile = ({ placeName, databaseData }: PlacesProfileProps) => {
+const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const [images, setImages] = useState<string[]>([]);
 
   // Fetch details from Google Places API
