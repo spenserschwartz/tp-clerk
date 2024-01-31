@@ -1,6 +1,7 @@
 import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
+import { LoadingPage } from "~/components";
 
 import PageLayout from "~/components/layout/Page";
 import PlacesProfile from "~/components/profiles/place";
@@ -13,12 +14,15 @@ import { googleMapsRender } from "~/utils/google";
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   placeName,
 }) => {
-  const { data: databaseData } = api.attractions.getByName.useQuery({
+  const {
+    data: databaseData,
+    isFetching,
+    isLoading,
+  } = api.attractions.getByName.useQuery({
     name: slugToDatabaseName(placeName),
   });
 
-  console.log("PlacePage data", databaseData);
-
+  if (isFetching || isLoading) return <LoadingPage />;
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
