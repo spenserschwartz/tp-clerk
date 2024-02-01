@@ -1,4 +1,5 @@
 import PlaceDetails from "./Details";
+import GoogleReviewBadge from "./GoogleReviewBadge";
 import PlaceTitle from "./Title";
 
-export { PlaceDetails, PlaceTitle };
+export { GoogleReviewBadge, PlaceDetails, PlaceTitle };

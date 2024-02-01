@@ -1,0 +1,34 @@
+import React from "react";
+import type { PlaceResult } from "~/types/google";
+
+import { GoogleIcon } from "public/icons";
+import { StarRatings } from "~/components";
+
+interface GoogleReviewBadgeProps {
+  googleData?: PlaceResult;
+}
+
+const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
+  if (!googleData) return null;
+  const { user_ratings_total, rating } = googleData;
+
+  return (
+    <div className="max-w-sm overflow-hidden rounded border-2 border-gray-200 bg-white p-6 text-center shadow-lg">
+      <div className="mb-4 flex justify-center">
+        <GoogleIcon />
+      </div>
+      <p className="mb-2  text-lg text-gray-700">Google Reviews</p>
+      <h2 className="mb-2 text-4xl font-bold text-gray-900">
+        {rating ?? null}
+      </h2>
+      <p className="mb-4 text-sm text-gray-600">
+        {`Based on ${user_ratings_total} reviews` ?? null}
+      </p>
+      <div className="flex justify-center">
+        <StarRatings value={rating ?? 0} />
+      </div>
+    </div>
+  );
+};
+
+export default GoogleReviewBadge;
