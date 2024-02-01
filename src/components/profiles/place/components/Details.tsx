@@ -1,5 +1,7 @@
 import { GoogleIcon } from "public/icons";
 import React from "react";
+
+import { StarRatings } from "~/components";
 import { type AttractionByNameType } from "~/types/router";
 
 interface PlaceDetailsProps {
@@ -68,7 +70,7 @@ const PlaceDetails = ({ databaseData }: PlaceDetailsProps) => {
 
   return (
     <>
-      <Rating value={4.2} />
+      <StarRatings value={4.5} />
       <GoogleIcon />
     </>
   );
