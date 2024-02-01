@@ -10,7 +10,7 @@ const useAddUpvoteFromUser = () => {
     isError: upvoteError,
   } = api.upvotes.create.useMutation({
     onSuccess: () => {
-      toast.success("Upvoted!");
+      // toast.success("Upvoted!");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
