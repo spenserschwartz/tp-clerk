@@ -15,15 +15,7 @@ const PlaceDetails = ({ databaseData, googleData }: PlaceDetailsProps) => {
   const { description } = databaseData;
   const { user_ratings_total, rating } = googleData ?? {};
 
-  console.log("pr", googleData);
-  console.log("rating", rating);
-
-  return (
-    <>
-      <StarRatings value={rating ?? 0} />
-      <GoogleIcon />
-    </>
-  );
+  return <></>;
 };
 
 export default PlaceDetails;

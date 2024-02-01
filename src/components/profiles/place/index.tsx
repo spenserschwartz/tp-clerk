@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ImageGallery } from "~/components";
 import type { PlaceResult } from "~/types/google";
 import { type AttractionByNameType } from "~/types/router";
-import { PlaceDetails, PlaceTitle } from "./components";
+import { GoogleReviewBadge, PlaceDetails, PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   databaseData?: AttractionByNameType;
@@ -43,14 +43,11 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         },
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            setPlaceResult(result);
-            const placeResult: PlaceResult | null = result;
-            const photos = placeResult?.photos?.map((photo) => {
+            if (result) setPlaceResult(result);
+            const photos = result?.photos?.map((photo) => {
               return photo.getUrl();
             });
             setImages(photos?.slice(0, 5) ?? []);
-
-            console.log("placeResult", placeResult);
           }
         }
       );
@@ -67,7 +64,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
         <ImageGallery images={images} />
 
-        <PlaceDetails databaseData={databaseData} googleData={placeResult} />
+        {/* <PlaceDetails databaseData={databaseData} googleData={placeResult} /> */}
+        <GoogleReviewBadge googleData={placeResult} />
       </div>
     </div>
   );
