@@ -10,6 +10,9 @@ interface PlacesProfileProps {
 }
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
+  const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
+    undefined
+  );
   const [images, setImages] = useState<string[]>([]);
 
   // Fetch details from Google Places API
@@ -40,6 +43,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         },
         (result, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            setPlaceResult(result);
             const placeResult: PlaceResult | null = result;
             const photos = placeResult?.photos?.map((photo) => {
               return photo.getUrl();
@@ -63,7 +67,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
         <ImageGallery images={images} />
 
-        <PlaceDetails databaseData={databaseData} />
+        <PlaceDetails databaseData={databaseData} googleData={placeResult} />
       </div>
     </div>
   );
