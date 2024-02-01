@@ -24,13 +24,15 @@ model Attraction {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    name          String
-    description   String?
-    city          City?   @relation(fields: [cityId], references: [id])
-    cityId        String?
-    imageURL      String
-    authorId      String
-    googlePlaceId String? @unique
+    name        String
+    description String?
+    city        City?   @relation(fields: [cityId], references: [id])
+    cityId      String?
+    imageURL    String
+    authorId    String
+
+    googlePlaceId         String? @unique
+    tripAdvisorLocationId String? @unique
 
     upvotes Upvotes[]
 
