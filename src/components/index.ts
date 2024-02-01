@@ -16,6 +16,7 @@ import { RootLayout } from "./Layout";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
+import StarRatings from "./StarRatings";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import PlacesProfile from "./profiles/place";
@@ -46,5 +47,6 @@ export {
   RootLayout,
   Searchbar,
   Select,
+  StarRatings,
   TextEditor,
 };
