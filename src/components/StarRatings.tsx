@@ -8,23 +8,28 @@ interface StarRatingsProps {
 const StarRatings = ({ value, numberOfStars = 5 }: StarRatingsProps) => {
   const valuePercentage = (value / numberOfStars) * 100; // Calculate the percentage of the total rating
   const percentagePerStar = 100 / numberOfStars;
+  const arrayOfStars = new Array(numberOfStars).fill(null);
+
+  function getFill(i: number) {
+    const minPercentageAtStar = i * percentagePerStar;
+    const maxPercentageAtStar = (i + 1) * percentagePerStar;
+
+    const fill =
+      valuePercentage >= maxPercentageAtStar
+        ? 100
+        : Math.max(
+            0,
+            (valuePercentage - minPercentageAtStar) / percentagePerStar
+          ) * 100;
+
+    return fill;
+  }
 
   return (
     <div className="flex">
-      {[1, 1, 1, 1, 1].map((_, i) => {
-        const minPercentageAtStar = i * percentagePerStar;
-        const maxPercentageAtStar = (i + 1) * percentagePerStar;
-
-        const fill =
-          valuePercentage >= maxPercentageAtStar
-            ? 100
-            : Math.max(
-                0,
-                (valuePercentage - minPercentageAtStar) / percentagePerStar
-              ) * 100;
-
-        return <Star key={i} fill={fill} />;
-      })}
+      {arrayOfStars.map((_, i) => (
+        <Star key={i} fill={getFill(i)} />
+      ))}
     </div>
   );
 };
