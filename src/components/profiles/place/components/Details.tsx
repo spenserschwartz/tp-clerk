@@ -5,6 +5,9 @@ import type { PlaceResult } from "~/types/google";
 import { StarRatings } from "~/components";
 import { type AttractionByNameType } from "~/types/router";
 import { type LocationDetails as TripAdvisorLocationDetails } from "~/types/tripAdvisor";
+import GoogleReviewBadge from "./GoogleReviewBadge";
+import PlaceReviews from "./Reviews";
+import TripAdvisorReviewBadge from "./TripAdvisorReviewBadge";
 
 interface PlaceDetailsProps {
   databaseData: AttractionByNameType;
@@ -52,6 +55,17 @@ const PlaceDetails = ({
         {city}, {country}
       </h2>
       <h3>{displayedCategories.join(" • ")}</h3>
+
+      <div className="flex pt-2">
+        <div className="flex flex-1 items-center border-y border-gray-300 pt-2 text-gray-600">
+          {tripAdvisorDescription}
+        </div>
+
+        <div className="flex flex-1 justify-end gap-2">
+          <GoogleReviewBadge googleData={googleData} />
+          <TripAdvisorReviewBadge tripAdvisorData={tripAdvisorData} />
+        </div>
+      </div>
     </div>
   );
 };

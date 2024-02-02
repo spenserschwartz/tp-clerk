@@ -7,7 +7,7 @@ interface PlaceReviewsProps {
 }
 
 const PlaceReviews = () => {
-  return <div>PlaceReviews</div>;
+  return <div className="flex">Place Reviews here</div>;
 };
 
 export default PlaceReviews;

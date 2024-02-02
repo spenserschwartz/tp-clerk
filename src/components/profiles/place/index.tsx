@@ -101,9 +101,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
           googleData={placeResult}
           tripAdvisorData={tripAdvisorData}
         />
-
-        {/* <GoogleReviewBadge googleData={placeResult} /> */}
-        <PlaceReviews />
       </div>
     </div>
   );
