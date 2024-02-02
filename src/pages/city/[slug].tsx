@@ -1,4 +1,5 @@
 import { useUser } from "@clerk/nextjs";
+import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -62,84 +63,92 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   if (!cityData) return <div>404 City Not Found</div>;
 
   return (
-    <div className="flex w-full flex-col items-center">
-      <Head>
-        <title>{`${cityData.name} - TravelPerfect`}</title>
-      </Head>
+    <GoogleMapsWrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      libraries={["places"]}
+    >
+      <div className="flex w-full flex-col items-center">
+        <Head>
+          <title>{`${cityData.name} - TravelPerfect`}</title>
+        </Head>
 
-      {/* City Details */}
-      <div className="flex w-full max-w-6xl flex-col justify-center px-5">
-        <div className="relative flex w-full items-center justify-center">
-          {/* City Name */}
-          <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-            {cityData.name}
-          </h1>
+        {/* City Details */}
+        <div className="flex w-full max-w-6xl flex-col justify-center px-5">
+          <div className="relative flex w-full items-center justify-center">
+            {/* City Name */}
+            <h1 className="my-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+              {cityData.name}
+            </h1>
 
-          {/* Show CityLaunch component */}
-          <button
-            className="absolute right-0"
-            onClick={() => setShowCityLaunch(true)}
-          >
-            <AddIcon />
-          </button>
+            {/* Show CityLaunch component */}
+            <button
+              className="absolute right-0"
+              onClick={() => setShowCityLaunch(true)}
+            >
+              <AddIcon />
+            </button>
+          </div>
+
+          {/* City Description */}
+          <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+            {cityData.description}
+          </p>
         </div>
 
-        {/* City Description */}
-        <p className="mb-2 text-center text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-          {cityData.description}
+        {/* Recommended time in city */}
+        <p className="text-center text-amber-600">
+          {allCityRecs?.length
+            ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
+            : "No recommendations yet"}
         </p>
-      </div>
 
-      {/* Recommended time in city */}
-      <p className="text-center text-amber-600">
-        {allCityRecs?.length
-          ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
-          : "No recommendations yet"}
-      </p>
+        {/* Been to this city? Open modal */}
+        <div className="flex justify-center">
+          <p
+            className="text-center text-blue-500 hover:cursor-pointer"
+            onClick={visitedCityHandler}
+          >{`Been to ${cityData.name}? Click here!`}</p>
+        </div>
 
-      {/* Been to this city? Open modal */}
-      <div className="flex justify-center">
-        <p
-          className="text-center text-blue-500 hover:cursor-pointer"
-          onClick={visitedCityHandler}
-        >{`Been to ${cityData.name}? Click here!`}</p>
-      </div>
+        {/* CityLaunch */}
+        {showCityLaunch && (
+          <CityLaunch
+            cityData={cityData}
+            setShowCityLaunch={setShowCityLaunch}
+            isMutating={isMutating}
+          />
+        )}
 
-      {/* CityLaunch */}
-      {showCityLaunch && (
-        <CityLaunch
-          cityData={cityData}
-          setShowCityLaunch={setShowCityLaunch}
-          isMutating={isMutating}
-        />
-      )}
-
-      {!showCityLaunch && (
-        <div>
-          {/* Filter attraction name */}
-          <div className="flex w-full justify-center ">
-            <Searchbar
-              inputValue={filterInputValue}
-              setInputValue={setFilterInputValue}
+        {!showCityLaunch && (
+          <div>
+            {/* Filter attraction name */}
+            <div className="flex w-full justify-center ">
+              <Searchbar
+                inputValue={filterInputValue}
+                setInputValue={setFilterInputValue}
+              />
+            </div>
+            <ImageGrid
+              cityData={cityData}
+              userUpvoteData={userUpvoteData}
+              filterInputValue={filterInputValue}
+              setIsMutating={setIsMutating}
             />
           </div>
-          <ImageGrid
-            cityData={cityData}
-            userUpvoteData={userUpvoteData}
-            filterInputValue={filterInputValue}
-            setIsMutating={setIsMutating}
-          />
-        </div>
-      )}
+        )}
 
-      {/* Modals */}
-      <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
-      <VisitedCityModal
-        cityData={cityData}
-        openModal={openVisitedCityModal}
-        setOpenModal={setOpenVisitedCityModal}
-      />
-    </div>
+        {/* Modals */}
+        <LoginModal
+          openModal={openLoginModal}
+          setOpenModal={setOpenLoginModal}
+        />
+        <VisitedCityModal
+          cityData={cityData}
+          openModal={openVisitedCityModal}
+          setOpenModal={setOpenVisitedCityModal}
+        />
+      </div>
+    </GoogleMapsWrapper>
   );
 };
 

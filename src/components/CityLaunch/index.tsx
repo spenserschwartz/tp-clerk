@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
-import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {
@@ -156,10 +154,7 @@ const CityLaunch = ({
   }, [placeResult.geometry.location]);
 
   return (
-    <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      libraries={["places"]}
-    >
+    <div>
       <div className="my-8 flex h-full flex-col items-center">
         {/* Launcher */}
         <form
@@ -319,7 +314,7 @@ const CityLaunch = ({
 
       {/* Login Modal */}
       <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
-    </GoogleMapsWrapper>
+    </div>
   );
 };
 
