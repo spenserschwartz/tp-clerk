@@ -21,8 +21,7 @@ const PlaceDetails = ({
   tripAdvisorData,
 }: PlaceDetailsProps) => {
   if (!databaseData) return null;
-  const { description } = databaseData;
-  const { user_ratings_total, rating } = googleData ?? {};
+
   const {
     description: tripAdvisorDescription,
     address_obj,
