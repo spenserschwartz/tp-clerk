@@ -27,12 +27,12 @@ export default function Header({ extraClasses }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 z-30 flex w-full ${extraClasses} flex-grow border  border-green-500 px-2 transition duration-300 ease-in-out md:bg-opacity-90 md:px-10 lg:px-20 ${
+      className={`fixed top-0 z-30 flex w-full flex-grow border  border-green-500  transition duration-300 ease-in-out md:bg-opacity-90 ${
         !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
       }`}
     >
-      <div className="mx-auto w-full ">
-        <div className="flex h-16 items-center justify-between md:h-20">
+      <div className={`mx-auto w-full ${extraClasses} `}>
+        <div className="flex h-16 items-center justify-between px-2 md:h-20 md:px-10 lg:px-20 ">
           {/* Site branding */}
           <Link
             className="flex flex-1 items-center align-middle md:justify-start"
