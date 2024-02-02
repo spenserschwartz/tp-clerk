@@ -13,7 +13,7 @@ const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
   const { user_ratings_total, rating } = googleData;
 
   return (
-    <div className="max-w-sm overflow-hidden rounded border-2 border-gray-200 bg-white p-6 text-center shadow-lg">
+    <div className="w-60 overflow-hidden rounded-lg border-2 border-gray-200 bg-white p-6 text-center shadow-lg">
       <div className="mb-4 flex justify-center">
         <GoogleIcon />
       </div>
