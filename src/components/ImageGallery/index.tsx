@@ -11,7 +11,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
 
   return (
     <div className="flex w-full min-w-[400px] flex-grow justify-center overflow-hidden rounded-xl">
-      <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-2 border border-green-400">
+      <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-2 ">
         <div className="aspect-h-1 aspect-w-1 relative col-span-2 row-span-2 bg-gray-500">
           {/* Placeholder for large image */}
           <Image
