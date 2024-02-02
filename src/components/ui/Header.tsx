@@ -27,7 +27,7 @@ export default function Header({ extraClasses }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 z-30 flex w-full flex-grow border  border-green-500  transition duration-300 ease-in-out md:bg-opacity-90 ${
+      className={`fixed top-0 z-30 flex w-full flex-grow transition duration-300 ease-in-out md:bg-opacity-90 ${
         !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
       }`}
     >

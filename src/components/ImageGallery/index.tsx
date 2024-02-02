@@ -9,6 +9,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   const largeImageSizes = "(min-width: 768px) 50vw, 100vw";
   const smallImageSizes = "(min-width: 768px) 25vw, 50vw";
 
+  if (images.length === 0) return null;
   return (
     <div className="flex w-full min-w-[400px] flex-grow justify-center overflow-hidden rounded-xl">
       <div className="grid h-full w-full grid-cols-4 grid-rows-2 gap-2 ">

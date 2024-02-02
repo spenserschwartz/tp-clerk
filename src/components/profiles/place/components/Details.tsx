@@ -1,13 +1,8 @@
-import { GoogleIcon } from "public/icons";
-import React from "react";
 import type { PlaceResult } from "~/types/google";
 
-import { StarRatings } from "~/components";
 import { type AttractionByNameType } from "~/types/router";
 import { type LocationDetails as TripAdvisorLocationDetails } from "~/types/tripAdvisor";
-import GoogleReviewBadge from "./GoogleReviewBadge";
-import PlaceReviews from "./Reviews";
-import TripAdvisorReviewBadge from "./TripAdvisorReviewBadge";
+import { GoogleReviewBadge, TripAdvisorReviewBadge } from "../components";
 
 interface PlaceDetailsProps {
   databaseData: AttractionByNameType;
@@ -50,16 +45,19 @@ const PlaceDetails = ({
 
   return (
     <div className="mt-4 w-full">
+      {/* Details Title */}
       <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
         {city}, {country}
       </h2>
       <h3>{displayedCategories.join(" • ")}</h3>
 
-      <div className="flex pt-2">
-        <div className="flex flex-1 items-center border-y border-gray-300 pt-2 text-gray-600">
+      <div className="flex max-h-[252px] pt-2">
+        {/* Description */}
+        <div className="flex flex-1 overflow-y-auto border-y border-gray-300 pt-2 text-gray-600">
           {tripAdvisorDescription}
         </div>
 
+        {/* Reviews */}
         <div className="flex flex-1 justify-end gap-2">
           <GoogleReviewBadge googleData={googleData} />
           <TripAdvisorReviewBadge tripAdvisorData={tripAdvisorData} />
