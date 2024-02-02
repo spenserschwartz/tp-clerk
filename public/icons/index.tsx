@@ -6,6 +6,7 @@ import TextItalicIcon from "./textItalic";
 import TextLinkIcon from "./textLink";
 import TextOrderedListIcon from "./textOrderedList";
 import TextUnderlineIcon from "./textUnderline";
+import TripAdvisorIcon from "./tripAdvisor";
 
 interface IconProps {
   enabled: boolean;
@@ -79,4 +80,5 @@ export {
   TextOrderedListIcon,
   TextUnderlineIcon,
   ThumbsUpIcon,
+  TripAdvisorIcon,
 };
