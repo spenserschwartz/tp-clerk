@@ -41,7 +41,7 @@ const PlaceDetails = ({
   ].filter(Boolean);
 
   console.log("ta", tripAdvisorData);
-  console.log("displayedCategories", displayedCategories);
+  console.log("googDeat", googleData);
 
   return (
     <div className="mt-4 w-full">

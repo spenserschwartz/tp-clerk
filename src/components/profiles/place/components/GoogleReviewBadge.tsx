@@ -22,7 +22,8 @@ const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
         {rating ?? null}
       </h2>
       <p className="mb-4 text-sm text-gray-600">
-        {`Based on ${user_ratings_total} reviews` ?? null}
+        {`Based on ${user_ratings_total?.toLocaleString("en-us")} reviews` ??
+          null}
       </p>
       <div className="flex justify-center">
         <StarRatings value={rating ?? 0} />

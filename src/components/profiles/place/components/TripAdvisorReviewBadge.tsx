@@ -28,7 +28,7 @@ const TripAdvisorReviewBadge = ({
         {rating ?? null}
       </h2>
       <p className="mb-4 text-sm text-gray-600">
-        {`Based on ${totalCount} reviews` ?? null}
+        {`Based on ${totalCount?.toLocaleString("en-us")} reviews` ?? null}
       </p>
       <div className="flex justify-center">
         <StarRatings value={Number(rating) ?? 0} />
