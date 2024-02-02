@@ -1,19 +1,53 @@
 import { useEffect, useState } from "react";
+import { api } from "~/utils/api";
 
 import { ImageGallery } from "~/components";
 import type { PlaceResult } from "~/types/google";
 import { type AttractionByNameType } from "~/types/router";
-import { GoogleReviewBadge, PlaceDetails, PlaceTitle } from "./components";
+import { type LocationDetails } from "~/types/tripAdvisor";
+import {
+  GoogleReviewBadge,
+  PlaceDetails,
+  PlaceReviews,
+  PlaceTitle,
+} from "./components";
 
 interface PlacesProfileProps {
   databaseData?: AttractionByNameType;
 }
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
+  const [tripAdvisorData, setTripAdvisorData] = useState<
+    LocationDetails | undefined
+  >(undefined); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined
   );
+  const { tripAdvisorLocationId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
+
+  // const { details } = useGetTripAdvisorDetails("211709");
+
+  const { data: fetchedTripAdvisorData, error: tripAdvisorError } =
+    api.tripAdvisor.getLocationDetails.useQuery(
+      { locationId: tripAdvisorLocationId ?? "" },
+      {
+        enabled: !!databaseData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+      }
+    );
+
+  // Fetch details from TripAdvisor API
+  useEffect(() => {
+    if (tripAdvisorError) {
+      // Handle the error - e.g., log it, show toast notification, etc.
+      console.error("Error fetching TripAdvisor data:", tripAdvisorError);
+      setTripAdvisorData(undefined);
+    } else if (fetchedTripAdvisorData && !("error" in fetchedTripAdvisorData)) {
+      setTripAdvisorData(fetchedTripAdvisorData);
+    }
+  }, [fetchedTripAdvisorData, tripAdvisorError]);
 
   // Fetch details from Google Places API
   useEffect(() => {
@@ -52,7 +86,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         }
       );
     };
-
     fetchDetails();
   }, [databaseData]);
 
@@ -64,8 +97,14 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
         <ImageGallery images={images} />
 
-        {/* <PlaceDetails databaseData={databaseData} googleData={placeResult} /> */}
-        <GoogleReviewBadge googleData={placeResult} />
+        <PlaceDetails
+          databaseData={databaseData}
+          googleData={placeResult}
+          tripAdvisorData={tripAdvisorData}
+        />
+
+        {/* <GoogleReviewBadge googleData={placeResult} /> */}
+        <PlaceReviews />
       </div>
     </div>
   );
