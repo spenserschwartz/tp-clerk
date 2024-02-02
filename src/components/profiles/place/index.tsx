@@ -41,7 +41,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   // Fetch details from TripAdvisor API
   useEffect(() => {
     if (tripAdvisorError) {
-      // Handle the error - e.g., log it, show toast notification, etc.
       console.error("Error fetching TripAdvisor data:", tripAdvisorError);
       setTripAdvisorData(undefined);
     } else if (fetchedTripAdvisorData && !("error" in fetchedTripAdvisorData)) {
