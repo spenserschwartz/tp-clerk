@@ -47,11 +47,11 @@ const PlaceDetails = ({
   console.log("displayedCategories", displayedCategories);
 
   return (
-    <div className="w-full ">
+    <div className="mt-4 w-full">
       <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
         {city}, {country}
       </h2>
-      <h3></h3>
+      <h3>{displayedCategories.join(" • ")}</h3>
     </div>
   );
 };
