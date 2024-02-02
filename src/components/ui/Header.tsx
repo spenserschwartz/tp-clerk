@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { HeaderLogo, MobileMenu } from "./index";
 import { headerNavigation } from "./utils";
 
-export default function Header() {
+interface HeaderProps {
+  extraClasses?: string;
+}
+
+export default function Header({ extraClasses }: HeaderProps) {
   const { user } = useUser();
   const [top, setTop] = useState<boolean>(true);
 
@@ -23,7 +27,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed z-30 flex w-full flex-grow px-2  transition duration-300 ease-in-out md:bg-opacity-90 md:px-10 lg:px-20 ${
+      className={`fixed top-0 z-30 flex w-full ${extraClasses} flex-grow border  border-green-500 px-2 transition duration-300 ease-in-out md:bg-opacity-90 md:px-10 lg:px-20 ${
         !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
       }`}
     >

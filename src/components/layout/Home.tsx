@@ -4,9 +4,8 @@ import { Footer, Header } from "~/components/ui";
 const HomeLayout = (props: PropsWithChildren) => {
   return (
     <div className="bg-white tracking-tight text-gray-900 antialiased">
+      <Header />
       <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
-        <Header />
-
         {/* Spacing between header and main content */}
         <div className="mb-24 md:mb-20" />
 
