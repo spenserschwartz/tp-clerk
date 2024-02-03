@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { forwardRef } from "react";
 import { Logo } from "./index";
 
@@ -6,14 +7,16 @@ interface HeaderLogoProps {
   href?: string;
 }
 
-const HeaderLogo = forwardRef<HTMLDivElement, HeaderLogoProps>(
-  ({ onClick }, ref) => {
-    return (
-      <div
-        onClick={onClick}
-        ref={ref}
-        className="flex flex-1 cursor-pointer items-center align-middle md:justify-start"
-      >
+const HeaderLogo = forwardRef<HTMLDivElement, HeaderLogoProps>(() => {
+  return (
+    <Link
+      className="flex items-center align-middle md:justify-start"
+      href="/"
+      aria-label="TravelPerfect"
+      passHref
+      legacyBehavior
+    >
+      <div className="flex cursor-pointer items-center align-middle md:justify-start">
         <Logo />
 
         {/* Title */}
@@ -24,9 +27,9 @@ const HeaderLogo = forwardRef<HTMLDivElement, HeaderLogoProps>(
           </span>
         </h1>
       </div>
-    );
-  }
-);
+    </Link>
+  );
+});
 HeaderLogo.displayName = "HeaderLogo";
 
 export default HeaderLogo;

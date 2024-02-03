@@ -34,15 +34,9 @@ export default function Header({ extraClasses }: HeaderProps) {
       <div className={`mx-auto w-full ${extraClasses} `}>
         <div className="flex h-16 items-center justify-between px-2 md:h-20 md:px-10 lg:px-20 ">
           {/* Site branding */}
-          <Link
-            className="flex flex-1 items-center align-middle md:justify-start"
-            href="/"
-            aria-label="TravelPerfect"
-            passHref
-            legacyBehavior
-          >
+          <div className="flex flex-1 justify-start">
             <HeaderLogo />
-          </Link>
+          </div>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex">
