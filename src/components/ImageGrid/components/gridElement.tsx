@@ -1,5 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
@@ -8,6 +9,7 @@ import { HeartIcon } from "public/icons";
 import { FadeUpWrapper } from "~/components/framer-motion";
 import LoginModal from "~/components/modal/Login";
 import { type AttractionType } from "~/types/router";
+import { convertNameToSlug } from "~/utils/common";
 
 interface GridElementProps {
   attraction: AttractionType;
@@ -96,24 +98,26 @@ const GridElement = ({
     <FadeUpWrapper>
       <div className="max-w-sm overflow-hidden rounded shadow-lg">
         {/* Image */}
-        <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-          <Image
-            src={attraction.imageURL || "/images/placeholder.png"}
-            alt=""
-            className="pointer-events-none object-cover"
-            width={100}
-            height={100}
-            priority
-            unoptimized
-          />
+        <Link href={`/places/${convertNameToSlug(attraction.name)}`}>
+          <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+            <Image
+              src={attraction.imageURL || "/images/placeholder.png"}
+              alt=""
+              className="pointer-events-none object-cover"
+              width={100}
+              height={100}
+              priority
+              unoptimized
+            />
 
-          {/* Overlay for icon in top right */}
-          <div className="absolute top-0 flex items-start justify-end">
-            <button onClick={upvoteHandler}>
-              <HeartIcon enabled={attractionUpvoted} />
-            </button>
+            {/* Overlay for icon in top right */}
+            <div className="absolute top-0 flex items-start justify-end">
+              <button onClick={upvoteHandler}>
+                <HeartIcon enabled={attractionUpvoted} />
+              </button>
+            </div>
           </div>
-        </div>
+        </Link>
 
         {/* Details */}
         <div className="px-4 py-2">
