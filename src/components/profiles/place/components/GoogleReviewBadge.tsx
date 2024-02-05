@@ -10,11 +10,11 @@ interface GoogleReviewBadgeProps {
 
 const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
   if (!googleData) return null;
-  const { user_ratings_total, rating } = googleData;
+  const { user_ratings_total, rating, url } = googleData;
 
   return (
     <div className="w-60 overflow-hidden rounded-lg border-2 border-gray-200 bg-white p-6 text-center shadow-lg">
-      <a href={googleData.url} target="_blank">
+      <a href={url} target="_blank">
         <div className="mb-4 flex justify-center">
           <GoogleIcon />
         </div>
