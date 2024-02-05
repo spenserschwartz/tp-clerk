@@ -2,6 +2,10 @@ import { type LatLng } from "use-places-autocomplete";
 import { RequestOptionType, type AutocompleteRequest } from "~/types/google";
 import { type GetRecommendedDaysByCityType } from "~/types/router";
 
+export const convertNameToSlug = (name: string) => {
+  return name.replace(/\s/g, "-").toLowerCase();
+};
+
 export function createRequestOptions(
   requestOptionType: RequestOptionType,
   input?: string,
