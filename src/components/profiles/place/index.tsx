@@ -46,6 +46,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     const fetchDetails = () => {
       if (!databaseData) return;
 
+      // https://developers.google.com/maps/documentation/javascript/places#place_search_requests
       const map = new window.google.maps.Map(document.createElement("div"));
       const service = new window.google.maps.places.PlacesService(map);
 
