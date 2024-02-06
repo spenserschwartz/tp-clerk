@@ -3,7 +3,7 @@ import { type NextPageWithLayout } from "~/types/pages";
 
 import { QuickLaunch } from "~/components";
 import { FadeUpWrapper } from "~/components/framer-motion";
-import { HomeLayout } from "~/components/layoutRENAME";
+import { HomeLayout } from "~/components/layout";
 
 const QuickLaunchPage: NextPageWithLayout = () => {
   return (

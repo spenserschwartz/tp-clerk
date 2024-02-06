@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 
 import { Features, FeaturesQuickLaunch, Hero } from "~/components";
-import HomeLayout from "~/components/layoutRENAME/Home";
+import HomeLayout from "~/components/layout/Home";
 
 const Home = () => {
   return (

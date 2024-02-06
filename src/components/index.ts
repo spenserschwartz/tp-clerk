@@ -12,7 +12,6 @@ import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
 import { ItineraryNotes, ItineraryTitle } from "./Itinerary/components";
 import ItineraryImageGrid from "./ItineraryImageGrid";
-import { RootLayout } from "./Layout";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
@@ -44,7 +43,6 @@ export {
   PlacesAutoComplete,
   PlacesProfile,
   QuickLaunch,
-  RootLayout,
   Searchbar,
   Select,
   StarRatings,
