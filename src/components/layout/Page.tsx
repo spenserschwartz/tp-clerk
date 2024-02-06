@@ -12,6 +12,8 @@ const PageLayout = (props: PropsWithChildren) => {
           {/* Spacing between header and main content */}
           <div className="mb-24 md:mb-20" />
 
+          <Breadcrumbs />
+
           {/* Main Content */}
           <main className="">{props.children}</main>
         </div>
