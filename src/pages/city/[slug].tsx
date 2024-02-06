@@ -7,7 +7,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import { CityLaunch, ImageGrid, Searchbar } from "~/components";
+import { CityLaunch, ImageGrid, RootLayout, Searchbar } from "~/components";
 import VisitedCityModal from "~/components/forms/VisitedCity";
 import PageLayout from "~/components/layout/Page";
 import LoginModal from "~/components/modal/Login";
@@ -178,7 +178,7 @@ export const getStaticPaths = () => {
 };
 
 CityPage.getLayout = function getLayout(page: ReactElement) {
-  return <PageLayout>{page}</PageLayout>;
+  return <RootLayout>{page}</RootLayout>;
 };
 
 export default CityPage;
