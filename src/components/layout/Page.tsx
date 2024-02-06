@@ -1,6 +1,5 @@
 import { type PropsWithChildren } from "react";
-import { Footer, Header } from "~/components/ui";
-import Breadcrumbs from "../ui/Breadcrumbs";
+import { Breadcrumbs, Footer, Header } from "~/components/ui";
 
 const PageLayout = (props: PropsWithChildren) => {
   return (
