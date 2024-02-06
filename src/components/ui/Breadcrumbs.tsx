@@ -31,14 +31,15 @@ export default function Breadcrumbs() {
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="mb-2 flex items-center space-x-4">
+        {/* Home Icon */}
         <li>
           <Link href="/" className="text-gray-400 hover:text-gray-500">
-            {/* <a href="./" className="text-gray-400 hover:text-gray-500"> */}
             <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
             <span className="sr-only">Home</span>
-            {/* </a> */}
           </Link>
         </li>
+
+        {/* Rest of breadcrumbs */}
         {pages.map((page) => (
           <li key={page.name}>
             <div className="flex items-center">
@@ -46,13 +47,14 @@ export default function Breadcrumbs() {
                 className="h-5 w-5 flex-shrink-0 text-gray-400"
                 aria-hidden="true"
               />
-              <a
+
+              <Link
                 href={page.href}
                 className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
                 aria-current={page.current ? "page" : undefined}
               >
                 {page.name}
-              </a>
+              </Link>
             </div>
           </li>
         ))}

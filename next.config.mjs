@@ -20,6 +20,17 @@ const config = {
     ],
   },
 
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async redirects() {
+    return [
+      {
+        source: "/user",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
+
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
    * must comment the below `i18n` config out.
