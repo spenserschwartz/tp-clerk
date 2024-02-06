@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const data = [
   {
@@ -112,10 +113,96 @@ const data = [
       "A reconstruction of the Globe Theatre, an Elizabethan playhouse associated with William Shakespeare, situated on the south bank of the River",
   },
 ];
-const prisma = new PrismaClient();
+
+const updateOperations = [
+  prisma.attraction.updateMany({
+    where: { name: "The Shard" },
+    data: {
+      googlePlaceId: "ChIJ03GSCloDdkgRe_s-p2vyvQA",
+      tripAdvisorLocationId: "15567100",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The Natural History Museum" },
+    data: {
+      googlePlaceId: "ChIJPy8Y5kIFdkgRxGSXw4Xjt3s",
+      tripAdvisorLocationId: "187676",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The National Gallery" },
+    data: {
+      googlePlaceId: "ChIJeclqF84EdkgRtKAjTmWFr0I",
+      tripAdvisorLocationId: "188862",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The Tate Modern" },
+    data: {
+      googlePlaceId: "ChIJlRl2MakEdkgR55tr4CNv_B8",
+      tripAdvisorLocationId: "187677",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "Westminster Abbey" },
+    data: {
+      googlePlaceId: "ChIJLzVDusQEdkgRelObBaL_jto",
+      tripAdvisorLocationId: "189032",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The Royal Observatory, Greenwich" },
+    data: {
+      googlePlaceId: "ChIJp9ypjCqo2EcRAoQcRV-yqzE",
+      tripAdvisorLocationId: "194293",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "St. Paul's Cathedral" },
+    data: {
+      googlePlaceId: "ChIJh7wHoqwEdkgR3l-vqQE1HTo",
+      tripAdvisorLocationId: "188159",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "Camden Market" },
+    data: {
+      googlePlaceId: "ChIJSfFEEuQadkgRCO-FF_-eZUc",
+      tripAdvisorLocationId: "187577",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The Regent's Park" },
+    data: {
+      googlePlaceId: "ChIJwzJ6i-UZdkgRDl8cAX3JuZ8",
+      tripAdvisorLocationId: "187675",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "Covent Garden" },
+    data: {
+      googlePlaceId: "ChIJs4GOh8sEdkgRRiBFZKMP8ZE",
+      tripAdvisorLocationId: "189047",
+    },
+  }),
+  prisma.attraction.updateMany({
+    where: { name: "The Globe Theatre" },
+    data: {
+      googlePlaceId: "ChIJIRauBakEdkgRjoeyuI53AOc",
+      tripAdvisorLocationId: "187726",
+    },
+  }),
+];
 
 async function main() {
-  await prisma.attraction.createMany({ data });
+  // await prisma.attraction.createMany({ data });
+
+  // await prisma.attraction.updateMany({
+  //   where: { name: "London Bridge" },
+  //   data: { googlePlaceId: "heyhey" },
+  // });
+
+  await prisma.$transaction(updateOperations);
 }
 
 main()

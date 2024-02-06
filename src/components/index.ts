@@ -7,16 +7,18 @@ import Features from "./Features";
 import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
 import Footer from "./Footer";
 import Hero from "./Hero";
+import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
 import { ItineraryNotes, ItineraryTitle } from "./Itinerary/components";
 import ItineraryImageGrid from "./ItineraryImageGrid";
-import { RootLayout } from "./Layout";
 import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
+import StarRatings from "./StarRatings";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
+import PlacesProfile from "./profiles/place";
 import TextEditor from "./tiptap/Editor";
 
 export {
@@ -29,6 +31,7 @@ export {
   FeaturesQuickLaunch,
   Footer,
   Hero,
+  ImageGallery,
   ImageGrid,
   Itinerary,
   ItineraryImageGrid,
@@ -38,9 +41,10 @@ export {
   LoadingSection,
   LoadingSpinner,
   PlacesAutoComplete,
+  PlacesProfile,
   QuickLaunch,
-  RootLayout,
   Searchbar,
   Select,
+  StarRatings,
   TextEditor,
 };

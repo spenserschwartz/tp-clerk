@@ -25,6 +25,17 @@ export const attractionsRouter = createTRPCRouter({
       return attractions;
     }),
 
+  getByName: publicProcedure
+    .input(z.object({ name: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const attraction = await ctx.prisma.attraction.findFirst({
+        where: { name: input.name },
+        include: { upvotes: true },
+      });
+
+      return attraction;
+    }),
+
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {

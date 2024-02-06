@@ -2,7 +2,8 @@ import { type GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
 import { api } from "~/utils/api";
 
-import { ItineraryImageGrid, RootLayout } from "~/components";
+import { ItineraryImageGrid } from "~/components";
+import { RootLayout } from "~/components/layout";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import type { NextPageWithLayout } from "~/types/pages";
 import type { ItineraryWithCityInfoType } from "~/types/router";

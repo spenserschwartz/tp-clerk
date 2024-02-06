@@ -10,11 +10,13 @@ const ImageGrid = ({
   if (!cityData) return null;
   const { attractions } = cityData;
 
+  // Put user upvote data into a memo for faster lookups
   const userUpvoteMemo: UserUpvoteMemo = {};
   userUpvoteData?.forEach((upvote) => {
     userUpvoteMemo[upvote.attractionId] = true;
   });
 
+  // Filter attractions based on user input in the search bar
   const filteredAttractions = attractions?.filter((attraction) => {
     if (!filterInputValue) return true;
     return attraction.name

@@ -1,10 +1,7 @@
-import {
-  Status as GoogleMapsStatus,
-  Wrapper as GoogleMapsWrapper,
-} from "@googlemaps/react-wrapper";
-import { type ReactElement } from "react";
+import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
+import { googleMapsRender } from "~/utils/google";
 import ItineraryGridElement from "./components/GridElement";
 
 interface ItineraryImageGridProps {
@@ -12,15 +9,10 @@ interface ItineraryImageGridProps {
 }
 
 const ItineraryImageGrid = ({ itineraries }: ItineraryImageGridProps) => {
-  const render = (status: GoogleMapsStatus): ReactElement => {
-    if (status === GoogleMapsStatus.FAILURE) return <div>Error</div>;
-    return <div>Loading..</div>;
-  };
-
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      render={render}
+      render={googleMapsRender}
       libraries={["places"]}
     >
       <ul

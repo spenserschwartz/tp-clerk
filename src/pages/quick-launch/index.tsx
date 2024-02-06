@@ -1,8 +1,9 @@
 import { type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 
-import { QuickLaunch, RootLayout } from "~/components";
+import { QuickLaunch } from "~/components";
 import { FadeUpWrapper } from "~/components/framer-motion";
+import { HomeLayout } from "~/components/layout";
 
 const QuickLaunchPage: NextPageWithLayout = () => {
   return (
@@ -58,7 +59,10 @@ const QuickLaunchPage: NextPageWithLayout = () => {
 };
 
 QuickLaunchPage.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
+  return <HomeLayout>{page}</HomeLayout>;
 };
+// QuickLaunchPage.getLayout = function getLayout(page: ReactElement) {
+//   return <RootLayout>{page}</RootLayout>;
+// };
 
 export default QuickLaunchPage;

@@ -1,10 +1,12 @@
 import React from "react";
+import GoogleIcon from "./google";
 import TextBoldIcon from "./textBold";
 import TextBulletListIcon from "./textBulletList";
 import TextItalicIcon from "./textItalic";
 import TextLinkIcon from "./textLink";
 import TextOrderedListIcon from "./textOrderedList";
 import TextUnderlineIcon from "./textUnderline";
+import TripAdvisorIcon from "./tripAdvisor";
 
 interface IconProps {
   enabled: boolean;
@@ -68,6 +70,7 @@ const ThumbsUpIcon = ({ enabled }: IconProps) => {
 };
 
 export {
+  GoogleIcon,
   HeartIcon,
   StarIcon,
   TextBoldIcon,
@@ -77,4 +80,5 @@ export {
   TextOrderedListIcon,
   TextUnderlineIcon,
   ThumbsUpIcon,
+  TripAdvisorIcon,
 };

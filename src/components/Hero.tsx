@@ -51,8 +51,9 @@ export default function Hero() {
             <div className="pb-12 text-center md:pb-16">
               {/* Page Title */}
               <h1 className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter md:text-6xl">
-                Travel{" "}
-                <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+                Travel
+                {/* <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent"> */}
+                <span className="bg-gradient-to-r from-purple-500 to-violet-400 bg-clip-text text-transparent">
                   Perfect
                 </span>
               </h1>

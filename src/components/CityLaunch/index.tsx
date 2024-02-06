@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
-import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import { type DateRange } from "react-day-picker";
 import { api } from "~/utils/api";
 
 import { HeartIcon } from "public/icons";
-
 import { LoadingSpinner, PlacesAutoComplete } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
 import {
@@ -20,6 +18,7 @@ import { type GetCityByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
+import { LoginModal } from "../modal";
 
 interface CityLaunchProps {
   cityData: GetCityByNameType;
@@ -32,7 +31,7 @@ const CityLaunch = ({
   isMutating,
   setShowCityLaunch,
 }: CityLaunchProps) => {
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const {
     createItinerary,
     isCreatingItinerary,
@@ -44,6 +43,7 @@ const CityLaunch = ({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState(false);
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
     cityId: cityData?.id ?? "",
@@ -103,6 +103,11 @@ const CityLaunch = ({
   );
 
   const handleAddUpvotedAttractions = () => {
+    if (!isSignedIn) {
+      setOpenLoginModal(true);
+      return;
+    }
+
     if (attractionsUpvotedByUser) {
       setIncludedAttractions((prev) => {
         // Create a new Set from the existing attractions
@@ -149,10 +154,7 @@ const CityLaunch = ({
   }, [placeResult.geometry.location]);
 
   return (
-    <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      libraries={["places"]}
-    >
+    <div>
       <div className="my-8 flex h-full flex-col items-center">
         {/* Launcher */}
         <form
@@ -309,7 +311,10 @@ const CityLaunch = ({
           )}
         </form>
       </div>
-    </GoogleMapsWrapper>
+
+      {/* Login Modal */}
+      <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
+    </div>
   );
 };
 

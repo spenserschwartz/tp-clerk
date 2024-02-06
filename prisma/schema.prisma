@@ -31,6 +31,9 @@ model Attraction {
     imageURL    String
     authorId    String
 
+    googlePlaceId         String? @unique
+    tripAdvisorLocationId String? @unique
+
     upvotes Upvotes[]
 
     @@index([cityId])

@@ -1,13 +1,12 @@
+import { GoogleReviewBadge } from "~/components/profiles/place/components";
 import { api } from "~/utils/api";
 
 const SplashPage = () => {
-  const { data } = api.tripAdvisor.getLocationDetails.useQuery({
-    locationId: "196239", // ! hard coded for now to Berlin Wall
-  });
-
-  console.log("data", data);
-
-  return <div className="px-5">splash</div>;
+  return (
+    <div className="">
+      <GoogleReviewBadge googleData={{ user_ratings_total: 34, rating: 3.2 }} />
+    </div>
+  );
 };
 
 export default SplashPage;

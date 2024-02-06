@@ -4,12 +4,8 @@ import { useState, type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
-import {
-  Itinerary,
-  ItineraryNotes,
-  ItineraryTitle,
-  RootLayout,
-} from "~/components";
+import { Itinerary, ItineraryNotes, ItineraryTitle } from "~/components";
+import { RootLayout } from "~/components/layout";
 import { DeleteItineraryModal } from "~/components/modal";
 import { unknownClerkUser } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
