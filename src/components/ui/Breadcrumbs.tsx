@@ -11,6 +11,7 @@ const getDisplayName = (segment: string) => {
 };
 
 export default function Breadcrumbs() {
+  // const { asPath, pathname, } = useRouter();
   const router = useRouter();
 
   // Split the URL path into segments and filter out empty strings
