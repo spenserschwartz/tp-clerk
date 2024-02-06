@@ -40,6 +40,8 @@ const PlaceDetails = ({
       .map((subCat) => subCat.localized_name) ?? []),
   ].filter(Boolean);
 
+  console.log("googleData", googleData);
+
   return (
     <div className="mt-4 w-full">
       {/* Details Title */}

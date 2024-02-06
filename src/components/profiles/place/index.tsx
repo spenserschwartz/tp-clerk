@@ -5,12 +5,7 @@ import { ImageGallery } from "~/components";
 import type { PlaceResult } from "~/types/google";
 import { type AttractionByNameType } from "~/types/router";
 import { type LocationDetails } from "~/types/tripAdvisor";
-import {
-  GoogleReviewBadge,
-  PlaceDetails,
-  PlaceReviews,
-  PlaceTitle,
-} from "./components";
+import { PlaceDetails, PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   databaseData?: AttractionByNameType;
@@ -25,8 +20,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   );
   const { tripAdvisorLocationId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
-
-  // const { details } = useGetTripAdvisorDetails("211709");
 
   const { data: fetchedTripAdvisorData, error: tripAdvisorError } =
     api.tripAdvisor.getLocationDetails.useQuery(
