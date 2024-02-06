@@ -24,6 +24,10 @@ export default function Breadcrumbs() {
     return { name: getDisplayName(segment), href, current: isCurrentPage };
   });
 
+  console.log("router", router);
+  console.log("query", router.query);
+  console.log("slug", router.query.slug);
+
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="mb-2 flex items-center space-x-4">

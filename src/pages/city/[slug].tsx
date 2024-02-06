@@ -9,7 +9,6 @@ import { api } from "~/utils/api";
 import AddIcon from "public/icons/add";
 import { CityLaunch, ImageGrid, RootLayout, Searchbar } from "~/components";
 import VisitedCityModal from "~/components/forms/VisitedCity";
-import PageLayout from "~/components/layout/Page";
 import LoginModal from "~/components/modal/Login";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";

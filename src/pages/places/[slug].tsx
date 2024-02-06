@@ -4,7 +4,7 @@ import React, { type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import { LoadingPage, PlacesProfile } from "~/components";
-import PageLayout from "~/components/layout/Page";
+import PageLayout from "~/components/layoutRENAME/Page";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
