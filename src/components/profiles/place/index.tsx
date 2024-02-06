@@ -56,9 +56,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
           placeId: databaseData.googlePlaceId ?? "", // `Using itinerary.placeId as string` gives unnecessary type assertion. eslint-disable unsafe any for now
           fields: [
             "name",
-            "formatted_address",
-            "geometry",
-            "photo",
+            "photos",
             "place_id",
             "rating",
             "types",
