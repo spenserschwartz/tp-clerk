@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import { ChevronRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,22 +12,28 @@ const getDisplayName = (segment: string) => {
 };
 
 export default function Breadcrumbs() {
-  // const { asPath, pathname, } = useRouter();
+  const { user } = useUser();
   const router = useRouter();
 
   // Split the URL path into segments and filter out empty strings
   const pathSegments = router.asPath.split("/").filter(Boolean);
 
-  // Create breadcrumb pages from URL segments
-  const pages = pathSegments.map((segment, index) => {
-    const href = "/" + pathSegments.slice(0, index + 1).join("/");
-    const isCurrentPage = index === pathSegments.length - 1;
-    return { name: getDisplayName(segment), href, current: isCurrentPage };
-  });
+  const pathsToNotShow: Record<string, boolean> = { city: true };
 
-  console.log("router", router);
-  console.log("query", router.query);
-  console.log("slug", router.query.slug);
+  // Create breadcrumb pages from URL segments
+  const pages = pathSegments
+    .filter((path) => !pathsToNotShow[path]) // Filter out paths that we don't want to show
+    .map((segment, index) => {
+      const href = "/" + pathSegments.slice(0, index + 1).join("/");
+      const isCurrentPage = index === pathSegments.length - 1;
+
+      // Conditional logic to handle user
+      if (pathSegments[index - 1] === "user") {
+        return { name: user?.fullName, href, current: isCurrentPage };
+      }
+
+      return { name: getDisplayName(segment), href, current: isCurrentPage };
+    });
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
