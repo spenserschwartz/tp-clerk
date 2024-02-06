@@ -29,17 +29,23 @@ export default function Breadcrumbs() {
 
       // Conditional logic to handle user
       if (pathSegments[index - 1] === "user") {
-        return { name: user?.fullName, href, current: isCurrentPage };
+        return {
+          name: user?.fullName ?? "userName",
+          href,
+          current: isCurrentPage,
+        };
       }
 
       return { name: getDisplayName(segment), href, current: isCurrentPage };
     });
 
+  console.log("pages", pages);
+
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="mb-2 flex items-center space-x-4">
         {/* Home Icon */}
-        <li>
+        <li key="home-icon">
           <Link href="/" className="text-gray-400 hover:text-gray-500">
             <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
             <span className="sr-only">Home</span>
