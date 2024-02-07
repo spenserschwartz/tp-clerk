@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { AppProps, AppType } from "next/app";
 import Head from "next/head";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { api } from "~/utils/api";
 
@@ -22,6 +23,8 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
         <meta name="description" content="🚀" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <NextTopLoader />
 
       <Toaster position="bottom-center" />
 
