@@ -19,16 +19,20 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
         <div className="aspect-h-1 aspect-w-1 relative col-span-2 row-span-2 bg-gray-500">
           {/* Placeholder for large image */}
           <Image
-            src={images[0] ?? "/images/placeholder.png"}
+            src={
+              "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAWU5eFgp79uCoMd9WLJRR1OJ_XULytmHwxsEXl2F1me2WZZLFqfWmmEy-NZa8LY5D7hfwpA9XL4_RISUrOt00bn1I9pKy691w5kE6Yxmfo8Nn82zhMXFin__xtXp-rmnf8X-XbefThvUaTEIAR4Yr8rkXmGfTzhgINTmIH3zScwbEch3boNv&3u3853&5m1&2e1&callback=none&key=AIzaSyBX9QXqPk13FsXjdkPoGmV-JRf2AGvRY_Q&token=57913"
+            }
+            // src={images[0] ?? "/images/placeholder.png"}
             className="object-cover object-center hover:opacity-75"
             alt="Placeholder for large image"
             fill
             sizes={largeImageSizes}
             priority
+            unoptimized
           />
         </div>
 
-        {images.slice(1).map((image, index) => (
+        {/* {images.slice(1).map((image, index) => (
           <div
             key={index}
             className="aspect-h-1 aspect-w-1 col-span-1 row-span-1 bg-gray-300"
@@ -40,9 +44,10 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
               fill
               sizes={smallImageSizes}
               priority
+              unoptimized
             />
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
@@ -99,3 +104,5 @@ export default ImageGallery;
 // };
 
 // export default ImageGallery;
+
+// "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAWU5eFgp79uCoMd9WLJRR1OJ_XULytmHwxsEXl2F1me2WZZLFqfWmmEy-NZa8LY5D7hfwpA9XL4_RISUrOt00bn1I9pKy691w5kE6Yxmfo8Nn82zhMXFin__xtXp-rmnf8X-XbefThvUaTEIAR4Yr8rkXmGfTzhgINTmIH3zScwbEch3boNv&3u3853&5m1&2e1&callback=none&key=AIzaSyBX9QXqPk13FsXjdkPoGmV-JRf2AGvRY_Q&token=57913"
