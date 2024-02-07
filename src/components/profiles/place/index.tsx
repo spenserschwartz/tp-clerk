@@ -80,13 +80,16 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     fetchDetails();
   }, [databaseData]);
 
+  console.log("google placeResult", placeResult);
+  console.log("images after getURL", images);
+
   if (!databaseData) return null;
   return (
     <div className="flex w-full flex-grow justify-center">
       <div className="flex w-full flex-grow flex-col items-center">
         <PlaceTitle data={databaseData} />
 
-        <ImageGallery images={images} />
+        {images && <ImageGallery images={images} />}
 
         <PlaceDetails
           databaseData={databaseData}
