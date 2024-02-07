@@ -88,7 +88,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       <div className="flex w-full flex-grow flex-col items-center">
         <PlaceTitle data={databaseData} />
 
-        <ImageGallery images={images} />
+        {images && <ImageGallery images={images} />}
 
         <PlaceDetails
           databaseData={databaseData}
