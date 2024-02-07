@@ -17,6 +17,7 @@ const config = {
       { hostname: "travelperfect-bucket.s3.us-west-1.amazonaws.com" },
       { hostname: "www.gravatar.com" },
       { hostname: "maps.googleapis.com" },
+      { hostname: "maps.google.com" },
       { hostname: "travelperfect.io" },
     ],
   },
