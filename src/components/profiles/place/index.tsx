@@ -80,6 +80,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     fetchDetails();
   }, [databaseData]);
 
+  console.log("google placeResult", placeResult);
+
   if (!databaseData) return null;
   return (
     <div className="flex w-full flex-grow justify-center">
