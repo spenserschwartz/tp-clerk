@@ -25,6 +25,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             fill
             sizes={largeImageSizes}
             priority
+            unoptimized
           />
         </div>
 
@@ -40,6 +41,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
               fill
               sizes={smallImageSizes}
               priority
+              unoptimized
             />
           </div>
         ))}
