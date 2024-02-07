@@ -81,6 +81,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   }, [databaseData]);
 
   console.log("google placeResult", placeResult);
+  console.log("images after getURL", images);
 
   if (!databaseData) return null;
   return (
