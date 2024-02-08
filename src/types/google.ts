@@ -2,6 +2,7 @@ import AutocompleteRequest = google.maps.places.AutocompletionRequest;
 import Place = google.maps.places.Place;
 import PlacePhoto = google.maps.places.PlacePhoto;
 import PlaceResult = google.maps.places.PlaceResult;
+import PlacesService = google.maps.places.PlacesService;
 
 /*
   Custom interface made for Place Details (New) response
@@ -159,4 +160,5 @@ export type {
   PlacePhoto,
   PlaceResult,
   PlaceResultWithLatLng,
+  PlacesService,
 };
