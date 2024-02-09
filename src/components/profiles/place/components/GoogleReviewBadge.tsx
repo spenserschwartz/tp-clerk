@@ -9,6 +9,7 @@ interface GoogleReviewBadgeProps {
 }
 
 const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
+  console.log("ReviewBadge googleData", googleData);
   if (!googleData) return null;
   const { user_ratings_total, rating, url } = googleData;
 
