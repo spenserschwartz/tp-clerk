@@ -1,44 +1,35 @@
-import { GoogleReviewBadge } from "~/components/profiles/place/components";
-import { api } from "~/utils/api";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import SplashComponent from "~/components/splash";
 
 const SplashPage = () => {
   const query = "Chrysler Building, New York";
 
-  const { data } = api.google.getPlaceDetails.useQuery({
-    placeId: "ChIJ2dGMjMMEdkgRqVqkuXQkj7c",
-  });
+  // const { data } = api.google.getPlaceDetails.useQuery({
+  //   placeId: "ChIJ2dGMjMMEdkgRqVqkuXQkj7c",
+  // });
 
-  const { rating, userRatingCount, displayName } = data ?? {};
+  // const { rating, userRatingCount, displayName } = data ?? {};
 
-  const { data: textData } = api.google.searchByTextNew.useQuery({
-    query,
-  });
+  // const { data: textData } = api.google.searchByTextNew.useQuery({
+  //   query,
+  // });
 
-  console.log("textData", textData);
+  // console.log("textData", textData);
 
-  const { data: originalData } = api.google.searchByText.useQuery({
-    query,
-  });
+  // const { data: originalData } = api.google.searchByText.useQuery({
+  //   query,
+  // });
 
-  const candidates = originalData?.candidates ?? [
-    { name: "No name", rating: 0, user_ratings_total: 0 },
-  ];
+  // const candidates = originalData?.candidates ?? [
+  //   { name: "No name", rating: 0, user_ratings_total: 0 },
+  // ];
 
-  console.log("originalData", originalData);
+  // console.log("originalData", originalData);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center border-4 border-red-400">
-      <div className="mt-8">NEW</div>
-      <div>{displayName?.text}</div>
-      <div>Rating: {rating}</div>
-      <div>Count: {userRatingCount}</div>
-
-      <div className="mt-8">searchByText OG</div>
-      <div>{candidates[0].name}</div>
-      <div>{candidates[0].rating}</div>
-      <div>{candidates[0].user_ratings_total}</div>
-      <div>{}</div>
-    </div>
+    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}>
+      <SplashComponent />
+    </APIProvider>
   );
 };
 
