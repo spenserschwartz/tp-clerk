@@ -4,6 +4,11 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
 
+interface PlaceResultCandidates {
+  candidates: PlaceResult[];
+  status: string;
+}
+
 export const googleRouter = createTRPCRouter({
   getPlaceDetails: publicProcedure
     .input(z.object({ placeId: z.string() }))
@@ -65,7 +70,7 @@ export const googleRouter = createTRPCRouter({
           console.error("Error Response:", errorResponse);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = (await response.json()) as PlaceResult;
+        const data = (await response.json()) as PlaceResultCandidates;
         return data;
       } catch (error) {
         console.error("Error fetching data from Google Places API:", error);
