@@ -1,25 +1,37 @@
-// import OpenAI from "openai";
 import { z } from "zod";
-import { type PlaceResult } from "~/types/google";
+import type { PlaceDetailsNewResponse, PlaceResult } from "~/types/google";
 import { createTRPCRouter, publicProcedure } from "../trpc";
+
+const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
 
 export const googleRouter = createTRPCRouter({
   getPlaceDetails: publicProcedure
     .input(z.object({ placeId: z.string() }))
     .query(async ({ input }) => {
-      const placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-      const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? ""; // Ensure this is set in your environment
-      const apiUrl = `https://places.googleapis.com/v1/places/ChIJj61dQgK6j4AR4GeTYWZsKWw?fields=id,displayName&key=${apiKey}`;
-      // const apiUrl = `https://places.googleapis.com/v1/places/${placeId}`;
+      // https://developers.google.com/maps/documentation/places/web-service/place-details
+      const fieldsArray: (keyof PlaceDetailsNewResponse)[] = [
+        "displayName",
+        "photos",
+        "rating",
+        "reviews",
+        "userRatingCount",
+        "websiteUri",
+      ];
+      const fields = fieldsArray.join(",");
+      const apiUrl = `https://places.googleapis.com/v1/places/${input.placeId}?fields=${fields}&key=${apiKey}&languageCode=en&regionCode=US`;
 
       try {
         const options = {
           method: "GET",
-          headers: { "content-type": "application/json" },
+          headers: {
+            "content-type": "application/json",
+          },
         };
 
         const response = await fetch(apiUrl, options);
         if (!response.ok) {
+          const notOkaydata = (await response.json()) as PlaceResult;
+          console.log("Error Response:", notOkaydata);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = (await response.json()) as PlaceResult;
@@ -32,8 +44,78 @@ export const googleRouter = createTRPCRouter({
         return { error: "Failed to fetch data from Google" }; // Return an error object instead of throwing
       }
     }),
+
+  searchByText: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ input }) => {
+      const queryParams = new URLSearchParams({
+        input: input.query,
+        inputtype: "textquery",
+        fields:
+          "formatted_address,name,rating,opening_hours,geometry,user_ratings_total",
+        key: apiKey,
+        // Add language parameter if necessary, e.g., "&language=en"
+      }).toString();
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${queryParams}`;
+
+      try {
+        const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
+        if (!response.ok) {
+          const errorResponse = (await response.json()) as PlaceResult;
+          console.error("Error Response:", errorResponse);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = (await response.json()) as PlaceResult;
+        return data;
+      } catch (error) {
+        console.error("Error fetching data from Google Places API:", error);
+        return { error: "Failed to fetch data from Google" };
+      }
+    }),
+
+  // WARNING: This endpoint is inconsistent with getting "places.rating" and "places.userRatingCount". Use  "searchByText" instead (Google API issue)
+  searchByTextNew: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ input }) => {
+      const apiUrl = "https://places.googleapis.com/v1/places:searchText";
+      const body = JSON.stringify({
+        textQuery: input.query,
+        languageCode: "en",
+      });
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-Api-Key": apiKey,
+          // Specify the fields you want in the response
+          "X-Goog-FieldMask":
+            "places.displayName,places.formattedAddress,places.priceLevel,places.rating,places.userRatingCount",
+        },
+        languageCode: "en",
+        regionCode: "US",
+        body: body,
+      };
+
+      try {
+        const response = await fetch(apiUrl, options);
+        if (!response.ok) {
+          // Assuming PlaceResult can handle error scenarios
+          const errorResponse = (await response.json()) as PlaceResult;
+          console.error("Error Response:", errorResponse);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Assuming a successful response fits the PlaceDetailsNewResponse structure
+        const data = (await response.json()) as PlaceDetailsNewResponse;
+        return data;
+      } catch (error) {
+        console.error("Error fetching data from Google Places API:", error);
+        return { error: "Failed to fetch data from Google" };
+      }
+    }),
 });
 
 // ChIJ2dGMjMMEdkgRqVqkuXQkj7c   Big Ben
 // ChIJN1t_tDeuEmsRUsoyG83frY4   Google Office Sydney
 // ChIJj61dQgK6j4AR4GeTYWZsKWw   from example on https://developers.google.com/maps/documentation/places/web-service/place-details
+
+// https://developers.google.com/maps/documentation/places/web-service/place-details#required-parameters
