@@ -18,7 +18,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined
   );
-  const { tripAdvisorLocationId } = databaseData ?? {};
+  const { tripAdvisorLocationId, googlePlaceId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
 
   const { data: fetchedTripAdvisorData, error: tripAdvisorError } =
@@ -30,6 +30,39 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         refetchOnMount: false,
       }
     );
+
+  const { data: secondFetchedGoogleData, error: secondGoogleError } =
+    api.google.searchByText.useQuery({
+      query: "Chrysler Building, New York",
+    });
+
+  console.log("secondFetchedGoogleData", secondFetchedGoogleData);
+
+  // We need ratings and userRatingCount if it wasn't populated on first fetch
+  useEffect(() => {
+    if (placeResult && secondFetchedGoogleData) {
+      if (secondGoogleError)
+        console.error("Error fetching Google data:", secondGoogleError);
+      else {
+        if ("error" in secondFetchedGoogleData)
+          console.error(
+            "Error fetching Google data:",
+            secondFetchedGoogleData.error
+          );
+        else {
+          const { rating, user_ratings_total } =
+            secondFetchedGoogleData.candidates[0] ?? {};
+
+          const newPlaceResult: PlaceResult = {
+            ...placeResult,
+            rating,
+            user_ratings_total,
+          };
+          setPlaceResult(newPlaceResult);
+        }
+      }
+    }
+  }, [placeResult, secondFetchedGoogleData, secondGoogleError]);
 
   // Fetch details from TripAdvisor API
   useEffect(() => {
@@ -80,8 +113,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     fetchDetails();
   }, [databaseData]);
 
-  console.log("google placeResult", placeResult);
-  console.log("images after getURL", images);
+  console.log("placeResult", placeResult);
 
   if (!databaseData) return null;
   return (
