@@ -2,12 +2,7 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import SplashComponent from "~/components/splash";
 
 const SplashPage = () => {
-  if (!process.env.GOOGLE_DETAILS_API_KEY) return null;
-  return (
-    <APIProvider apiKey={process.env.GOOGLE_DETAILS_API_KEY}>
-      <SplashComponent />
-    </APIProvider>
-  );
+  return null;
 };
 
 export default SplashPage;
