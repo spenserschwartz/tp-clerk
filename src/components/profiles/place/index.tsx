@@ -14,9 +14,12 @@ interface PlacesProfileProps {
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const placesLib = useMapsLibrary("places");
+  const [googleData, setGoogleData] = useState<PlaceResult | undefined>(
+    undefined
+  );
   const [tripAdvisorData, setTripAdvisorData] = useState<
     LocationDetails | undefined
-  >(undefined); // eslint-disable-line @typescript-eslint/no-explicit-any
+  >(undefined);
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined
   );
@@ -49,8 +52,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       }
     );
 
-  console.log("secondFetchedGoogleData", secondFetchedGoogleData);
-
   // Fetch details from TripAdvisor API
   useEffect(() => {
     if (tripAdvisorError) {
@@ -68,10 +69,11 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     setPlacesService(new placesLib.PlacesService(map));
   }, [placesLib]);
 
+  // Fetch details from Google Places API
   useEffect(() => {
     if (!placesService || !databaseData) return;
     const request = {
-      placeId: googlePlaceId ?? "",
+      placeId: databaseData.googlePlaceId ?? "",
       fields: [
         "name",
         "rating",
@@ -84,7 +86,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       ],
     };
 
-    // Using the placesService to fetch details
     placesService.getDetails(request, (result, status) => {
       console.log("PlaceService status", status);
       if (status === google.maps.places.PlacesServiceStatus.OK && result) {
@@ -100,6 +101,27 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     });
   }, [placesService, databaseData]);
 
+  // Set googleData from the second fetch if necessary
+  useEffect(() => {
+    if (secondGoogleError) {
+      console.error("Error fetching Google data:", secondGoogleError);
+    } else if (
+      secondFetchedGoogleData &&
+      !("error" in secondFetchedGoogleData)
+    ) {
+      // Take the first candidate and set ratings and user_ratings_total
+      const candidate = secondFetchedGoogleData.candidates[0];
+      if (candidate) {
+        const { rating, user_ratings_total } = candidate;
+        setGoogleData({
+          ...placeResult,
+          rating,
+          user_ratings_total,
+        });
+      }
+    }
+  }, [secondFetchedGoogleData, secondGoogleError, placeResult]);
+
   console.log("placeResult", placeResult);
 
   if (!databaseData) return null;
@@ -112,7 +134,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
         <PlaceDetails
           databaseData={databaseData}
-          googleData={placeResult}
+          googleData={googleData}
           tripAdvisorData={tripAdvisorData}
         />
       </div>
