@@ -2,30 +2,6 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import SplashComponent from "~/components/splash";
 
 const SplashPage = () => {
-  const query = "Chrysler Building, New York";
-
-  // const { data } = api.google.getPlaceDetails.useQuery({
-  //   placeId: "ChIJ2dGMjMMEdkgRqVqkuXQkj7c",
-  // });
-
-  // const { rating, userRatingCount, displayName } = data ?? {};
-
-  // const { data: textData } = api.google.searchByTextNew.useQuery({
-  //   query,
-  // });
-
-  // console.log("textData", textData);
-
-  // const { data: originalData } = api.google.searchByText.useQuery({
-  //   query,
-  // });
-
-  // const candidates = originalData?.candidates ?? [
-  //   { name: "No name", rating: 0, user_ratings_total: 0 },
-  // ];
-
-  // console.log("originalData", originalData);
-
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}>
       <SplashComponent />
