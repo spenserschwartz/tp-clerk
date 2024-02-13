@@ -1,6 +1,5 @@
 import { useUser } from "@clerk/nextjs";
 import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
-import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
