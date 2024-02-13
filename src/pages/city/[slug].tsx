@@ -1,4 +1,5 @@
 import { useUser } from "@clerk/nextjs";
+import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
@@ -15,6 +16,7 @@ import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
+import { googleMapsRender } from "~/utils/google";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const router = useRouter();
@@ -64,7 +66,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   if (!cityData) return <div>404 City Not Found</div>;
 
   return (
-    <GoogleAPIProvider apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}>
+    <GoogleMapsWrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      render={googleMapsRender}
+      libraries={["places"]}
+    >
       <div className="flex w-full flex-col items-center">
         <Head>
           <title>{`${cityData.name} - TravelPerfect`}</title>
@@ -146,7 +152,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           setOpenModal={setOpenVisitedCityModal}
         />
       </div>
-    </GoogleAPIProvider>
+    </GoogleMapsWrapper>
   );
 };
 
