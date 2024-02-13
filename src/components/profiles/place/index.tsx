@@ -23,7 +23,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined
   );
-  const { tripAdvisorLocationId, googlePlaceId } = databaseData ?? {};
+  const { tripAdvisorLocationId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
 
   const [placesService, setPlacesService] = useState<PlacesService | null>(
@@ -43,7 +43,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const { data: secondFetchedGoogleData, error: secondGoogleError } =
     api.google.searchByText.useQuery(
       {
-        query: databaseData?.name ?? "",
+        // Use the name and vicinity to search for the place as a text query
+        query: `${databaseData?.name} ${placeResult?.vicinity}` ?? "",
       },
       {
         enabled: !!databaseData,
@@ -83,6 +84,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         "url",
         "website",
         "photos",
+        "vicinity",
       ],
     };
 
