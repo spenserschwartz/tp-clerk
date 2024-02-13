@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/nextjs";
-import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -64,9 +64,8 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   if (!cityData) return <div>404 City Not Found</div>;
 
   return (
-    <GoogleMapsWrapper
+    <GoogleAPIProvider
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      libraries={["places"]}
     >
       <div className="flex w-full flex-col items-center">
         <Head>
@@ -149,7 +148,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           setOpenModal={setOpenVisitedCityModal}
         />
       </div>
-    </GoogleMapsWrapper>
+    </GoogleAPIProvider>
   );
 };
 
