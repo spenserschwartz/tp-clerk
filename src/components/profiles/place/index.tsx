@@ -23,8 +23,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const [images, setImages] = useState<string[]>([]);
 
   const placesLib = useMapsLibrary("places");
-  const [sessionToken, setSessionToken] =
-    useState<google.maps.places.AutocompleteSessionToken>();
   const [placesService, setPlacesService] = useState<PlacesService | null>(
     null
   );
@@ -40,37 +38,18 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     );
 
   const { data: secondFetchedGoogleData, error: secondGoogleError } =
-    api.google.searchByText.useQuery({
-      query: "Chrysler Building, New York",
-    });
+    api.google.searchByText.useQuery(
+      {
+        query: databaseData?.name ?? "",
+      },
+      {
+        enabled: !!databaseData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+      }
+    );
 
   console.log("secondFetchedGoogleData", secondFetchedGoogleData);
-
-  // We need ratings and userRatingCount if it wasn't populated on first fetch
-  useEffect(() => {
-    if (placeResult && secondFetchedGoogleData) {
-      if (secondGoogleError)
-        console.error("Error fetching Google data:", secondGoogleError);
-      else {
-        if ("error" in secondFetchedGoogleData)
-          console.error(
-            "Error fetching Google data:",
-            secondFetchedGoogleData.error
-          );
-        else {
-          const { rating, user_ratings_total } =
-            secondFetchedGoogleData.candidates[0] ?? {};
-
-          const newPlaceResult: PlaceResult = {
-            ...placeResult,
-            rating,
-            user_ratings_total,
-          };
-          setPlaceResult(newPlaceResult);
-        }
-      }
-    }
-  }, [placeResult, secondFetchedGoogleData, secondGoogleError]);
 
   // Fetch details from TripAdvisor API
   useEffect(() => {
@@ -88,7 +67,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
     const map = new google.maps.Map(document.createElement("div"));
     setPlacesService(new placesLib.PlacesService(map));
-    setSessionToken(new placesLib.AutocompleteSessionToken());
   }, [placesLib]);
 
   useEffect(() => {
@@ -107,7 +85,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       //   "website",
       //   "photos",
       // ],
-      sessionToken,
     };
 
     // Using the placesService to fetch details
@@ -124,7 +101,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
         console.log("Failed to fetch place details:", status);
       }
     });
-  }, [placesService, databaseData, sessionToken]);
+  }, [placesService, databaseData]);
 
   if (!databaseData) return null;
   return (
