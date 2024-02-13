@@ -24,7 +24,7 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   if ((isFetching && !databaseData) || isInitialLoading) return <LoadingPage />;
   return (
     <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}
       libraries={["places"]}
       render={googleMapsRender}
     >
