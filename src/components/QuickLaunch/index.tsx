@@ -148,7 +148,7 @@ const QuickLaunch = () => {
 
   return (
     <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}
       render={render}
       libraries={["places"]}
     >

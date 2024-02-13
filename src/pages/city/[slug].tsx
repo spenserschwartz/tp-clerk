@@ -64,9 +64,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   if (!cityData) return <div>404 City Not Found</div>;
 
   return (
-    <GoogleAPIProvider
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-    >
+    <GoogleAPIProvider apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}>
       <div className="flex w-full flex-col items-center">
         <Head>
           <title>{`${cityData.name} - TravelPerfect`}</title>
