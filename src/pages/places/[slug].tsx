@@ -1,5 +1,4 @@
 import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
-import { APIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
 import { api } from "~/utils/api";
@@ -24,11 +23,15 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
 
   if ((isFetching && !databaseData) || isInitialLoading) return <LoadingPage />;
   return (
-    <APIProvider apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}>
+    <GoogleMapsWrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      libraries={["places"]}
+      render={googleMapsRender}
+    >
       <main className="">
         <PlacesProfile databaseData={databaseData} />
       </main>
-    </APIProvider>
+    </GoogleMapsWrapper>
   );
 };
 
