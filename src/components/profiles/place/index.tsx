@@ -13,6 +13,7 @@ interface PlacesProfileProps {
 }
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
+  const placesLib = useMapsLibrary("places");
   const [tripAdvisorData, setTripAdvisorData] = useState<
     LocationDetails | undefined
   >(undefined); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -22,7 +23,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   const { tripAdvisorLocationId, googlePlaceId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
 
-  const placesLib = useMapsLibrary("places");
   const [placesService, setPlacesService] = useState<PlacesService | null>(
     null
   );
@@ -64,27 +64,24 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
   // Correctly initializing PlacesService with a div element
   useEffect(() => {
     if (!placesLib) return;
-
     const map = new google.maps.Map(document.createElement("div"));
     setPlacesService(new placesLib.PlacesService(map));
   }, [placesLib]);
 
   useEffect(() => {
     if (!placesService || !databaseData) return;
-    //
-    const placeId = databaseData.googlePlaceId ?? ""; // Example place ID
     const request = {
-      placeId,
-      // fields: [
-      //   "name",
-      //   "rating",
-      //   "formatted_phone_number",
-      //   "geometry",
-      //   "user_ratings_total",
-      //   "url",
-      //   "website",
-      //   "photos",
-      // ],
+      placeId: googlePlaceId ?? "",
+      fields: [
+        "name",
+        "rating",
+        "formatted_phone_number",
+        "geometry",
+        "user_ratings_total",
+        "url",
+        "website",
+        "photos",
+      ],
     };
 
     // Using the placesService to fetch details
@@ -102,6 +99,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       }
     });
   }, [placesService, databaseData]);
+
+  console.log("placeResult", placeResult);
 
   if (!databaseData) return null;
   return (

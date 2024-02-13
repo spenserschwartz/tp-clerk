@@ -19,11 +19,13 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   } = api.attractions.getByName.useQuery({
     name: slugToDatabaseName(placeName),
   });
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if ((isFetching && !databaseData) || isInitialLoading) return <LoadingPage />;
+  if ((isFetching && !databaseData) || isInitialLoading || !apiKey)
+    return <LoadingPage />;
   return (
-    <GoogleAPIProvider apiKey={process.env.GOOGLE_DETAILS_API_KEY ?? ""}>
-      <main className="">
+    <GoogleAPIProvider apiKey={apiKey}>
+      <main>
         <PlacesProfile databaseData={databaseData} />
       </main>
     </GoogleAPIProvider>
