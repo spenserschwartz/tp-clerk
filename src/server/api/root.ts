@@ -1,9 +1,10 @@
 import { createTRPCRouter } from "~/server/api/trpc";
 import {
+  OpenAIRouter,
   attractionsRouter,
   cityRouter,
+  googleRouter,
   itineraryRouter,
-  OpenAIRouter,
   postsRouter,
   profileRouter,
   recommendedDaysInCityRouter,
@@ -20,6 +21,7 @@ import {
 export const appRouter = createTRPCRouter({
   attractions: attractionsRouter,
   city: cityRouter,
+  google: googleRouter,
   itinerary: itineraryRouter,
   openAI: OpenAIRouter,
   posts: postsRouter,

@@ -1,4 +1,3 @@
-// import OpenAI from "openai";
 import { z } from "zod";
 import { type LocationDetails } from "~/types/tripAdvisor";
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -8,7 +7,7 @@ export const tripAdvisorRouter = createTRPCRouter({
     .input(z.object({ locationId: z.string() }))
     .query(async ({ input }) => {
       const { locationId } = input;
-      const apiKey = process.env.TRIP_ADVISOR_API_KEY; // Ensure this is set in your environment
+      const apiKey = process.env.TRIP_ADVISOR_API_KEY ?? ""; // Ensure this is set in your environment
       const apiUrl = `https://api.content.tripadvisor.com/api/v1/location/${locationId}/details?language=en&currency=USD&key=${apiKey}`;
 
       try {

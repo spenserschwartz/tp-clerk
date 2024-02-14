@@ -38,6 +38,7 @@
     "@trpc/server": "^10.26.0",
     "@upstash/ratelimit": "^0.4.3",
     "@upstash/redis": "^1.22.0",
+    "@vis.gl/react-google-maps": "^0.6.1",
     "ai": "^2.2.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

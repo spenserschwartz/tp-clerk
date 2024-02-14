@@ -48,6 +48,7 @@ const PlacesAutoComplete = ({
             "geometry",
             "photo",
             "place_id",
+            "rating",
           ],
         },
         (result, status) => {
@@ -86,6 +87,7 @@ const PlacesAutoComplete = ({
               onChange={(event) => setValue(event.target.value)}
               displayValue={() => value}
               placeholder="Search for a place"
+              autoComplete="off"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
               <ChevronUpDownIcon

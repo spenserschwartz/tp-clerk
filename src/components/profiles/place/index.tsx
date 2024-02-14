@@ -1,8 +1,9 @@
+import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
 
 import { ImageGallery } from "~/components";
-import type { PlaceResult } from "~/types/google";
+import type { PlaceResult, PlacesService } from "~/types/google";
 import { type AttractionByNameType } from "~/types/router";
 import { type LocationDetails } from "~/types/tripAdvisor";
 import { PlaceDetails, PlaceTitle } from "./components";
@@ -12,18 +13,39 @@ interface PlacesProfileProps {
 }
 
 const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
+  const placesLib = useMapsLibrary("places");
+  const [googleData, setGoogleData] = useState<PlaceResult | undefined>(
+    undefined
+  );
   const [tripAdvisorData, setTripAdvisorData] = useState<
     LocationDetails | undefined
-  >(undefined); // eslint-disable-line @typescript-eslint/no-explicit-any
+  >(undefined);
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined
   );
   const { tripAdvisorLocationId } = databaseData ?? {};
   const [images, setImages] = useState<string[]>([]);
 
+  const [placesService, setPlacesService] = useState<PlacesService | null>(
+    null
+  );
+
   const { data: fetchedTripAdvisorData, error: tripAdvisorError } =
     api.tripAdvisor.getLocationDetails.useQuery(
       { locationId: tripAdvisorLocationId ?? "" },
+      {
+        enabled: !!databaseData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+      }
+    );
+
+  const { data: secondFetchedGoogleData, error: secondGoogleError } =
+    api.google.searchByText.useQuery(
+      {
+        // Use the name and vicinity to search for the place as a text query
+        query: `${databaseData?.name} ${placeResult?.vicinity}` ?? "",
+      },
       {
         enabled: !!databaseData,
         refetchOnWindowFocus: false,
@@ -41,47 +63,64 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     }
   }, [fetchedTripAdvisorData, tripAdvisorError]);
 
+  // Correctly initializing PlacesService with a div element
+  useEffect(() => {
+    if (!placesLib) return;
+    const map = new google.maps.Map(document.createElement("div"));
+    setPlacesService(new placesLib.PlacesService(map));
+  }, [placesLib]);
+
   // Fetch details from Google Places API
   useEffect(() => {
-    const fetchDetails = () => {
-      if (!databaseData) return;
-
-      // https://developers.google.com/maps/documentation/javascript/places#place_search_requests
-      const map = new window.google.maps.Map(document.createElement("div"));
-      const service = new window.google.maps.places.PlacesService(map);
-
-      service.getDetails(
-        {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          placeId: databaseData.googlePlaceId ?? "", // `Using itinerary.placeId as string` gives unnecessary type assertion. eslint-disable unsafe any for now
-          fields: [
-            "name",
-            "photos",
-            "place_id",
-            "rating",
-            "types",
-            "url",
-            "user_ratings_total",
-            "vicinity",
-            "website",
-          ],
-        },
-        (result, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            if (result) setPlaceResult(result);
-            const photos = result?.photos?.map((photo) => {
-              return photo.getUrl();
-            });
-            setImages(photos?.slice(0, 5) ?? []);
-          }
-        }
-      );
+    if (!placesService || !databaseData) return;
+    const request = {
+      placeId: databaseData.googlePlaceId ?? "",
+      fields: [
+        "name",
+        "rating",
+        "formatted_phone_number",
+        "geometry",
+        "user_ratings_total",
+        "url",
+        "website",
+        "photos",
+        "vicinity",
+      ],
     };
-    fetchDetails();
-  }, [databaseData]);
 
-  console.log("google placeResult", placeResult);
-  console.log("images after getURL", images);
+    placesService.getDetails(request, (result, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && result) {
+        setPlaceResult(result);
+        const photos = result?.photos?.map((photo) => {
+          return photo.getUrl();
+        });
+        setImages(photos?.slice(0, 5) ?? []);
+      } else {
+        console.log("Failed to fetch place details:", status);
+      }
+    });
+  }, [placesService, databaseData]);
+
+  // Set googleData from the second fetch if necessary
+  useEffect(() => {
+    if (secondGoogleError) {
+      console.error("Error fetching Google data:", secondGoogleError);
+    } else if (
+      secondFetchedGoogleData &&
+      !("error" in secondFetchedGoogleData)
+    ) {
+      // Take the first candidate and set ratings and user_ratings_total
+      const candidate = secondFetchedGoogleData.candidates[0];
+      if (candidate) {
+        const { rating, user_ratings_total } = candidate;
+        setGoogleData({
+          ...placeResult,
+          rating,
+          user_ratings_total,
+        });
+      }
+    }
+  }, [secondFetchedGoogleData, secondGoogleError, placeResult]);
 
   if (!databaseData) return null;
   return (
@@ -93,7 +132,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
 
         <PlaceDetails
           databaseData={databaseData}
-          googleData={placeResult}
+          googleData={googleData}
           tripAdvisorData={tripAdvisorData}
         />
       </div>

@@ -21,7 +21,6 @@ const useCreateItinerary = () => {
     },
     onSettled(data, error) {
       if (error) console.error(error);
-      console.log("itinerary onSettled data", data);
     },
   });
 

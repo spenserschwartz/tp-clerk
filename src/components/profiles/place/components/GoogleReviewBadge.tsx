@@ -12,7 +12,7 @@ const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
   if (!googleData) return null;
   const { user_ratings_total, rating, url } = googleData;
 
-  if (!user_ratings_total || !rating || !url) return null;
+  // if (!user_ratings_total || !rating || !url) return null;
   return (
     <div className="w-60 overflow-hidden rounded-lg border-2 border-gray-200 bg-white p-6 text-center shadow-lg">
       <a href={url} target="_blank">

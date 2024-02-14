@@ -1,4 +1,4 @@
-import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import React, { type ReactElement } from "react";
 import { api } from "~/utils/api";
@@ -8,7 +8,6 @@ import PageLayout from "~/components/layout/Page";
 import { slugToDatabaseName } from "~/lib/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
-import { googleMapsRender } from "~/utils/google";
 
 const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   placeName,
@@ -20,18 +19,16 @@ const PlacePage: NextPageWithLayout<{ placeName: string }> = ({
   } = api.attractions.getByName.useQuery({
     name: slugToDatabaseName(placeName),
   });
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if ((isFetching && !databaseData) || isInitialLoading) return <LoadingPage />;
+  if ((isFetching && !databaseData) || isInitialLoading || !apiKey)
+    return <LoadingPage />;
   return (
-    <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      libraries={["places"]}
-      render={googleMapsRender}
-    >
-      <main className="">
+    <GoogleAPIProvider apiKey={apiKey}>
+      <main>
         <PlacesProfile databaseData={databaseData} />
       </main>
-    </GoogleMapsWrapper>
+    </GoogleAPIProvider>
   );
 };
 

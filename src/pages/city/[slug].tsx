@@ -15,6 +15,7 @@ import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
+import { googleMapsRender } from "~/utils/google";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const router = useRouter();
@@ -66,6 +67,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   return (
     <GoogleMapsWrapper
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
+      render={googleMapsRender}
       libraries={["places"]}
     >
       <div className="flex w-full flex-col items-center">
