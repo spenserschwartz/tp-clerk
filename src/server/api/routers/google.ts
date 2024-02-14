@@ -80,44 +80,44 @@ export const googleRouter = createTRPCRouter({
 
   // WARNING: This endpoint is inconsistent with getting "places.rating" and "places.userRatingCount". Use  "searchByText" instead (Google API issue)
   // https://developers.google.com/maps/documentation/places/web-service/text-search
-  searchByTextNew: publicProcedure
-    .input(z.object({ query: z.string() }))
-    .query(async ({ input }) => {
-      const apiUrl = "https://places.googleapis.com/v1/places:searchText";
-      const body = JSON.stringify({
-        textQuery: input.query,
-        languageCode: "en",
-      });
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Goog-Api-Key": apiKey,
-          "X-Goog-FieldMask":
-            "places.displayName,places.formattedAddress,places.priceLevel,places.rating,places.userRatingCount",
-        },
-        languageCode: "en",
-        regionCode: "US",
-        body: body,
-      };
+  // searchByTextNew: publicProcedure
+  //   .input(z.object({ query: z.string() }))
+  //   .query(async ({ input }) => {
+  //     const apiUrl = "https://places.googleapis.com/v1/places:searchText";
+  //     const body = JSON.stringify({
+  //       textQuery: input.query,
+  //       languageCode: "en",
+  //     });
+  //     const options = {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "X-Goog-Api-Key": apiKey,
+  //         "X-Goog-FieldMask":
+  //           "places.displayName,places.formattedAddress,places.priceLevel,places.rating,places.userRatingCount",
+  //       },
+  //       languageCode: "en",
+  //       regionCode: "US",
+  //       body: body,
+  //     };
 
-      try {
-        const response = await fetch(apiUrl, options);
-        if (!response.ok) {
-          // Assuming PlaceResult can handle error scenarios
-          const errorResponse = (await response.json()) as PlaceResult;
-          console.error("Error Response:", errorResponse);
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+  //     try {
+  //       const response = await fetch(apiUrl, options);
+  //       if (!response.ok) {
+  //         // Assuming PlaceResult can handle error scenarios
+  //         const errorResponse = (await response.json()) as PlaceResult;
+  //         console.error("Error Response:", errorResponse);
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const data = await response.json();
-        return data as PlaceDetailsNewResponse; // Add type assertion
-      } catch (error) {
-        console.error("Error fetching data from Google Places API:", error);
-        return { error: "Failed to fetch data from Google" };
-      }
-    }),
+  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  //       const data = await response.json();
+  //       return data as PlaceDetailsNewResponse; // Add type assertion
+  //     } catch (error) {
+  //       console.error("Error fetching data from Google Places API:", error);
+  //       return { error: "Failed to fetch data from Google" };
+  //     }
+  //   }),
 });
 
 // ChIJ2dGMjMMEdkgRqVqkuXQkj7c   Big Ben
