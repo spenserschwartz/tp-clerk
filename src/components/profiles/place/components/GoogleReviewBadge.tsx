@@ -1,5 +1,5 @@
 import React from "react";
-import type { Place, PlaceResult } from "~/types/google";
+import type { PlaceResult } from "~/types/google";
 
 import { GoogleIcon } from "public/icons";
 import { StarRatings } from "~/components";
@@ -9,7 +9,6 @@ interface GoogleReviewBadgeProps {
 }
 
 const GoogleReviewBadge = ({ googleData }: GoogleReviewBadgeProps) => {
-  console.log("ReviewBadge googleData", googleData);
   if (!googleData) return null;
   const { user_ratings_total, rating, url } = googleData;
 
