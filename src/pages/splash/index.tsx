@@ -22,3 +22,5 @@ export default SplashPage;
 // -H 'Content-Type: application/json' -H 'X-Goog-Api-Key: MY_API_KEY_HERE' \
 // -H 'X-Goog-FieldMask: *' \
 // 'https://places.googleapis.com/v1/places:searchText'
+
+// API keys removed for security reasons
