@@ -55,7 +55,6 @@ const PlacesAutoComplete = ({
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             // Do something with the result object here
             const placeResult: PlaceResult | null = result;
-            console.log("PlaceResult", placeResult);
             setSelected(placeResult);
           }
         }

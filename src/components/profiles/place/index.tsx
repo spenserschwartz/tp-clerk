@@ -89,9 +89,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     };
 
     placesService.getDetails(request, (result, status) => {
-      console.log("PlaceService status", status);
       if (status === google.maps.places.PlacesServiceStatus.OK && result) {
-        console.log("Place details:", result);
         setPlaceResult(result);
         const photos = result?.photos?.map((photo) => {
           return photo.getUrl();
@@ -123,8 +121,6 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
       }
     }
   }, [secondFetchedGoogleData, secondGoogleError, placeResult]);
-
-  console.log("placeResult", placeResult);
 
   if (!databaseData) return null;
   return (
