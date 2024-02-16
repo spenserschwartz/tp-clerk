@@ -1,4 +1,3 @@
-// import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
