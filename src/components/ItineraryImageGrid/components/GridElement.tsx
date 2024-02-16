@@ -48,7 +48,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     setPlacesService(new placesLib.PlacesService(map));
   }, [placesLib]);
 
-  // Fetch details from Google Places API
+  // Fetch details from Google Places API for customCity photo
   useEffect(() => {
     if (!placesService || !itinerary.placeId || !isCustomCity) return;
     const request = {
@@ -64,7 +64,7 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
 
         setCustomImageURL(customCityPhotoURL);
       } else {
-        console.log("Failed to fetch place details:", status);
+        console.log("Failed to fetch place details for custom city:", status);
       }
     });
   }, [itinerary.placeId, placesService, isCustomCity]);
