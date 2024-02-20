@@ -1,8 +1,5 @@
 import { useUser } from "@clerk/nextjs";
-import {
-  Status as GoogleMapsStatus,
-  Wrapper as GoogleMapsWrapper,
-} from "@googlemaps/react-wrapper";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { addDays, format as formatDate } from "date-fns";
 import { useRouter } from "next/router";
 import { useEffect, useState, type ReactElement } from "react";
@@ -13,12 +10,17 @@ import { api } from "~/utils/api";
 import {
   Button,
   Itinerary,
+  LoadingPage,
   LoadingSection,
   PlacesAutoComplete,
   Select,
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
-import { RequestOptionType, type PlaceResult } from "~/types/google";
+import {
+  RequestOptionType,
+  type AutocompleteRequest,
+  type PlaceResult,
+} from "~/types/google";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { createRequestOptions } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
@@ -27,13 +29,13 @@ import { quickLaunchCities, unknownClerkCity } from "../utils";
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
   const router = useRouter();
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  const render = (status: GoogleMapsStatus): ReactElement => {
-    if (status === GoogleMapsStatus.FAILURE) return <div>Error</div>;
-    return <div>Loading..</div>;
+  // const requestOptions = createRequestOptions(RequestOptionType.Cities);
+  const autocompleteRequest: AutocompleteRequest = {
+    input: "",
+    types: ["(cities)"],
   };
-
-  const requestOptions = createRequestOptions(RequestOptionType.Cities);
   const [chosenCustomCity, setChosenCustomCity] = useState<PlaceResult | null>(
     null
   );
@@ -146,12 +148,9 @@ const QuickLaunch = () => {
     setCustomCityPhoto(cityPhoto);
   }, [chosenCustomCity]);
 
+  if (!apiKey) return <LoadingPage />;
   return (
-    <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      render={render}
-      libraries={["places"]}
-    >
+    <GoogleAPIProvider apiKey={apiKey}>
       <div className="my-8 flex h-full flex-col items-center">
         {/* Loading Page */}
         {(isLoadingAI || isCreatingItinerary) && <LoadingSection />}
@@ -184,7 +183,7 @@ const QuickLaunch = () => {
                     <div>
                       <PlacesAutoComplete
                         setSelected={setChosenCustomCity}
-                        requestOptions={requestOptions}
+                        requestOptions={autocompleteRequest}
                       />
                     </div>
                   )}
@@ -270,7 +269,7 @@ const QuickLaunch = () => {
           </div>
         )}
       </div>
-    </GoogleMapsWrapper>
+    </GoogleAPIProvider>
   );
 };
 
