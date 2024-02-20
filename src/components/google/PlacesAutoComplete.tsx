@@ -80,7 +80,7 @@ const PlacesAutoComplete = ({
 
       const detailRequestOptions = {
         placeId: prediction.place_id,
-        fields: ["geometry", "name", "formatted_address"],
+        fields: ["geometry", "name", "formatted_address", "place_id"],
         sessionToken,
       };
 
@@ -127,7 +127,7 @@ const PlacesAutoComplete = ({
               {predictionResults.map(({ place_id, description }) => (
                 <Combobox.Option
                   key={place_id}
-                  value={description}
+                  value={{ place_id, description }}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-3 pr-9 
                   ${active ? "bg-indigo-600 text-white" : "text-gray-900"}
