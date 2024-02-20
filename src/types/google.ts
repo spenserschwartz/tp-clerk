@@ -1,3 +1,4 @@
+import AutocompletePrediction = google.maps.places.AutocompletePrediction;
 import AutocompleteRequest = google.maps.places.AutocompletionRequest;
 import AutoCompleteService = google.maps.places.AutocompleteService;
 import Place = google.maps.places.Place;
@@ -156,6 +157,7 @@ enum RequestOptionType {
 export { RequestOptionType };
 export type {
   AutoCompleteService,
+  AutocompletePrediction,
   AutocompleteRequest,
   Place,
   PlaceDetailsNewResponse,
