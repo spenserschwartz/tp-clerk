@@ -73,7 +73,6 @@ const PlacesAutoComplete = ({
 
   const onSelect = useCallback(
     (prediction: AutocompletePrediction | string) => {
-      console.log("onSelect prediction", prediction);
       if (!placesLibrary || typeof prediction === "string") return;
 
       setFetchingData(true);
