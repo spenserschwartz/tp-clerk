@@ -4,6 +4,7 @@ import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useCallback, useEffect, useState, type ChangeEvent } from "react";
 
 import type {
+  AutocompletePrediction,
   AutocompleteRequest,
   PlaceResult,
   PlacesService,
@@ -14,12 +15,11 @@ interface PlacesAutoCompleteProps {
   requestOptions: AutocompleteRequest;
 }
 
-// This uses the Combobox from "react-widgets" (https://jquense.github.io/react-widgets/docs/Combobox)
 const PlacesAutoComplete = ({
   requestOptions,
   setSelected,
 }: PlacesAutoCompleteProps) => {
-  const placesLib = useMapsLibrary("places");
+  const placesLibrary = useMapsLibrary("places");
   const [placesService, setPlacesService] = useState<PlacesService | null>(
     null
   );
@@ -35,14 +35,14 @@ const PlacesAutoComplete = ({
 
   // Correctly initializing PlacesService with a div element
   useEffect(() => {
-    if (!placesLib) return;
+    if (!placesLibrary) return;
     const map = new google.maps.Map(document.createElement("div"));
 
-    const newPlacesService = new placesLib.PlacesService(map);
-    setAutocompleteService(new placesLib.AutocompleteService());
+    const newPlacesService = new placesLibrary.PlacesService(map);
+    setAutocompleteService(new placesLibrary.AutocompleteService());
     setPlacesService(newPlacesService);
-    setSessionToken(new placesLib.AutocompleteSessionToken());
-  }, [placesLib]);
+    setSessionToken(new placesLibrary.AutocompleteSessionToken());
+  }, [placesLibrary]);
 
   const fetchPredictions = useCallback(
     async (request: AutocompleteRequest) => {
@@ -51,8 +51,8 @@ const PlacesAutoComplete = ({
       setFetchingData(true);
 
       const response = await autocompleteService.getPlacePredictions(request);
-
       setPredictionResults(response.predictions);
+
       setFetchingData(false);
     },
     [autocompleteService]
@@ -66,21 +66,46 @@ const PlacesAutoComplete = ({
         input: event.target.value,
         sessionToken,
       };
-      console.log("this is request:", request);
       void fetchPredictions(request);
     },
     [fetchPredictions, requestOptions, sessionToken]
   );
 
-  console.log("predictionResults", predictionResults);
+  const onSelect = useCallback(
+    (prediction: AutocompletePrediction | string) => {
+      console.log("onSelect prediction", prediction);
+      if (!placesLibrary || typeof prediction === "string") return;
+
+      setFetchingData(true);
+
+      const detailRequestOptions = {
+        placeId: prediction.place_id,
+        fields: ["geometry", "name", "formatted_address"],
+        sessionToken,
+      };
+
+      const detailsRequestCallback = (
+        placeDetails: google.maps.places.PlaceResult | null
+      ) => {
+        setSelected(placeDetails);
+        setInputValue(placeDetails?.formatted_address ?? "");
+        setSessionToken(new placesLibrary.AutocompleteSessionToken());
+
+        setFetchingData(false);
+      };
+
+      placesService?.getDetails(detailRequestOptions, detailsRequestCallback);
+    },
+    [setSelected, placesLibrary, placesService, sessionToken]
+  );
 
   return (
     <div className="w-full">
       <Combobox
         as="div"
         value={inputValue}
-        onChange={setSelected}
-        // disabled={!ready}
+        onChange={onSelect}
+        disabled={!autocompleteService}
       >
         <div className="relative">
           <Combobox.Input

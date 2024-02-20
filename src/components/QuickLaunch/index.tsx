@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { addDays, format as formatDate } from "date-fns";
 import { useRouter } from "next/router";
-import { useEffect, useState, type ReactElement } from "react";
+import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
@@ -16,13 +16,8 @@ import {
   Select,
 } from "~/components";
 import { type ParsedAIMessageInterface } from "~/types";
-import {
-  RequestOptionType,
-  type AutocompleteRequest,
-  type PlaceResult,
-} from "~/types/google";
+import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
-import { createRequestOptions } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities, unknownClerkCity } from "../utils";
 
