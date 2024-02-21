@@ -29,7 +29,7 @@ const PlacesAutoComplete = ({
   const [autocompleteService, setAutocompleteService] =
     useState<AutoCompleteService | null>(null);
   const [predictionResults, setPredictionResults] = useState<
-    google.maps.places.AutocompletePrediction[]
+    AutocompletePrediction[]
   >([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [fetchingData, setFetchingData] = useState<boolean>(false);
