@@ -4,8 +4,10 @@ import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useCallback, useEffect, useState, type ChangeEvent } from "react";
 
 import type {
+  AutoCompleteService,
   AutocompletePrediction,
   AutocompleteRequest,
+  AutocompleteSessionToken,
   PlaceResult,
   PlacesService,
 } from "~/types/google";
@@ -23,10 +25,9 @@ const PlacesAutoComplete = ({
   const [placesService, setPlacesService] = useState<PlacesService | null>(
     null
   );
-  const [sessionToken, setSessionToken] =
-    useState<google.maps.places.AutocompleteSessionToken>();
+  const [sessionToken, setSessionToken] = useState<AutocompleteSessionToken>();
   const [autocompleteService, setAutocompleteService] =
-    useState<google.maps.places.AutocompleteService | null>(null);
+    useState<AutoCompleteService | null>(null);
   const [predictionResults, setPredictionResults] = useState<
     google.maps.places.AutocompletePrediction[]
   >([]);

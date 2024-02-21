@@ -1,6 +1,7 @@
 import AutocompletePrediction = google.maps.places.AutocompletePrediction;
 import AutocompleteRequest = google.maps.places.AutocompletionRequest;
 import AutoCompleteService = google.maps.places.AutocompleteService;
+import AutocompleteSessionToken = google.maps.places.AutocompleteSessionToken;
 import Place = google.maps.places.Place;
 import PlacePhoto = google.maps.places.PlacePhoto;
 import PlaceResult = google.maps.places.PlaceResult;
@@ -159,6 +160,7 @@ export type {
   AutoCompleteService,
   AutocompletePrediction,
   AutocompleteRequest,
+  AutocompleteSessionToken,
   Place,
   PlaceDetailsNewResponse,
   PlacePhoto,
