@@ -1,3 +1,4 @@
+import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -6,7 +7,7 @@ import { DropdownMenu } from "~/components";
 import { FadeUpWrapper } from "~/components/framer-motion";
 import { unknownClerkCity } from "~/components/utils";
 import type { ParsedAIMessageInterface } from "~/types";
-import type { PlaceResult } from "~/types/google";
+import type { PlaceResult, PlacesService } from "~/types/google";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryGridElementProps {
@@ -15,6 +16,10 @@ interface ItineraryGridElementProps {
 
 const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   const router = useRouter();
+  const placesLib = useMapsLibrary("places");
+  const [placesService, setPlacesService] = useState<PlacesService | null>(
+    null
+  );
   const [customImageURL, setCustomImageURL] = useState<string | undefined>(
     undefined
   );
@@ -36,39 +41,33 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
     void router.push(`/itinerary/${itinerary.id}`);
   };
 
+  // Correctly initializing PlacesService with a div element
   useEffect(() => {
-    const fetchDetails = () => {
-      if (!itinerary.placeId) return;
+    if (!placesLib) return;
+    const map = new google.maps.Map(document.createElement("div"));
+    setPlacesService(new placesLib.PlacesService(map));
+  }, [placesLib]);
 
-      const map = new window.google.maps.Map(document.createElement("div"));
-      const service = new window.google.maps.places.PlacesService(map);
-
-      service.getDetails(
-        {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          placeId: itinerary.placeId, // `Using itinerary.placeId as string` gives unnecessary type assertion. eslint-disable unsafe any for now
-          fields: [
-            "name",
-            "formatted_address",
-            "geometry",
-            "photo",
-            "place_id",
-          ],
-        },
-        (result, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            // Do something with the result object here
-            const placeResult: PlaceResult | null = result;
-            const customCityPhotoURL =
-              placeResult?.photos?.[0]?.getUrl() ?? undefined;
-
-            setCustomImageURL(customCityPhotoURL);
-          }
-        }
-      );
+  // Fetch details from Google Places API for customCity photo
+  useEffect(() => {
+    if (!placesService || !itinerary.placeId || !isCustomCity) return;
+    const request = {
+      placeId: itinerary.placeId,
+      fields: ["photos"],
     };
-    if (isCustomCity) fetchDetails();
-  }, [isCustomCity, itinerary.placeId]);
+
+    placesService.getDetails(request, (result, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && result) {
+        const placeResult: PlaceResult | null = result;
+        const customCityPhotoURL =
+          placeResult?.photos?.[0]?.getUrl() ?? undefined;
+
+        setCustomImageURL(customCityPhotoURL);
+      } else {
+        console.log("Failed to fetch place details for custom city:", status);
+      }
+    });
+  }, [itinerary.placeId, placesService, isCustomCity]);
 
   return (
     <FadeUpWrapper>

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { PlaceDetailsNewResponse, PlaceResult } from "~/types/google";
+import type { PlaceNew, PlaceResult } from "~/types/google";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
@@ -14,7 +14,7 @@ export const googleRouter = createTRPCRouter({
     .input(z.object({ placeId: z.string() }))
     .query(async ({ input }) => {
       // https://developers.google.com/maps/documentation/places/web-service/place-details
-      const fieldsArray: (keyof PlaceDetailsNewResponse)[] = [
+      const fieldsArray: (keyof PlaceNew)[] = [
         "displayName",
         "photos",
         "rating",
@@ -22,6 +22,7 @@ export const googleRouter = createTRPCRouter({
         "userRatingCount",
         "websiteUri",
       ];
+
       const fields = fieldsArray.join(",");
       const apiUrl = `https://places.googleapis.com/v1/places/${input.placeId}?fields=${fields}&key=${apiKey}&languageCode=en&regionCode=US`;
 

@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/nextjs";
-import { Wrapper as GoogleMapsWrapper } from "@googlemaps/react-wrapper";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -7,7 +7,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { api } from "~/utils/api";
 
 import AddIcon from "public/icons/add";
-import { CityLaunch, ImageGrid, Searchbar } from "~/components";
+import { CityLaunch, ImageGrid, LoadingPage, Searchbar } from "~/components";
 import VisitedCityModal from "~/components/forms/VisitedCity";
 import { RootLayout } from "~/components/layout";
 import LoginModal from "~/components/modal/Login";
@@ -15,7 +15,6 @@ import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
-import { googleMapsRender } from "~/utils/google";
 
 const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const router = useRouter();
@@ -25,6 +24,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [filterInputValue, setFilterInputValue] = useState("");
   const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const { data: cityData } = api.city.getCityByName.useQuery({
     name: cityName,
@@ -63,13 +63,9 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   });
 
   if (!cityData) return <div>404 City Not Found</div>;
-
+  if (!apiKey) return <LoadingPage />;
   return (
-    <GoogleMapsWrapper
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ""}
-      render={googleMapsRender}
-      libraries={["places"]}
-    >
+    <GoogleAPIProvider apiKey={apiKey}>
       <div className="flex w-full flex-col items-center">
         <Head>
           <title>{`${cityData.name} - TravelPerfect`}</title>
@@ -151,7 +147,7 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
           setOpenModal={setOpenVisitedCityModal}
         />
       </div>
-    </GoogleMapsWrapper>
+    </GoogleAPIProvider>
   );
 };
 
