@@ -1,4 +1,5 @@
 import { type PropsWithChildren } from "react";
+import { Footer } from "../portfolio/Footer";
 import { Header } from "../portfolio/Header";
 import { ThemeProvider } from "../portfolio/ThemeProvider";
 
@@ -21,7 +22,7 @@ const PortfolioLayout = (props: PropsWithChildren) => {
           <div className="relative flex w-full flex-col">
             <Header />
             <main className="flex-auto">{props.children}</main>
-            {/* <Footer /> */}
+            <Footer />
           </div>
         </>
       </div>
