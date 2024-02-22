@@ -245,7 +245,7 @@ function Avatar({
       {...props}
     >
       <Image
-        src={"/images/placeholder.png"}
+        src={"/images/headshot.png"}
         alt=""
         sizes={large ? "4rem" : "2.25rem"}
         className={clsx(
