@@ -196,8 +196,6 @@ function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  console.log("resolvedTheme", resolvedTheme);
-
   return (
     <button
       type="button"
