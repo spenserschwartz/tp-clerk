@@ -1,13 +1,14 @@
 import React from "react";
+import { type IconProps } from "./types";
 
-const NextIcon = () => {
+const NextIcon = ({ iconClassName }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 -101.5 512 512"
       version="1.1"
       preserveAspectRatio="xMidYMid"
-      className="h-28 text-zinc-800 dark:text-purple-400"
+      className={iconClassName}
     >
       <g>
         <path
