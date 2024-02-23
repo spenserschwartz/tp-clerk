@@ -7,6 +7,7 @@ import { BriefcaseIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./Icons";
 import Photos from "./Photos";
 import Resume from "./Resume";
 import SocialLink from "./SocialLink";
+import TechStack from "./TechStack";
 import { ThemeProvider } from "./ThemeProvider";
 
 export {
@@ -24,5 +25,6 @@ export {
   Photos,
   Resume,
   SocialLink,
+  TechStack,
   ThemeProvider,
 };
