@@ -1,6 +1,4 @@
 import React from "react";
-import NextIcon from "~/icons/Next";
-import NodeIcon from "~/icons/Node";
 
 const About = () => {
   return (
@@ -19,8 +17,6 @@ const About = () => {
           if you have any questions or would like to collaborate!
         </p>
       </div>
-      <NextIcon />
-      <NodeIcon />
     </div>
   );
 };
