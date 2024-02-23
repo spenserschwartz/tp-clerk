@@ -10,7 +10,7 @@ const SocialLink = ({
   className?: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
     <li className={clsx(className, "flex")}>
