@@ -2,7 +2,7 @@ import { Button } from "./Button";
 import { Container, ContainerInner, ContainerOuter } from "./Container";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { BriefcaseIcon, GitHubIcon, LinkedInIcon } from "./Icons";
+import { BriefcaseIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./Icons";
 import Resume from "./Resume";
 import { ThemeProvider } from "./ThemeProvider";
 
@@ -16,6 +16,7 @@ export {
   GitHubIcon,
   Header,
   LinkedInIcon,
+  MailIcon,
   Resume,
   ThemeProvider,
 };
