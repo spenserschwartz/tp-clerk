@@ -102,7 +102,6 @@ const Resume = () => {
             <Role key={roleIndex} role={role} />
           ))}
         </ol>
-
         {/* Button to download CV */}
         <a
           download
@@ -116,6 +115,7 @@ const Resume = () => {
         </a>
       </div>
 
+      {/* Social Links */}
       <div className="">
         <div className="lg:pl-10">
           <ul role="list">
