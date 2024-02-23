@@ -94,6 +94,8 @@ const Resume = () => {
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
+
+      {/* Button to download CV */}
       <a download href="/resume/Schwartz, Spenser - Resume.pdf" target="_blank">
         <Button variant="secondary" className="group mt-6 w-full">
           Download CV
