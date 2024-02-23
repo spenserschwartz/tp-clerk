@@ -1,27 +1,19 @@
 import Head from "next/head";
-import Link from "next/link";
 import { type ReactElement } from "react";
 import { PortfolioLayout } from "~/components/layout";
-import { About, Container, Photos, Resume } from "~/components/portfolio";
+import {
+  About,
+  Container,
+  Photos,
+  Resume,
+  SocialLink,
+} from "~/components/portfolio";
 import {
   GitHubIcon,
   LinkedInIcon,
   MailIcon,
 } from "~/components/portfolio/Icons";
 import { type NextPageWithLayout } from "~/types/pages";
-
-function SocialLink({
-  icon: Icon,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Link> & {
-  icon: React.ComponentType<{ className?: string }>;
-}) {
-  return (
-    <Link className="group -m-1 p-1" {...props}>
-      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
-    </Link>
-  );
-}
 
 const PortfolioPage: NextPageWithLayout = () => {
   return (

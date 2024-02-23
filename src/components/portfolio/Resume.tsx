@@ -2,7 +2,14 @@ import Image, { type ImageProps } from "next/image";
 import logoAxio from "~/images/logos/axio.svg";
 import MuralImage from "~/images/mural.jpeg";
 import { Button } from "./Button";
-import { ArrowDownIcon, BriefcaseIcon } from "./Icons";
+import {
+  ArrowDownIcon,
+  BriefcaseIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+} from "./Icons";
+import SocialLink from "./SocialLink";
 
 interface Role {
   company: string;
@@ -84,25 +91,52 @@ const Resume = () => {
   ];
 
   return (
-    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
-      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Work</span>
-      </h2>
-      <ol className="mt-6 space-y-4">
-        {resume.map((role, roleIndex) => (
-          <Role key={roleIndex} role={role} />
-        ))}
-      </ol>
+    <>
+      <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+        <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+          <BriefcaseIcon className="h-6 w-6 flex-none" />
+          <span className="ml-3">Work</span>
+        </h2>
+        <ol className="mt-6 space-y-4">
+          {resume.map((role, roleIndex) => (
+            <Role key={roleIndex} role={role} />
+          ))}
+        </ol>
 
-      {/* Button to download CV */}
-      <a download href="/resume/Schwartz, Spenser - Resume.pdf" target="_blank">
-        <Button variant="secondary" className="group mt-6 w-full">
-          Download CV
-          <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-        </Button>
-      </a>
-    </div>
+        {/* Button to download CV */}
+        <a
+          download
+          href="/resume/Schwartz, Spenser - Resume.pdf"
+          target="_blank"
+        >
+          <Button variant="secondary" className="group mt-6 w-full">
+            Download CV
+            <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+          </Button>
+        </a>
+      </div>
+
+      <div className="">
+        <div className="lg:pl-10">
+          <ul role="list">
+            <SocialLink href="#" icon={GitHubIcon} className="mt-4">
+              Follow on GitHub
+            </SocialLink>
+
+            <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
+              Follow on LinkedIn
+            </SocialLink>
+            <SocialLink
+              href="mailto:spenser.m.schwartz@gmail.com"
+              icon={MailIcon}
+              className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
+            >
+              spenser.m.schwartz@gmail.com
+            </SocialLink>
+          </ul>
+        </div>
+      </div>
+    </>
   );
 };
 

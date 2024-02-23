@@ -6,6 +6,7 @@ import { Header } from "./Header";
 import { BriefcaseIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./Icons";
 import Photos from "./Photos";
 import Resume from "./Resume";
+import SocialLink from "./SocialLink";
 import { ThemeProvider } from "./ThemeProvider";
 
 export {
@@ -22,5 +23,6 @@ export {
   MailIcon,
   Photos,
   Resume,
+  SocialLink,
   ThemeProvider,
 };
