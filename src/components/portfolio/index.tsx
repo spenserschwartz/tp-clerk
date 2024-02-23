@@ -1,10 +1,14 @@
+import { Button } from "./Button";
 import { Container, ContainerInner, ContainerOuter } from "./Container";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { GitHubIcon, LinkedInIcon } from "./SocialIcons";
+import { BriefcaseIcon, GitHubIcon, LinkedInIcon } from "./Icons";
+import Resume from "./Resume";
 import { ThemeProvider } from "./ThemeProvider";
 
 export {
+  BriefcaseIcon,
+  Button,
   Container,
   ContainerInner,
   ContainerOuter,
@@ -12,5 +16,6 @@ export {
   GitHubIcon,
   Header,
   LinkedInIcon,
+  Resume,
   ThemeProvider,
 };
