@@ -7,6 +7,7 @@ import {
   Photos,
   Resume,
   SocialLink,
+  TechStack,
 } from "~/components/portfolio";
 import {
   GitHubIcon,
@@ -56,6 +57,8 @@ const PortfolioPage: NextPageWithLayout = () => {
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             <About />
+
+            <TechStack />
           </div>
 
           <div className="space-y-10 lg:pl-16 xl:pl-24">
