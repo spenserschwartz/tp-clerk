@@ -11,10 +11,10 @@ const Photos = () => {
   ];
 
   const images = [
-    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Screenshot+2024-02-22+at+10.28.24%E2%80%AFPM.png",
+    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Itinerary+View.png",
+    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Peru+Alpaca.png",
     "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Screenshot+2024-02-22+at+10.27.57%E2%80%AFPM.png",
-    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Screenshot+2024-02-22+at+10.28.46%E2%80%AFPM.png",
-    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Screenshot+2024-02-22+at+10.29.13%E2%80%AFPM.png",
+    "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/portfolio/Hang+En+Cave.png",
   ];
 
   return (
@@ -24,7 +24,7 @@ const Photos = () => {
           <div
             key={image}
             className={clsx(
-              "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl border border-zinc-50 bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl",
+              "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-none dark:bg-zinc-800 sm:w-72 sm:rounded-2xl",
               rotations[imageIndex % rotations.length]
             )}
           >
