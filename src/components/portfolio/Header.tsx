@@ -239,7 +239,7 @@ function Avatar({
 }) {
   return (
     <Link
-      href="/"
+      href="/spenser"
       aria-label="Home"
       className={clsx(className, "pointer-events-auto")}
       {...props}
