@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { type ReactElement } from "react";
+import { ScrollLeftWrapper, ZoomInUpWrapper } from "~/components/framer-motion";
 import { PortfolioLayout } from "~/components/layout";
 import {
   About,
@@ -25,33 +26,38 @@ const PortfolioPage: NextPageWithLayout = () => {
 
       <Container className="mt-9">
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-purple-400 sm:text-5xl">
-            Software designer, founder, and travel enthusiast.
-          </h1>
-          <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            {`I'm Spenser, a software developer based in Los Angeles. I'm a full-stack engineer with a strength in front-end development and a passion for building beautiful, functional, and user-friendly web applications. I'm also the creator of TravelPerfect, a travel app that helps you plan your perfect trip.`}
-          </p>
-          <div className="mt-6 flex gap-6">
-            <SocialLink
-              href="https://www.github.com/spenserschwartz"
-              aria-label="Follow on GitHub"
-              icon={GitHubIcon}
-            />
-            <SocialLink
-              href="https://www.linkedin.com/in/spenser-schwartz/"
-              aria-label="Follow on LinkedIn"
-              icon={LinkedInIcon}
-            />
-            <SocialLink
-              href="mailto:spenser.m.schwartz@gmail.com"
-              aria-label="Email Spenser"
-              icon={MailIcon}
-            />
-          </div>
+          <ZoomInUpWrapper>
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-purple-400 sm:text-5xl">
+              Software designer, founder, and travel enthusiast.
+            </h1>
+
+            <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+              {`I'm Spenser, a software developer based in Los Angeles. I'm a full-stack engineer with a strength in front-end development and a passion for building beautiful, functional, and user-friendly web applications. I'm also the creator of TravelPerfect, a travel app that helps you plan your perfect trip.`}
+            </p>
+            <div className="mt-6 flex gap-6">
+              <SocialLink
+                href="https://www.github.com/spenserschwartz"
+                aria-label="Follow on GitHub"
+                icon={GitHubIcon}
+              />
+              <SocialLink
+                href="https://www.linkedin.com/in/spenser-schwartz/"
+                aria-label="Follow on LinkedIn"
+                icon={LinkedInIcon}
+              />
+              <SocialLink
+                href="mailto:spenser.m.schwartz@gmail.com"
+                aria-label="Email Spenser"
+                icon={MailIcon}
+              />
+            </div>
+          </ZoomInUpWrapper>
         </div>
       </Container>
 
-      <Photos />
+      <ScrollLeftWrapper>
+        <Photos />
+      </ScrollLeftWrapper>
 
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
