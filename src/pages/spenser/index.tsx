@@ -1,6 +1,10 @@
 import Head from "next/head";
 import { type ReactElement } from "react";
-import { ScrollLeftWrapper, ZoomInUpWrapper } from "~/components/framer-motion";
+import {
+  FadeUpWrapper,
+  ScrollLeftWrapper,
+  ZoomInUpWrapper,
+} from "~/components/framer-motion";
 import { PortfolioLayout } from "~/components/layout";
 import {
   About,
@@ -62,14 +66,20 @@ const PortfolioPage: NextPageWithLayout = () => {
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
-            <About />
+            <ZoomInUpWrapper>
+              <About />
+            </ZoomInUpWrapper>
 
-            <TechStack />
+            <FadeUpWrapper>
+              <TechStack />
+            </FadeUpWrapper>
           </div>
 
-          <div className="space-y-10 lg:pl-16 xl:pl-24">
-            <Resume />
-          </div>
+          <FadeUpWrapper>
+            <div className="space-y-10 lg:pl-16 xl:pl-24">
+              <Resume />
+            </div>
+          </FadeUpWrapper>
         </div>
       </Container>
     </div>
