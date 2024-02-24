@@ -1,6 +1,5 @@
 import Image, { type ImageProps } from "next/image";
-import logoAxio from "~/images/logos/axio.svg";
-import MuralImage from "~/images/mural.jpeg";
+import logoAxio from "public/icons/a.svg";
 import { Button } from "./Button";
 import {
   ArrowDownIcon,
@@ -84,7 +83,7 @@ const Resume = () => {
     {
       company: "Mural",
       title: "Lead Frontend Engineer",
-      logo: MuralImage,
+      logo: "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/icons/MuralIcon",
       start: "2021",
       end: "2022",
     },
