@@ -1,5 +1,4 @@
 import Image, { type ImageProps } from "next/image";
-import logoAxio from "public/icons/a.svg";
 import { Button } from "./Button";
 import {
   ArrowDownIcon,
@@ -76,7 +75,7 @@ const Resume = () => {
     {
       company: "Axio",
       title: "Software Engineer II & Scrum Master",
-      logo: logoAxio as ImageProps["src"],
+      logo: "https://travelperfect-bucket.s3.us-west-1.amazonaws.com/icons/AxioIcon",
       start: "2022",
       end: "2023",
     },
