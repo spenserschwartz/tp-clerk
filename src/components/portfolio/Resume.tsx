@@ -1,4 +1,5 @@
 import Image, { type ImageProps } from "next/image";
+import { HeaderLogo } from "../ui";
 import { Button } from "./Button";
 import {
   ArrowDownIcon,
@@ -131,6 +132,10 @@ const Resume = () => {
             >
               spenser.m.schwartz@gmail.com
             </SocialLink>
+
+            <div className="mt-8 flex justify-center border-t border-zinc-100 pt-8 align-bottom dark:border-zinc-700/40">
+              <HeaderLogo />
+            </div>
           </ul>
         </div>
       </div>
