@@ -1,5 +1,9 @@
 import { z } from "zod";
-import type { PlaceNew, PlaceResult } from "~/types/google";
+import type {
+  NearbySearchResponse,
+  PlaceNew,
+  PlaceResult,
+} from "~/types/google";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
@@ -72,6 +76,33 @@ export const googleRouter = createTRPCRouter({
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = (await response.json()) as PlaceResultCandidates;
+        return data;
+      } catch (error) {
+        console.error("Error fetching data from Google Places API:", error);
+        return { error: "Failed to fetch data from Google" };
+      }
+    }),
+
+  searchProminentPlacesByLocation: publicProcedure
+    .input(z.object({ location: z.string() }))
+    .query(async ({ input }) => {
+      const queryParams = new URLSearchParams({
+        location: "51.5074,-0.1278", // London
+        radius: "50000", //required
+        key: apiKey,
+      }).toString();
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?${queryParams}`;
+      // const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.5074%2C-0.1278&radius=1500&key=${apiKey}`;
+
+      try {
+        const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
+        console.log("This is response", response);
+        if (!response.ok) {
+          const errorResponse = (await response.json()) as PlaceResult;
+          console.error("Error Response:", errorResponse);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = (await response.json()) as NearbySearchResponse;
         return data;
       } catch (error) {
         console.error("Error fetching data from Google Places API:", error);

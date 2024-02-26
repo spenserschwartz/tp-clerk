@@ -40,6 +40,11 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
     }
   );
 
+  const { data: nearbyPlaces } =
+    api.google.searchProminentPlacesByLocation.useQuery({ location: "blah" });
+
+  console.log("nearbyPlaces", nearbyPlaces);
+
   const averageRecDays = findAverageRecDays(allCityRecs);
 
   const visitedCityHandler = () => {
