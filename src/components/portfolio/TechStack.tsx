@@ -21,7 +21,7 @@ const iconComponents = [
 const TechStack = () => {
   return (
     <div>
-      <h2 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-3xl">
+      <h2 className="text-center text-3xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-start sm:text-3xl">
         Tech Stack
       </h2>
       <div className="lg:order-first lg:row-span-2">
@@ -30,7 +30,7 @@ const TechStack = () => {
         </div>
       </div>
       <div></div>
-      <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+      <ul className="mt-6 grid grid-cols-2 justify-items-center gap-x-4 gap-y-2 sm:grid-cols-3 sm:justify-items-start">
         {/* Map through iconComponents in order */}
         {iconComponents.map((Icon, index) => (
           <li key={`icon-${index}`}>
