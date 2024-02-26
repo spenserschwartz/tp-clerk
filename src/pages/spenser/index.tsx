@@ -36,7 +36,17 @@ const PortfolioPage: NextPageWithLayout = () => {
             </h1>
 
             <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-              {`I'm Spenser, a software developer based in Los Angeles. I'm a full-stack engineer with a strength in front-end development and a passion for building beautiful, functional, and user-friendly web applications. I'm also the creator of TravelPerfect, a travel app that helps you plan your perfect trip.`}
+              I&apos;m Spenser, a software developer based in Los Angeles.
+              I&apos;m a full-stack engineer with a strength in front-end
+              development and a passion for building beautiful, functional, and
+              user-friendly web applications. I&apos;m also the creator of&nbsp;
+              <a
+                href="https://www.travelperfect.io"
+                className="text-purple-800 hover:text-purple-600 dark:text-purple-400"
+              >
+                TravelPerfect
+              </a>
+              , a travel app that helps you plan your perfect trip.
             </p>
             <div className="mt-6 flex gap-6">
               <SocialLink
