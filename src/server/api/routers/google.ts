@@ -1,6 +1,7 @@
 import { z } from "zod";
 import type {
   NearbySearchResponse,
+  Place,
   PlaceNew,
   PlaceResult,
 } from "~/types/google";
@@ -86,17 +87,17 @@ export const googleRouter = createTRPCRouter({
   searchProminentPlacesByLocation: publicProcedure
     .input(z.object({ location: z.string() }))
     .query(async ({ input }) => {
+      // TODO: Currently hardcoded to London
       const queryParams = new URLSearchParams({
         location: "51.5074,-0.1278", // London
         radius: "50000", //required
         key: apiKey,
+        type: "tourist_attraction",
       }).toString();
       const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?${queryParams}`;
-      // const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.5074%2C-0.1278&radius=1500&key=${apiKey}`;
 
       try {
         const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
-        console.log("This is response", response);
         if (!response.ok) {
           const errorResponse = (await response.json()) as PlaceResult;
           console.error("Error Response:", errorResponse);
@@ -109,51 +110,47 @@ export const googleRouter = createTRPCRouter({
         return { error: "Failed to fetch data from Google" };
       }
     }),
+  searchProminentPlacesByLocationNew: publicProcedure
+    .input(z.object({ location: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        const latitude = 51.5072; // Replace with your desired latitude
+        const longitude = -0.1276; // Replace with your desired longitude
+        const radius = 50000.0; // Replace with your desired radius
+        const response = await fetch(
+          `https://places.googleapis.com/v1/places:searchNearby`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Goog-Api-Key": apiKey,
+              "X-Goog-FieldMask":
+                "places.displayName,places.types,places.userRatingCount",
+            },
+            body: JSON.stringify({
+              languageCode: "en",
+              rankPreference: "POPULARITY",
+              includedTypes: ["tourist_attraction"],
+              locationRestriction: {
+                circle: {
+                  center: {
+                    latitude,
+                    longitude,
+                  },
+                  radius,
+                },
+              },
+            }),
+          }
+        );
 
-  // WARNING: This endpoint is inconsistent with getting "places.rating" and "places.userRatingCount". Use  "searchByText" instead (Google API issue)
-  // https://developers.google.com/maps/documentation/places/web-service/text-search
-  // searchByTextNew: publicProcedure
-  //   .input(z.object({ query: z.string() }))
-  //   .query(async ({ input }) => {
-  //     const apiUrl = "https://places.googleapis.com/v1/places:searchText";
-  //     const body = JSON.stringify({
-  //       textQuery: input.query,
-  //       languageCode: "en",
-  //     });
-  //     const options = {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "X-Goog-Api-Key": apiKey,
-  //         "X-Goog-FieldMask":
-  //           "places.displayName,places.formattedAddress,places.priceLevel,places.rating,places.userRatingCount",
-  //       },
-  //       languageCode: "en",
-  //       regionCode: "US",
-  //       body: body,
-  //     };
-
-  //     try {
-  //       const response = await fetch(apiUrl, options);
-  //       if (!response.ok) {
-  //         // Assuming PlaceResult can handle error scenarios
-  //         const errorResponse = (await response.json()) as PlaceResult;
-  //         console.error("Error Response:", errorResponse);
-  //         throw new Error(`HTTP error! Status: ${response.status}`);
-  //       }
-
-  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  //       const data = await response.json();
-  //       return data as PlaceDetailsNewResponse; // Add type assertion
-  //     } catch (error) {
-  //       console.error("Error fetching data from Google Places API:", error);
-  //       return { error: "Failed to fetch data from Google" };
-  //     }
-  //   }),
+        if (!response.ok) {
+          throw new Error(`Error fetching places: ${response.statusText}`);
+        }
+        const data = (await response.json()) as Place[];
+        return data;
+      } catch (err) {
+        console.log("error", err);
+      }
+    }),
 });
-
-// ChIJ2dGMjMMEdkgRqVqkuXQkj7c   Big Ben
-// ChIJN1t_tDeuEmsRUsoyG83frY4   Google Office Sydney
-// ChIJj61dQgK6j4AR4GeTYWZsKWw   from example on https://developers.google.com/maps/documentation/places/web-service/place-details
-
-// https://developers.google.com/maps/documentation/places/web-service/place-details#required-parameters
