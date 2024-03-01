@@ -10,7 +10,7 @@ export type AttractionByNameType = RouterOutputs["attractions"]["getByName"];
 /*
     CITY
 */
-export type GetCityByNameType = RouterOutputs["city"]["getCityDataByName"];
+export type GetCityDataByNameType = RouterOutputs["city"]["getCityDataByName"];
 
 /*
     ITINERARY
