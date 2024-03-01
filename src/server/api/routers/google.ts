@@ -111,12 +111,16 @@ export const googleRouter = createTRPCRouter({
       }
     }),
   searchProminentPlacesByLocationNew: publicProcedure
-    .input(z.object({ location: z.string() }))
+    .input(
+      z.object({
+        latitude: z.number(),
+        longitude: z.number(),
+        radius: z.number(),
+      })
+    )
     .mutation(async ({ input }) => {
       try {
-        const latitude = 51.5072; // Replace with your desired latitude
-        const longitude = -0.1276; // Replace with your desired longitude
-        const radius = 50000.0; // Replace with your desired radius
+        const { latitude, longitude, radius } = input;
         const response = await fetch(
           `https://places.googleapis.com/v1/places:searchNearby`,
           {
