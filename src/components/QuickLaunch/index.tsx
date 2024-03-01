@@ -47,7 +47,7 @@ const QuickLaunch = () => {
     to: addDays(new Date(), 3),
   });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
-  const { data: cityData, refetch } = api.city.getCityByName.useQuery({
+  const { data: cityData, refetch } = api.city.getCityDataByName.useQuery({
     name: chosenCityName,
   });
   const {
