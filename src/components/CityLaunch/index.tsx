@@ -14,14 +14,14 @@ import {
   type PlaceResult,
   type PlaceResultWithLatLng,
 } from "~/types/google";
-import { type GetCityByNameType } from "~/types/router";
+import { type GetCityDataByNameType } from "~/types/router";
 import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { LoginModal } from "../modal";
 
 interface CityLaunchProps {
-  cityData: GetCityByNameType;
+  cityData: GetCityDataByNameType;
   isMutating: boolean;
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
 }

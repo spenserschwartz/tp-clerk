@@ -2,14 +2,14 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-import type { GetCityByNameType } from "~/types/router";
+import type { GetCityDataByNameType } from "~/types/router";
 import { api } from "~/utils/api";
 import { displayCityName } from "~/utils/common";
 import { LoadingSpinner } from "../loading";
 import ModalWrapper from "../modal/Wrapper";
 
 interface VisitedCityFormProps {
-  cityData?: GetCityByNameType;
+  cityData?: GetCityDataByNameType;
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
