@@ -18,8 +18,8 @@ interface NearbySearchResponse {
   next_page_token?: string;
 }
 
+// https://developers.google.com/maps/documentation/places/web-service/nearby-search#about_response
 interface NearbySearchNewResponse {
-  // https://developers.google.com/maps/documentation/places/web-service/nearby-search#about_response
   places: Place[];
 }
 
