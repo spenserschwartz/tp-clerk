@@ -13,9 +13,8 @@ import { RootLayout } from "~/components/layout";
 import LoginModal from "~/components/modal/Login";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import { PlaceResult, PlaceResultWithLatLng, type Place } from "~/types/google";
+import type { Place, PlaceResultWithLatLng } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
-import { GetCityDataByNameType } from "~/types/router";
 import { findAverageRecDays } from "~/utils/common";
 
 // const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
