@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import type { GetStaticProps } from "next";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState, type ReactElement } from "react";
@@ -13,10 +13,15 @@ import { RootLayout } from "~/components/layout";
 import LoginModal from "~/components/modal/Login";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { PlaceResult, PlaceResultWithLatLng, type Place } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
+import { GetCityDataByNameType } from "~/types/router";
 import { findAverageRecDays } from "~/utils/common";
 
-const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
+// const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
+const CityPage: NextPageWithLayout = (
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -25,9 +30,10 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
   const [filterInputValue, setFilterInputValue] = useState("");
   const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const { cityName } = props;
 
-  const { data: cityData } = api.city.getCityByName.useQuery({
-    name: cityName,
+  const { data: cityData } = api.city.getCityDataByName.useQuery({
+    name: cityName as string,
   });
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
@@ -39,11 +45,6 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
       cityName: cityData?.name ?? unknownClerkCity.name,
     }
   );
-
-  const { data: nearbyPlaces } =
-    api.google.searchProminentPlacesByLocation.useQuery({ location: "blah" });
-
-  console.log("nearbyPlaces", nearbyPlaces);
 
   const averageRecDays = findAverageRecDays(allCityRecs);
 
@@ -158,20 +159,64 @@ const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = generateSSGHelper();
-
   const slug = context.params?.slug;
-
   if (typeof slug !== "string") throw new Error("no slug");
-
   const cityName = slug.replace("@", "");
+  await ssg.city.getCityDataByName.prefetch({ name: cityName });
 
-  //   await ssg.profile.getUserByUsername.prefetch({ username });
-  await ssg.city.getCityByName.prefetch({ name: cityName });
+  // Get cityData via SSR to pass to the client
+  const cityData = await ssg.city.getCityDataByName.fetch({ name: cityName });
+  const cityDataPlaceResult: PlaceResultWithLatLng =
+    cityData?.placeResult as unknown as PlaceResultWithLatLng;
+  const latitude = cityDataPlaceResult?.geometry?.location?.lat;
+  const longitude = cityDataPlaceResult?.geometry?.location?.lng;
+
+  // Get most popular/prominent places in the city
+  let topAttractionsFromGoogle: Place[] = [];
+  try {
+    const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
+    const radius = 50000; // 10km
+
+    const response = await fetch(
+      `https://places.googleapis.com/v1/places:searchNearby`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask":
+            "places.displayName,places.types,places.userRatingCount",
+        },
+        body: JSON.stringify({
+          languageCode: "en",
+          rankPreference: "POPULARITY",
+          includedTypes: ["tourist_attraction"],
+          locationRestriction: {
+            circle: {
+              center: {
+                latitude,
+                longitude,
+              },
+              radius,
+            },
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error fetching places: ${response.statusText}`);
+    }
+    topAttractionsFromGoogle = (await response.json()) as Place[];
+  } catch (err) {
+    console.log("error", err);
+  }
 
   return {
     props: {
       trpcState: ssg.dehydrate(),
       cityName,
+      topAttractionsFromGoogle,
     },
   };
 };
