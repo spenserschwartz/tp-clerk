@@ -1,26 +1,47 @@
-import { APIProvider } from "@vis.gl/react-google-maps";
-import SplashComponent from "~/components/splash";
+import { createServerSideHelpers } from "@trpc/react-query/server";
+import {
+  GetStaticProps,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from "next";
+import superjson from "superjson";
+import { appRouter } from "~/server/api/root";
+import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
 
-const SplashPage = () => {
-  return null;
-};
+// export const generateSSGHelper = () =>
+//   createServerSideHelpers({
+//     router: appRouter,
+//     ctx: { prisma, userId: null },
+//     transformer: superjson, // optional - adds superjson serialization
+//   });
 
-export default SplashPage;
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const cityName = context.params?.slug;
+//   const ssg = generateSSGHelper();
+//   // This line works because of the `prefetch` call in the `getStaticProps` of the page
+//   await ssg.city.getCityDataByName.prefetch({ name: cityName });
+//   //await ssg.routerThatRequiresMutation   << Intellisense says this doesn't exist either
 
-// ChIJ2dGMjMMEdkgRqVqkuXQkj7c   Big Ben
-// ChIJlwm8OUgbdkgRWsaTM35CDTM   Dickens Museum
-// ChIJN1t_tDeuEmsRUsoyG83frY4   Google Office Sydney
-// ChIJj61dQgK6j4AR4GeTYWZsKWw   from example on
+//   return {
+//     props: {
+//       trpcState: ssg.dehydrate(),
+//       cityName,
+//     },
+//   };
+// };
 
-// curl -L -X GET 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Big%20Ben%20%20London&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry%2Cuser_ratings_total&key=MY_API_KEY_HERE'
+const SlugPage = () =>
+  // props: InferGetStaticPropsType<typeof getStaticProps>
+  {
+    // const { data: cityData } = api.city.getCityDataByName.useQuery({
+    //   name: cityName as string,
+    // });
 
-// curl -L -X GET 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=The%20Shard%20%20London&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Cuser_ratings_total&key=MY_API_KEY_HERE'
+    // // Calling fetchData will trigger the mutation infinitely
+    // const fetchData = api.apiRouterThatRequiresMutation.useMutation();
 
-// curl -X POST -d '{
-//   "textQuery" : "Charles Dickens Museum London"
-// }' \
-// -H 'Content-Type: application/json' -H 'X-Goog-Api-Key: MY_API_KEY_HERE' \
-// -H 'X-Goog-FieldMask: *' \
-// 'https://places.googleapis.com/v1/places:searchText'
+    return null;
+  };
 
-// API keys removed for security reasons
+export default SlugPage;
