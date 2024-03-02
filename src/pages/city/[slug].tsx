@@ -13,14 +13,23 @@ import { RootLayout } from "~/components/layout";
 import LoginModal from "~/components/modal/Login";
 import { unknownClerkCity } from "~/components/utils";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import type { Place, PlaceResultWithLatLng } from "~/types/google";
+import type {
+  NearbySearchNewResponse,
+  Place,
+  PlaceResultWithLatLng,
+} from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
 
-// const CityPage: NextPageWithLayout<{ cityName: string }> = ({ cityName }) => {
-const CityPage: NextPageWithLayout = (
-  props: InferGetStaticPropsType<typeof getStaticProps>
-) => {
+interface CityPageStaticProps {
+  cityName: string;
+  topPlacesFromGoogle: Place[];
+}
+
+const CityPage: NextPageWithLayout<CityPageStaticProps> = ({
+  cityName,
+  topPlacesFromGoogle,
+}) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -29,10 +38,9 @@ const CityPage: NextPageWithLayout = (
   const [filterInputValue, setFilterInputValue] = useState("");
   const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const { cityName } = props;
 
   const { data: cityData } = api.city.getCityDataByName.useQuery({
-    name: cityName as string,
+    name: cityName,
   });
 
   const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
@@ -160,7 +168,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = generateSSGHelper();
   const slug = context.params?.slug;
   if (typeof slug !== "string") throw new Error("no slug");
-  const cityName = slug.replace("@", "");
+  const cityName: string = slug.replace("@", "");
   await ssg.city.getCityDataByName.prefetch({ name: cityName });
 
   // Get cityData via SSR to pass to the client
@@ -171,7 +179,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const longitude = cityDataPlaceResult?.geometry?.location?.lng;
 
   // Get most popular/prominent places in the city
-  let topAttractionsFromGoogle: Place[] = [];
+  let topPlacesFromGoogle: Place[] = [];
   try {
     const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
     const radius = 50000; // 10km
@@ -206,7 +214,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!response.ok) {
       throw new Error(`Error fetching places: ${response.statusText}`);
     }
-    topAttractionsFromGoogle = (await response.json()) as Place[];
+    // const data = await response.json()
+    // topPlacesFromGoogle = (await response.json()) as Place[];
+    await response.json().then((data: NearbySearchNewResponse) => {
+      topPlacesFromGoogle = data?.places;
+    });
   } catch (err) {
     console.log("error", err);
   }
@@ -215,7 +227,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       trpcState: ssg.dehydrate(),
       cityName,
-      topAttractionsFromGoogle,
+      topPlacesFromGoogle,
     },
   };
 };
