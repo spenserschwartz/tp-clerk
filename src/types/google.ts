@@ -18,6 +18,11 @@ interface NearbySearchResponse {
   next_page_token?: string;
 }
 
+interface NearbySearchNewResponse {
+  // https://developers.google.com/maps/documentation/places/web-service/nearby-search#about_response
+  places: Place[];
+}
+
 interface PlaceNew extends Place {
   websiteUri: string;
 }
@@ -42,6 +47,7 @@ export type {
   AutocompletePrediction,
   AutocompleteRequest,
   AutocompleteSessionToken,
+  NearbySearchNewResponse,
   NearbySearchResponse,
   Place,
   PlaceNew,
