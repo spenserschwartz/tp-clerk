@@ -155,10 +155,10 @@ const CityLaunch = ({
 
   return (
     <div>
-      <div className="my-8 flex h-full flex-col items-center">
+      <div className="my-8 flex h-full flex-col items-center border border-red-400">
         {/* Launcher */}
         <form
-          className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
+          className="w-screen max-w-md flex-auto overflow-visible rounded-3xl bg-white text-sm leading-6 shadow-xl ring-1 ring-gray-900/5"
           onSubmit={handleFormSubmit}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleFormSubmit(e);
