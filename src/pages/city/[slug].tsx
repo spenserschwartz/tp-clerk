@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState, type ReactElement } from "react";
@@ -214,8 +214,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!response.ok) {
       throw new Error(`Error fetching places: ${response.statusText}`);
     }
-    // const data = await response.json()
-    // topPlacesFromGoogle = (await response.json()) as Place[];
     await response.json().then((data: NearbySearchNewResponse) => {
       topPlacesFromGoogle = data?.places;
     });
