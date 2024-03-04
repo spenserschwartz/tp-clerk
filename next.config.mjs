@@ -18,6 +18,7 @@ const config = {
       { hostname: "www.gravatar.com" },
       { hostname: "maps.googleapis.com" },
       { hostname: "maps.google.com" },
+      { hostname: "places.googleapis.com" }, // Places API (New)
       { hostname: "travelperfect.io" },
     ],
   },

@@ -31,7 +31,7 @@ export const cityRouter = createTRPCRouter({
     return cities;
   }),
 
-  getCityByName: publicProcedure
+  getCityDataByName: publicProcedure
     .input(z.object({ name: z.string() }))
     .query(async ({ ctx, input }) => {
       const city = await ctx.prisma.city.findFirst({

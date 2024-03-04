@@ -1,26 +1,26 @@
-import { APIProvider } from "@vis.gl/react-google-maps";
-import SplashComponent from "~/components/splash";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
+import { useState } from "react";
+import { PlacesAutoComplete } from "~/components";
+import { AutocompleteRequest, PlaceResult } from "~/types/google";
 
-const SplashPage = () => {
-  return null;
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const SlugPage = () => {
+  const [selected, setSelected] = useState<PlaceResult | null>(null);
+  const autocompleteRequest: AutocompleteRequest = {
+    input: "",
+    types: ["(cities)"],
+  };
+
+  console.log("selected", selected);
+
+  return (
+    <GoogleAPIProvider apiKey={apiKey ?? ""}>
+      <PlacesAutoComplete
+        setSelected={setSelected}
+        requestOptions={autocompleteRequest}
+      />
+    </GoogleAPIProvider>
+  );
 };
 
-export default SplashPage;
-
-// ChIJ2dGMjMMEdkgRqVqkuXQkj7c   Big Ben
-// ChIJlwm8OUgbdkgRWsaTM35CDTM   Dickens Museum
-// ChIJN1t_tDeuEmsRUsoyG83frY4   Google Office Sydney
-// ChIJj61dQgK6j4AR4GeTYWZsKWw   from example on
-
-// curl -L -X GET 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Big%20Ben%20%20London&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry%2Cuser_ratings_total&key=MY_API_KEY_HERE'
-
-// curl -L -X GET 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=The%20Shard%20%20London&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Cuser_ratings_total&key=MY_API_KEY_HERE'
-
-// curl -X POST -d '{
-//   "textQuery" : "Charles Dickens Museum London"
-// }' \
-// -H 'Content-Type: application/json' -H 'X-Goog-Api-Key: MY_API_KEY_HERE' \
-// -H 'X-Goog-FieldMask: *' \
-// 'https://places.googleapis.com/v1/places:searchText'
-
-// API keys removed for security reasons
+export default SlugPage;

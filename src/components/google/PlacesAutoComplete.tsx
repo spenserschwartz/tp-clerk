@@ -80,7 +80,7 @@ const PlacesAutoComplete = ({
 
       const detailRequestOptions = {
         placeId: prediction.place_id,
-        fields: ["geometry", "name", "formatted_address", "place_id"],
+        // fields: ["geometry", "name", "formatted_address", "place_id"],
         sessionToken,
       };
 
