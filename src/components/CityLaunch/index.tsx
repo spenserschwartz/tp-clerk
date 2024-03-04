@@ -198,63 +198,61 @@ const CityLaunch = ({
               {/* Included Attractions, alphabetized */}
               <div className="mt-4 flex w-full flex-col px-4">
                 <div className="mb-6 block w-full">
-                  <SignedOut>
+                  {/* <SignedOut>
                     <p className=" text-red-800">
                       **Please sign in to personalize your itinerary
                     </p>
-                  </SignedOut>
+                  </SignedOut> */}
 
-                  <SignedIn>
-                    <div className="flex items-center justify-between">
-                      <p className="font-semibold text-gray-900">
-                        Included Attractions
-                      </p>
-                      <button
-                        className="text-md flex items-center rounded bg-blue-300 px-1  font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                        onClick={handleAddUpvotedAttractions}
-                        type="button"
-                      >
-                        <span className="mr-1">Add</span>
-                        <HeartIcon enabled />
-                      </button>
-                    </div>
-
-                    {/* List of included attractions */}
-                    <ul
-                      className={`h-40 w-full overflow-y-auto rounded-md  ${
-                        includedAttractions.length > 0
-                          ? "border border-gray-300"
-                          : null
-                      }`}
+                  {/* <SignedIn> */}
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-900">
+                      Included Attractions
+                    </p>
+                    <button
+                      className="text-md flex items-center rounded bg-blue-300 px-1  font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                      onClick={handleAddUpvotedAttractions}
+                      type="button"
                     >
-                      {includedAttractions?.length === 0 && (
-                        <p className=" text-red-800">
-                          **Please add attractions to your itinerary
-                        </p>
-                      )}
+                      <span className="mr-1">Add</span>
+                      <HeartIcon enabled />
+                    </button>
+                  </div>
 
-                      {sortWithoutPrefix(includedAttractions).map(
-                        (attraction) => {
-                          return (
-                            <li
-                              key={attraction}
-                              className="group relative flex items-center pl-1 hover:rounded hover:bg-gray-100"
+                  {/* List of included attractions */}
+                  <ul
+                    className={`h-40 w-full overflow-y-auto rounded-md  ${
+                      includedAttractions.length > 0
+                        ? "border border-gray-300"
+                        : null
+                    }`}
+                  >
+                    {includedAttractions?.length === 0 && (
+                      <p className=" text-red-800">
+                        **Please add attractions to your itinerary
+                      </p>
+                    )}
+
+                    {sortWithoutPrefix(includedAttractions).map(
+                      (attraction) => {
+                        return (
+                          <li
+                            key={attraction}
+                            className="group relative flex items-center pl-1 hover:rounded hover:bg-gray-100"
+                          >
+                            {attraction}
+                            <span
+                              onClick={() => handleRemoveAttraction(attraction)}
+                              className="absolute right-0 cursor-pointer group-hover:inline sm:hidden"
                             >
-                              {attraction}
-                              <span
-                                onClick={() =>
-                                  handleRemoveAttraction(attraction)
-                                }
-                                className="absolute right-0 cursor-pointer group-hover:inline sm:hidden"
-                              >
-                                <XMarkIcon className="h-5 w-5 text-red-800" />
-                              </span>
-                            </li>
-                          );
-                        }
-                      )}
-                    </ul>
-                  </SignedIn>
+                              <XMarkIcon className="h-5 w-5 text-red-800" />
+                            </span>
+                          </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                  {/* </SignedIn> */}
                 </div>
               </div>
             </div>
@@ -264,7 +262,7 @@ const CityLaunch = ({
           <div className="grid grid-cols-1">
             {/* Cancel Button shows when loading results */}
             {showLoading && (
-              <div className="grid grid-cols-1">
+              <div className="grid grid-cols-1 overflow-hidden rounded-b-3xl">
                 <button
                   className="flex items-center justify-center gap-x-2.5 bg-red-300 p-3 font-semibold text-gray-900 hover:bg-red-100"
                   onClick={() => setShowCityLaunch(false)}
@@ -289,9 +287,7 @@ const CityLaunch = ({
 
           {/* Make Itinerary and Cancel button (side by side) show when nothing is loading */}
           {!showLoading && (
-            <div
-              className={`grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50`}
-            >
+            <div className="grid grid-cols-2 divide-x divide-gray-900/5 overflow-hidden rounded-b-3xl bg-gray-50">
               <button
                 className="flex items-center justify-center gap-x-2.5 bg-green-300 p-3 font-semibold text-gray-900 hover:bg-green-100"
                 type="submit"
