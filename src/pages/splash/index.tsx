@@ -1,47 +1,26 @@
-import { createServerSideHelpers } from "@trpc/react-query/server";
-import {
-  GetStaticProps,
-  InferGetServerSidePropsType,
-  InferGetStaticPropsType,
-} from "next";
-import superjson from "superjson";
-import { appRouter } from "~/server/api/root";
-import { prisma } from "~/server/db";
-import { api } from "~/utils/api";
+import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
+import { useState } from "react";
+import { PlacesAutoComplete } from "~/components";
+import { AutocompleteRequest, PlaceResult } from "~/types/google";
 
-// export const generateSSGHelper = () =>
-//   createServerSideHelpers({
-//     router: appRouter,
-//     ctx: { prisma, userId: null },
-//     transformer: superjson, // optional - adds superjson serialization
-//   });
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const cityName = context.params?.slug;
-//   const ssg = generateSSGHelper();
-//   // This line works because of the `prefetch` call in the `getStaticProps` of the page
-//   await ssg.city.getCityDataByName.prefetch({ name: cityName });
-//   //await ssg.routerThatRequiresMutation   << Intellisense says this doesn't exist either
-
-//   return {
-//     props: {
-//       trpcState: ssg.dehydrate(),
-//       cityName,
-//     },
-//   };
-// };
-
-const SlugPage = () =>
-  // props: InferGetStaticPropsType<typeof getStaticProps>
-  {
-    // const { data: cityData } = api.city.getCityDataByName.useQuery({
-    //   name: cityName as string,
-    // });
-
-    // // Calling fetchData will trigger the mutation infinitely
-    // const fetchData = api.apiRouterThatRequiresMutation.useMutation();
-
-    return null;
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const SlugPage = () => {
+  const [selected, setSelected] = useState<PlaceResult | null>(null);
+  const autocompleteRequest: AutocompleteRequest = {
+    input: "",
+    types: ["(cities)"],
   };
+
+  console.log("selected", selected);
+
+  return (
+    <GoogleAPIProvider apiKey={apiKey ?? ""}>
+      <PlacesAutoComplete
+        setSelected={setSelected}
+        requestOptions={autocompleteRequest}
+      />
+    </GoogleAPIProvider>
+  );
+};
 
 export default SlugPage;
