@@ -41,7 +41,7 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     );
 
   const { data: secondFetchedGoogleData, error: secondGoogleError } =
-    api.google.searchByText.useQuery(
+    api.google.findPlace.useQuery(
       {
         // Use the name and vicinity to search for the place as a text query
         query: `${databaseData?.name} ${placeResult?.vicinity}` ?? "",

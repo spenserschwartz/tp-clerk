@@ -15,6 +15,34 @@ interface PlaceResultCandidates {
 }
 
 export const googleRouter = createTRPCRouter({
+  findPlace: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ input }) => {
+      const queryParams = new URLSearchParams({
+        input: input.query,
+        inputtype: "textquery",
+        fields:
+          "formatted_address,name,rating,opening_hours,geometry,user_ratings_total",
+        key: apiKey,
+        // Add language parameter if necessary, e.g., "&language=en"
+      }).toString();
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${queryParams}`;
+
+      try {
+        const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
+        if (!response.ok) {
+          const errorResponse = (await response.json()) as PlaceResult;
+          console.error("Error Response:", errorResponse);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = (await response.json()) as PlaceResultCandidates;
+        return data;
+      } catch (error) {
+        console.error("Error fetching data from Google Places API:", error);
+        return { error: "Failed to fetch data from Google" };
+      }
+    }),
+
   getPlaceDetails: publicProcedure
     .input(z.object({ placeId: z.string() }))
     .query(async ({ input }) => {
@@ -68,6 +96,36 @@ export const googleRouter = createTRPCRouter({
         // Add language parameter if necessary, e.g., "&language=en"
       }).toString();
       const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${queryParams}`;
+
+      try {
+        const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
+        if (!response.ok) {
+          const errorResponse = (await response.json()) as PlaceResult;
+          console.error("Error Response:", errorResponse);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = (await response.json()) as PlaceResultCandidates;
+        return data;
+      } catch (error) {
+        console.error("Error fetching data from Google Places API:", error);
+        return { error: "Failed to fetch data from Google" };
+      }
+    }),
+
+  searchByTextForCity: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ input }) => {
+      const queryParams = new URLSearchParams({
+        // input: input.query,
+        // inputtype: "textquery",
+        // fields:
+        //   "formatted_address,name,rating,opening_hours,geometry,user_ratings_total",
+        query: input.query,
+        key: apiKey,
+        type: "(cities)",
+      }).toString();
+      // const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${queryParams}`;
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?${queryParams}`;
 
       try {
         const response = await fetch(apiUrl); // GET request doesn't need options for headers or body
