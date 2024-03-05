@@ -215,7 +215,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       throw new Error(`Error fetching places: ${response.statusText}`);
     }
     await response.json().then((data: NearbySearchNewResponse) => {
-      topPlacesFromGoogle = data?.places;
+      topPlacesFromGoogle = data?.places ?? null;
     });
   } catch (err) {
     console.log("error", err);
