@@ -2,7 +2,9 @@ import AutocompletePrediction = google.maps.places.AutocompletePrediction;
 import AutocompleteRequest = google.maps.places.AutocompletionRequest;
 import AutoCompleteService = google.maps.places.AutocompleteService;
 import AutocompleteSessionToken = google.maps.places.AutocompleteSessionToken;
+
 import Place = google.maps.places.Place;
+import PlaceDetailsRequest = google.maps.places.PlaceDetailsRequest;
 import PlacePhoto = google.maps.places.PlacePhoto;
 import PlaceResult = google.maps.places.PlaceResult;
 import PlaceSearchStatus = google.maps.places.PlacesServiceStatus;
@@ -50,6 +52,7 @@ export type {
   NearbySearchNewResponse,
   NearbySearchResponse,
   Place,
+  PlaceDetailsRequest,
   PlaceNew,
   PlacePhoto,
   PlaceResult,
