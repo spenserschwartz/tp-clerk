@@ -26,7 +26,6 @@ const QuickLaunch = () => {
   const router = useRouter();
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  // const requestOptions = createRequestOptions(RequestOptionType.Cities);
   const autocompleteRequest: AutocompleteRequest = {
     input: "",
     types: ["(cities)"],
