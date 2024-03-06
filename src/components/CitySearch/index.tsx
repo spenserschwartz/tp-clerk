@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 
 import { PlacesAutoComplete } from "~/components";
+import { convertFormattedAddressToUrlPath } from "~/utils/common";
 
 const CitySearch = () => {
-  const [selectedCity, setSelectedCity] = useState<PlaceResult | null>(null);
+  const router = useRouter();
+
   const autocompleteRequest: AutocompleteRequest = {
     input: "",
     types: ["(cities)"],
@@ -12,7 +14,12 @@ const CitySearch = () => {
 
   // Route to the dynamic city page
   const handleSelectCity = (city: PlaceResult | null) => {
-    console.log("handleSelectCity", city);
+    // Make a dynamic route to the city's page
+    const { formatted_address } = city ?? {};
+    if (!formatted_address) return;
+
+    const dynamicRoute = convertFormattedAddressToUrlPath(formatted_address);
+    void router.push("/things-to-do" + dynamicRoute);
   };
 
   return (
