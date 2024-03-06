@@ -4,6 +4,7 @@ import type {
   Place,
   PlaceNew,
   PlaceResult,
+  PlacesTextSearchResponse,
 } from "~/types/google";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -124,7 +125,6 @@ export const googleRouter = createTRPCRouter({
         key: apiKey,
         type: "(cities)",
       }).toString();
-      // const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${queryParams}`;
       const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?${queryParams}`;
 
       try {
@@ -134,7 +134,8 @@ export const googleRouter = createTRPCRouter({
           console.error("Error Response:", errorResponse);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = (await response.json()) as PlaceResultCandidates;
+        // const data = (await response.json()) as PlaceResultCandidates;
+        const data = (await response.json()) as PlacesTextSearchResponse;
         return data;
       } catch (error) {
         console.error("Error fetching data from Google Places API:", error);
