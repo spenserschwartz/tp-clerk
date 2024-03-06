@@ -38,6 +38,15 @@ interface PlaceResultWithLatLng extends Omit<PlaceResult, "geometry"> {
   };
 }
 
+interface PlacesTextSearchResponse {
+  html_attributions: string[];
+  results: PlaceResultWithLatLng[];
+  status: PlaceSearchStatus;
+  error_message?: string;
+  info_messages?: string[];
+  next_page_token?: string;
+}
+
 enum RequestOptionType {
   Establishment = "ESTABLISHMENT",
   Cities = "CITIES",
@@ -58,4 +67,5 @@ export type {
   PlaceResult,
   PlaceResultWithLatLng,
   PlacesService,
+  PlacesTextSearchResponse,
 };
