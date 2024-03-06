@@ -5,6 +5,7 @@ export default authMiddleware({
     "/",
     "/sign-in/[[...index]]",
     "/city/:slug", // Access city page without logging in
+    "/city-search",
     "/itinerary/:id", // Access itinerary page without logging in
     "/user/:id", // Access user page without logging in
     "/places/:slug", // Access place page without logging in
