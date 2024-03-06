@@ -1,8 +1,9 @@
 import type { GetStaticProps } from "next";
-import type { ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 
 import { RootLayout } from "~/components/layout";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import { Place, PlaceResult, PlacesTextSearchResponse } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
@@ -15,11 +16,25 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
 ) => {
   console.log("ThingsToDo props", props);
   const { query } = props;
-  const { data: searchByTextData } = api.google.searchByTextForCity.useQuery({
-    query,
-  });
+  const { mutate, data: prominentPlacesData } =
+    api.google.searchProminentPlacesByLocationNew.useMutation({});
+  const { data: searchByTextData, isError } =
+    api.google.searchByTextForCity.useQuery({
+      query,
+    });
 
-  console.log("searchByTextData", searchByTextData);
+  useEffect(() => {
+    if (searchByTextData && !("error" in searchByTextData)) {
+      const placeResult = searchByTextData?.results[0];
+      const { geometry } = placeResult ?? {};
+      const { location } = geometry ?? {};
+      const latitude = geometry?.location?.lat ?? 0;
+      const longitude = geometry?.location?.lng ?? 0;
+
+      console.log("latitude", latitude);
+      mutate({ latitude, longitude, radius: 50000 });
+    }
+  }, [searchByTextData]);
 
   return <div>ThingsToDoPage</div>;
 };
