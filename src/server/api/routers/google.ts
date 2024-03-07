@@ -144,12 +144,20 @@ export const googleRouter = createTRPCRouter({
     }),
 
   searchProminentPlacesByLocation: publicProcedure
-    .input(z.object({ location: z.string() }))
+    .input(
+      z.object({
+        latitude: z.number(),
+        longitude: z.number(),
+        radius: z.number(),
+      })
+    )
     .query(async ({ input }) => {
+      const { latitude, longitude, radius } = input;
       // TODO: Currently hardcoded to London
       const queryParams = new URLSearchParams({
-        location: "51.5074,-0.1278", // London
-        radius: "50000", //required
+        // location: "51.5074,-0.1278", // London
+        location: `${latitude},${longitude}`,
+        radius: `${radius}`, //required
         key: apiKey,
         type: "tourist_attraction",
       }).toString();
