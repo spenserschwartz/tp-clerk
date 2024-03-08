@@ -195,8 +195,9 @@ export const googleRouter = createTRPCRouter({
             headers: {
               "Content-Type": "application/json",
               "X-Goog-Api-Key": apiKey,
-              "X-Goog-FieldMask":
-                "places.displayName,places.types,places.userRatingCount",
+              // "X-Goog-FieldMask":
+              //   "places.displayName,places.types,places.userRatingCount,places.photos",
+              "X-Goog-FieldMask": "*",
             },
             body: JSON.stringify({
               languageCode: "en",

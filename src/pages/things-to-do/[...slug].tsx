@@ -1,9 +1,9 @@
 import type { GetStaticProps } from "next";
 import { useEffect, type ReactElement } from "react";
+import { Table } from "~/components";
 
 import { RootLayout } from "~/components/layout";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
-import { Place, PlaceResult, PlacesTextSearchResponse } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
 import { api } from "~/utils/api";
 
@@ -18,25 +18,36 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   const { query } = props;
   const { mutate, data: prominentPlacesData } =
     api.google.searchProminentPlacesByLocationNew.useMutation({});
-  const { data: searchByTextData, isError } =
-    api.google.searchByTextForCity.useQuery({
-      query,
-    });
+  const { data: searchByTextData, status } =
+    api.google.searchByTextForCity.useQuery(
+      {
+        query,
+      },
+      { refetchOnMount: false, refetchOnWindowFocus: false }
+    );
+
+  console.log("prominentPlacesData", prominentPlacesData);
+
+  useEffect(() => {
+    console.log("fetchStatus", status);
+  }, [status]);
 
   useEffect(() => {
     if (searchByTextData && !("error" in searchByTextData)) {
       const placeResult = searchByTextData?.results[0];
-      const { geometry } = placeResult ?? {};
-      const { location } = geometry ?? {};
-      const latitude = geometry?.location?.lat ?? 0;
-      const longitude = geometry?.location?.lng ?? 0;
+      const latitude = placeResult?.geometry?.location?.lat ?? 0;
+      const longitude = placeResult?.geometry?.location?.lng ?? 0;
 
       console.log("latitude", latitude);
       mutate({ latitude, longitude, radius: 50000 });
     }
-  }, [searchByTextData]);
+  }, [searchByTextData, mutate]);
 
-  return <div>ThingsToDoPage</div>;
+  return (
+    <main>
+      <Table />
+    </main>
+  );
 };
 
 export default ThingsToDoPage;
@@ -45,15 +56,15 @@ ThingsToDoPage.getLayout = function getLayout(page: ReactElement) {
   return <RootLayout>{page}</RootLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = (context) => {
   const ssg = generateSSGHelper();
   const slug = context.params?.slug;
   // Catch-all segments ([...slug]) should always be an array
-  if (!Array.isArray(slug)) throw new Error("no slug"); //
+  if (!Array.isArray(slug)) throw new Error("no slug");
 
   // Make query for Google SearchByText API
   const query: string = slug.reverse().join(" ");
-  await ssg.google.searchByTextForCity.prefetch({ query });
+  //   await ssg.google.searchByTextForCity.prefetch({ query });
 
   return { props: { trpcState: ssg.dehydrate(), query } };
 };
