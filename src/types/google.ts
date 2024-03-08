@@ -47,6 +47,7 @@ interface PlacesTextSearchResponse {
   next_page_token?: string;
 }
 
+// * ENUMS
 enum RequestOptionType {
   Establishment = "ESTABLISHMENT",
   Cities = "CITIES",
