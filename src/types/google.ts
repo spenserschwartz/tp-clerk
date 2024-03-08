@@ -10,6 +10,12 @@ import PlaceResult = google.maps.places.PlaceResult;
 import PlaceSearchStatus = google.maps.places.PlacesServiceStatus;
 import PlacesService = google.maps.places.PlacesService;
 
+// https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#LocalizedText
+interface LocalizedText {
+  text: string;
+  languageCode: string;
+}
+
 // https://developers.google.com/maps/documentation/places/web-service/search-nearby#nearby-search-responses
 interface NearbySearchResponse {
   html_attributions: string[];
@@ -22,11 +28,16 @@ interface NearbySearchResponse {
 
 // https://developers.google.com/maps/documentation/places/web-service/nearby-search#about_response
 interface NearbySearchNewResponse {
-  places: Place[];
+  places: PlaceNew[];
 }
 
-interface PlaceNew extends Place {
-  websiteUri: string;
+// interface PlaceNew extends Place {
+//   websiteUri: string;
+// }
+interface PlaceNew extends Omit<Place, "editorialSummary" | "displayName"> {
+  displayName: LocalizedText | null;
+  editorialSummary?: LocalizedText | null;
+  websiteUri: string; // adding the new property
 }
 
 interface PlaceResultWithLatLng extends Omit<PlaceResult, "geometry"> {
