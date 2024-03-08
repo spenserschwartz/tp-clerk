@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type {
+  NearbySearchNewResponse,
   NearbySearchResponse,
-  Place,
   PlaceNew,
   PlaceResult,
   PlacesTextSearchResponse,
@@ -219,7 +219,7 @@ export const googleRouter = createTRPCRouter({
         if (!response.ok) {
           throw new Error(`Error fetching places: ${response.statusText}`);
         }
-        const data = (await response.json()) as Place[];
+        const data = (await response.json()) as NearbySearchNewResponse;
         return data;
       } catch (err) {
         console.log("error", err);
