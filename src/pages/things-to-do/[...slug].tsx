@@ -44,7 +44,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   }, [searchByTextData, mutate]);
 
   return (
-    <main>
+    <main className="">
       <Table />
     </main>
   );
