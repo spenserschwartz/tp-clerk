@@ -16,6 +16,7 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import type {
   NearbySearchNewResponse,
   Place,
+  PlaceNew,
   PlaceResultWithLatLng,
 } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
@@ -193,7 +194,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const longitude = cityDataPlaceResult?.geometry?.location?.lng;
 
     // Get most popular/prominent places in the city
-    let topPlacesFromGoogle: Place[] = [];
+    let topPlacesFromGoogle: PlaceNew[] = [];
     try {
       const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
       const radius = 50000; // 10km
