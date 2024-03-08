@@ -1,4 +1,4 @@
-import type { Place } from "~/types/google";
+import type { PlaceNew } from "~/types/google";
 
 const people = [
   {
@@ -10,16 +10,8 @@ const people = [
   // More people...
 ];
 
-const places = [
-  {
-    name: "Eiffel Tower",
-    description: "pointy thingy",
-    placeId: "ChIJLU7jZClu5kcR4PcOOO6p3I0",
-  },
-];
-
 interface TableProps {
-  places: Place[] | undefined;
+  places: PlaceNew[] | undefined;
 }
 
 export default function Table({ places }: TableProps) {
@@ -76,13 +68,13 @@ export default function Table({ places }: TableProps) {
                     </tr>
                   ))}
                   {places.map((place) => (
-                    <tr key={1}>
+                    <tr key={place.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        name
+                        {place.displayName?.text}
                       </td>
 
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        descrbie here
+                        {place.editorialSummary?.text}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <a

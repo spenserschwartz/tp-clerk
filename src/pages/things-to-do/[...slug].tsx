@@ -18,20 +18,15 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   const { query } = props;
   const { mutate, data: prominentPlacesData } =
     api.google.searchProminentPlacesByLocationNew.useMutation({});
-  const { data: searchByTextData, status } =
-    api.google.searchByTextForCity.useQuery(
-      {
-        query,
-      },
-      { refetchOnMount: false, refetchOnWindowFocus: false }
-    );
+  const { data: searchByTextData } = api.google.searchByTextForCity.useQuery(
+    {
+      query,
+    },
+    { refetchOnMount: false, refetchOnWindowFocus: false }
+  );
 
   console.log("prominentPlacesData", prominentPlacesData);
   const prominentPlaces = prominentPlacesData?.places;
-
-  useEffect(() => {
-    console.log("fetchStatus", status);
-  }, [status]);
 
   useEffect(() => {
     if (searchByTextData && !("error" in searchByTextData)) {
