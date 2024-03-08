@@ -27,6 +27,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
     );
 
   console.log("prominentPlacesData", prominentPlacesData);
+  const prominentPlaces = prominentPlacesData?.places;
 
   useEffect(() => {
     console.log("fetchStatus", status);
@@ -45,7 +46,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
 
   return (
     <main className="">
-      <Table />
+      <Table places={prominentPlaces} />
     </main>
   );
 };
