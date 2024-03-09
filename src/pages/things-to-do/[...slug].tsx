@@ -40,9 +40,9 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   }, [searchByTextData, mutate]);
 
   return (
-    <main className="">
+    <div className="flex w-full">
       <Table places={prominentPlaces} />
-    </main>
+    </div>
   );
 };
 
