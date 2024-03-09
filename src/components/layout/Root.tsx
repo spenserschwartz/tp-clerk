@@ -16,7 +16,7 @@ export const RootLayout = (props: PropsWithChildren) => {
           <Breadcrumbs />
 
           {/* Main Content */}
-          <main className="border border-red-400">{props.children}</main>
+          <main className="">{props.children}</main>
         </div>
 
         {/* Grow the page so that footer is at bottom of page if there is no scroll */}
