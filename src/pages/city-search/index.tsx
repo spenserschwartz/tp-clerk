@@ -1,9 +1,8 @@
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import { useState, type ReactElement } from "react";
-import type { AutocompleteRequest, PlaceResult } from "~/types/google";
+import { type ReactElement } from "react";
 import { type NextPageWithLayout } from "~/types/pages";
 
-import { CitySearch, LoadingPage, PlacesAutoComplete } from "~/components";
+import { CitySearch, LoadingPage } from "~/components";
 import { HomeLayout } from "~/components/layout";
 
 const CitySearchPage: NextPageWithLayout = () => {
