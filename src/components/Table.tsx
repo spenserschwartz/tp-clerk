@@ -41,7 +41,7 @@ export default function Table({ places }: TableProps) {
 
                   <th
                     scope="col"
-                    className="relative border border-blue-400 py-3.5 pl-3 pr-4 sm:pr-6"
+                    className="relative border border-blue-400 py-3.5"
                   >
                     <span className="sr-only">Like Button</span>
                   </th>
@@ -49,24 +49,6 @@ export default function Table({ places }: TableProps) {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {places.map((place) => (
-                  // <tr key={place.id}>
-                  //   <td className="overflow-hidden text-ellipsis whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                  //     {place.displayName?.text}
-                  //   </td>
-
-                  //   <td className="text-ellipsis whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  //     {place.editorialSummary?.text}
-                  //   </td>
-
-                  //   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  //     <div className="flex items-center justify-center">
-                  //       <HeartIcon enabled={false} />
-                  //       <span className="sr-only">
-                  //         Like Button for {place.displayName?.text}
-                  //       </span>
-                  //     </div>
-                  //   </td>
-                  // </tr>
                   <tr key={place.id}>
                     {/* Adjusted cells for ellipsis */}
                     <td
@@ -82,7 +64,7 @@ export default function Table({ places }: TableProps) {
                       {place.displayName?.text}
                     </td>
                     <td
-                      className="px-3 py-4 text-sm text-gray-500"
+                      className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell"
                       style={{
                         minWidth: "100px",
                         maxWidth: "300px",
@@ -93,7 +75,7 @@ export default function Table({ places }: TableProps) {
                     >
                       {place.editorialSummary?.text}
                     </td>
-                    <td className="relative py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <td className="relative py-4 text-right text-sm font-medium ">
                       <div className="flex items-center justify-center">
                         <HeartIcon enabled={false} />
                         <span className="sr-only">
