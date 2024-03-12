@@ -15,7 +15,7 @@ const CitySearch = () => {
   // Route to the dynamic city page
   const handleSelectCity = (city: PlaceResult | null) => {
     // Make a dynamic route to the city's page
-    const { formatted_address, place_id } = city ?? {};
+    const { formatted_address } = city ?? {};
     if (!formatted_address) return;
 
     const dynamicRoute = convertFormattedAddressToUrlPath(formatted_address);
