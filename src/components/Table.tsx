@@ -1,3 +1,4 @@
+import { max } from "date-fns";
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
 
@@ -28,7 +29,7 @@ export default function Table({ places }: TableProps) {
                 <tr>
                   <th
                     scope="col"
-                    className=" border border-red-500 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    className="border border-red-500 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                   >
                     Name
                   </th>
@@ -52,7 +53,7 @@ export default function Table({ places }: TableProps) {
                   <tr key={place.id}>
                     {/* Adjusted cells for ellipsis */}
                     <td
-                      className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                      className="w-1/3 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                       style={{
                         minWidth: "100px",
                         maxWidth: "200px",
@@ -63,6 +64,7 @@ export default function Table({ places }: TableProps) {
                     >
                       {place.displayName?.text}
                     </td>
+
                     <td
                       className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell"
                       style={{
