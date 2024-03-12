@@ -87,6 +87,7 @@ model Likes {
 
     @@unique([cityId, userId])
     @@index([userId])
+    @@index([cityId])
 }
 
 model RecommendedDaysInCity {
