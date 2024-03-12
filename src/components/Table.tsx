@@ -1,16 +1,5 @@
-import { max } from "date-fns";
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
-
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  // More people...
-];
 
 interface TableProps {
   cityId: string | null;
