@@ -1,4 +1,5 @@
 import useAIGenerateItinerary from "./useAIGenerateItinerary";
+import useAddLikeFromUser from "./useAddLikeFromUser";
 import useAddUpvoteFromUser from "./useAddUpvoteFromUser";
 import useCreateItinerary from "./useCreateItinerary";
 import useDeleteItinerary from "./useDeleteItinerary";
@@ -9,6 +10,7 @@ import useIsSmallScreen from "./useIsSmallScreen";
 
 export {
   useAIGenerateItinerary,
+  useAddLikeFromUser,
   useAddUpvoteFromUser,
   useCreateItinerary,
   useDeleteItinerary,
