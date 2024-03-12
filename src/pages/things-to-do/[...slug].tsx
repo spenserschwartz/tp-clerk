@@ -28,9 +28,11 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
     { refetchOnMount: false, refetchOnWindowFocus: false }
   );
 
+  console.log("searchByTextData", searchByTextData);
   console.log("prominentPlacesData", prominentPlacesData);
   const prominentPlaces = prominentPlacesData?.places;
 
+  // Fetch prominent places by location once the searchByTextData is available
   useEffect(() => {
     if (searchByTextData && !("error" in searchByTextData)) {
       const placeResult = searchByTextData?.results[0];

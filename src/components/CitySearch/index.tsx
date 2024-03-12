@@ -22,7 +22,6 @@ const CitySearch = () => {
     // void router.push("/things-to-do" + dynamicRoute);
     void router.push({
       pathname: "/things-to-do" + dynamicRoute,
-      query: { place_id },
     });
   };
 
