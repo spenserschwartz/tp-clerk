@@ -13,11 +13,13 @@ const people = [
 ];
 
 interface TableProps {
+  cityId: string | null;
   places: PlaceNew[] | undefined;
 }
 
-export default function Table({ places }: TableProps) {
+export default function Table({ cityId, places }: TableProps) {
   console.log("places", places);
+  console.log("table cityId", cityId);
   if (!places) return null;
   return (
     <div className="mt-8 flow-root w-full">

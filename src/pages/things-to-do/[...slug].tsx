@@ -1,5 +1,5 @@
 import type { GetStaticProps } from "next";
-import { useEffect, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { Table } from "~/components";
 
 import { RootLayout } from "~/components/layout";
@@ -16,6 +16,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
 ) => {
   console.log("ThingsToDo props", props);
   const { query } = props;
+  const [cityId, setCityId] = useState<string | null>(null);
   const { mutate, data: prominentPlacesData } =
     api.google.searchProminentPlacesByLocationNew.useMutation({});
   const { data: searchByTextData } = api.google.searchByTextForCity.useQuery(
@@ -33,6 +34,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   useEffect(() => {
     if (searchByTextData && !("error" in searchByTextData)) {
       const placeResult = searchByTextData?.results[0];
+      setCityId(placeResult?.place_id ?? null);
       const latitude = placeResult?.geometry?.location?.lat ?? 0;
       const longitude = placeResult?.geometry?.location?.lng ?? 0;
 
@@ -43,7 +45,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
 
   return (
     <div className="flex w-full">
-      <Table places={prominentPlaces} />
+      <Table places={prominentPlaces} cityId={cityId} />
     </div>
   );
 };
