@@ -1,4 +1,5 @@
 import type { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { useEffect, type ReactElement } from "react";
 import { Table } from "~/components";
 
@@ -14,6 +15,8 @@ interface ThingsToDoPageStaticProps {
 const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   props
 ) => {
+  const router = useRouter();
+  console.log("router query", router.query);
   console.log("ThingsToDo props", props);
   const { query } = props;
   const { mutate, data: prominentPlacesData } =

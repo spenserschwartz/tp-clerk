@@ -15,11 +15,15 @@ const CitySearch = () => {
   // Route to the dynamic city page
   const handleSelectCity = (city: PlaceResult | null) => {
     // Make a dynamic route to the city's page
-    const { formatted_address } = city ?? {};
+    const { formatted_address, place_id } = city ?? {};
     if (!formatted_address) return;
 
     const dynamicRoute = convertFormattedAddressToUrlPath(formatted_address);
-    void router.push("/things-to-do" + dynamicRoute);
+    // void router.push("/things-to-do" + dynamicRoute);
+    void router.push({
+      pathname: "/things-to-do" + dynamicRoute,
+      query: { place_id },
+    });
   };
 
   return (
