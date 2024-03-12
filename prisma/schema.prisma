@@ -82,8 +82,9 @@ model Likes {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    cityId String
-    userId String
+    cityId  String
+    placeId String
+    userId  String
 
     @@unique([cityId, userId])
     @@index([userId])
