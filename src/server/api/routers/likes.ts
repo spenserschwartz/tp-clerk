@@ -24,6 +24,22 @@ export const likesRouter = createTRPCRouter({
     return allLikes;
   }),
 
+  getAllByUserInCity: publicProcedure
+    .input(z.object({ cityId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const likesByUserInThisCity = await ctx.prisma.likes.findMany({
+        where: {
+          // userId: input.userId,
+          userId: ctx.userId ?? "",
+          cityId: input.cityId,
+        },
+      });
+
+      if (!likesByUserInThisCity) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return likesByUserInThisCity;
+    }),
+
   create: privateProcedure
     .input(z.object({ cityId: z.string(), placeId: z.string() }))
     .mutation(async ({ ctx, input }) => {
