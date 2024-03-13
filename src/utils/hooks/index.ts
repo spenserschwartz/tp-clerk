@@ -7,6 +7,7 @@ import useDeleteUpvoteFromUser from "./useDeleteUpvoteFromUser";
 import useEditItineraryTitle from "./useEditItineraryTitle";
 import useEditItineraryUserNotes from "./useEditItineraryUserNotes";
 import useIsSmallScreen from "./useIsSmallScreen";
+import useRemoveLikeFromUser from "./useRemoveLikeFromUser";
 
 export {
   useAIGenerateItinerary,
@@ -18,4 +19,5 @@ export {
   useEditItineraryTitle,
   useEditItineraryUserNotes,
   useIsSmallScreen,
+  useRemoveLikeFromUser,
 };
