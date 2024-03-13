@@ -1,12 +1,12 @@
 import { useUser } from "@clerk/nextjs";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { api } from "~/utils/api";
 
 import { add } from "date-fns";
 import { LoginModal } from "~/components/modal";
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
-import { useAddLikeFromUser } from "~/utils/hooks";
+import { useAddLikeFromUser, useRemoveLikeFromUser } from "~/utils/hooks";
 import TableRow from "./components";
 
 interface TableProps {
@@ -18,7 +18,10 @@ interface TableProps {
 
 export default function Table({ cityId, places }: TableProps) {
   const { isSignedIn } = useUser();
-  const { addLikeFromUser, isAddingLike, likeData } = useAddLikeFromUser();
+  const { addLikeFromUser, isAddingLike, likeData, likeError } =
+    useAddLikeFromUser();
+  const { isRemovingLike, likeRemoved, removeLikeError, removeLikeFromUser } =
+    useRemoveLikeFromUser();
   const [openModal, setOpenModal] = useState(false);
 
   const { data: allLikesByUserInCity } = api.likes.getAllByUserInCity.useQuery({
@@ -36,13 +39,16 @@ export default function Table({ cityId, places }: TableProps) {
   console.log("places", places);
   console.log("cityid", cityId);
 
+  useEffect(() => {
+    console.log("likeError", likeError);
+  }, [likeError]);
+
   const handleLike = (placeId: string) => {
     if (!isSignedIn) return setOpenModal(true);
     else {
       // If the user has already liked, remove their update. Else, add their like
       if (likedPlacesSet.has(placeId)) {
-        console.log("remove like");
-        // remove like
+        removeLikeFromUser({ cityId, placeId });
       } else {
         addLikeFromUser({ cityId, placeId });
       }
