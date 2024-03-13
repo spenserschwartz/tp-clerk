@@ -2,23 +2,34 @@ import React, { useState } from "react";
 
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
+import { api } from "~/utils/api";
 import { useAddLikeFromUser } from "~/utils/hooks";
 
 interface TableRowProps {
   isSignedIn: boolean;
   place: PlaceNew;
   setOpenModal: (open: boolean) => void;
+  userHasLikedPlace: boolean;
 }
 
-const TableRow = ({ isSignedIn, place, setOpenModal }: TableRowProps) => {
+const TableRow = ({
+  isSignedIn,
+  place,
+  setOpenModal,
+  userHasLikedPlace,
+}: TableRowProps) => {
   const { addLikeFromUser, isAddingLike, likeData } = useAddLikeFromUser();
-  const [userLiked, setUserLiked] = useState(false);
 
   const handleLike = (place_id: string) => {
     if (!isSignedIn) return setOpenModal(true);
     else {
       // If the user has already liked, remove their update. Else, add their like
+      addLikeFromUser({
+        cityId: "ChIJSXXXH0wFhEgRcsT0XNoFu-g",
+        placeId: place_id,
+      });
     }
+    console.log("placeId", place_id);
   };
 
   return (
@@ -50,12 +61,15 @@ const TableRow = ({ isSignedIn, place, setOpenModal }: TableRowProps) => {
         {place.editorialSummary?.text}
       </td>
       <td className="relative py-4 text-right text-sm font-medium ">
-        <div className="flex items-center justify-center">
+        <button
+          className="flex items-center justify-center"
+          onClick={() => handleLike(place.id)}
+        >
           <HeartIcon enabled={false} />
           <span className="sr-only">
             Like Button for {place.displayName?.text}
           </span>
-        </div>
+        </button>
       </td>
     </tr>
   );

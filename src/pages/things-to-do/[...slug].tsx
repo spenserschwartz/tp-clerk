@@ -43,6 +43,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
     }
   }, [searchByTextData, mutate]);
 
+  if (!cityId) return <>No city found</>;
   return (
     <div className="flex w-full justify-center">
       <Table places={prominentPlaces} cityId={cityId} />
