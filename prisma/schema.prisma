@@ -86,7 +86,7 @@ model Likes {
     placeId String
     userId  String
 
-    @@unique([cityId, userId])
+    @@unique([placeId, userId])
     @@index([userId])
     @@index([cityId])
 }
