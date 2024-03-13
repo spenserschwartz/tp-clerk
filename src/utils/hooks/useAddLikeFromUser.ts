@@ -7,7 +7,8 @@ const useAddLikeFromUser = () => {
     isLoading: isAddingLike,
     isSuccess: likeSuccess,
     data: likeData,
-    isError: likeError,
+    error: likeError,
+    isError: isLikeError,
   } = api.likes.create.useMutation({
     onSuccess: () => {
       toast.success("Liked!");
