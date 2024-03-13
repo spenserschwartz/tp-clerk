@@ -21,6 +21,12 @@ export type ItineraryWithCityInfoType =
   RouterOutputs["itinerary"]["getAllWithCityInfo"][0];
 
 /*
+    LIKES
+*/
+export type GetLikesByUserInCityType =
+  RouterOutputs["likes"]["getAllByUserInCity"][0];
+
+/*
     RECOMMENDED DAYS IN CITY
 */
 export type GetRecommendedDaysByCityType =
