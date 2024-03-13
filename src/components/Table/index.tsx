@@ -1,10 +1,8 @@
 import { useUser } from "@clerk/nextjs";
-import { useState, type MouseEvent } from "react";
+import { useState } from "react";
 
 import { LoginModal } from "~/components/modal";
-import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
-import { useAddLikeFromUser } from "~/utils/hooks";
 import TableRow from "./components";
 
 interface TableProps {
@@ -12,17 +10,19 @@ interface TableProps {
   places: PlaceNew[] | undefined;
 }
 
+// TODO: Pass in if user has liked that attraction yet
+
 export default function Table({ cityId, places }: TableProps) {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
+
   const [openModal, setOpenModal] = useState(false);
+
   console.log("places", places);
   console.log("table cityId", cityId);
 
-  const { addLikeFromUser, isAddingLike, likeData } = useAddLikeFromUser();
-
   if (!places) return null;
   return (
-    <div className="mt-8 flow-root w-full">
+    <div className="mt-8 flow-root w-full max-w-6xl">
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
@@ -52,7 +52,12 @@ export default function Table({ cityId, places }: TableProps) {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {places.map((place) => (
-                  <TableRow place={place} key={place.id} />
+                  <TableRow
+                    key={place.id}
+                    place={place}
+                    setOpenModal={setOpenModal}
+                    isSignedIn={isSignedIn ?? false}
+                  />
                 ))}
               </tbody>
             </table>

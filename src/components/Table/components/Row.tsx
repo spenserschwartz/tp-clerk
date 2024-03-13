@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
+import { useAddLikeFromUser } from "~/utils/hooks";
 
 interface TableRowProps {
+  isSignedIn: boolean;
   place: PlaceNew;
+  setOpenModal: (open: boolean) => void;
 }
 
-const TableRow = ({ place }: TableRowProps) => {
+const TableRow = ({ isSignedIn, place, setOpenModal }: TableRowProps) => {
+  const { addLikeFromUser, isAddingLike, likeData } = useAddLikeFromUser();
+  const [userLiked, setUserLiked] = useState(false);
+
+  const handleLike = (place_id: string) => {
+    if (!isSignedIn) return setOpenModal(true);
+    else {
+      // If the user has already liked, remove their update. Else, add their like
+    }
+  };
+
   return (
     <tr key={place.id}>
       {/* Adjusted cells for ellipsis */}

@@ -44,7 +44,7 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   }, [searchByTextData, mutate]);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full justify-center">
       <Table places={prominentPlaces} cityId={cityId} />
     </div>
   );
