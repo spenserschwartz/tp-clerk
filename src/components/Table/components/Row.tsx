@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
 import { api } from "~/utils/api";
-import { useAddLikeFromUser } from "~/utils/hooks";
+import { useAddLikeFromUser, useRemoveLikeFromUser } from "~/utils/hooks";
 
 interface TableRowProps {
+  cityId: string;
   isSignedIn: boolean;
   place: PlaceNew;
   setOpenModal: (open: boolean) => void;
@@ -13,24 +14,41 @@ interface TableRowProps {
 }
 
 const TableRow = ({
+  cityId,
   isSignedIn,
   place,
   setOpenModal,
   userHasLikedPlace,
 }: TableRowProps) => {
-  const { addLikeFromUser, isAddingLike, likeData } = useAddLikeFromUser();
+  const [likedPlace, setLikedPlace] = useState(userHasLikedPlace);
+  const { addLikeFromUser, isAddingLike, likeData, isLikeError } =
+    useAddLikeFromUser();
+  const { isRemovingLike, likeRemoved, removeLikeError, removeLikeFromUser } =
+    useRemoveLikeFromUser();
 
-  const handleLike = (place_id: string) => {
+  const handleLike = (e: MouseEvent<HTMLButtonElement>) => {
     if (!isSignedIn) return setOpenModal(true);
     else {
       // If the user has already liked, remove their update. Else, add their like
-      addLikeFromUser({
-        cityId: "ChIJSXXXH0wFhEgRcsT0XNoFu-g",
-        placeId: place_id,
-      });
+      if (likedPlace) {
+        setLikedPlace(false);
+        removeLikeFromUser({
+          cityId,
+          placeId: place.id,
+        });
+      } else {
+        setLikedPlace(true);
+        addLikeFromUser({
+          cityId,
+          placeId: place.id,
+        });
+      }
     }
-    console.log("placeId", place_id);
   };
+
+  useEffect(() => {
+    if (isLikeError) setLikedPlace(false);
+  }, [isLikeError]);
 
   return (
     <tr key={place.id}>
@@ -63,9 +81,9 @@ const TableRow = ({
       <td className="relative py-4 text-right text-sm font-medium ">
         <button
           className="flex items-center justify-center"
-          onClick={() => handleLike(place.id)}
+          onClick={handleLike}
         >
-          <HeartIcon enabled={false} />
+          <HeartIcon enabled={likedPlace} />
           <span className="sr-only">
             Like Button for {place.displayName?.text}
           </span>

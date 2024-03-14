@@ -18,8 +18,19 @@ interface TableProps {
 
 export default function Table({ cityId, places }: TableProps) {
   const { isSignedIn } = useUser();
+  const [error, setError] = useState(null);
   const { addLikeFromUser, isAddingLike, likeData, likeError } =
-    useAddLikeFromUser();
+    useAddLikeFromUser({
+      onSuccess: (data) => {
+        console.log("Like added successfully!", data);
+        // Additional success logic here
+      },
+      onError: (error) => {
+        console.log("Failed to add like", error);
+        setError(error);
+        // Additional error handling here
+      },
+    });
   const { isRemovingLike, likeRemoved, removeLikeError, removeLikeFromUser } =
     useRemoveLikeFromUser();
   const [openModal, setOpenModal] = useState(false);
@@ -27,6 +38,10 @@ export default function Table({ cityId, places }: TableProps) {
   const { data: allLikesByUserInCity } = api.likes.getAllByUserInCity.useQuery({
     cityId: cityId ?? "",
   });
+
+  useEffect(() => {
+    console.log("ue error", error);
+  }, [error]);
 
   // Create a set of all the places the user has liked, useMemo to avoid re-creating the set on every render
   const likedPlacesSet = useMemo(() => {
@@ -50,7 +65,7 @@ export default function Table({ cityId, places }: TableProps) {
       if (likedPlacesSet.has(placeId)) {
         removeLikeFromUser({ cityId, placeId });
       } else {
-        addLikeFromUser({ cityId, placeId });
+        addLikeFromUser({ placeId });
       }
     }
   };
@@ -87,52 +102,53 @@ export default function Table({ cityId, places }: TableProps) {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {places.map((place) => (
-                  // <TableRow
-                  //   key={place.id}
-                  //   isSignedIn={isSignedIn ?? false}
-                  //   place={place}
-                  //   setOpenModal={setOpenModal}
-                  //   userHasLikedPlace={true}
-                  // />
-                  <tr key={place.id}>
-                    {/* Adjusted cells for ellipsis */}
-                    <td
-                      className="w-1/3 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                      style={{
-                        minWidth: "100px",
-                        maxWidth: "200px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {place.displayName?.text}
-                    </td>
+                  <TableRow
+                    key={place.id}
+                    cityId={cityId}
+                    isSignedIn={isSignedIn ?? false}
+                    place={place}
+                    setOpenModal={setOpenModal}
+                    userHasLikedPlace={likedPlacesSet.has(place.id)}
+                  />
+                  // <tr key={place.id}>
+                  //   {/* Adjusted cells for ellipsis */}
+                  //   <td
+                  //     className="w-1/3 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                  //     style={{
+                  //       minWidth: "100px",
+                  //       maxWidth: "200px",
+                  //       overflow: "hidden",
+                  //       textOverflow: "ellipsis",
+                  //       whiteSpace: "nowrap",
+                  //     }}
+                  //   >
+                  //     {place.displayName?.text}
+                  //   </td>
 
-                    <td
-                      className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell"
-                      style={{
-                        minWidth: "100px",
-                        maxWidth: "300px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {place.editorialSummary?.text}
-                    </td>
-                    <td className="relative py-4 text-right text-sm font-medium ">
-                      <button
-                        className="flex items-center justify-center"
-                        onClick={() => handleLike(place.id)}
-                      >
-                        <HeartIcon enabled={likedPlacesSet.has(place.id)} />
-                        <span className="sr-only">
-                          Like Button for {place.displayName?.text}
-                        </span>
-                      </button>
-                    </td>
-                  </tr>
+                  //   <td
+                  //     className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell"
+                  //     style={{
+                  //       minWidth: "100px",
+                  //       maxWidth: "300px",
+                  //       overflow: "hidden",
+                  //       textOverflow: "ellipsis",
+                  //       whiteSpace: "nowrap",
+                  //     }}
+                  //   >
+                  //     {place.editorialSummary?.text}
+                  //   </td>
+                  //   <td className="relative py-4 text-right text-sm font-medium ">
+                  //     <button
+                  //       className="flex items-center justify-center"
+                  //       onClick={() => handleLike(place.id)}
+                  //     >
+                  //       <HeartIcon enabled={likedPlacesSet.has(place.id)} />
+                  //       <span className="sr-only">
+                  //         Like Button for {place.displayName?.text}
+                  //       </span>
+                  //     </button>
+                  //   </td>
+                  // </tr>
                 ))}
               </tbody>
             </table>

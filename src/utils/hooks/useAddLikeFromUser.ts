@@ -29,6 +29,7 @@ const useAddLikeFromUser = () => {
   return {
     addLikeFromUser,
     isAddingLike,
+    isLikeError,
     likeSuccess,
     likeData,
     likeError,
