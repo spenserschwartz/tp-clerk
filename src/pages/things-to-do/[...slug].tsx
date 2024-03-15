@@ -14,7 +14,6 @@ interface ThingsToDoPageStaticProps {
 const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
   props
 ) => {
-  console.log("ThingsToDo props", props);
   const { query } = props;
   const [cityId, setCityId] = useState<string | null>(null);
   const { mutate, data: prominentPlacesData } =
@@ -25,9 +24,6 @@ const ThingsToDoPage: NextPageWithLayout<ThingsToDoPageStaticProps> = (
     },
     { refetchOnMount: false, refetchOnWindowFocus: false }
   );
-
-  console.log("searchByTextData", searchByTextData);
-  console.log("prominentPlacesData", prominentPlacesData);
   const prominentPlaces = prominentPlacesData?.places;
 
   // Fetch prominent places by location once the searchByTextData is available
