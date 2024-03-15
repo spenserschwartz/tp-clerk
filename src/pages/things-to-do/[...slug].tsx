@@ -1,7 +1,7 @@
 import type { GetStaticProps } from "next";
 import { useEffect, useState, type ReactElement } from "react";
-import { Table } from "~/components";
 
+import { Table } from "~/components";
 import { RootLayout } from "~/components/layout";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { type NextPageWithLayout } from "~/types/pages";
