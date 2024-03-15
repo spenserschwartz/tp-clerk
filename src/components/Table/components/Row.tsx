@@ -1,10 +1,9 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
 import { api } from "~/utils/api";
-import { useAddLikeFromUser, useRemoveLikeFromUser } from "~/utils/hooks";
 
 interface TableRowProps {
   cityId: string;
