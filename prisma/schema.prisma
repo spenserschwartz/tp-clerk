@@ -124,6 +124,7 @@ model User {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
+    fullName String?
     imageURL String?
 
     itineraries Itinerary[]
