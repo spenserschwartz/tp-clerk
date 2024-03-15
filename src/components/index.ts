@@ -2,6 +2,7 @@ import Avatar from "./Avatar";
 import Button from "./Button";
 import Carousel from "./Carousel";
 import CityLaunch from "./CityLaunch";
+import CitySearch from "./CitySearch";
 import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
 import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
@@ -16,6 +17,7 @@ import QuickLaunch from "./QuickLaunch";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
 import StarRatings from "./StarRatings";
+import Table from "./Table";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage, LoadingSection, LoadingSpinner } from "./loading";
 import PlacesProfile from "./profiles/place";
@@ -26,6 +28,7 @@ export {
   Button,
   Carousel,
   CityLaunch,
+  CitySearch,
   DropdownMenu,
   Features,
   FeaturesQuickLaunch,
@@ -46,5 +49,6 @@ export {
   Searchbar,
   Select,
   StarRatings,
+  Table,
   TextEditor,
 };

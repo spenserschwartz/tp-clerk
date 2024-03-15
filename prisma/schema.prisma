@@ -78,6 +78,19 @@ model Itinerary {
     @@index([userId])
 }
 
+model Likes {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    cityId  String
+    placeId String
+    userId  String
+
+    @@unique([placeId, userId])
+    @@index([userId])
+    @@index([cityId])
+}
+
 model RecommendedDaysInCity {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
@@ -111,6 +124,7 @@ model User {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
+    fullName String?
     imageURL String?
 
     itineraries Itinerary[]

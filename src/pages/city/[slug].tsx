@@ -16,20 +16,20 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import type {
   NearbySearchNewResponse,
   Place,
+  PlaceNew,
   PlaceResultWithLatLng,
 } from "~/types/google";
 import { type NextPageWithLayout } from "~/types/pages";
 import { findAverageRecDays } from "~/utils/common";
+import { databaseCitiesSet } from "~/utils/constants";
 
 interface CityPageStaticProps {
   cityName: string;
   topPlacesFromGoogle: Place[];
+  textQuery?: string;
 }
 
-const CityPage: NextPageWithLayout<CityPageStaticProps> = ({
-  cityName,
-  topPlacesFromGoogle,
-}) => {
+const CityPage: NextPageWithLayout<CityPageStaticProps> = (props) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -38,6 +38,7 @@ const CityPage: NextPageWithLayout<CityPageStaticProps> = ({
   const [filterInputValue, setFilterInputValue] = useState("");
   const [isMutating, setIsMutating] = useState(false); // keep track of whether we're mutating data
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const { cityName, textQuery } = props;
 
   const { data: cityData } = api.city.getCityDataByName.useQuery({
     name: cityName,
@@ -52,6 +53,17 @@ const CityPage: NextPageWithLayout<CityPageStaticProps> = ({
       cityName: cityData?.name ?? unknownClerkCity.name,
     }
   );
+
+  console.log("CityPage props", props);
+
+  const { data: findPlaceData } = api.google.findPlace.useQuery(
+    {
+      query: textQuery ?? "",
+    },
+    { refetchOnMount: false, refetchOnWindowFocus: false }
+  );
+
+  console.log("findPlaceData", findPlaceData);
 
   const averageRecDays = findAverageRecDays(allCityRecs);
 
@@ -169,69 +181,88 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug;
   if (typeof slug !== "string") throw new Error("no slug");
   const cityName: string = slug.replace("@", "");
-  await ssg.city.getCityDataByName.prefetch({ name: cityName });
 
-  // Get cityData via SSR to pass to the client
-  const cityData = await ssg.city.getCityDataByName.fetch({ name: cityName });
-  const cityDataPlaceResult: PlaceResultWithLatLng =
-    cityData?.placeResult as unknown as PlaceResultWithLatLng;
-  const latitude = cityDataPlaceResult?.geometry?.location?.lat;
-  const longitude = cityDataPlaceResult?.geometry?.location?.lng;
+  // Conditionally prefetch if the city is in the database
+  if (databaseCitiesSet.has(cityName)) {
+    await ssg.city.getCityDataByName.prefetch({ name: cityName });
 
-  // Get most popular/prominent places in the city
-  let topPlacesFromGoogle: Place[] = [];
-  try {
-    const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
-    const radius = 50000; // 10km
+    // Get cityData via SSR to pass to the client
+    const cityData = await ssg.city.getCityDataByName.fetch({ name: cityName });
+    const cityDataPlaceResult: PlaceResultWithLatLng =
+      cityData?.placeResult as unknown as PlaceResultWithLatLng;
+    const latitude = cityDataPlaceResult?.geometry?.location?.lat;
+    const longitude = cityDataPlaceResult?.geometry?.location?.lng;
 
-    const response = await fetch(
-      `https://places.googleapis.com/v1/places:searchNearby`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Goog-Api-Key": apiKey,
-          "X-Goog-FieldMask":
-            "places.displayName,places.types,places.userRatingCount",
-        },
-        body: JSON.stringify({
-          languageCode: "en",
-          rankPreference: "POPULARITY",
-          includedTypes: ["tourist_attraction"],
-          locationRestriction: {
-            circle: {
-              center: {
-                latitude,
-                longitude,
-              },
-              radius,
-            },
+    // Get most popular/prominent places in the city
+    let topPlacesFromGoogle: PlaceNew[] = [];
+    try {
+      const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
+      const radius = 50000; // 10km
+
+      const response = await fetch(
+        `https://places.googleapis.com/v1/places:searchNearby`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Goog-Api-Key": apiKey,
+            "X-Goog-FieldMask":
+              "places.displayName,places.types,places.userRatingCount",
           },
-        }),
+          body: JSON.stringify({
+            languageCode: "en",
+            rankPreference: "POPULARITY",
+            includedTypes: ["tourist_attraction"],
+            locationRestriction: {
+              circle: {
+                center: {
+                  latitude,
+                  longitude,
+                },
+                radius,
+              },
+            },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error fetching places: ${response.statusText}`);
       }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Error fetching places: ${response.statusText}`);
+      await response.json().then((data: NearbySearchNewResponse) => {
+        topPlacesFromGoogle = data?.places ?? null;
+      });
+    } catch (err) {
+      console.log("error", err);
     }
-    await response.json().then((data: NearbySearchNewResponse) => {
-      topPlacesFromGoogle = data?.places;
-    });
-  } catch (err) {
-    console.log("error", err);
-  }
 
-  return {
-    props: {
-      trpcState: ssg.dehydrate(),
-      cityName,
-      topPlacesFromGoogle,
-    },
-  };
+    return {
+      props: {
+        trpcState: ssg.dehydrate(),
+        cityName,
+        topPlacesFromGoogle,
+      },
+    };
+  } else {
+    await ssg.google.findPlace.prefetch({ query: "Taco Bell Venice Blvd" });
+
+    return {
+      props: {
+        trpcState: ssg.dehydrate(),
+        cityName: "Los Angeles",
+        textQuery: "Taco Bell Venice Blvd",
+      },
+    };
+  }
 };
 
 export const getStaticPaths = () => {
-  return { paths: [], fallback: "blocking" };
+  const paths = [
+    { params: { slug: "london" } },
+    { params: { slug: "berlin" } },
+  ];
+
+  return { paths, fallback: "blocking" };
 };
 
 CityPage.getLayout = function getLayout(page: ReactElement) {

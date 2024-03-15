@@ -8,6 +8,7 @@ import type {
   AutocompletePrediction,
   AutocompleteRequest,
   AutocompleteSessionToken,
+  PlaceDetailsRequest,
   PlaceResult,
   PlacesService,
 } from "~/types/google";
@@ -78,9 +79,9 @@ const PlacesAutoComplete = ({
 
       setFetchingData(true);
 
-      const detailRequestOptions = {
+      const detailRequestOptions: PlaceDetailsRequest = {
         placeId: prediction.place_id,
-        // fields: ["geometry", "name", "formatted_address", "place_id"],
+        fields: ["geometry", "name", "formatted_address", "place_id"],
         sessionToken,
       };
 

@@ -2,6 +2,18 @@ import { type LatLng } from "use-places-autocomplete";
 import { RequestOptionType, type AutocompleteRequest } from "~/types/google";
 import { type GetRecommendedDaysByCityType } from "~/types/router";
 
+export const convertFormattedAddressToUrlPath = (formattedAddress: string) => {
+  // Split the address into parts, trim whitespace, convert to lowercase, replace spaces with hyphens
+  const parts = formattedAddress
+    .split(",")
+    .map((part) => part.trim().toLowerCase().replace(/\s/g, "-"));
+
+  // Reverse the order of parts and join with slashes to form the URL path
+  const urlPath = "/" + parts.reverse().join("/");
+
+  return urlPath;
+};
+
 export const convertNameToSlug = (name: string) => {
   return name.replace(/\s/g, "-").toLowerCase();
 };
