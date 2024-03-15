@@ -34,21 +34,18 @@ export default function Table({ cityId, places }: TableProps) {
                 <tr>
                   <th
                     scope="col"
-                    className="border border-red-500 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    className="hidden border border-green-500 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
+                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                   >
                     Description
                   </th>
 
-                  <th
-                    scope="col"
-                    className="relative border border-blue-400 py-3.5"
-                  >
+                  <th scope="col" className="relative py-3.5">
                     <span className="sr-only">Like Button</span>
                   </th>
                 </tr>
