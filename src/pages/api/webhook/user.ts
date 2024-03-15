@@ -42,16 +42,23 @@ export default async function handler(
   const { id } = evt.data;
   const eventType = evt.type;
 
-  const userData = evt.data as { id: string; image_url: string };
-  const { image_url } = userData;
+  // const userData = evt.data as { id: string; image_url: string };
+  const userData = evt.data as {
+    id: string;
+    image_url: string;
+    first_name: string;
+    last_name: string;
+  };
+  const { image_url, first_name, last_name } = userData;
+  const fullName = first_name + " " + last_name;
 
   if (eventType === "user.created" || eventType === "user.updated") {
     try {
       await prisma.user
         .upsert({
           where: { id: id },
-          update: { imageURL: image_url },
-          create: { id: id, imageURL: image_url },
+          update: { imageURL: image_url, fullName: fullName },
+          create: { id: id, imageURL: image_url, fullName: fullName },
         })
         .then(() =>
           res.status(200).json({ message: "User upserted successfully" })
