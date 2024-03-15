@@ -70,7 +70,7 @@ const TableRow = ({
     <tr key={place.id}>
       {/* Adjusted cells for ellipsis */}
       <td
-        className="w-1/3 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+        className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:w-1/3"
         style={{
           minWidth: "100px",
           maxWidth: "200px",

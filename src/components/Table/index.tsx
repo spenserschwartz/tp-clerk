@@ -40,7 +40,7 @@ export default function Table({ cityId, places }: TableProps) {
                   </th>
                   <th
                     scope="col"
-                    className=" border border-green-500 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    className="hidden border border-green-500 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                   >
                     Description
                   </th>
