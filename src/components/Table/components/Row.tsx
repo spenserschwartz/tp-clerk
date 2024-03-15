@@ -1,4 +1,5 @@
 import { useEffect, useState, type MouseEvent } from "react";
+import toast from "react-hot-toast";
 
 import { HeartIcon } from "~/icons";
 import type { PlaceNew } from "~/types/google";
@@ -21,34 +22,50 @@ const TableRow = ({
   userHasLikedPlace,
 }: TableRowProps) => {
   const [likedPlace, setLikedPlace] = useState(userHasLikedPlace);
-  const { addLikeFromUser, isAddingLike, likeData, isLikeError } =
-    useAddLikeFromUser();
-  const { isRemovingLike, likeRemoved, removeLikeError, removeLikeFromUser } =
-    useRemoveLikeFromUser();
+  const { mutate: addLike } = api.likes.create.useMutation({
+    onSuccess: () => {
+      console.log("Liked!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage?.[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to upvote! Please try again later.");
+      }
+
+      // Reset optimistic update on error
+      setLikedPlace(false);
+    },
+    onMutate: () => setLikedPlace(true), // Optimistic update,
+  });
+  const { mutate: removeLike } = api.likes.delete.useMutation({
+    onSuccess: () => {
+      console.log("Like removed!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage?.[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to remove like! Please try again later.");
+      }
+
+      // Reset optimistic update on error
+      setLikedPlace(true);
+    },
+    onMutate: () => setLikedPlace(false), // Optimistic update,
+  });
 
   const handleLike = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (!isSignedIn) return setOpenModal(true);
     else {
       // If the user has already liked, remove their update. Else, add their like
-      if (likedPlace) {
-        setLikedPlace(false);
-        removeLikeFromUser({
-          cityId,
-          placeId: place.id,
-        });
-      } else {
-        setLikedPlace(true);
-        addLikeFromUser({
-          cityId,
-          placeId: place.id,
-        });
-      }
+      if (likedPlace) removeLike({ cityId, placeId: place.id });
+      else addLike({ cityId, placeId: place.id });
     }
   };
-
-  useEffect(() => {
-    if (isLikeError) setLikedPlace(false);
-  }, [isLikeError]);
 
   return (
     <tr key={place.id}>

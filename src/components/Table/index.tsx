@@ -17,7 +17,7 @@ interface TableProps {
 // TODO: Pass in if user has liked that attraction yet
 
 export default function Table({ cityId, places }: TableProps) {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const [error, setError] = useState(null);
   const { addLikeFromUser, isAddingLike, likeData, likeError } =
     useAddLikeFromUser({
@@ -31,6 +31,8 @@ export default function Table({ cityId, places }: TableProps) {
         // Additional error handling here
       },
     });
+
+  console.log("table user", user);
   const { isRemovingLike, likeRemoved, removeLikeError, removeLikeFromUser } =
     useRemoveLikeFromUser();
   const [openModal, setOpenModal] = useState(false);
