@@ -1,9 +1,10 @@
 import "server-only";
 
+import { type inferRouterOutputs } from "@trpc/server";
 import { headers } from "next/headers";
 import { cache } from "react";
 
-import { createCaller } from "~/server/api/root";
+import { createCaller, type AppRouter } from "~/server/api/root";
 import { createTRPCContext } from "~/server/api/trpc";
 
 /**
@@ -20,3 +21,10 @@ const createContext = cache(() => {
 });
 
 export const api = createCaller(createContext);
+
+/**
+ * Inference helper for outputs.
+ *
+ * @example type HelloOutput = RouterOutputs['example']['hello']
+ */
+export type RouterOutputs = inferRouterOutputs<AppRouter>;
