@@ -9,43 +9,33 @@ export const cityRouter = createTRPCRouter({
     });
   }),
 
-  //   getAll: publicProcedure.query(async ({ ctx }) => {
-  //     const cities = await ctx.prisma.city.findMany({
-  //       take: 100,
-  //       orderBy: [{ createdAt: "desc" }],
-  //     });
+  getAllCityNames: publicProcedure.query(async ({ ctx }) => {
+    const cities = await ctx.db.city.findMany({
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+    });
+    return cities.map((city) => city.name);
+  }),
 
-  //     return cities;
-  //   }),
+  getAllWithAttractions: publicProcedure.query(async ({ ctx }) => {
+    const cities = await ctx.db.city.findMany({
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+      include: { attractions: true },
+    });
 
-  //   getAllCityNames: publicProcedure.query(async ({ ctx }) => {
-  //     const cities = await ctx.prisma.city.findMany({
-  //       take: 100,
-  //       orderBy: [{ createdAt: "desc" }],
-  //     });
+    return cities;
+  }),
 
-  //     return cities.map((city) => city.name);
-  //   }),
-
-  //   getAllWithAttractions: publicProcedure.query(async ({ ctx }) => {
-  //     const cities = await ctx.prisma.city.findMany({
-  //       take: 100,
-  //       orderBy: [{ createdAt: "desc" }],
-  //       include: { attractions: true },
-  //     });
-
-  //     return cities;
-  //   }),
-
-  //   getCityDataByName: publicProcedure
-  //     .input(z.object({ name: z.string() }))
-  //     .query(async ({ ctx, input }) => {
-  //       const city = await ctx.prisma.city.findFirst({
-  //         where: { name: input.name },
-  //         include: { attractions: { include: { upvotes: true } } },
-  //       });
-  //       return city;
-  //     }),
+  getCityDataByName: publicProcedure
+    .input(z.object({ name: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const city = await ctx.db.city.findFirst({
+        where: { name: input.name },
+        include: { attractions: { include: { upvotes: true } } },
+      });
+      return city;
+    }),
 
   // More routers here...
 });
