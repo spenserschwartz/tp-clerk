@@ -16,13 +16,18 @@ import { api } from "~/trpc/server";
 //   Select,
 // } from "~/components";
 
-import { Button, LoadingPage, LoadingSection } from "@/components/index";
+import {
+  Button,
+  LoadingPage,
+  LoadingSection,
+  PlacesAutoComplete,
+} from "@/components/index";
 
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
-import { quickLaunchCities, unknownClerkCity } from "../utils";
 import { DatePickerWithRange } from "./ui";
+import { quickLaunchCities, unknownClerkCity } from "./utils";
 
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
