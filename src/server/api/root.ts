@@ -1,6 +1,11 @@
 // import { postRouter } from "~/server/api/routers/post";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
-import { cityRouter, itineraryRouter, postRouter } from "./routers";
+import {
+  cityRouter,
+  itineraryRouter,
+  openAIRouter,
+  postRouter,
+} from "./routers";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +15,7 @@ import { cityRouter, itineraryRouter, postRouter } from "./routers";
 export const appRouter = createTRPCRouter({
   city: cityRouter,
   itinerary: itineraryRouter,
+  openAI: openAIRouter,
   post: postRouter,
 });
 
