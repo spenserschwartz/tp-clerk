@@ -1,4 +1,5 @@
 import { cityRouter } from "./city";
+import { itineraryRouter } from "./itinerary";
 import { postRouter } from "./post";
 
-export { cityRouter, postRouter };
+export { cityRouter, itineraryRouter, postRouter };
