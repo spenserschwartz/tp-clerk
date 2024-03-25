@@ -20,9 +20,9 @@ import { Button, LoadingPage, LoadingSection } from "@/components/index";
 
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { quickLaunchCities, unknownClerkCity } from "../utils";
+import { DatePickerWithRange } from "./ui";
 
 const QuickLaunch = () => {
   const { isSignedIn } = useUser();
