@@ -4,6 +4,8 @@ import { type inferRouterOutputs } from "@trpc/server";
 import { headers } from "next/headers";
 import { cache } from "react";
 
+import { getAuth } from "@clerk/nextjs/server";
+import { NextRequest } from "next/server";
 import { createCaller, type AppRouter } from "~/server/api/root";
 import { createTRPCContext } from "~/server/api/trpc";
 
@@ -17,6 +19,9 @@ const createContext = cache(() => {
 
   return createTRPCContext({
     headers: heads,
+    auth: getAuth(
+      new NextRequest("https://notused.com", { headers: headers() }),
+    ),
   });
 });
 
