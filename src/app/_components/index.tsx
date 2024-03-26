@@ -1,6 +1,7 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
 import Itinerary from "./Itinerary";
+import QuickLaunchTool from "./QuickLaunch/Tool";
 import Select from "./Select";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage } from "./loading/LoadingPage";
@@ -15,5 +16,6 @@ export {
   LoadingSection,
   LoadingSpinner,
   PlacesAutoComplete,
+  QuickLaunchTool,
   Select,
 };

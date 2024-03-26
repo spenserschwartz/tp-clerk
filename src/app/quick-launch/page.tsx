@@ -1,4 +1,4 @@
-import QuickLaunch from "../_components/QuickLaunchXX";
+import QuickLaunch from "../_components/QuickLaunch";
 
 const QuickLaunchPage = () => {
   return <QuickLaunch />;
