@@ -177,10 +177,10 @@ const QuickLaunch = () => {
                     />
                   ) : (
                     <div>
-                      {/* <PlacesAutoComplete
+                      <PlacesAutoComplete
                         setSelected={setChosenCustomCity}
                         requestOptions={autocompleteRequest}
-                      /> */}
+                      />
                     </div>
                   )}
                 </div>
@@ -270,9 +270,3 @@ const QuickLaunch = () => {
 };
 
 export default QuickLaunch;
-
-// const QuickLaunch = () => {
-//   return <div>Quick Launch</div>;
-// };
-
-// export default QuickLaunch;
