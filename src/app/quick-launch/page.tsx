@@ -1,6 +1,5 @@
 // import { FadeUpWrapper } from "@/components/framer-motion";
 import { QuickLaunch } from "../_components";
-import TestComponent from "../_components/TestComponent";
 
 const QuickLaunchPage = () => {
   return (
@@ -49,7 +48,6 @@ const QuickLaunchPage = () => {
           </div>
         </div>
         <QuickLaunch />
-        <TestComponent />
       </div>
       {/* </FadeUpWrapper> */}
     </section>
