@@ -27,7 +27,10 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
+      "@/components": ["./src/app/_components"],
       "@/components/*": ["./src/app/_components/*"],
+      "@/icons": ["./src/app/_components/icons"],
+      "@/modals": ["./src/app/_components/modal"],
     }
   },
   "include": [
