@@ -1,7 +1,6 @@
 import { Avatar } from "@/components/index";
 import { api } from "~/trpc/react";
 import type { ParsedAIMessageInterface } from "~/types/openai";
-// import { ZoomInUpWrapper } from "../framer-motion";
 import { unknownClerkUser, unknownItinerary } from "../utils";
 
 interface ItineraryProps {
@@ -13,14 +12,16 @@ const Itinerary = ({
   parsedData,
   itineraryID = unknownItinerary.id,
 }: ItineraryProps) => {
-  const { data: itineraryUserData } = api.itinerary.getByID.useQuery({
-    id: itineraryID,
-  });
+  const { data: itineraryUserData } = api.itinerary.getByID.useQuery(
+    {
+      id: itineraryID,
+    },
+    { enabled: itineraryID !== unknownItinerary.id },
+  );
 
   const itineraryUserId = itineraryUserData?.userId ?? unknownClerkUser.id;
 
   return (
-    // <ZoomInUpWrapper>
     <div className="w-full max-w-5xl overflow-hidden overflow-y-auto rounded-lg bg-gray-100 shadow-xl ">
       {/* Title */}
       <div className="flex items-center justify-between p-4">
@@ -55,7 +56,6 @@ const Itinerary = ({
         ) : null}
       </div>
     </div>
-    // </ZoomInUpWrapper>
   );
 };
 
