@@ -17,7 +17,7 @@ const generateQuery = (input: QueryInputInterface) => {
   const generalQuery = `
   [no prose]
   [Output only JSON]
-  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}, inclusive.
   `;
 
   //  Attractions query if attractions are specified to be included
