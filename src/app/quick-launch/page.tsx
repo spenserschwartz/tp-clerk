@@ -1,11 +1,8 @@
-import { type ReactElement } from "react";
-import { type NextPageWithLayout } from "~/types/pages";
+// import { FadeUpWrapper } from "@/components/framer-motion";
+import { QuickLaunch } from "../_components";
+import TestComponent from "../_components/TestComponent";
 
-import { QuickLaunch } from "~/components";
-import { FadeUpWrapper } from "~/components/framer-motion";
-import { HomeLayout } from "~/components/layout";
-
-const QuickLaunchPage: NextPageWithLayout = () => {
+const QuickLaunchPage = () => {
   return (
     <section className="relative" id="quick_launch">
       {/* Background Illustration */}
@@ -39,21 +36,22 @@ const QuickLaunchPage: NextPageWithLayout = () => {
           </g>
         </svg>
       </div>
-      <FadeUpWrapper>
-        <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
-          <div className="">
-            {/* Section header */}
-            <div className="mx-auto max-w-3xl pb-2 text-center md:pb-20">
-              <h2 className="h2 mb-4">Plan a trip in seconds</h2>
-              <p className="text-xl text-gray-600">
-                Want a quick itinerary? Fill out the form below and we will
-                generate a trip for you using the best attractions in the city.
-              </p>
-            </div>
+      {/* <FadeUpWrapper> */}
+      <div className="relative mx-auto max-w-6xl px-3 sm:px-6">
+        <div className="">
+          {/* Section header */}
+          <div className="mx-auto max-w-3xl pb-2 text-center md:pb-20">
+            <h2 className="h2 mb-4">Plan a trip in seconds</h2>
+            <p className="text-xl text-gray-600">
+              Want a quick itinerary? Fill out the form below and we will
+              generate a trip for you using the best attractions in the city.
+            </p>
           </div>
-          <QuickLaunch />
         </div>
-      </FadeUpWrapper>
+        <QuickLaunch />
+        <TestComponent />
+      </div>
+      {/* </FadeUpWrapper> */}
     </section>
   );
 };

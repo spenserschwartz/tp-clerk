@@ -1,26 +1,20 @@
+"use client";
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { addDays, format as formatDate } from "date-fns";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
-import { api } from "~/trpc/server";
-
-// import {
-//   Button,
-//   Itinerary,
-//   LoadingPage,
-//   LoadingSection,
-//   PlacesAutoComplete,
-//   Select,
-// } from "~/components";
+import { api } from "~/trpc/react";
 
 import {
   Button,
+  Itinerary,
   LoadingPage,
   LoadingSection,
   PlacesAutoComplete,
+  Select,
 } from "@/components/index";
 
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
@@ -183,10 +177,10 @@ const QuickLaunch = () => {
                     />
                   ) : (
                     <div>
-                      <PlacesAutoComplete
+                      {/* <PlacesAutoComplete
                         setSelected={setChosenCustomCity}
                         requestOptions={autocompleteRequest}
-                      />
+                      /> */}
                     </div>
                   )}
                 </div>
@@ -276,3 +270,9 @@ const QuickLaunch = () => {
 };
 
 export default QuickLaunch;
+
+// const QuickLaunch = () => {
+//   return <div>Quick Launch</div>;
+// };
+
+// export default QuickLaunch;

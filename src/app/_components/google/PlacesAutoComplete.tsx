@@ -1,3 +1,4 @@
+"use client";
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
