@@ -15,10 +15,10 @@ export type GetCityDataByNameType = RouterOutputs["city"]["getCityDataByName"];
 /*
     ITINERARY
 */
-// export type ItineraryType = RouterOutputs["itinerary"]["getAll"][0];
+export type ItineraryType = RouterOutputs["itinerary"]["getAll"][0];
 
-// export type ItineraryWithCityInfoType =
-//   RouterOutputs["itinerary"]["getAllWithCityInfo"][0];
+export type ItineraryWithCityInfoType =
+  RouterOutputs["itinerary"]["getAllWithCityInfo"][0];
 
 /*
     LIKES
