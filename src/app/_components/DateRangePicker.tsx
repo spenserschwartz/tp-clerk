@@ -3,7 +3,8 @@
 import { addDays, format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import * as React from "react";
-import { DateRange } from "react-day-picker";
+import { type Dispatch } from "react";
+import { type DateRange } from "react-day-picker";
 
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
@@ -12,15 +13,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { cn } from "./utils";
+import { cn } from "~/lib/utils";
+import { useIsSmallScreen } from "~/utils/hooks";
+
+interface DatePickerWithRangeProps {
+  date: DateRange | undefined;
+  setDate: Dispatch<DateRange | undefined>;
+}
 
 const DatePickerWithRange = ({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
+  date,
+  setDate,
+}: DatePickerWithRangeProps & React.HTMLAttributes<HTMLDivElement>) => {
+  const isSmallScreen = useIsSmallScreen();
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -56,7 +62,7 @@ const DatePickerWithRange = ({
             defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
-            numberOfMonths={2}
+            numberOfMonths={isSmallScreen ? 1 : 2}
           />
         </PopoverContent>
       </Popover>
