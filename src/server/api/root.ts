@@ -5,6 +5,7 @@ import {
   itineraryRouter,
   openAIRouter,
   postRouter,
+  profileRouter,
 } from "./routers";
 
 /**
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
   itinerary: itineraryRouter,
   openAI: openAIRouter,
   post: postRouter,
+  profile: profileRouter,
 });
 
 // export type definition of API
