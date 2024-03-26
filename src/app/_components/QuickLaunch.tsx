@@ -20,6 +20,7 @@ import {
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
+import DateRangePicker from "./DateRangePicker";
 import { DatePickerWithRange } from "./ui";
 import { quickLaunchCities, unknownClerkCity } from "./utils";
 
@@ -188,6 +189,7 @@ const QuickLaunch = () => {
                 {/* Date Range Picker */}
                 <span className="text-gray-300">Choose your dates</span>
                 <DatePickerWithRange date={date} setDate={setDate} />
+                <DateRangePicker />
 
                 {/* Adventure Option */}
                 <div className="mt-4 flex flex-col">
