@@ -106,6 +106,7 @@ const QuickLaunchTool = () => {
         cityId: cityData?.id ?? unknownClerkCity.id,
         details: parsedData,
         title: itineraryTitle,
+        cityName: chosenCityName,
         imageURL: customCityPhoto,
         placeId: chosenCustomCity?.place_id,
       });

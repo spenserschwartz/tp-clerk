@@ -66,6 +66,7 @@ export const itineraryRouter = createTRPCRouter({
     .input(
       z.object({
         cityId: z.string(),
+        cityName: z.string(),
         details: z.array(
           z.object({
             dayOfWeek: z.string(),
@@ -89,6 +90,7 @@ export const itineraryRouter = createTRPCRouter({
       const newItinerary = await ctx.db.itinerary.create({
         data: {
           city: { connect: { id: input.cityId } },
+          cityName: input.cityName,
           user: { connect: { id: userId } },
           details: input.details,
           title: input.title ?? null,
