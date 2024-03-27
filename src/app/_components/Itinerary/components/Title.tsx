@@ -2,22 +2,21 @@
 import { PencilIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-import { api } from "~/trpc/react";
 
 import { type ItineraryWithCityInfoType } from "~/types/router";
 import { useEditItineraryTitle } from "~/utils/hooks";
 
 interface ItineraryTitleProps {
-  itineraryID: string;
+  data: ItineraryWithCityInfoType;
 }
 
-const ItineraryTitle = ({ itineraryID }: ItineraryTitleProps) => {
-  const { data } = api.itinerary.getByID.useQuery({ id: itineraryID });
+const ItineraryTitle = ({ data }: ItineraryTitleProps) => {
   const {
     title,
+    id: itineraryID,
     details,
     city: { name: cityName },
-  } = data as ItineraryWithCityInfoType;
+  } = data;
   const { editItineraryTitle, isEditingItineraryTitle } =
     useEditItineraryTitle();
   const { length: numberOfDays } = details as unknown as { length: number };
