@@ -1,6 +1,9 @@
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { type GetStaticProps } from "next";
+
 import { useState, type ReactElement } from "react";
+import { api } from "~/trpc/server";
+// import { api } from "~/trpc/react";
 
 import { Itinerary, ItineraryNotes, ItineraryTitle } from "@/components";
 import { DeleteItineraryModal } from "@/modals";
@@ -11,6 +14,18 @@ import { DeleteItineraryModal } from "@/modals";
 
 // export default ItineraryPage;
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  return <div>{`Id: ${params.id}`}</div>;
+export default async function ItineraryPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  // const data = api.itinerary.getByID({ id: params.id });
+  const data = await api.city.getAll();
+
+  return (
+    <div>
+      <p>{`Id: ${params.id}`}</p>
+      <p>{JSON.stringify(data)}</p>
+    </div>
+  );
 }
