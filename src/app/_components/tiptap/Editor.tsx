@@ -1,3 +1,4 @@
+"use client";
 import { useUser } from "@clerk/nextjs";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
