@@ -8,24 +8,18 @@ import { api } from "~/trpc/server";
 import { Itinerary, ItineraryNotes, ItineraryTitle } from "@/components";
 import { DeleteItineraryModal } from "@/modals";
 
-// const ItineraryPage = ({params: {itineraryID}}) => {
-//   return <div>ItineraryPage</div>;
-// };
-
-// export default ItineraryPage;
-
 export default async function ItineraryPage({
   params,
 }: {
   params: { id: string };
 }) {
-  // const data = api.itinerary.getByID({ id: params.id });
-  const data = await api.city.getAll();
+  const data = await api.itinerary.getByID({ id: params.id });
 
   return (
-    <div>
+    <main className="flex flex-col items-center">
+      {/* <ItineraryTitle itineraryID={params.id} /> */}
       <p>{`Id: ${params.id}`}</p>
       <p>{JSON.stringify(data)}</p>
-    </div>
+    </main>
   );
 }
