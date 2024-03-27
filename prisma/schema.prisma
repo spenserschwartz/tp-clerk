@@ -61,9 +61,9 @@ model Itinerary {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    city     City    @relation(fields: [cityId], references: [id])
+    city     City   @relation(fields: [cityId], references: [id])
     cityId   String
-    cityName String?
+    cityName String
 
     user   User?   @relation(fields: [userId], references: [id])
     userId String?
