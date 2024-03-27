@@ -17,7 +17,6 @@ export default async function ItineraryPage({
 
   return (
     <main className="flex flex-col items-center">
-      {/* <ItineraryTitle itineraryID={params.id} /> */}
       <ItineraryTitle data={data} />
       <p>{`Id: ${params.id}`}</p>
       <p>{JSON.stringify(data)}</p>
