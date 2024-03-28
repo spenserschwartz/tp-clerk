@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { Dialog } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type Dispatch } from "react";
 import toast from "react-hot-toast";
 
@@ -21,8 +21,9 @@ const DeleteItineraryModal = ({
   setOpenModal,
 }: DeleteItineraryModalProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user } = useUser();
-  const ctx = api.useContext();
+  const ctx = api.useUtils();
   const cancelButtonRef = useRef(null);
   const [deleteCount, setDeleteCount] = useState(0);
   const { deleteItinerary, isDeletingItinerary, itineraryDeleted } =
@@ -37,7 +38,7 @@ const DeleteItineraryModal = ({
     if (itineraryDeleted && deleteCount === 0) {
       setDeleteCount(1);
       const userId = user?.id ?? "";
-      const lookingAtSingleItinerary = router.pathname.includes("itinerary");
+      const lookingAtSingleItinerary = pathname.includes("itinerary");
 
       if (lookingAtSingleItinerary)
         toast.success("Itinerary deleted. You will be redirected.");
@@ -58,6 +59,7 @@ const DeleteItineraryModal = ({
     ctx.itinerary.getByUserId,
     deleteCount,
     itineraryDeleted,
+    pathname,
     router,
     setOpenModal,
     user?.id,
