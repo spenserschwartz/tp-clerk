@@ -1,5 +1,6 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
+import CitySearch from "./CitySearch";
 import Itinerary from "./Itinerary";
 import {
   DeleteItinerary,
@@ -16,6 +17,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 export {
   Avatar,
   Button,
+  CitySearch,
   DeleteItinerary,
   Itinerary,
   ItineraryNotes,
