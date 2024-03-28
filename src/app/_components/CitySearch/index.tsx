@@ -31,14 +31,12 @@ const CitySearch = () => {
   };
 
   return (
-    <div>
-      <GoogleAPIProvider apiKey={apiKey}>
-        <PlacesAutoComplete
-          requestOptions={autocompleteRequest}
-          setSelected={handleSelectCity}
-        />
-      </GoogleAPIProvider>
-    </div>
+    <GoogleAPIProvider apiKey={apiKey}>
+      <PlacesAutoComplete
+        requestOptions={autocompleteRequest}
+        setSelected={handleSelectCity}
+      />
+    </GoogleAPIProvider>
   );
 };
 
