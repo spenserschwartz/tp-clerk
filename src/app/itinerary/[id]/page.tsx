@@ -1,13 +1,15 @@
-import { SignedIn, useUser } from "@clerk/nextjs";
-import { type GetStaticProps } from "next";
-
 import { useState, type ReactElement } from "react";
 import { api } from "~/trpc/server";
 // import { api } from "~/trpc/react";
 
-import { Itinerary, ItineraryNotes, ItineraryTitle } from "@/components";
+import {
+  DeleteItinerary,
+  Itinerary,
+  ItineraryNotes,
+  ItineraryTitle,
+} from "@/components";
 import { DeleteItineraryModal } from "@/modals";
-import { ParsedAIMessageInterface } from "~/types/openai";
+import type { ParsedAIMessageInterface } from "~/types/openai";
 
 export default async function ItineraryPage({
   params,
@@ -23,6 +25,8 @@ export default async function ItineraryPage({
       <Itinerary data={data} />
 
       <ItineraryNotes data={data} />
+
+      <DeleteItinerary data={data} />
 
       <p>{`Id: ${params.id}`}</p>
     </main>
