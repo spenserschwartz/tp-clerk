@@ -1,7 +1,11 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
 import Itinerary from "./Itinerary";
-import { ItineraryNotes, ItineraryTitle } from "./Itinerary/components";
+import {
+  DeleteItinerary,
+  ItineraryNotes,
+  ItineraryTitle,
+} from "./Itinerary/components";
 import QuickLaunchTool from "./QuickLaunch/Tool";
 import Select from "./Select";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
@@ -12,6 +16,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 export {
   Avatar,
   Button,
+  DeleteItinerary,
   Itinerary,
   ItineraryNotes,
   ItineraryTitle,
