@@ -1,4 +1,6 @@
+"use client";
 import { TextEditor } from "@/components/tiptap";
+import { FadeUpWrapper } from "@/framer-motion";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface ItineraryNotesProps {
@@ -8,7 +10,9 @@ interface ItineraryNotesProps {
 const ItineraryNotes = ({ data }: ItineraryNotesProps) => {
   return (
     <div className="mt-10">
-      <TextEditor data={data} />
+      <FadeUpWrapper>
+        <TextEditor data={data} />
+      </FadeUpWrapper>
     </div>
   );
 };
