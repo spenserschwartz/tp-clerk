@@ -23,7 +23,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
         {/* Title */}
         <div className="flex items-center justify-between p-4">
           <h1 className="text-4xl font-bold text-gray-900">Itinerary</h1>
-          {itineraryID !== unknownItinerary.id && (
+          {itineraryID && itineraryID !== unknownItinerary.id && (
             <Avatar userId={itineraryUserId} />
           )}
         </div>
