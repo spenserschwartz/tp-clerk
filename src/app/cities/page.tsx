@@ -11,7 +11,7 @@ const CitiesPage = async () => {
       </p>
       <p className="text-orange-400">(Click to navigate to city)</p>
       <ul className="flex flex-col  text-center">
-        {cityNames?.map((cityName) => (
+        {cityNames?.sort().map((cityName) => (
           <Link
             className="mt-2"
             key={`CitiesList:${cityName}`}
