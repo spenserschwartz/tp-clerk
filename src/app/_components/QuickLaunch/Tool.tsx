@@ -17,6 +17,7 @@ import {
   Select,
 } from "@/components/index";
 
+import { type QuickLaunchItineraryType } from "~/types/common";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
@@ -48,6 +49,8 @@ const QuickLaunchTool = () => {
     from: new Date(),
     to: addDays(new Date(), 3),
   });
+  const [quickLaunchItineraryData, setQuickLaunchItineraryData] =
+    useState<QuickLaunchItineraryType>({ details: [] });
   const [parsedData, setParsedData] = useState<ParsedAIMessageInterface[]>([]);
   const { data: cityData, refetch } = api.city.getCityDataByName.useQuery({
     name: chosenCityName,
@@ -132,6 +135,11 @@ const QuickLaunchTool = () => {
           generatedAIMessage,
         ) as ParsedAIMessageInterface[];
         setParsedData(newParsedData);
+
+        const newQuickLaunchItineraryData: QuickLaunchItineraryType = {
+          details: newParsedData,
+        };
+        setQuickLaunchItineraryData(newQuickLaunchItineraryData);
       } catch (error) {
         console.error(error);
       }
@@ -159,7 +167,6 @@ const QuickLaunchTool = () => {
             <div className="border border-gray-600  bg-gray-800 p-6 sm:rounded-md">
               <form onSubmit={handleFormSubmit}>
                 {/* Destination */}
-
                 <div className="mb-6 block w-[300px] font-medium leading-6 text-gray-300">
                   <p className="flex justify-between">
                     <span>Where do you want to go?</span>
@@ -263,9 +270,8 @@ const QuickLaunchTool = () => {
                 </button>
               )}
             </div>
-            <ZoomInUpWrapper>
-              <Itinerary parsedData={parsedData} />
-            </ZoomInUpWrapper>
+
+            <Itinerary data={quickLaunchItineraryData} />
           </div>
         )}
       </div>

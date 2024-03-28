@@ -7,6 +7,7 @@ import { api } from "~/trpc/server";
 
 import { Itinerary, ItineraryNotes, ItineraryTitle } from "@/components";
 import { DeleteItineraryModal } from "@/modals";
+import { ParsedAIMessageInterface } from "~/types/openai";
 
 export default async function ItineraryPage({
   params,
@@ -18,8 +19,10 @@ export default async function ItineraryPage({
   return (
     <main className="flex flex-col items-center">
       <ItineraryTitle data={data} />
+
+      <Itinerary data={data} />
+
       <p>{`Id: ${params.id}`}</p>
-      <p>{JSON.stringify(data)}</p>
     </main>
   );
 }
