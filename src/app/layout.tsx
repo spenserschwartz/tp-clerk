@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import { Footer, Header } from "@/components/layout";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,8 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
               {/* Spacing between header and main content */}
               <div className="mb-24 md:mb-20" />
+
+              <Toaster position="bottom-center" />
 
               {/* Main Content */}
               <TRPCReactProvider>{children}</TRPCReactProvider>
