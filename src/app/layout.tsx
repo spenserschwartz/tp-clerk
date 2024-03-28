@@ -30,17 +30,17 @@ export default function RootLayout({
             className={`h-full bg-white font-sans tracking-tight text-gray-900 antialiased ${inter.variable} flex min-h-screen flex-col`}
           >
             <Header />
-            <main className=" overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <main className=" overflow-hiddensupports-[overflow:clip]:overflow-clip flex-1">
               {/* Spacing between header and main content */}
               <div className="mb-24 md:mb-20" />
               <Toaster position="bottom-center" />
 
               {/* Main Content */}
               <TRPCReactProvider>{children}</TRPCReactProvider>
-            </main>
 
-            {/* Grow the page so that footer is at bottom of page if there is no scroll */}
-            <div className="flex-grow" />
+              {/* Grow the page so that footer is at bottom of page if there is no scroll */}
+              <div className="flex-grow" />
+            </main>
 
             <Footer />
           </div>
