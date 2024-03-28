@@ -1,7 +1,7 @@
 import { LoadingPage } from "@/components";
 
-const CitiesLoadingPage = () => {
+const Loading = () => {
   return <LoadingPage />;
 };
 
-export default CitiesLoadingPage;
+export default Loading;

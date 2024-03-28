@@ -1,9 +1,7 @@
 import Link from "next/link";
-// import { LoadingPage } from "~/components";
 import { api } from "~/trpc/server";
 
 const CitiesPage = async () => {
-  //   const { data: cityNames, isLoading } = api.city.getAllCityNames.useQuery();
   const cityNames = await api.city.getAllCityNames();
 
   return (
