@@ -32,6 +32,11 @@ const config = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/city",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 
