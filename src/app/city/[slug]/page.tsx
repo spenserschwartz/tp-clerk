@@ -1,7 +1,8 @@
-import React from "react";
+import type { Metadata } from "next";
 import { api } from "~/trpc/server";
 
 import { databaseCitiesSet } from "@/constants";
+import { convertSlugToDatabaseName } from "~/lib/utils";
 import type {
   NearbySearchNewResponse,
   PlaceNew,
@@ -12,14 +13,25 @@ interface CityPageProps {
   params: { slug: string };
 }
 
-async function getCityDataAndTopPlaces(cityName: string) {
+export async function generateMetadata({
+  params,
+}: CityPageProps): Promise<Metadata> {
+  const slug = params.slug;
+  const cityName = convertSlugToDatabaseName(slug);
+
+  return { title: `${cityName} - TravelPerfect` };
+}
+
+// Only set up for cities right now in the database i.e. London & Berlin
+async function getCityDataAndTopPlaces(slug: string) {
   const apiKey = process.env.GOOGLE_DETAILS_API_KEY ?? "";
   const radius = 50000; // 50km
 
+  const cityName: string = convertSlugToDatabaseName(slug);
+  console.log("This is the cityName: ", cityName);
+
   if (databaseCitiesSet.has(cityName)) {
     const cityData = await api.city.getCityDataByName({ name: cityName });
-    console.log("cityName", cityName);
-    console.log("THIS IS CITYDATA", cityData);
     const cityDataPlaceResult: PlaceResultWithLatLng =
       cityData?.placeResult as unknown as PlaceResultWithLatLng;
     const latitude = cityDataPlaceResult?.geometry?.location?.lat;
@@ -65,15 +77,15 @@ async function getCityDataAndTopPlaces(cityName: string) {
 }
 
 const CityPage = async ({ params }: CityPageProps) => {
-  const cityData = await api.city.getCityDataByName({ name: "London" });
-  //   const cityDataAndTopPlaces = await getCityDataAndTopPlaces(params.slug);
+  const cityDataAndTopPlaces = await getCityDataAndTopPlaces(params.slug);
 
   return (
-    <div>
-      <p>CityName: {params.slug}</p>
-      <div>{JSON.stringify(cityData)}</div>
-      {/* <div>{JSON.stringify(cityDataAndTopPlaces)}</div> */}
-    </div>
+    // <div>
+    //   <p>CityName: {params.slug}</p>
+    //   {/* <div>{JSON.stringify(cityData)}</div> */}
+    //   <div>{JSON.stringify(cityDataAndTopPlaces)}</div>
+    // </div>
+    <div className="flex w-full flex-col items-center"></div>
   );
 };
 
