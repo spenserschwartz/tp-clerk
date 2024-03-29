@@ -1,5 +1,3 @@
-// import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-
 import { CitySearch, LoadingPage } from "@/components";
 
 const CitySearchPage = () => {
