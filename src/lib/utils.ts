@@ -16,3 +16,11 @@ export const convertFormattedAddressToUrlPath = (formattedAddress: string) => {
 
   return urlPath;
 };
+
+// Function to convert slug to display/database name e.g. new-york-city -> New York City
+export const convertSlugToDatabaseName = (slug: string) => {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
