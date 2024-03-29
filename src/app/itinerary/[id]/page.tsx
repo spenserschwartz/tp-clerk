@@ -22,8 +22,6 @@ export default async function ItineraryPage({
       <ItineraryNotes data={data} />
 
       <DeleteItinerary data={data} />
-
-      <p>{`Id: ${params.id}`}</p>
     </div>
   );
 }
