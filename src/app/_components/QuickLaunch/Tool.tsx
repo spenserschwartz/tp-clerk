@@ -17,12 +17,12 @@ import {
   Select,
 } from "@/components/index";
 
+import { quickLaunchCities, unknownClerkCity } from "@/constants";
 import { type QuickLaunchItineraryType } from "~/types/common";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import DateRangePicker from "../DateRangePicker";
-import { quickLaunchCities, unknownClerkCity } from "../utils";
 
 const QuickLaunchTool = () => {
   const { isSignedIn } = useUser();
