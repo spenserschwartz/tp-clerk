@@ -1,6 +1,6 @@
 //* CONSTANTS */
 
-const databaseCities: string[] = ["london", "berlin"];
+const databaseCities: string[] = ["Berlin", "London"];
 export const databaseCitiesSet = new Set<string>(databaseCities);
 
 export const quickLaunchCities = [
