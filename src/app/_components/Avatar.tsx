@@ -2,8 +2,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 
+import { unknownClerkUser } from "~/lib/constants";
 import { AvatarPlaceholder } from "./icons";
-import { unknownClerkUser } from "./utils";
 
 interface AvatarProps {
   userId: string | null;

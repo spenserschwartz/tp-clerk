@@ -1,10 +1,10 @@
 "use client";
 import { Avatar } from "@/components/index";
+import { unknownClerkUser, unknownItinerary } from "~/lib/constants";
 import type { QuickLaunchItineraryType } from "~/types/common";
 import type { ParsedAIMessageInterface } from "~/types/openai";
 import { type ItineraryWithCityInfoType } from "~/types/router";
 import { ZoomInUpWrapper } from "../framer-motion";
-import { unknownClerkUser, unknownItinerary } from "../utils";
 
 interface ItineraryProps {
   data: ItineraryWithCityInfoType | QuickLaunchItineraryType;

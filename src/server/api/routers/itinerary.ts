@@ -2,7 +2,8 @@ import { TRPCError } from "@trpc/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
-import { unknownClerkUser } from "~/app/_components/utils";
+
+import { unknownClerkUser } from "~/lib/constants";
 import {
   createTRPCRouter,
   protectedProcedure,
