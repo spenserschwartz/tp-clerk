@@ -1,3 +1,4 @@
+import AddIcon from "./Add";
 import AvatarPlaceholder from "./AvatarPlaceholder";
 import GitHubIcon from "./Github";
 import LinkedInIcon from "./LinkedIn";
@@ -9,6 +10,7 @@ import TextOrderedListIcon from "./TextOrderedList";
 import TextUnderlineIcon from "./TextUnderline";
 
 export {
+  AddIcon,
   AvatarPlaceholder,
   GitHubIcon,
   LinkedInIcon,
