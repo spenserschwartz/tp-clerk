@@ -6,6 +6,7 @@ import {
   openAIRouter,
   postRouter,
   profileRouter,
+  upvotesRouter,
 } from "./routers";
 
 /**
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   openAI: openAIRouter,
   post: postRouter,
   profile: profileRouter,
+  upvotes: upvotesRouter,
 });
 
 // export type definition of API
