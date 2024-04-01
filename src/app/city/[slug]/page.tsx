@@ -109,12 +109,6 @@ const CityPage = async ({ params }: CityPageProps) => {
 
   if (!cityData) return <div>404 City Not Found</div>;
   return (
-    // <div>
-    //   <p>CityName: {params.slug}</p>
-    //   {/* <div>{JSON.stringify(cityData)}</div> */}
-    //   <div>{JSON.stringify(cityDataAndTopPlaces)}</div>
-    // </div>
-
     <CityDetails
       allCityRecs={allCityRecs}
       cityData={cityData}
