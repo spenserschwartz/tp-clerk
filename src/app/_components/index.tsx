@@ -29,6 +29,5 @@ export {
   LoadingSpinner,
   PlacesAutoComplete,
   QuickLaunchTool,
-  Select
+  Select,
 };
-
