@@ -6,6 +6,7 @@ import {
   openAIRouter,
   postRouter,
   profileRouter,
+  recommendedDaysInCityRouter,
   upvotesRouter,
 } from "./routers";
 
@@ -20,6 +21,7 @@ export const appRouter = createTRPCRouter({
   openAI: openAIRouter,
   post: postRouter,
   profile: profileRouter,
+  recommendedDaysInCity: recommendedDaysInCityRouter,
   upvotes: upvotesRouter,
 });
 

@@ -1,5 +1,6 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
+import CityDetails from "./CityDetails";
 import CitySearch from "./CitySearch";
 import Itinerary from "./Itinerary";
 import {
@@ -17,6 +18,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 export {
   Avatar,
   Button,
+  CityDetails,
   CitySearch,
   DeleteItinerary,
   Itinerary,
@@ -27,5 +29,6 @@ export {
   LoadingSpinner,
   PlacesAutoComplete,
   QuickLaunchTool,
-  Select,
+  Select
 };
+

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { api } from "~/trpc/server";
 
-import { databaseCitiesSet } from "@/constants";
+import { CityDetails } from "@/components";
+import { databaseCitiesSet, unknownClerkCity } from "@/constants";
 import { convertSlugToDatabaseName } from "~/lib/utils";
 import type {
   NearbySearchNewResponse,
@@ -28,7 +29,6 @@ async function getCityDataAndTopPlaces(slug: string) {
   const radius = 50000; // 50km
 
   const cityName: string = convertSlugToDatabaseName(slug);
-  console.log("This is the cityName: ", cityName);
 
   if (databaseCitiesSet.has(cityName)) {
     const cityData = await api.city.getCityDataByName({ name: cityName });
@@ -72,20 +72,31 @@ async function getCityDataAndTopPlaces(slug: string) {
     });
     return { cityData, topPlacesFromGoogle };
   } else {
-    return { cityData: "nothing", topPlacesFromGoogle: "nothing" };
+    return { cityData: null, topPlacesFromGoogle: null };
   }
+}
+
+async function getUserUpvoteDataInCity(cityId: string, userId: string) {
+  const userUpvotesInCity = await api.upvotes.getAllByUserInCity({
+    cityId: cityId ?? unknownClerkCity.id,
+    userId: userId ?? "",
+  });
+  return userUpvotesInCity;
 }
 
 const CityPage = async ({ params }: CityPageProps) => {
   const cityDataAndTopPlaces = await getCityDataAndTopPlaces(params.slug);
+  const { cityData, topPlacesFromGoogle } = cityDataAndTopPlaces;
 
+  if (!cityData) return <div>404 City Not Found</div>;
   return (
     // <div>
     //   <p>CityName: {params.slug}</p>
     //   {/* <div>{JSON.stringify(cityData)}</div> */}
     //   <div>{JSON.stringify(cityDataAndTopPlaces)}</div>
     // </div>
-    <div className="flex w-full flex-col items-center"></div>
+
+    <CityDetails cityData={cityData} />
   );
 };
 

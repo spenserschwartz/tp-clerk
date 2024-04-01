@@ -3,6 +3,7 @@ import { itineraryRouter } from "./itinerary";
 import { openAIRouter } from "./openai";
 import { postRouter } from "./post";
 import { profileRouter } from "./profile";
+import { recommendedDaysInCityRouter } from "./recommendedDaysInCity";
 import { upvotesRouter } from "./upvotes";
 
 export {
@@ -11,5 +12,6 @@ export {
   openAIRouter,
   postRouter,
   profileRouter,
+  recommendedDaysInCityRouter,
   upvotesRouter,
 };
