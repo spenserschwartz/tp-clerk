@@ -6,7 +6,7 @@
 @import 'additional-styles/utility-patterns.css';
 @import 'additional-styles/theme.css';
 
-/* @layer base {
+ @layer base {
     :root {
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
@@ -83,4 +83,4 @@
     .rtl {
         direction: rtl;
     }
-  } */
+  } 
