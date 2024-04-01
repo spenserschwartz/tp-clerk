@@ -89,6 +89,14 @@ async function getUserUpvoteDataInCity(
   return userUpvotesInCity;
 }
 
+async function getRecommendedDaysInCity(slug: string) {
+  const cityName: string = convertSlugToDatabaseName(slug);
+  const allCityRecs = await api.recommendedDaysInCity.getAllByCity({
+    cityName,
+  });
+  return allCityRecs;
+}
+
 const CityPage = async ({ params }: CityPageProps) => {
   const user = await currentUser();
 
@@ -96,6 +104,8 @@ const CityPage = async ({ params }: CityPageProps) => {
   const { cityData, topPlacesFromGoogle } = cityDataAndTopPlaces;
 
   const userUpvoteData = await getUserUpvoteDataInCity(cityData?.id, user?.id);
+
+  const allCityRecs = await getRecommendedDaysInCity(params.slug);
 
   if (!cityData) return <div>404 City Not Found</div>;
   return (
@@ -105,7 +115,11 @@ const CityPage = async ({ params }: CityPageProps) => {
     //   <div>{JSON.stringify(cityDataAndTopPlaces)}</div>
     // </div>
 
-    <CityDetails cityData={cityData} userUpvoteData={userUpvoteData} />
+    <CityDetails
+      allCityRecs={allCityRecs}
+      cityData={cityData}
+      userUpvoteData={userUpvoteData}
+    />
   );
 };
 

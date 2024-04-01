@@ -7,10 +7,12 @@ import { LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
 import type {
   GetCityDataByNameType,
+  GetRecommendedDaysByCityType,
   GetUpvotesByUserInCityType,
 } from "~/types/router";
 
 interface CityDetailsProps {
+  allCityRecs: GetRecommendedDaysByCityType;
   cityData: GetCityDataByNameType;
   userUpvoteData: GetUpvotesByUserInCityType;
 }
