@@ -35,5 +35,5 @@ export type ItineraryWithCityInfoType =
 /*
     UPVOTES
 */
-// export type GetUpvotesByUserInCityType =
-//   RouterOutputs["upvotes"]["getAllByUserInCity"];
+export type GetUpvotesByUserInCityType =
+  RouterOutputs["upvotes"]["getAllByUserInCity"];
