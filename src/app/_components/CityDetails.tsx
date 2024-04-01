@@ -5,13 +5,17 @@ import { useState } from "react";
 
 import { LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
-import type { GetCityDataByNameType } from "~/types/router";
+import type {
+  GetCityDataByNameType,
+  GetUpvotesByUserInCityType,
+} from "~/types/router";
 
 interface CityDetailsProps {
   cityData: GetCityDataByNameType;
+  userUpvoteData: GetUpvotesByUserInCityType;
 }
 
-const CityDetails = ({ cityData }: CityDetailsProps) => {
+const CityDetails = ({ cityData, userUpvoteData }: CityDetailsProps) => {
   const router = useRouter();
   const { isSignedIn, user } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
@@ -47,6 +51,13 @@ const CityDetails = ({ cityData }: CityDetailsProps) => {
           {cityData.description}
         </p>
       </div>
+
+      {/* Recommended time in city */}
+      {/* <p className="text-center text-amber-600">
+          {allCityRecs?.length
+            ? `Travelers recommend spending ${averageRecDays} in ${cityData.name}`
+            : "No recommendations yet"}
+        </p> */}
     </div>
   );
 };

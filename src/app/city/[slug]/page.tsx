@@ -1,3 +1,4 @@
+import { currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { api } from "~/trpc/server";
 
@@ -76,17 +77,25 @@ async function getCityDataAndTopPlaces(slug: string) {
   }
 }
 
-async function getUserUpvoteDataInCity(cityId: string, userId: string) {
+async function getUserUpvoteDataInCity(
+  cityId: string | undefined,
+  userId: string | undefined,
+) {
+  if (!cityId || !userId) return [];
   const userUpvotesInCity = await api.upvotes.getAllByUserInCity({
-    cityId: cityId ?? unknownClerkCity.id,
-    userId: userId ?? "",
+    cityId,
+    userId,
   });
   return userUpvotesInCity;
 }
 
 const CityPage = async ({ params }: CityPageProps) => {
+  const user = await currentUser();
+
   const cityDataAndTopPlaces = await getCityDataAndTopPlaces(params.slug);
   const { cityData, topPlacesFromGoogle } = cityDataAndTopPlaces;
+
+  const userUpvoteData = await getUserUpvoteDataInCity(cityData?.id, user?.id);
 
   if (!cityData) return <div>404 City Not Found</div>;
   return (
@@ -96,7 +105,7 @@ const CityPage = async ({ params }: CityPageProps) => {
     //   <div>{JSON.stringify(cityDataAndTopPlaces)}</div>
     // </div>
 
-    <CityDetails cityData={cityData} />
+    <CityDetails cityData={cityData} userUpvoteData={userUpvoteData} />
   );
 };
 
