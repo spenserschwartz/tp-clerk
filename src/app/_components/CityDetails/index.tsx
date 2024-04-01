@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
+import { LoginModal } from "@/modals";
 import { getAverageDaysFromCityRecs } from "~/lib/utils";
 import type {
   GetCityDataByNameType,
@@ -81,6 +82,17 @@ const CityDetails = ({
             onClick={visitedCityHandler}
           >{`Been to ${cityData.name}? Click here!`}</p>
         </div>
+
+        {/* Modals */}
+        <LoginModal
+          openModal={openLoginModal}
+          setOpenModal={setOpenLoginModal}
+        />
+        <VisitedCityModal
+          cityData={cityData}
+          openModal={openVisitedCityModal}
+          setOpenModal={setOpenVisitedCityModal}
+        />
       </div>
     </GoogleAPIProvider>
   );
