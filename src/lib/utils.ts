@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { GetRecommendedDaysByCityType } from "~/types/router";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -24,4 +25,20 @@ export const convertSlugToDatabaseName = (slug: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ")
     .trim();
+};
+
+export const getAverageDaysFromCityRecs = (
+  allCityRecs: GetRecommendedDaysByCityType,
+) => {
+  if (!allCityRecs ?? !allCityRecs?.length) return undefined;
+  // Find average
+  const sum = allCityRecs.reduce((acc, rec) => acc + rec.recommendedDays, 0);
+  const average = sum / allCityRecs.length;
+
+  // Return average as a window of days
+  if (average <= 1) return "~1 day";
+  else {
+    if (average % 1 === 0) return `~${average} days`;
+    else return `${Math.floor(average)} - ${Math.ceil(average)} days`;
+  }
 };
