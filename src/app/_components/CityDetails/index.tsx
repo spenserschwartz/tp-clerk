@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
-import { LoginModal } from "@/modals";
+import { LoginModal, VisitedCityModal } from "@/modals";
 import { getAverageDaysFromCityRecs } from "~/lib/utils";
 import type {
   GetCityDataByNameType,
