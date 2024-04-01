@@ -81,19 +81,19 @@ const VisitedCityModal = ({
           </div>
         ) : (
           <form className="mt-2" onSubmit={handleSubmit}>
-            <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+            <h2 className="text-3xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               Visited City
             </h2>
             <div>
               <label
                 htmlFor="website"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="text-md block font-medium leading-6 text-gray-900"
               >
                 How many days should travelers spend here?
               </label>
 
               {/* Previous Recommendation */}
-              <p className="text-xs text-slate-500">
+              <p className="text-sm text-slate-500">
                 {recommendedDays
                   ? `You previously recommended ${recommendedDays} ${
                       recommendedDays === 1 ? "day" : "days"
