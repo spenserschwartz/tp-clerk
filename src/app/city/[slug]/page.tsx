@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { api } from "~/trpc/server";
 
 import { CityDetails } from "@/components";
-import { databaseCitiesSet, unknownClerkCity } from "@/constants";
+import { databaseCitiesSet } from "@/constants";
 import { convertSlugToDatabaseName } from "~/lib/utils";
 import type {
   NearbySearchNewResponse,
