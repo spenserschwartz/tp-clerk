@@ -1,8 +1,8 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
@@ -26,6 +26,8 @@ const CityDetails = ({
   userUpvoteData,
 }: CityDetailsProps) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { isSignedIn, user } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
   const [openVisitedCityModal, setOpenVisitedCityModal] = useState(false);
@@ -39,6 +41,11 @@ const CityDetails = ({
   const visitedCityHandler = () => {
     isSignedIn ? setOpenVisitedCityModal(true) : setOpenLoginModal(true);
   };
+
+  // Close cityLaunch when route changes
+  useEffect(() => {
+    setShowCityLaunch(false);
+  }, [pathname, searchParams]);
 
   if (!cityData) return null;
   if (!apiKey) return <LoadingPage />;
