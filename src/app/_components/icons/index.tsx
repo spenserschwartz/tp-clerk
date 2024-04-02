@@ -1,6 +1,7 @@
 import AddIcon from "./Add";
 import AvatarPlaceholder from "./AvatarPlaceholder";
 import GitHubIcon from "./Github";
+import HeartIcon from "./Heart";
 import LinkedInIcon from "./LinkedIn";
 import TextBoldIcon from "./TextBold";
 import TextBulletListIcon from "./TextBullet";
@@ -13,6 +14,7 @@ export {
   AddIcon,
   AvatarPlaceholder,
   GitHubIcon,
+  HeartIcon,
   LinkedInIcon,
   TextBoldIcon,
   TextBulletListIcon,
