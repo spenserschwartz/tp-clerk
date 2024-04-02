@@ -1,9 +1,9 @@
+"use client";
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
-import { api } from "~/trpc/server";
 
 import {
   DatePickerWithRange,
@@ -11,6 +11,11 @@ import {
   PlacesAutoComplete,
 } from "@/components";
 import { HeartIcon } from "@/icons";
+import { unknownClerkCity } from "~/lib/constants";
+import {
+  createAutoCompleteRequestOptions,
+  sortWithoutPrefix,
+} from "~/lib/utils";
 import {
   RequestOptionType,
   type AutocompleteRequest,
@@ -18,8 +23,10 @@ import {
   type PlaceResultWithLatLng,
 } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
-import { type GetCityDataByNameType } from "~/types/router";
-// import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
+import type {
+  GetCityDataByNameType,
+  GetUpvotesByUserInCityType,
+} from "~/types/router";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { LoginModal } from "../modal";
 
@@ -27,14 +34,16 @@ interface CityLaunchProps {
   cityData: GetCityDataByNameType;
   isMutating: boolean;
   setShowCityLaunch: React.Dispatch<React.SetStateAction<boolean>>;
+  userUpvoteData: GetUpvotesByUserInCityType;
 }
 
 const CityLaunch = ({
   cityData,
   isMutating,
   setShowCityLaunch,
+  userUpvoteData,
 }: CityLaunchProps) => {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   const {
     createItinerary,
     isCreatingItinerary,
@@ -48,10 +57,6 @@ const CityLaunch = ({
   });
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState(false);
-  const { data: userUpvoteData } = api.upvotes.getAllByUserInCity.useQuery({
-    cityId: cityData?.id ?? "",
-    userId: user ? user.id : "",
-  });
   const [includedAttractions, setIncludedAttractions] = useState<string[]>([]);
   const attractionsUpvotedByUser: string[] | undefined = userUpvoteData?.map(
     (upvote) => upvote.attraction.name,
@@ -84,7 +89,8 @@ const CityLaunch = ({
             ) as ParsedAIMessageInterface[];
 
             createItinerary({
-              cityId: cityData?.id ?? "",
+              cityName: cityData?.name ?? unknownClerkCity.name,
+              cityId: cityData?.id ?? unknownClerkCity.id,
               details: newParsedData,
               title: `${newParsedData.length} days in ${cityData?.name}`,
             });
@@ -145,7 +151,7 @@ const CityLaunch = ({
       const CITY_COORDINATES = { lat, lng };
 
       setRequestOptions(
-        createRequestOptions(
+        createAutoCompleteRequestOptions(
           RequestOptionType.Establishment,
           "", // Add the user's input here
           CITY_COORDINATES,
@@ -201,12 +207,6 @@ const CityLaunch = ({
               {/* Included Attractions, alphabetized */}
               <div className="mt-4 flex w-full flex-col px-4">
                 <div className="mb-6 block w-full">
-                  {/* <SignedOut>
-                    <p className=" text-red-800">
-                      **Please sign in to personalize your itinerary
-                    </p>
-                  </SignedOut> */}
-
                   {/* <SignedIn> */}
                   <div className="flex items-center justify-between">
                     <p className="font-semibold text-gray-900">
