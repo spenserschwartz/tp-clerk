@@ -11,6 +11,7 @@ import {
   ItineraryNotes,
   ItineraryTitle,
 } from "./Itinerary/components";
+import ItineraryImageGrid from "./ItineraryImageGrid";
 import QuickLaunchTool from "./QuickLaunch/Tool";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
@@ -29,6 +30,7 @@ export {
   DeleteItinerary,
   ImageGrid,
   Itinerary,
+  ItineraryImageGrid,
   ItineraryNotes,
   ItineraryTitle,
   LoadingPage,
