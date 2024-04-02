@@ -3,9 +3,9 @@ import { type RouterOutputs } from "~/trpc/server";
 /*
     ATTRACTION
 */
-// export type AttractionType = RouterOutputs["attractions"]["getAll"][0];
+export type AttractionType = RouterOutputs["attractions"]["getAll"][0];
 
-// export type AttractionByNameType = RouterOutputs["attractions"]["getByName"];
+export type AttractionByNameType = RouterOutputs["attractions"]["getByName"];
 
 /*
     CITY
