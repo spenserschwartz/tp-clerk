@@ -10,6 +10,12 @@ import PlaceResult = google.maps.places.PlaceResult;
 import PlaceSearchStatus = google.maps.places.PlacesServiceStatus;
 import PlacesService = google.maps.places.PlacesService;
 
+
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
 // https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#LocalizedText
 interface LocalizedText {
   text: string;
@@ -70,6 +76,7 @@ export type {
   AutocompletePrediction,
   AutocompleteRequest,
   AutocompleteSessionToken,
+  LatLng,
   NearbySearchNewResponse,
   NearbySearchResponse,
   Place,
@@ -79,5 +86,6 @@ export type {
   PlaceResult,
   PlaceResultWithLatLng,
   PlacesService,
-  PlacesTextSearchResponse,
+  PlacesTextSearchResponse
 };
+
