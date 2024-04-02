@@ -3,20 +3,23 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { addDays, format as formatDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/server";
 
+import {
+  DatePickerWithRange,
+  LoadingSpinner,
+  PlacesAutoComplete,
+} from "@/components";
 import { HeartIcon } from "@/icons";
-import { LoadingSpinner, PlacesAutoComplete } from "~/components";
-import { type ParsedAIMessageInterface } from "~/types";
 import {
   RequestOptionType,
   type AutocompleteRequest,
   type PlaceResult,
   type PlaceResultWithLatLng,
 } from "~/types/google";
+import type { ParsedAIMessageInterface } from "~/types/openai";
 import { type GetCityDataByNameType } from "~/types/router";
-import { DatePickerWithRange } from "~/ui/datePickerWithRange";
-import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
+// import { createRequestOptions, sortWithoutPrefix } from "~/utils/common";
 import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
 import { LoginModal } from "../modal";
 
