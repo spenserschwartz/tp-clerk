@@ -4,7 +4,7 @@ import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { CityLaunch, LoadingPage } from "@/components";
+import { CityLaunch, LoadingPage, Searchbar } from "@/components";
 import { AddIcon } from "@/icons";
 import { LoginModal, VisitedCityModal } from "@/modals";
 import { getAverageDaysFromCityRecs } from "~/lib/utils";
@@ -98,6 +98,24 @@ const CityDetails = ({
             isMutating={isMutating}
             userUpvoteData={userUpvoteData}
           />
+        )}
+
+        {!showCityLaunch && (
+          <div>
+            {/* Filter attraction name */}
+            <div className="flex w-full justify-center ">
+              <Searchbar
+                inputValue={filterInputValue}
+                setInputValue={setFilterInputValue}
+              />
+            </div>
+            <ImageGrid
+              cityData={cityData}
+              userUpvoteData={userUpvoteData}
+              filterInputValue={filterInputValue}
+              setIsMutating={setIsMutating}
+            />
+          </div>
         )}
 
         {/* Modals */}
