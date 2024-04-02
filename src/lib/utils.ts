@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { RequestOptionType } from "~/types/google";
+import { AutocompleteRequest, LatLng, RequestOptionType } from "~/types/google";
 import type { GetRecommendedDaysByCityType } from "~/types/router";
 
 export function cn(...inputs: ClassValue[]) {
