@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { RequestOptionType } from "~/types/google";
 import type { GetRecommendedDaysByCityType } from "~/types/router";
 
 export function cn(...inputs: ClassValue[]) {
@@ -26,6 +27,34 @@ export const convertSlugToDatabaseName = (slug: string) => {
     .join(" ")
     .trim();
 };
+
+export function createRequestOptions(
+  requestOptionType: RequestOptionType,
+  input?: string,
+  location?: LatLng,
+  radius?: number,
+  googleMaps?: typeof google.maps,
+): AutocompleteRequest {
+  switch (requestOptionType) {
+    case RequestOptionType.Cities:
+      return {
+        input: input ?? "",
+        types: ["(cities)"],
+      };
+    case RequestOptionType.Establishment:
+      if (!location || !googleMaps)
+        throw new Error("Location must be provided");
+      return {
+        input: input ?? "",
+        types: ["establishment"],
+        location: new googleMaps.LatLng(location.lat, location.lng),
+        radius: radius ?? 10000, // default radius if not provided
+      };
+
+    default:
+      throw new Error("Invalid search type");
+  }
+}
 
 export const getAverageDaysFromCityRecs = (
   allCityRecs: GetRecommendedDaysByCityType,
