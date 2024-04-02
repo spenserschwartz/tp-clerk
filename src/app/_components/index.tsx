@@ -13,6 +13,7 @@ import {
   ItineraryTitle,
 } from "./Itinerary/components";
 import ItineraryImageGrid from "./ItineraryImageGrid";
+import ItineraryImageGridElement from "./ItineraryImageGrid/GridElement";
 import QuickLaunchTool from "./QuickLaunch/Tool";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
@@ -33,6 +34,7 @@ export {
   ImageGrid,
   Itinerary,
   ItineraryImageGrid,
+  ItineraryImageGridElement,
   ItineraryNotes,
   ItineraryTitle,
   LoadingPage,

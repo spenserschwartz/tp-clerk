@@ -1,7 +1,7 @@
 "use client";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { DropdownMenu } from "@/components";
@@ -15,7 +15,9 @@ interface ItineraryGridElementProps {
   itinerary: ItineraryWithCityInfoType;
 }
 
-const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
+const ItineraryImageGridElement = ({
+  itinerary,
+}: ItineraryGridElementProps) => {
   const router = useRouter();
   const placesLib = useMapsLibrary("places");
   const [placesService, setPlacesService] = useState<PlacesService | null>(
@@ -140,4 +142,4 @@ const ItineraryGridElement = ({ itinerary }: ItineraryGridElementProps) => {
   );
 };
 
-export default ItineraryGridElement;
+export default ItineraryImageGridElement;
