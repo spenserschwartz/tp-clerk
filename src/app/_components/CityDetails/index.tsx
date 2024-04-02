@@ -4,7 +4,7 @@ import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { LoadingPage } from "@/components";
+import { CityLaunch, LoadingPage } from "@/components";
 import { AddIcon } from "@/icons";
 import { LoginModal, VisitedCityModal } from "@/modals";
 import { getAverageDaysFromCityRecs } from "~/lib/utils";
@@ -89,6 +89,16 @@ const CityDetails = ({
             onClick={visitedCityHandler}
           >{`Been to ${cityData.name}? Click here!`}</p>
         </div>
+
+        {/* CityLaunch */}
+        {showCityLaunch && (
+          <CityLaunch
+            cityData={cityData}
+            setShowCityLaunch={setShowCityLaunch}
+            isMutating={isMutating}
+            userUpvoteData={userUpvoteData}
+          />
+        )}
 
         {/* Modals */}
         <LoginModal
