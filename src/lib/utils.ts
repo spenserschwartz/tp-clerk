@@ -23,6 +23,11 @@ export const convertFormattedAddressToUrlPath = (formattedAddress: string) => {
   return urlPath;
 };
 
+// Function to convert name to slug e.g. New York City -> new-york-city
+export const convertNameToSlug = (name: string) => {
+  return name.replace(/\s/g, "-").toLowerCase();
+};
+
 // Function to convert slug to display/database name e.g. new-york-city -> New York City
 export const convertSlugToDatabaseName = (slug: string) => {
   return slug
