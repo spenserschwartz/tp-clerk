@@ -1,7 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { CityLaunch, ImageGrid, LoadingPage, Searchbar } from "@/components";
@@ -25,10 +25,9 @@ const CityDetails = ({
   cityData,
   userUpvoteData,
 }: CityDetailsProps) => {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
   const [showCityLaunch, setShowCityLaunch] = useState(false);
   const [openVisitedCityModal, setOpenVisitedCityModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
