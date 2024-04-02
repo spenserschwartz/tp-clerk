@@ -1,6 +1,7 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
 import CityDetails from "./CityDetails";
+import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
 import Itinerary from "./Itinerary";
 import {
@@ -19,6 +20,7 @@ export {
   Avatar,
   Button,
   CityDetails,
+  CityLaunch,
   CitySearch,
   DeleteItinerary,
   Itinerary,
