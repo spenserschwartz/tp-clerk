@@ -1,3 +1,4 @@
+"use client";
 import { useUser } from "@clerk/nextjs";
 import { Menu } from "@headlessui/react";
 import {
