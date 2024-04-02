@@ -4,7 +4,7 @@ import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { CityLaunch, LoadingPage, Searchbar } from "@/components";
+import { CityLaunch, ImageGrid, LoadingPage, Searchbar } from "@/components";
 import { AddIcon } from "@/icons";
 import { LoginModal, VisitedCityModal } from "@/modals";
 import { getAverageDaysFromCityRecs } from "~/lib/utils";
