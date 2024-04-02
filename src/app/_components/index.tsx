@@ -3,6 +3,7 @@ import Button from "./Button";
 import CityDetails from "./CityDetails";
 import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
+import DatePickerWithRange from "./DateRangePicker";
 import Itinerary from "./Itinerary";
 import {
   DeleteItinerary,
@@ -22,6 +23,7 @@ export {
   CityDetails,
   CityLaunch,
   CitySearch,
+  DatePickerWithRange,
   DeleteItinerary,
   Itinerary,
   ItineraryNotes,
