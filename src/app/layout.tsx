@@ -31,8 +31,6 @@ export default function RootLayout({
           >
             <Header />
             <main className=" overflow-hiddensupports-[overflow:clip]:overflow-clip flex-1">
-              {/* Spacing between header and main content */}
-              <div className="mb-24 md:mb-20" />
               <Toaster position="bottom-center" />
 
               {/* Main Content */}
