@@ -5,6 +5,7 @@ import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
 import DatePickerWithRange from "./DateRangePicker";
 import DropdownMenu from "./DropdownMenu";
+import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
 import {
@@ -31,6 +32,7 @@ export {
   DatePickerWithRange,
   DeleteItinerary,
   DropdownMenu,
+  ImageGallery,
   ImageGrid,
   Itinerary,
   ItineraryImageGrid,
