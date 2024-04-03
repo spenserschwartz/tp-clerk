@@ -3,14 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import { ChevronRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const getDisplayName = (segment: string) => {
-  return segment
-    .replace(/#/g, "") // Remove hashtags
-    .split("-") // Split the string by hyphens
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
-    .join(" "); // Join the words with spaces
-};
+import { convertSlugToDatabaseName } from "~/lib/utils";
 
 export default function Breadcrumbs() {
   const { user } = useUser();
@@ -37,7 +30,11 @@ export default function Breadcrumbs() {
         };
       }
 
-      return { name: getDisplayName(segment), href, current: isCurrentPage };
+      return {
+        name: convertSlugToDatabaseName(segment),
+        href,
+        current: isCurrentPage,
+      };
     });
 
   return (
