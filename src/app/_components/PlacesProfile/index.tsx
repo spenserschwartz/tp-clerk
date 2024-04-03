@@ -1,26 +1,33 @@
 "use client";
-import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import {
+  APIProvider as GoogleAPIProvider,
+  useMapsLibrary,
+} from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
-import { api } from "~/utils/api";
 
 import { ImageGallery } from "@/components";
 import type { PlaceResult, PlacesService } from "~/types/google";
-import { type AttractionByNameType } from "~/types/router";
+import type {
+  AttractionByNameType,
+  GetTripAdvisorDetailsType,
+} from "~/types/router";
 import { type LocationDetails } from "~/types/tripAdvisor";
-import { PlaceDetails, PlaceTitle } from "./components";
+// import { PlaceDetails, PlaceTitle } from "./components";
 
 interface PlacesProfileProps {
   databaseData?: AttractionByNameType;
+  tripAdvisorData?: GetTripAdvisorDetailsType;
 }
 
-const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
+const PlacesProfile = ({
+  databaseData,
+  tripAdvisorData,
+}: PlacesProfileProps) => {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const placesLib = useMapsLibrary("places");
   const [googleData, setGoogleData] = useState<PlaceResult | undefined>(
     undefined,
   );
-  const [tripAdvisorData, setTripAdvisorData] = useState<
-    LocationDetails | undefined
-  >(undefined);
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined,
   );
@@ -31,38 +38,8 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     null,
   );
 
-  const { data: fetchedTripAdvisorData, error: tripAdvisorError } =
-    api.tripAdvisor.getLocationDetails.useQuery(
-      { locationId: tripAdvisorLocationId ?? "" },
-      {
-        enabled: !!databaseData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-      },
-    );
-
-  const { data: secondFetchedGoogleData, error: secondGoogleError } =
-    api.google.findPlace.useQuery(
-      {
-        // Use the name and vicinity to search for the place as a text query
-        query: `${databaseData?.name} ${placeResult?.vicinity}` ?? "",
-      },
-      {
-        enabled: !!databaseData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-      },
-    );
-
-  // Fetch details from TripAdvisor API
-  useEffect(() => {
-    if (tripAdvisorError) {
-      console.error("Error fetching TripAdvisor data:", tripAdvisorError);
-      setTripAdvisorData(undefined);
-    } else if (fetchedTripAdvisorData && !("error" in fetchedTripAdvisorData)) {
-      setTripAdvisorData(fetchedTripAdvisorData);
-    }
-  }, [fetchedTripAdvisorData, tripAdvisorError]);
+  console.log("PP databaseData:", databaseData);
+  console.log("PP tripAdvisorData:", tripAdvisorData);
 
   // Correctly initializing PlacesService with a div element
   useEffect(() => {
@@ -102,42 +79,23 @@ const PlacesProfile = ({ databaseData }: PlacesProfileProps) => {
     });
   }, [placesService, databaseData]);
 
-  // Set googleData from the second fetch if necessary
-  useEffect(() => {
-    if (secondGoogleError) {
-      console.error("Error fetching Google data:", secondGoogleError);
-    } else if (
-      secondFetchedGoogleData &&
-      !("error" in secondFetchedGoogleData)
-    ) {
-      // Take the first candidate and set ratings and user_ratings_total
-      const candidate = secondFetchedGoogleData.candidates[0];
-      if (candidate) {
-        const { rating, user_ratings_total } = candidate;
-        setGoogleData({
-          ...placeResult,
-          rating,
-          user_ratings_total,
-        });
-      }
-    }
-  }, [secondFetchedGoogleData, secondGoogleError, placeResult]);
-
-  if (!databaseData) return null;
+  if (!databaseData || !apiKey) return null;
   return (
-    <div className="flex w-full flex-grow justify-center">
-      <div className="flex w-full flex-grow flex-col items-center">
-        <PlaceTitle data={databaseData} />
+    <GoogleAPIProvider apiKey={apiKey}>
+      <div className="flex w-full flex-grow justify-center">
+        <div className="flex w-full flex-grow flex-col items-center">
+          {/* <PlaceTitle data={databaseData} />
 
-        {images && <ImageGallery images={images} />}
+          {images && <ImageGallery images={images} />}
 
-        <PlaceDetails
-          databaseData={databaseData}
-          googleData={googleData}
-          tripAdvisorData={tripAdvisorData}
-        />
+          <PlaceDetails
+            databaseData={databaseData}
+            googleData={googleData}
+            tripAdvisorData={tripAdvisorData}
+          /> */}
+        </div>
       </div>
-    </div>
+    </GoogleAPIProvider>
   );
 };
 
