@@ -33,6 +33,12 @@ export type GetRecommendedDaysByCityType =
   RouterOutputs["recommendedDaysInCity"]["getAllByCity"];
 
 /*
+    TRIPADVISOR
+*/
+export type GetTripAdvisorDetailsType =
+  RouterOutputs["tripAdvisor"]["getLocationDetails"];
+
+/*
     UPVOTES
 */
 export type GetUpvotesByUserInCityType =
