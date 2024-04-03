@@ -32,7 +32,11 @@ export const convertNameToSlug = (name: string) => {
 export const convertSlugToDatabaseName = (slug: string) => {
   return slug
     .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word, index, array) =>
+      (word === "of" || word === "the") && index !== 0 && index !== array.length
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1),
+    )
     .join(" ")
     .trim();
 };
