@@ -85,6 +85,15 @@ export const getAverageDaysFromCityRecs = (
   }
 };
 
+export const getFirstPathnameSegment = (pathname: string) => {
+  // Split the path by "/" and filter out any empty strings
+  // Empty strings can appear if there's a leading slash
+  const segments: string[] = pathname.split("/").filter(Boolean);
+
+  // Return the first element of the array
+  return segments[0];
+};
+
 // Sort without prefix
 export const sortWithoutPrefix = (titles: string[] | undefined) => {
   if (!titles?.length) return [];
