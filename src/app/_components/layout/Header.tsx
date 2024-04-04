@@ -1,18 +1,23 @@
 "use client";
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { getFirstPathnameSegment } from "~/lib/utils";
 import { Breadcrumbs, HeaderLogo, MobileMenu } from "./index";
-import { headerNavigation } from "./utils";
+import { headerNavigation, layoutStyles, routeLayouts } from "./utils";
 
-interface HeaderProps {
-  extraClasses?: string;
-}
-
-export default function Header({ extraClasses }: HeaderProps) {
+export default function Header() {
   const { user } = useUser();
+  const pathname = usePathname();
   const [top, setTop] = useState<boolean>(true);
+  const firstSegment = getFirstPathnameSegment(pathname);
+
+  const extraStyles =
+    !!firstSegment && firstSegment in routeLayouts
+      ? layoutStyles[routeLayouts[firstSegment] ?? ""]
+      : "";
 
   // Detect whether user has scrolled the page down by 10px
   const scrollHandler = () => {
@@ -34,7 +39,7 @@ export default function Header({ extraClasses }: HeaderProps) {
           !top ? "bg-white shadow-lg backdrop-blur-sm" : ""
         }`}
       >
-        <div className={`mx-auto w-full ${extraClasses} `}>
+        <div className={`mx-auto w-full ${extraStyles}`}>
           <div className="flex h-16 items-center justify-between px-2 md:h-20 md:px-10 lg:px-20 ">
             {/* Site branding */}
             <div className="flex flex-1 justify-start">
