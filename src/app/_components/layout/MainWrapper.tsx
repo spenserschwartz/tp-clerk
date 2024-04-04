@@ -1,6 +1,6 @@
 import React from "react";
 
-const MarginWrapper = ({ children }: { children: React.ReactNode }) => {
+const MainWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="overflow-hiddensupports-[overflow:clip]:overflow-clip flex-1 px-2 md:px-10 lg:px-20">
       {children}
@@ -8,4 +8,4 @@ const MarginWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MarginWrapper;
+export default MainWrapper;
