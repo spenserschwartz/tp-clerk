@@ -27,7 +27,7 @@ export default function Header({ extraClasses }: HeaderProps) {
   }, [top]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full border-2 border-red-400">
       {/* Header */}
       <header
         className={`fixed top-0 z-30 flex w-full flex-grow transition duration-300 ease-in-out md:bg-opacity-90 ${
