@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 
-import { Footer, Header } from "@/components/layout";
+import { Footer, Header, MainWrapper } from "@/components/layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,15 +30,18 @@ export default function RootLayout({
             className={`h-full bg-white font-sans tracking-tight text-gray-900 antialiased ${inter.variable} flex min-h-screen flex-col`}
           >
             <Header />
-            <main className=" overflow-hiddensupports-[overflow:clip]:overflow-clip flex-1">
-              <Toaster position="bottom-center" />
 
-              {/* Main Content */}
-              <TRPCReactProvider>{children}</TRPCReactProvider>
+            <MainWrapper>
+              <main className=" ">
+                <Toaster position="bottom-center" />
 
-              {/* Grow the page so that footer is at bottom of page if there is no scroll */}
-              <div className="flex-grow" />
-            </main>
+                {/* Main Content */}
+                <TRPCReactProvider>{children}</TRPCReactProvider>
+
+                {/* Grow the page so that footer is at bottom of page if there is no scroll */}
+                <div className="flex-grow" />
+              </main>
+            </MainWrapper>
 
             <Footer />
           </div>
