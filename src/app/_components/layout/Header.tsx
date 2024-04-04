@@ -32,7 +32,7 @@ export default function Header() {
   }, [top]);
 
   return (
-    <div className="relative w-full border-2 border-red-400">
+    <div className="relative flex w-full flex-col items-center">
       {/* Header */}
       <header
         className={`fixed top-0 z-30 flex w-full flex-grow transition duration-300 ease-in-out md:bg-opacity-90 ${
@@ -105,7 +105,9 @@ export default function Header() {
       </header>
 
       {/* Breadcrumbs under Header, relative position, margin based on height of Header*/}
-      <div className="mt-16 w-full px-2 md:mt-20 md:px-10 lg:px-20">
+      <div
+        className={`mt-16 w-full px-2 md:mt-20 md:px-10 lg:px-20 ${extraStyles} border-2 border-green-400`}
+      >
         <Breadcrumbs />
       </div>
     </div>

@@ -1,10 +1,29 @@
 "use client";
-import React from "react";
+import { usePathname } from "next/navigation";
+import { getFirstPathnameSegment } from "~/lib/utils";
+import { layoutStyles, routeLayouts } from "./utils";
 
-const MainWrapper = ({ children }: { children: React.ReactNode }) => {
+interface MainWrapperProps {
+  children: React.ReactNode;
+}
+
+const MainWrapper = ({ children }: MainWrapperProps) => {
+  const pathname = usePathname();
+  const firstSegment = getFirstPathnameSegment(pathname);
+  const extraStyles =
+    !!firstSegment && firstSegment in routeLayouts
+      ? layoutStyles[routeLayouts[firstSegment] ?? ""]
+      : "";
+
   return (
-    <main className="flex-1 overflow-hidden px-2 supports-[overflow:clip]:overflow-clip md:px-10 lg:px-20">
-      {children}
+    <main
+      className={`flex w-full flex-1 justify-center overflow-hidden border-2 border-red-400  supports-[overflow:clip]:overflow-clip `}
+    >
+      <div
+        className={`w-full border-2 border-blue-400 ${extraStyles} px-2 md:px-10 lg:px-20`}
+      >
+        {children}
+      </div>
     </main>
   );
 };
