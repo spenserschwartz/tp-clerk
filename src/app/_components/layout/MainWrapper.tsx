@@ -2,9 +2,9 @@ import React from "react";
 
 const MainWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="overflow-hiddensupports-[overflow:clip]:overflow-clip flex-1 px-2 md:px-10 lg:px-20">
+    <main className="flex-1 overflow-hidden px-2 supports-[overflow:clip]:overflow-clip md:px-10 lg:px-20">
       {children}
-    </div>
+    </main>
   );
 };
 
