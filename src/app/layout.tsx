@@ -32,15 +32,13 @@ export default function RootLayout({
             <Header />
 
             <MainWrapper>
-              <main className=" ">
-                <Toaster position="bottom-center" />
+              <Toaster position="bottom-center" />
 
-                {/* Main Content */}
-                <TRPCReactProvider>{children}</TRPCReactProvider>
+              {/* Main Content */}
+              <TRPCReactProvider>{children}</TRPCReactProvider>
 
-                {/* Grow the page so that footer is at bottom of page if there is no scroll */}
-                <div className="flex-grow" />
-              </main>
+              {/* Grow the page so that footer is at bottom of page if there is no scroll */}
+              <div className="flex-grow" />
             </MainWrapper>
 
             <Footer />
