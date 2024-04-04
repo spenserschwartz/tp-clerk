@@ -1,19 +1,6 @@
 import type { UserResource } from "@clerk/types";
 import { GitHubIcon, LinkedInIcon } from "../icons";
 
-export const headerNavigation = (user: UserResource | null | undefined) => {
-  const { id } = user ?? { id: "" }; // profile page is /user/:id
-
-  return {
-    links: [
-      { name: "My Profile", href: `/user/${id}` },
-      { name: "Quick Launch", href: "/quick-launch" },
-      { name: "London", href: "/city/london" },
-      { name: "Berlin", href: "/city/berlin" },
-    ],
-  };
-};
-
 export const footerNavigation = {
   cities: [
     { name: "London", href: "/city/london" },
@@ -32,4 +19,25 @@ export const footerNavigation = {
       icon: GitHubIcon,
     },
   ],
+};
+
+export const headerNavigation = (user: UserResource | null | undefined) => {
+  const { id } = user ?? { id: "" }; // profile page is /user/:id
+
+  return {
+    links: [
+      { name: "My Profile", href: `/user/${id}` },
+      { name: "Quick Launch", href: "/quick-launch" },
+      { name: "London", href: "/city/london" },
+      { name: "Berlin", href: "/city/berlin" },
+    ],
+  };
+};
+
+export const layoutStyles: Record<string, string> = {
+  focus: "max-w-7xl",
+};
+
+export const routeLayouts: Record<string, string> = {
+  places: "focus",
 };
