@@ -16,6 +16,7 @@ import {
 import ItineraryImageGrid from "./ItineraryImageGrid";
 import ItineraryImageGridElement from "./ItineraryImageGrid/GridElement";
 import PlacesProfile from "./PlacesProfile";
+import PlacesProfileDetails from "./PlacesProfile/Details";
 import PlacesProfileTitle from "./PlacesProfile/Title";
 import QuickLaunchTool from "./QuickLaunch/Tool";
 import Searchbar from "./Searchbar";
@@ -46,6 +47,7 @@ export {
   LoadingSpinner,
   PlacesAutoComplete,
   PlacesProfile,
+  PlacesProfileDetails,
   PlacesProfileTitle,
   QuickLaunchTool,
   Searchbar,
