@@ -16,12 +16,8 @@ const MainWrapper = ({ children }: MainWrapperProps) => {
       : "";
 
   return (
-    <main
-      className={`flex w-full flex-1 justify-center overflow-hidden border-2 border-red-400  supports-[overflow:clip]:overflow-clip `}
-    >
-      <div
-        className={`w-full border-2 border-blue-400 ${extraStyles} px-2 md:px-10 lg:px-20`}
-      >
+    <main className="flex w-full flex-1 justify-center overflow-hidden supports-[overflow:clip]:overflow-clip">
+      <div className={`w-full ${extraStyles} px-2 md:px-10 lg:px-20`}>
         {children}
       </div>
     </main>

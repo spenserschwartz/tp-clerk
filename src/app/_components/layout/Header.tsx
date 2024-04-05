@@ -106,7 +106,7 @@ export default function Header() {
 
       {/* Breadcrumbs under Header, relative position, margin based on height of Header*/}
       <div
-        className={`mt-16 w-full px-2 md:mt-20 md:px-10 lg:px-20 ${extraStyles} border-2 border-green-400`}
+        className={`mt-16 w-full px-2 md:mt-20 md:px-10 lg:px-20 ${extraStyles}`}
       >
         <Breadcrumbs />
       </div>
