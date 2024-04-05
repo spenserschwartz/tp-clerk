@@ -17,6 +17,7 @@ import ItineraryImageGrid from "./ItineraryImageGrid";
 import ItineraryImageGridElement from "./ItineraryImageGrid/GridElement";
 import PlacesProfile from "./PlacesProfile";
 import PlacesProfileDetails from "./PlacesProfile/Details";
+import GoogleReviewBadge from "./PlacesProfile/GoogleReviewBadge";
 import PlacesProfileTitle from "./PlacesProfile/Title";
 import TripAdvisorReviewBadge from "./PlacesProfile/TripAdvisorReviewBadge";
 import QuickLaunchTool from "./QuickLaunch/Tool";
@@ -37,6 +38,7 @@ export {
   DatePickerWithRange,
   DeleteItinerary,
   DropdownMenu,
+  GoogleReviewBadge,
   ImageGallery,
   ImageGrid,
   Itinerary,
