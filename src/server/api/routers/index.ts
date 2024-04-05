@@ -1,5 +1,6 @@
 import { attractionsRouter } from "./attractions";
 import { cityRouter } from "./city";
+import { googleRouter } from "./google";
 import { itineraryRouter } from "./itinerary";
 import { openAIRouter } from "./openai";
 import { postRouter } from "./post";
@@ -11,6 +12,7 @@ import { upvotesRouter } from "./upvotes";
 export {
   attractionsRouter,
   cityRouter,
+  googleRouter,
   itineraryRouter,
   openAIRouter,
   postRouter,

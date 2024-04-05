@@ -3,6 +3,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import {
   attractionsRouter,
   cityRouter,
+  googleRouter,
   itineraryRouter,
   openAIRouter,
   postRouter,
@@ -20,6 +21,7 @@ import {
 export const appRouter = createTRPCRouter({
   attractions: attractionsRouter,
   city: cityRouter,
+  google: googleRouter,
   itinerary: itineraryRouter,
   openAI: openAIRouter,
   post: postRouter,
