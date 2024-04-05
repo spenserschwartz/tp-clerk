@@ -9,6 +9,7 @@ import TextItalicIcon from "./TextItalic";
 import TextLinkIcon from "./TextLink";
 import TextOrderedListIcon from "./TextOrderedList";
 import TextUnderlineIcon from "./TextUnderline";
+import TripAdvisorIcon from "./TripAdvisor";
 
 export {
   AddIcon,
@@ -22,4 +23,5 @@ export {
   TextLinkIcon,
   TextOrderedListIcon,
   TextUnderlineIcon,
+  TripAdvisorIcon,
 };
