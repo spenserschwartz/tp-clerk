@@ -18,6 +18,7 @@ import ItineraryImageGridElement from "./ItineraryImageGrid/GridElement";
 import PlacesProfile from "./PlacesProfile";
 import PlacesProfileDetails from "./PlacesProfile/Details";
 import PlacesProfileTitle from "./PlacesProfile/Title";
+import TripAdvisorReviewBadge from "./PlacesProfile/TripAdvisorReviewBadge";
 import QuickLaunchTool from "./QuickLaunch/Tool";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
@@ -54,4 +55,5 @@ export {
   Searchbar,
   Select,
   StarRatings,
+  TripAdvisorReviewBadge,
 };
