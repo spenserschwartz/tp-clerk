@@ -4,8 +4,8 @@ import { useEffect, useState, type MouseEvent } from "react";
 
 import { HeartIcon } from "@/icons";
 import { LoginModal } from "@/modals";
+import { api } from "~/trpc/react";
 import { type AttractionByNameType } from "~/types/router";
-import { api } from "~/utils/api";
 import { useAddUpvoteFromUser, useDeleteUpvoteFromUser } from "~/utils/hooks";
 
 interface PlaceTitleProps {
