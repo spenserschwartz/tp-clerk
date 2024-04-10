@@ -2,6 +2,7 @@ import { attractionsRouter } from "./attractions";
 import { cityRouter } from "./city";
 import { googleRouter } from "./google";
 import { itineraryRouter } from "./itinerary";
+import { likesRouter } from "./likes";
 import { openAIRouter } from "./openai";
 import { postRouter } from "./post";
 import { profileRouter } from "./profile";
@@ -14,6 +15,7 @@ export {
   cityRouter,
   googleRouter,
   itineraryRouter,
+  likesRouter,
   openAIRouter,
   postRouter,
   profileRouter,
