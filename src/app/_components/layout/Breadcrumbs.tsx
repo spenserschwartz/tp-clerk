@@ -9,6 +9,8 @@ export default function Breadcrumbs() {
   const { user } = useUser();
   const pathname = usePathname();
 
+  console.log("pathname", pathname);
+
   // Split the URL path into segments and filter out empty strings
   const pathSegments = pathname.split("/").filter(Boolean);
 
@@ -18,6 +20,7 @@ export default function Breadcrumbs() {
   const pages = pathSegments
     .filter((path) => !pathsToNotShow[path]) // Filter out paths that we don't want to show
     .map((segment, index) => {
+      console.log("segment", pathSegments[0]);
       const href = "/" + pathSegments.slice(0, index + 1).join("/");
       const isCurrentPage = index === pathSegments.length - 1;
 
@@ -30,6 +33,20 @@ export default function Breadcrumbs() {
         };
       }
 
+      // Conditional logic to handle things-to-do
+      if (
+        pathSegments[0] === "things-to-do" &&
+        index > 0 &&
+        index < pathSegments.length - 1
+      ) {
+        return {
+          name: convertSlugToDatabaseName(segment),
+          href: "/",
+          current: isCurrentPage,
+        };
+      }
+
+      // Default logic
       return {
         name: convertSlugToDatabaseName(segment),
         href,
