@@ -37,6 +37,12 @@ const config = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/spenser",
+        destination: "https://www.spenserschwartz.com",
+        permanent: true,
+        basePath: false,
+      },
     ];
   },
 
