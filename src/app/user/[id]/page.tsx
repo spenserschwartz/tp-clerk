@@ -1,5 +1,8 @@
 import { api } from "~/trpc/server";
 
+import { ItineraryImageGrid } from "@/components";
+import type { ItineraryWithCityInfoType } from "~/types/router";
+
 interface UserPageProps {
   params: { id: string };
 }
@@ -8,7 +11,7 @@ const UserPage = async ({ params }: UserPageProps) => {
   const { id: userId } = params;
 
   const userData = await api.profile.getUserById({ userId });
-  const itinerariesByUser = await api.profile.getUserById({ userId });
+  const itinerariesByUser = await api.itinerary.getByUserId({ userId });
 
   const pageTitle =
     userData?.firstName && userData?.lastName
@@ -22,9 +25,9 @@ const UserPage = async ({ params }: UserPageProps) => {
           {pageTitle}
         </h1>
       </div>
-      {/* <ItineraryImageGrid
+      <ItineraryImageGrid
         itineraries={itinerariesByUser as ItineraryWithCityInfoType[]}
-      /> */}
+      />
     </main>
   );
 };
