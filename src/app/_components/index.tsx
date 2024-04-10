@@ -24,6 +24,7 @@ import QuickLaunchTool from "./QuickLaunch/Tool";
 import Searchbar from "./Searchbar";
 import Select from "./Select";
 import StarRatings from "./StarRatings";
+import TableRow from "./Table/Row";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage } from "./loading/LoadingPage";
 import LoadingSection from "./loading/LoadingSection";
@@ -57,5 +58,6 @@ export {
   Searchbar,
   Select,
   StarRatings,
+  TableRow,
   TripAdvisorReviewBadge,
 };
