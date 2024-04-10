@@ -23,8 +23,8 @@ export type ItineraryWithCityInfoType =
 /*
     LIKES
 */
-// export type GetLikesByUserInCityType =
-//   RouterOutputs["likes"]["getAllByUserInCity"][0];
+export type GetAllLikesByUserInCityType =
+  RouterOutputs["likes"]["getAllByUserInCity"][0];
 
 /*
     RECOMMENDED DAYS IN CITY
