@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -26,6 +27,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
+          <NextTopLoader />
+
           <div
             className={`h-full bg-white font-sans tracking-tight text-gray-900 antialiased ${inter.variable} flex min-h-screen flex-col`}
           >
