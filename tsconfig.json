@@ -26,13 +26,15 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@/components": ["./src/app/_components"],
-      "@/components/*": ["./src/app/_components/*"],
-      "@/constants": ["./src/lib/constants"],
+      "@/framer-motion": ["./src/app/_components/framer-motion"],
       "@/icons": ["./src/app/_components/icons"],
       "@/modals": ["./src/app/_components/modal"],
-      "@/framer-motion": ["./src/app/_components/framer-motion"],
+      "@/components": ["./src/app/_components"],
+      "@/components/*": ["./src/app/_components/*"],
+     
+      "@/constants": ["./src/lib/constants"],
+    
+      "~/*": ["./src/*"],
     }
   },
   "include": [
