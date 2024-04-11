@@ -25,6 +25,7 @@
 
     /* Path Aliases */
     "baseUrl": ".",
+    /* Paths to be in order from most nested to top level */
     "paths": {
       "@/framer-motion": ["./src/app/_components/framer-motion"],
       "@/icons": ["./src/app/_components/icons"],
