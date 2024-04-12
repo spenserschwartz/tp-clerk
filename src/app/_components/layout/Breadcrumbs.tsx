@@ -51,6 +51,8 @@ export default function Breadcrumbs() {
       };
     });
 
+  // Don't show on homepage
+  if (pathname === "/") return null;
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="mb-2 flex items-center space-x-4">
