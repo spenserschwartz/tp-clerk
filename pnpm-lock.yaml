@@ -83,6 +83,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  embla-carousel-autoplay:
+    specifier: ^8.0.2
+    version: 8.0.2(embla-carousel@8.0.2)
   embla-carousel-react:
     specifier: ^8.0.2
     version: 8.0.2(react@18.2.0)
@@ -2348,6 +2351,14 @@ packages:
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
+
+  /embla-carousel-autoplay@8.0.2(embla-carousel@8.0.2):
+    resolution: {integrity: sha512-31lBigAkHeI4k1767uYcr9Gm2y12mzLpVsi+QRxIWQT8J4AtRoHLOhd8YJFiXf22DbI/j78+IaeJK4lZRlFxUw==}
+    peerDependencies:
+      embla-carousel: 8.0.2
+    dependencies:
+      embla-carousel: 8.0.2
+    dev: false
 
   /embla-carousel-react@8.0.2(react@18.2.0):
     resolution: {integrity: sha512-RHe1GKLulOW8EDN+cJgbFbVVfRXcaLT2/89dyVw3ONGgVpZjD19wB87I1LUZ1aCzOSrTccx0PFSQanK4OOfGPA==}
