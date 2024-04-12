@@ -15,11 +15,12 @@ const MainWrapper = ({ children }: MainWrapperProps) => {
       ? layoutStyles[routeLayouts[firstSegment] ?? ""]
       : "";
 
+  // Conditional for padding
+  const paddingStyles = pathname === "/" ? "" : "px-2 md:px-10 lg:px-20";
+
   return (
     <main className="flex w-full flex-1 justify-center overflow-hidden supports-[overflow:clip]:overflow-clip">
-      <div className={`w-full ${extraStyles} px-2 md:px-10 lg:px-20`}>
-        {children}
-      </div>
+      <div className={`w-full ${extraStyles} ${paddingStyles}`}>{children}</div>
     </main>
   );
 };
