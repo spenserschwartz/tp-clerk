@@ -1,4 +1,7 @@
 "use client";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+
 import {
   CarouselContent,
   CarouselItem,
@@ -7,7 +10,6 @@ import {
   Carousel as ShadCNCarousel,
   type CarouselApi,
 } from "@/shadcn";
-import Image from "next/image";
 
 const slides: string[] = [
   "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
@@ -18,7 +20,10 @@ const slides: string[] = [
 
 const Carousel = () => {
   return (
-    <ShadCNCarousel className="max-w-2xl border-2 border-red-300">
+    <ShadCNCarousel
+      className="max-w-2xl border-2 border-red-300"
+      plugins={[Autoplay({ delay: 4000 })]}
+    >
       <CarouselContent>
         {slides.map((slide, index) => (
           <CarouselItem key={index}>
