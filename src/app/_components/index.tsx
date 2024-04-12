@@ -6,6 +6,7 @@ import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
 import DatePickerWithRange from "./DateRangePicker";
 import DropdownMenu from "./DropdownMenu";
+import Features from "./Features";
 import TabItemCitySplash from "./Features/TabItemCitySplash";
 import TabItemQuickLaunch from "./Features/TabItemQuickLaunch";
 import Hero from "./Hero";
@@ -45,6 +46,7 @@ export {
   DatePickerWithRange,
   DeleteItinerary,
   DropdownMenu,
+  Features,
   GoogleReviewBadge,
   Hero,
   ImageGallery,
