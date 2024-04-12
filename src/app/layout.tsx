@@ -2,10 +2,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
-import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import { Footer, Header, MainWrapper } from "@/components/layout";
+import "~/styles/globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
