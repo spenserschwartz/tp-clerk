@@ -1,5 +1,6 @@
-// import { Carousel } from "~/components";
-import { ZoomInUpWrapper } from "./framer-motion";
+"use client";
+import { Carousel } from "@/components";
+import { ZoomInUpWrapper } from "@/framer-motion";
 
 const slides: string[] = [
   "https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
@@ -88,7 +89,8 @@ export default function Hero() {
           </ZoomInUpWrapper>
 
           {/* Image Carousel */}
-          <div className="max-w-2xl">{/* <Carousel slides={slides} /> */}</div>
+          {/* <div className="max-w-2xl"><Carousel slides={slides} /></div> */}
+          <Carousel />
         </div>
       </div>
     </section>
