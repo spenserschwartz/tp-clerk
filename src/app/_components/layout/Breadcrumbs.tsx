@@ -4,6 +4,7 @@ import { ChevronRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { convertSlugToDatabaseName } from "~/lib/utils";
+import { api } from "~/trpc/react";
 
 export default function Breadcrumbs() {
   const { user } = useUser();
@@ -13,6 +14,11 @@ export default function Breadcrumbs() {
   const pathSegments = pathname.split("/").filter(Boolean);
 
   const pathsToNotShow: Record<string, boolean> = { city: true };
+
+  const { data: itineraryData } = api.itinerary.getByID.useQuery(
+    { id: "clu8uhvfx0000o0vl4qqoupns" },
+    { enabled: pathSegments[pathSegments.length - 2] === "itinerary" },
+  );
 
   // Create breadcrumb pages from URL segments
   const pages = pathSegments
@@ -39,6 +45,15 @@ export default function Breadcrumbs() {
         return {
           name: convertSlugToDatabaseName(segment),
           href: "/",
+          current: isCurrentPage,
+        };
+      }
+
+      // Conditoinal logic to handle itinerary
+      if (pathSegments[index - 1] === "itinerary") {
+        return {
+          name: itineraryData?.title ?? convertSlugToDatabaseName(segment),
+          href,
           current: isCurrentPage,
         };
       }
