@@ -49,6 +49,7 @@ const TabItemQuickLaunch = ({ tab, tabs }: FeaturesTabProps) => {
           sizes="100vw"
           style={{ width: "auto", height: "90%" }}
           alt="Screenshot of quick itinerary"
+          priority
         />
 
         {/* Button to anchor quickLaunch */}

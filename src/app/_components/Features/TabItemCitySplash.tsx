@@ -48,9 +48,10 @@ const TabItemCitySplash = ({ tab, tabs }: FeaturesTabProps) => {
             isClicked ? "blur" : "" // should be blurred if clicked (for mobile) or hovered
           }`}
           src={screenshots.londonSplash}
-          width={500}
+          width="500"
           height="462"
           alt="Features bg"
+          style={{ width: "100%", height: "auto" }}
         />
 
         {/* Button to anchor quickLaunch */}
