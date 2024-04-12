@@ -8,7 +8,6 @@ import {
   CarouselNext,
   CarouselPrevious,
   Carousel as ShadCNCarousel,
-  type CarouselApi,
 } from "@/shadcn";
 
 const slides: string[] = [
@@ -21,7 +20,8 @@ const slides: string[] = [
 const Carousel = () => {
   return (
     <ShadCNCarousel
-      className="max-w-2xl border-2 border-red-300"
+      className="max-w-2xl"
+      opts={{ loop: true }}
       plugins={[Autoplay({ delay: 4000 })]}
     >
       <CarouselContent>
