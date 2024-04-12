@@ -1,10 +1,12 @@
 import Avatar from "./Avatar";
 import Button from "./Button";
+import Carousel from "./Carousel";
 import CityDetails from "./CityDetails";
 import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
 import DatePickerWithRange from "./DateRangePicker";
 import DropdownMenu from "./DropdownMenu";
+import Hero from "./Hero";
 import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
 import Itinerary from "./Itinerary";
@@ -34,6 +36,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 export {
   Avatar,
   Button,
+  Carousel,
   CityDetails,
   CityLaunch,
   CitySearch,
@@ -41,6 +44,7 @@ export {
   DeleteItinerary,
   DropdownMenu,
   GoogleReviewBadge,
+  Hero,
   ImageGallery,
   ImageGrid,
   Itinerary,
