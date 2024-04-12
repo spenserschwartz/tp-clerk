@@ -1,6 +1,7 @@
 "use client";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
+import { useState } from "react";
 
 import {
   CarouselContent,
@@ -18,6 +19,8 @@ const slides: string[] = [
 ];
 
 const Carousel = () => {
+  const [isGrabbing, setIsGrabbing] = useState(false);
+
   return (
     <ShadCNCarousel
       className="max-w-2xl"
@@ -29,13 +32,15 @@ const Carousel = () => {
           <CarouselItem key={index}>
             <div className="flex justify-center p-1">
               <Image
-                className="rounded-xl shadow-md"
+                className={`rounded-xl shadow-md ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
                 key={`Carousel_Image-${slide}`}
                 src={slide || "/images/placeholder.png"}
                 alt={`Carousel_Image-${slide}`}
                 width={800}
                 height={800}
                 priority
+                onMouseDown={() => setIsGrabbing(true)}
+                onMouseLeave={() => setIsGrabbing(false)}
               />
             </div>
           </CarouselItem>
