@@ -25,29 +25,31 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body>
-          <NextTopLoader />
+      <TRPCReactProvider>
+        <html lang="en">
+          <body>
+            <NextTopLoader />
 
-          <div
-            className={`h-full bg-white font-sans tracking-tight text-gray-900 antialiased ${inter.variable} flex min-h-screen flex-col`}
-          >
-            <Header />
+            <div
+              className={`h-full bg-white font-sans tracking-tight text-gray-900 antialiased ${inter.variable} flex min-h-screen flex-col`}
+            >
+              <Header />
 
-            <MainWrapper>
-              <Toaster position="bottom-center" />
+              <MainWrapper>
+                <Toaster position="bottom-center" />
 
-              {/* Main Content */}
-              <TRPCReactProvider>{children}</TRPCReactProvider>
+                {/* Main Content */}
+                {children}
 
-              {/* Grow the page so that footer is at bottom of page if there is no scroll */}
-              <div className="flex-grow" />
-            </MainWrapper>
+                {/* Grow the page so that footer is at bottom of page if there is no scroll */}
+                <div className="flex-grow" />
+              </MainWrapper>
 
-            <Footer />
-          </div>
-        </body>
-      </html>
+              <Footer />
+            </div>
+          </body>
+        </html>
+      </TRPCReactProvider>
     </ClerkProvider>
   );
 }
