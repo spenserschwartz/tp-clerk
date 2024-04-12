@@ -6,6 +6,7 @@ import CityLaunch from "./CityLaunch";
 import CitySearch from "./CitySearch";
 import DatePickerWithRange from "./DateRangePicker";
 import DropdownMenu from "./DropdownMenu";
+import TabItemCitySplash from "./Features/TabItemCitySplash";
 import Hero from "./Hero";
 import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
@@ -63,6 +64,7 @@ export {
   Searchbar,
   Select,
   StarRatings,
+  TabItemCitySplash,
   Table,
   TableRow,
   TripAdvisorReviewBadge,
