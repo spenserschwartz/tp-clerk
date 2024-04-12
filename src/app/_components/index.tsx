@@ -9,6 +9,7 @@ import DropdownMenu from "./DropdownMenu";
 import Features from "./Features";
 import TabItemCitySplash from "./Features/TabItemCitySplash";
 import TabItemQuickLaunch from "./Features/TabItemQuickLaunch";
+import FeaturesQuickLaunch from "./FeaturesQuickLaunch";
 import Hero from "./Hero";
 import ImageGallery from "./ImageGallery";
 import ImageGrid from "./ImageGrid";
@@ -47,6 +48,7 @@ export {
   DeleteItinerary,
   DropdownMenu,
   Features,
+  FeaturesQuickLaunch,
   GoogleReviewBadge,
   Hero,
   ImageGallery,

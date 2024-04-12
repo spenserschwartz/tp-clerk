@@ -1,4 +1,4 @@
-import { Features, Hero } from "@/components";
+import { Features, FeaturesQuickLaunch, Hero } from "@/components";
 
 export default async function Home() {
   return (
@@ -6,6 +6,8 @@ export default async function Home() {
       <Hero />
 
       <Features />
+
+      <FeaturesQuickLaunch />
     </div>
   );
 }
