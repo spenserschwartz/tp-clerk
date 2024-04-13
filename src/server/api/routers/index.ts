@@ -9,6 +9,7 @@ import { profileRouter } from "./profile";
 import { recommendedDaysInCityRouter } from "./recommendedDaysInCity";
 import { tripAdvisorRouter } from "./tripAdvisor";
 import { upvotesRouter } from "./upvotes";
+import { userRouter } from "./user";
 
 export {
   attractionsRouter,
@@ -22,4 +23,5 @@ export {
   recommendedDaysInCityRouter,
   tripAdvisorRouter,
   upvotesRouter,
+  userRouter,
 };
