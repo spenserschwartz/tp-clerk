@@ -16,7 +16,7 @@ export default function Breadcrumbs() {
   const pathsToNotShow: Record<string, boolean> = { city: true };
 
   const { data: itineraryData } = api.itinerary.getByID.useQuery(
-    { id: "clu8uhvfx0000o0vl4qqoupns" },
+    { id: pathSegments[pathSegments.length - 1] ?? "" },
     { enabled: pathSegments[pathSegments.length - 2] === "itinerary" },
   );
 
