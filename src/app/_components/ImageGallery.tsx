@@ -100,5 +100,3 @@ export default ImageGallery;
 // };
 
 // export default ImageGallery;
-
-// "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAWU5eFgp79uCoMd9WLJRR1OJ_XULytmHwxsEXl2F1me2WZZLFqfWmmEy-NZa8LY5D7hfwpA9XL4_RISUrOt00bn1I9pKy691w5kE6Yxmfo8Nn82zhMXFin__xtXp-rmnf8X-XbefThvUaTEIAR4Yr8rkXmGfTzhgINTmIH3zScwbEch3boNv&3u3853&5m1&2e1&callback=none&key=AIzaSyBX9QXqPk13FsXjdkPoGmV-JRf2AGvRY_Q&token=57913"
