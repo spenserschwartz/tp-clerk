@@ -4,7 +4,7 @@ import { FadeUpWrapper, ZoomInUpWrapper } from "@/framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative">
+    <section className="relative mt-6">
       {/* Illustration behind hero content */}
       <div
         className="-z-1 pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 transform"
