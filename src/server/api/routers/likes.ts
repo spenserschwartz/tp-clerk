@@ -4,7 +4,7 @@ import { Redis } from "@upstash/redis";
 import { z } from "zod";
 import {
   createTRPCRouter,
-  privateProcedure,
+  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
@@ -17,7 +17,7 @@ const ratelimit = new Ratelimit({
 
 export const likesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const allLikes = await ctx.prisma.likes.findMany({
+    const allLikes = await ctx.db.likes.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
@@ -27,7 +27,7 @@ export const likesRouter = createTRPCRouter({
   getAllByUserInCity: publicProcedure
     .input(z.object({ cityId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const likesByUserInThisCity = await ctx.prisma.likes.findMany({
+      const likesByUserInThisCity = await ctx.db.likes.findMany({
         where: {
           // userId: input.userId,
           userId: ctx.userId ?? "",
@@ -40,7 +40,7 @@ export const likesRouter = createTRPCRouter({
       return likesByUserInThisCity;
     }),
 
-  create: privateProcedure
+  create: protectedProcedure
     .input(z.object({ cityId: z.string(), placeId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { userId } = ctx;
@@ -48,7 +48,7 @@ export const likesRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const newLike = await ctx.prisma.likes.create({
+      const newLike = await ctx.db.likes.create({
         data: {
           cityId: input.cityId,
           placeId: input.placeId,
@@ -59,7 +59,7 @@ export const likesRouter = createTRPCRouter({
       return newLike;
     }),
 
-  delete: privateProcedure
+  delete: protectedProcedure
     .input(z.object({ cityId: z.string(), placeId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { userId } = ctx;
@@ -67,7 +67,7 @@ export const likesRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      await ctx.prisma.likes.deleteMany({
+      await ctx.db.likes.deleteMany({
         where: {
           cityId: input.cityId,
           placeId: input.placeId,

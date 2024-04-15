@@ -4,7 +4,7 @@ import { Redis } from "@upstash/redis";
 import { z } from "zod";
 import {
   createTRPCRouter,
-  privateProcedure,
+  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
@@ -17,7 +17,7 @@ const ratelimit = new Ratelimit({
 
 export const recommendedDaysInCityRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const allRecs = await ctx.prisma.recommendedDaysInCity.findMany({
+    const allRecs = await ctx.db.recommendedDaysInCity.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
@@ -28,7 +28,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
   getAllByCity: publicProcedure
     .input(z.object({ cityName: z.string() }))
     .query(async ({ ctx, input }) => {
-      const recs = await ctx.prisma.recommendedDaysInCity.findMany({
+      const recs = await ctx.db.recommendedDaysInCity.findMany({
         take: 100,
         orderBy: [{ createdAt: "desc" }],
         where: { city: { name: input.cityName } },
@@ -41,14 +41,14 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
     .input(z.object({ cityName: z.string() }))
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const rec = await ctx.prisma.recommendedDaysInCity.findFirst({
+      const rec = await ctx.db.recommendedDaysInCity.findFirst({
         where: { city: { name: input.cityName }, userId: userId ?? "" },
       });
 
       return rec;
     }),
 
-  create: privateProcedure
+  create: protectedProcedure
     .input(z.object({ cityId: z.string(), recommendedDays: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
@@ -56,7 +56,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const recommendation = await ctx.prisma.recommendedDaysInCity.create({
+      const recommendation = await ctx.db.recommendedDaysInCity.create({
         data: {
           city: { connect: { id: input.cityId } },
           recommendedDays: input.recommendedDays,
@@ -67,7 +67,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
       return recommendation;
     }),
 
-  upsert: privateProcedure
+  upsert: protectedProcedure
     .input(
       z.object({
         cityId: z.string().optional(),
@@ -75,7 +75,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
 
         id: z.string(),
         recommendedDays: z.number(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
@@ -83,7 +83,7 @@ export const recommendedDaysInCityRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const recommendation = await ctx.prisma.recommendedDaysInCity.upsert({
+      const recommendation = await ctx.db.recommendedDaysInCity.upsert({
         where: { id: input.id },
         update: {
           recommendedDays: input.recommendedDays,

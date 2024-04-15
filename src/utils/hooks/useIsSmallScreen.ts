@@ -1,9 +1,10 @@
+"use client";
 import { useEffect, useState } from "react";
 
 function useIsSmallScreen() {
   // Initialize state with undefined or a default value
   const [isSmallScreen, setIsSmallScreen] = useState(
-    typeof window !== "undefined" ? window.innerWidth < 640 : false
+    typeof window !== "undefined" ? window.innerWidth < 640 : false,
   );
 
   useEffect(() => {

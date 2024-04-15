@@ -4,7 +4,7 @@ import { Redis } from "@upstash/redis";
 import { z } from "zod";
 import {
   createTRPCRouter,
-  privateProcedure,
+  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
@@ -17,7 +17,7 @@ const ratelimit = new Ratelimit({
 
 export const upvotesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const allUpvotes = await ctx.prisma.upvotes.findMany({
+    const allUpvotes = await ctx.db.upvotes.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
@@ -27,7 +27,7 @@ export const upvotesRouter = createTRPCRouter({
   getAllByUserInCity: publicProcedure
     .input(z.object({ cityId: z.string(), userId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const upvotesByUserInThisCity = await ctx.prisma.upvotes.findMany({
+      const upvotesByUserInThisCity = await ctx.db.upvotes.findMany({
         where: { userId: input.userId, attraction: { cityId: input.cityId } },
         include: { attraction: true },
       });
@@ -40,14 +40,14 @@ export const upvotesRouter = createTRPCRouter({
   getByUserAndId: publicProcedure
     .input(z.object({ attractionId: z.string(), userId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const upvotedAttraction = await ctx.prisma.upvotes.findFirst({
+      const upvotedAttraction = await ctx.db.upvotes.findFirst({
         where: { userId: input.userId, attractionId: input.attractionId },
       });
 
       return upvotedAttraction;
     }),
 
-  create: privateProcedure
+  create: protectedProcedure
     .input(z.object({ attractionId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
@@ -55,7 +55,7 @@ export const upvotesRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(authorId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const newUpvote = await ctx.prisma.upvotes.create({
+      const newUpvote = await ctx.db.upvotes.create({
         data: {
           attraction: { connect: { id: input.attractionId } },
           userId: authorId,
@@ -65,7 +65,7 @@ export const upvotesRouter = createTRPCRouter({
       return newUpvote;
     }),
 
-  delete: privateProcedure
+  delete: protectedProcedure
     .input(z.object({ attractionId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
@@ -73,7 +73,7 @@ export const upvotesRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(authorId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      await ctx.prisma.upvotes.deleteMany({
+      await ctx.db.upvotes.deleteMany({
         where: {
           attractionId: input.attractionId,
           userId: authorId,

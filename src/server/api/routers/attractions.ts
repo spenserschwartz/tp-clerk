@@ -5,7 +5,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const attractionsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const attractions = await ctx.prisma.attraction.findMany({
+    const attractions = await ctx.db.attraction.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
       include: { upvotes: true },
@@ -16,7 +16,7 @@ export const attractionsRouter = createTRPCRouter({
   getAttractionsByCity: publicProcedure
     .input(z.object({ name: z.string() }))
     .query(async ({ ctx, input }) => {
-      const attractions = await ctx.prisma.attraction.findMany({
+      const attractions = await ctx.db.attraction.findMany({
         take: 100,
         orderBy: [{ createdAt: "desc" }],
         where: { city: { name: input.name } },
@@ -28,7 +28,7 @@ export const attractionsRouter = createTRPCRouter({
   getByName: publicProcedure
     .input(z.object({ name: z.string() }))
     .query(async ({ ctx, input }) => {
-      const attraction = await ctx.prisma.attraction.findFirst({
+      const attraction = await ctx.db.attraction.findFirst({
         where: { name: input.name },
         include: { upvotes: true },
       });
@@ -39,7 +39,7 @@ export const attractionsRouter = createTRPCRouter({
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const attraction = await ctx.prisma.attraction.findFirst({
+      const attraction = await ctx.db.attraction.findFirst({
         where: { id: input.id },
         include: { upvotes: true },
       });

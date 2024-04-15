@@ -20,8 +20,8 @@ export const profileRouter = createTRPCRouter({
         });
         const user = users.find((user) =>
           user.externalAccounts.find(
-            (account) => account.username === input.username
-          )
+            (account) => account.username === input.username,
+          ),
         );
         if (!user) {
           throw new TRPCError({
@@ -49,8 +49,8 @@ export const profileRouter = createTRPCRouter({
         });
         const user = users.find((user) =>
           user.externalAccounts.find(
-            (account) => account.username === input.userId
-          )
+            (account) => account.username === input.userId,
+          ),
         );
         if (!user) {
           throw new TRPCError({

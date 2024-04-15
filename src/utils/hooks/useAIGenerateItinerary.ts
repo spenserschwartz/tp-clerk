@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 const useAIGenerateItinerary = () => {
   const {
     mutate: generateAIItinerary,
-    isLoading: isLoadingAI,
+    isPending: isLoadingAI,
     isSuccess: itineraryAIGenerated,
     data: itineraryAI,
   } = api.openAI.generateTripItinerary.useMutation({

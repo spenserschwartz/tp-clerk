@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 const useEditItineraryUserNotes = () => {
   const {
     mutate: editItineraryUserNotes,
-    isLoading: isEditingItineraryUserNotes,
+    isPending: isEditingItineraryUserNotes,
     isSuccess: itineraryUserNotesEdited,
     data: itineraryData,
   } = api.itinerary.editUserNotes.useMutation({

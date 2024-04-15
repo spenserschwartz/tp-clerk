@@ -2,10 +2,11 @@ import { TRPCError } from "@trpc/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
-import { unknownClerkUser } from "~/components/utils";
+
+import { unknownClerkUser } from "~/lib/constants";
 import {
   createTRPCRouter,
-  privateProcedure,
+  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
@@ -17,8 +18,8 @@ const ratelimit = new Ratelimit({
 });
 
 export const itineraryRouter = createTRPCRouter({
-  getAll: privateProcedure.query(async ({ ctx }) => {
-    const itineraries = await ctx.prisma.itinerary.findMany({
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const itineraries = await ctx.db.itinerary.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
@@ -26,8 +27,8 @@ export const itineraryRouter = createTRPCRouter({
     return itineraries;
   }),
 
-  getAllWithCityInfo: privateProcedure.query(async ({ ctx }) => {
-    const itineraries = await ctx.prisma.itinerary.findMany({
+  getAllWithCityInfo: protectedProcedure.query(async ({ ctx }) => {
+    const itineraries = await ctx.db.itinerary.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
       include: { city: true },
@@ -39,7 +40,7 @@ export const itineraryRouter = createTRPCRouter({
   getByID: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const itinerary = await ctx.prisma.itinerary.findUnique({
+      const itinerary = await ctx.db.itinerary.findUnique({
         where: { id: input.id },
         include: { city: true },
       });
@@ -52,7 +53,7 @@ export const itineraryRouter = createTRPCRouter({
   getByUserId: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const itinerariesByUser = await ctx.prisma.itinerary.findMany({
+      const itinerariesByUser = await ctx.db.itinerary.findMany({
         where: { userId: input.userId },
         include: { city: true },
         take: 100,
@@ -66,6 +67,7 @@ export const itineraryRouter = createTRPCRouter({
     .input(
       z.object({
         cityId: z.string(),
+        cityName: z.string(),
         details: z.array(
           z.object({
             dayOfWeek: z.string(),
@@ -73,12 +75,12 @@ export const itineraryRouter = createTRPCRouter({
             morning: z.string(),
             afternoon: z.string(),
             evening: z.string(),
-          })
+          }),
         ),
         title: z.string().nullable(),
         imageURL: z.optional(z.string()),
         placeId: z.optional(z.string()),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId ?? unknownClerkUser.id;
@@ -86,9 +88,10 @@ export const itineraryRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(userId);
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const newItinerary = await ctx.prisma.itinerary.create({
+      const newItinerary = await ctx.db.itinerary.create({
         data: {
           city: { connect: { id: input.cityId } },
+          cityName: input.cityName,
           user: { connect: { id: userId } },
           details: input.details,
           title: input.title ?? null,
@@ -100,30 +103,30 @@ export const itineraryRouter = createTRPCRouter({
       return newItinerary;
     }),
 
-  delete: privateProcedure
+  delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const itinerary = await ctx.prisma.itinerary.findUnique({
+      const itinerary = await ctx.db.itinerary.findUnique({
         where: { id: input.id },
       });
 
       if (!itinerary) throw new TRPCError({ code: "NOT_FOUND" });
 
-      await ctx.prisma.itinerary.delete({
+      await ctx.db.itinerary.delete({
         where: { id: input.id },
       });
 
       return { success: true };
     }),
 
-  editTitle: privateProcedure
+  editTitle: protectedProcedure
     .input(z.object({ id: z.string(), title: z.string() }))
     .mutation(async ({ ctx, input }) => {
       // Ensure there is a logged-in user or fallback to a known ID (make sure this is handled correctly in your app logic).
       const userId = ctx.userId ?? unknownClerkUser.id;
 
       // Retrieve the existing itinerary to check if the current user is allowed to update it.
-      const existingItinerary = await ctx.prisma.itinerary.findUnique({
+      const existingItinerary = await ctx.db.itinerary.findUnique({
         where: { id: input.id },
       });
 
@@ -133,7 +136,7 @@ export const itineraryRouter = createTRPCRouter({
       }
 
       // If the user is authorized, update the itinerary title.
-      const newItinerary = await ctx.prisma.itinerary.update({
+      const newItinerary = await ctx.db.itinerary.update({
         where: { id: input.id },
         data: { title: input.title },
       });
@@ -142,14 +145,14 @@ export const itineraryRouter = createTRPCRouter({
       return newItinerary;
     }),
 
-  editUserNotes: privateProcedure
+  editUserNotes: protectedProcedure
     .input(z.object({ id: z.string(), userNotes: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
       // Ensure there is a logged-in user or fallback to a known ID (make sure this is handled correctly in your app logic).
       const userId = ctx.userId ?? unknownClerkUser.id;
 
       // Retrieve the existing itinerary to check if the current user is allowed to update it.
-      const existingItinerary = await ctx.prisma.itinerary.findUnique({
+      const existingItinerary = await ctx.db.itinerary.findUnique({
         where: { id: input.id },
       });
 
@@ -158,7 +161,7 @@ export const itineraryRouter = createTRPCRouter({
         throw new Error("Unauthorized or itinerary not found");
       }
 
-      const newItinerary = await ctx.prisma.itinerary.update({
+      const newItinerary = await ctx.db.itinerary.update({
         where: { id: input.id },
         data: { userNotes: input.userNotes },
       });

@@ -1,8 +1,8 @@
-import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
-  getAll: privateProcedure.query(async ({ ctx }) => {
-    const users = await ctx.prisma.user.findMany({
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const users = await ctx.db.user.findMany({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });

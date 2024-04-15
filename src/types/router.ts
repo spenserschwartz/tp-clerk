@@ -1,4 +1,4 @@
-import { type RouterOutputs } from "~/utils/api";
+import { type RouterOutputs } from "~/trpc/server";
 
 /*
     ATTRACTION
@@ -23,7 +23,7 @@ export type ItineraryWithCityInfoType =
 /*
     LIKES
 */
-export type GetLikesByUserInCityType =
+export type GetAllLikesByUserInCityType =
   RouterOutputs["likes"]["getAllByUserInCity"][0];
 
 /*
@@ -31,6 +31,12 @@ export type GetLikesByUserInCityType =
 */
 export type GetRecommendedDaysByCityType =
   RouterOutputs["recommendedDaysInCity"]["getAllByCity"];
+
+/*
+    TRIPADVISOR
+*/
+export type GetTripAdvisorDetailsType =
+  RouterOutputs["tripAdvisor"]["getLocationDetails"];
 
 /*
     UPVOTES

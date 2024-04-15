@@ -28,5 +28,3 @@ export const tripAdvisorRouter = createTRPCRouter({
       }
     }),
 });
-
-// Berlin Wall id   196239

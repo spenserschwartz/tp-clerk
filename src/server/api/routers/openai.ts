@@ -1,4 +1,3 @@
-// import OpenAI from "openai";
 import { z } from "zod";
 import openai from "~/utils/openai";
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -18,13 +17,13 @@ const generateQuery = (input: QueryInputInterface) => {
   const generalQuery = `
   [no prose]
   [Output only JSON]
-  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}.
+  Give a day-to-day itinerary to ${input.cityName} from ${input.startDate} to ${input.endDate}, inclusive.
   `;
 
   //  Attractions query if attractions are specified to be included
   const attractionsQuery = input.attractions?.length
     ? `Make sure to include the following attractions: ${input.attractions.join(
-        ", "
+        ", ",
       )}. Fill in any additional time with other popular attractions. `
     : "";
 
@@ -66,7 +65,7 @@ const generateQuery = (input: QueryInputInterface) => {
   );
 };
 
-export const OpenAIRouter = createTRPCRouter({
+export const openAIRouter = createTRPCRouter({
   generateTripItinerary: publicProcedure
     .input(
       z.object({
@@ -76,7 +75,7 @@ export const OpenAIRouter = createTRPCRouter({
         attractions: z.array(z.string()).optional(),
         adventureToggle: z.boolean().optional(),
         relaxationToggle: z.boolean().optional(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {

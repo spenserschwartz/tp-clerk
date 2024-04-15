@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 const useCreateItinerary = () => {
   const {
     mutate: createItinerary,
-    isLoading: isCreatingItinerary,
+    isPending: isCreatingItinerary,
     isSuccess: itineraryCreated,
     data: itineraryData,
   } = api.itinerary.create.useMutation({
@@ -23,7 +23,6 @@ const useCreateItinerary = () => {
       if (error) console.error(error);
     },
   });
-
   return {
     createItinerary,
     isCreatingItinerary,

@@ -79,7 +79,7 @@ export const googleRouter = createTRPCRouter({
       } catch (error) {
         console.error(
           "Error fetching data from Google Place Details API:",
-          error
+          error,
         );
         return { error: "Failed to fetch data from Google" }; // Return an error object instead of throwing
       }
@@ -149,7 +149,7 @@ export const googleRouter = createTRPCRouter({
         latitude: z.number(),
         longitude: z.number(),
         radius: z.number(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { latitude, longitude, radius } = input;
@@ -183,7 +183,7 @@ export const googleRouter = createTRPCRouter({
         latitude: z.number(),
         longitude: z.number(),
         radius: z.number(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {
@@ -213,7 +213,7 @@ export const googleRouter = createTRPCRouter({
                 },
               },
             }),
-          }
+          },
         );
 
         if (!response.ok) {

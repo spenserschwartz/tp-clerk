@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 const useAddUpvoteFromUser = () => {
   const {
     mutate: upvoteAttraction,
-    isLoading: isUpvoting,
+    isPending: isUpvoting,
     isSuccess: upvoteSuccess,
     data: upvoteData,
     isError: upvoteError,

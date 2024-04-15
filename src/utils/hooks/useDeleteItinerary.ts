@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 const useDeleteItinerary = () => {
   const {
     mutate: deleteItinerary,
-    isLoading: isDeletingItinerary,
+    isPending: isDeletingItinerary,
     isSuccess: itineraryDeleted,
   } = api.itinerary.delete.useMutation({
     onSuccess: () => {
