@@ -2,6 +2,7 @@ import { toast } from "react-hot-toast";
 import { api } from "~/trpc/react";
 
 const useEditItineraryTitle = () => {
+  const ctx = api.useUtils();
   const {
     mutate: editItineraryTitle,
     isPending: isEditingItineraryTitle,
@@ -10,6 +11,7 @@ const useEditItineraryTitle = () => {
   } = api.itinerary.editTitle.useMutation({
     onSuccess: () => {
       toast.success("Itinerary Title Updated!");
+      void ctx.itinerary.getByID.invalidate();
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;

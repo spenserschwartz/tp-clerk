@@ -7,7 +7,7 @@ import { convertSlugToDatabaseName } from "~/lib/utils";
 import { api } from "~/trpc/react";
 
 export default function Breadcrumbs() {
-  const { user } = useUser();
+  const { user, isLoaded: clerkUserIsLoaded } = useUser();
   const pathname = usePathname();
 
   // Split the URL path into segments and filter out empty strings
@@ -30,7 +30,10 @@ export default function Breadcrumbs() {
       // Conditional logic to handle user
       if (pathSegments[index - 1] === "user") {
         return {
-          name: user?.fullName ?? "userName",
+          // name: user?.fullName ?? "userName",
+          name: clerkUserIsLoaded
+            ? user?.fullName ?? "userName not found"
+            : "loading user...",
           href,
           current: isCurrentPage,
         };
