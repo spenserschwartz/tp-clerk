@@ -60,7 +60,6 @@ export default function Table({
                     isSignedIn={isSignedIn ?? false}
                     place={place}
                     setOpenModal={setOpenModal}
-                    // userHasLikedPlace={set.has("ChIJLZlhwACdQIYRFvnVL8mq8BM")}
                     userHasLikedPlace={allLikesByUserInCitySet.has(place.id)}
                   />
                 ))}
