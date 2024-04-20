@@ -1,23 +1,25 @@
-"use client";
 import {
   DeleteItinerary,
   Itinerary,
   ItineraryNotes,
   ItineraryTitle,
-  LoadingPage,
 } from "@/components";
-// import { api } from "~/trpc/server";
-import { api } from "~/trpc/react";
+import { revalidatePath } from "next/cache";
+import { api } from "~/trpc/server";
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  // const data = await api.itinerary.getByID({ id: params.id });
-  const { data, isLoading } = api.itinerary.getByID.useQuery({ id: params.id });
+async function ItineraryPage({ params }: { params: { id: string } }) {
+  const data = await api.itinerary.getByID({ id: params.id });
 
-  if (isLoading) return <LoadingPage />;
+  const revalidate = async () => {
+    "use server";
+    revalidatePath("/itinerary/[id]", "page");
+    revalidatePath("/user/[id]", "page");
+  };
+
   if (!data) return <div>Itinerary not found</div>;
   return (
     <div className="flex flex-col items-center">
-      <ItineraryTitle data={data} />
+      <ItineraryTitle data={data} revalidate={revalidate} />
 
       <Itinerary data={data} />
 
@@ -27,3 +29,5 @@ export default function ItineraryPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
+export default ItineraryPage;
