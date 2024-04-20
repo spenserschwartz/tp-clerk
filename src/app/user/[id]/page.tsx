@@ -1,31 +1,23 @@
-"use client";
-// import { api } from "~/trpc/server";
-import { api } from "~/trpc/react";
+import { api } from "~/trpc/server";
 
-import { ItineraryImageGrid, LoadingPage } from "@/components";
+import { ItineraryImageGrid } from "@/components";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface UserPageProps {
   params: { id: string };
 }
 
-const UserPage = ({ params }: UserPageProps) => {
+const UserPage = async ({ params }: UserPageProps) => {
   const { id: userId } = params;
 
-  const { data: userData, isLoading: userDataIsLoading } =
-    api.profile.getUserById.useQuery({ userId });
-  const { data: itinerariesByUser, isLoading: itinerariesDataIsLoading } =
-    api.itinerary.getByUserId.useQuery({ userId });
-
-  // const userData = await api.profile.getUserById({ userId });
-  // const itinerariesByUser = await api.itinerary.getByUserId({ userId });
+  const userData = await api.profile.getUserById({ userId });
+  const itinerariesByUser = await api.itinerary.getByUserId({ userId });
 
   const pageTitle =
     userData?.firstName && userData?.lastName
       ? `${userData.firstName} ${userData.lastName}`
       : userId;
 
-  if (userDataIsLoading || itinerariesDataIsLoading) return <LoadingPage />;
   if (!userData) return <div>User not found</div>;
   return (
     <main className="flex w-full flex-col items-center px-2">
