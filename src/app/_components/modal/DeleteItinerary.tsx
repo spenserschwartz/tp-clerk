@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type Dispatch } from "react";
 import toast from "react-hot-toast";
 
+import { revalidateUserPage } from "~/server/actions";
 import { api } from "~/trpc/react";
 import { useDeleteItinerary } from "~/utils/hooks";
 import ModalWrapper from "./Wrapper";
@@ -47,10 +48,10 @@ const DeleteItineraryModal = ({
         void ctx.itinerary.getByUserId.invalidate();
       }
 
-      setTimeout(() => {
-        // router.back();
+      void revalidateUserPage();
 
-        lookingAtSingleItinerary ? void router.push(`/user/${userId}`) : null;
+      setTimeout(() => {
+        if (lookingAtSingleItinerary) void router.push(`/user/${userId}`);
       }, 3000);
 
       setOpenModal(false);
