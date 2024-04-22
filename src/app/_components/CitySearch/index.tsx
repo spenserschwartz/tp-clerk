@@ -23,19 +23,17 @@ const CitySearch = () => {
     if (!formatted_address) return;
 
     const dynamicRoute = convertFormattedAddressToUrlPath(formatted_address);
-    // void router.push("/things-to-do" + dynamicRoute);
-    // void router.push({
-    //   pathname: "/things-to-do" + dynamicRoute,
-    // });
     void router.push("/things-to-do" + dynamicRoute);
   };
 
   return (
     <GoogleAPIProvider apiKey={apiKey}>
-      <PlacesAutoComplete
-        requestOptions={autocompleteRequest}
-        setSelected={handleSelectCity}
-      />
+      <div className="max-w-lg border-2 border-red-600">
+        <PlacesAutoComplete
+          requestOptions={autocompleteRequest}
+          setSelected={handleSelectCity}
+        />
+      </div>
     </GoogleAPIProvider>
   );
 };

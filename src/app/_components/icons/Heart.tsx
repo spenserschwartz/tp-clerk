@@ -8,7 +8,7 @@ const HeartIcon = ({ enabled }: IconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`h-6 w-6 ${enabled ? "text-red-500" : "text-gray-600"}`}
+      className={`heart-icon h-6 w-6 ${enabled ? "text-red-500" : "text-gray-600 hover:text-red-950 hover:opacity-50"}`}
       stroke="white"
       strokeWidth={1.5}
     >

@@ -10,10 +10,9 @@ import PlaceResult = google.maps.places.PlaceResult;
 import PlaceSearchStatus = google.maps.places.PlacesServiceStatus;
 import PlacesService = google.maps.places.PlacesService;
 
-
 interface LatLng {
-    lat: number;
-    lng: number;
+  lat: number;
+  lng: number;
 }
 
 // https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#LocalizedText
@@ -40,9 +39,14 @@ interface NearbySearchNewResponse {
 // interface PlaceNew extends Place {
 //   websiteUri: string;
 // }
-interface PlaceNew extends Omit<Place, "editorialSummary" | "displayName"> {
+interface PlaceNew
+  extends Omit<
+    Place,
+    "editorialSummary" | "displayName" | "googleMapsURI" | "websiteURI"
+  > {
   displayName: LocalizedText | null;
   editorialSummary?: LocalizedText | null;
+  googleMapsUri: string; // adding the new property
   websiteUri: string; // adding the new property
 }
 
@@ -86,6 +90,5 @@ export type {
   PlaceResult,
   PlaceResultWithLatLng,
   PlacesService,
-  PlacesTextSearchResponse
+  PlacesTextSearchResponse,
 };
-
