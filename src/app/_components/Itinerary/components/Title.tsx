@@ -8,16 +8,17 @@ import { useEditItineraryTitle } from "~/utils/hooks";
 
 interface ItineraryTitleProps {
   data: ItineraryWithCityInfoType;
+  revalidate: () => void;
 }
 
-const ItineraryTitle = ({ data }: ItineraryTitleProps) => {
+const ItineraryTitle = ({ data, revalidate }: ItineraryTitleProps) => {
   const {
     title,
     id: itineraryID,
     details,
     city: { name: cityName },
   } = data;
-  const { editItineraryTitle, isEditingItineraryTitle } =
+  const { editItineraryTitle, isEditingItineraryTitle, itineraryTitleEdited } =
     useEditItineraryTitle();
   const { length: numberOfDays } = details as unknown as { length: number };
 
@@ -47,6 +48,13 @@ const ItineraryTitle = ({ data }: ItineraryTitleProps) => {
       editItineraryTitle({ id: itineraryID, title: debouncedTitle });
     }
   }, [debouncedTitle, title, editItineraryTitle, itineraryID]);
+
+  // Revalidate paths when title is edited
+  useEffect(() => {
+    if (itineraryTitleEdited) {
+      revalidate();
+    }
+  }, [itineraryTitleEdited, revalidate]);
 
   return (
     <div className="group relative mb-2 inline-flex w-full max-w-4xl items-center justify-center">

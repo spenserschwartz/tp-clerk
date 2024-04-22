@@ -40,18 +40,13 @@ const DeleteItineraryModal = ({
       const userId = user?.id ?? "";
       const lookingAtSingleItinerary = pathname.includes("itinerary");
 
-      if (lookingAtSingleItinerary)
+      if (lookingAtSingleItinerary) {
         toast.success("Itinerary deleted. You will be redirected.");
-      else {
+        setTimeout(() => void router.push(`/user/${userId}`), 3000);
+      } else {
         toast.success("Itinerary deleted.");
         void ctx.itinerary.getByUserId.invalidate();
       }
-
-      setTimeout(() => {
-        // router.back();
-
-        lookingAtSingleItinerary ? void router.push(`/user/${userId}`) : null;
-      }, 3000);
 
       setOpenModal(false);
     }

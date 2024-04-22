@@ -18,6 +18,7 @@ import {
 } from "@/components/index";
 
 import { quickLaunchCities, unknownClerkCity } from "@/constants";
+import { revalidateUserPage } from "~/server/actions";
 import { type QuickLaunchItineraryType } from "~/types/common";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
@@ -59,6 +60,7 @@ const QuickLaunchTool = () => {
     isCreatingItinerary,
     itineraryCreated,
     itineraryData,
+    resetItineraryStatus,
   } = useCreateItinerary();
 
   const {
@@ -113,6 +115,9 @@ const QuickLaunchTool = () => {
         placeId: chosenCustomCity?.place_id,
       });
     }
+
+    // Revalidate user page after saving itinerary
+    void revalidateUserPage();
   };
 
   // Set generatedAIMessage once itineraryAI is generated
@@ -152,6 +157,11 @@ const QuickLaunchTool = () => {
     const cityPhoto = chosenCustomCity?.photos?.[0]?.getUrl() ?? undefined;
     setCustomCityPhoto(cityPhoto);
   }, [chosenCustomCity]);
+
+  const handleCreateNewItinerary = () => {
+    setParsedData([]);
+    resetItineraryStatus();
+  };
 
   if (!apiKey) return <LoadingPage />;
   return (
@@ -245,7 +255,7 @@ const QuickLaunchTool = () => {
               {/* Button to create new itinerary */}
               <Button
                 buttonText="Create new itinerary"
-                buttonClickHandler={() => setParsedData([])}
+                buttonClickHandler={() => handleCreateNewItinerary()}
                 size="xl"
               />
 

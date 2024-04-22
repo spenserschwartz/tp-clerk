@@ -7,6 +7,7 @@ const useCreateItinerary = () => {
     isPending: isCreatingItinerary,
     isSuccess: itineraryCreated,
     data: itineraryData,
+    reset: resetItineraryStatus,
   } = api.itinerary.create.useMutation({
     onSuccess: () => {
       toast.success("Itinerary created!");
@@ -28,6 +29,7 @@ const useCreateItinerary = () => {
     isCreatingItinerary,
     itineraryCreated,
     itineraryData,
+    resetItineraryStatus,
   };
 };
 
