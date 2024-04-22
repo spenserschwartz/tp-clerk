@@ -1,4 +1,5 @@
 import Avatar from "./Avatar";
+import BubbleBackground from "./BubbleBackground";
 import Button from "./Button";
 import Carousel from "./Carousel";
 import CityDetails from "./CityDetails";
@@ -39,6 +40,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 
 export {
   Avatar,
+  BubbleBackground,
   Button,
   Carousel,
   CityDetails,
