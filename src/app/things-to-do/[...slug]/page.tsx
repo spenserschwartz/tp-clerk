@@ -7,7 +7,7 @@ interface ThingsToDoPageProps {
 }
 
 const ThingsToDoPage = async ({ params }: ThingsToDoPageProps) => {
-  const query: string = params.slug.reverse().join("/");
+  const query: string = params.slug.reverse().join(" ");
   const searchByTextData = await api.google.searchByTextForCity({ query });
 
   const placeResult =
