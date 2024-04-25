@@ -3,19 +3,19 @@
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import type { PlaceResult, PlaceResultWithLatLng } from "~/types/google";
 
-import { ThingsToDoTitle } from "@/components";
+import { ThingsToDoDetails, ThingsToDoTitle } from "@/components";
 
 interface ThingsToDoDetailsProps {
+  googleData: PlaceResult | { error: string };
   placeResult?: PlaceResultWithLatLng;
 }
 
-const ThingsToDoDetails = ({
+const ThingsToDoProfile = ({
   googleData,
   placeResult,
 }: ThingsToDoDetailsProps) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  console.log("googleData", googleData);
-  console.log("placeResult", placeResult);
+  const googlePlaceId = placeResult?.place_id ?? "";
 
   if (!apiKey) return null;
   return (
@@ -24,14 +24,11 @@ const ThingsToDoDetails = ({
         <div className="flex w-full flex-grow flex-col items-center">
           <ThingsToDoTitle title={placeResult?.formatted_address ?? ""} />
 
-          {/* <PlacesProfileDetails
-            databaseData={databaseData}
-            tripAdvisorData={tripAdvisorData}
-          /> */}
+          <ThingsToDoDetails googlePlaceId={googlePlaceId} />
         </div>
       </div>
     </GoogleAPIProvider>
   );
 };
 
-export default ThingsToDoDetails;
+export default ThingsToDoProfile;
