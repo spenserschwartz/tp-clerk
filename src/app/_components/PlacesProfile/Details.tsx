@@ -72,10 +72,6 @@ const PlacesProfileDetails = ({
     });
   }, [placesService, databaseData]);
 
-  console.log("PP placeResult:", placeResult);
-  console.log("lat", placeResult?.geometry?.location?.lat());
-  console.log("lng", placeResult?.geometry?.location?.lng());
-
   if (!databaseData || !tripAdvisorData) return null;
   if (typeof tripAdvisorData !== "object" || "error" in tripAdvisorData)
     // Only show details if tripAdvisorData is populated
@@ -105,8 +101,6 @@ const PlacesProfileDetails = ({
       })
       .map((subCat) => subCat.localized_name) ?? []),
   ].filter(Boolean);
-
-  console.log("ppd googledata", googleData);
 
   return (
     <div className="mt-4 w-full">
