@@ -20,8 +20,7 @@ const ThingsToDoPage = async ({ params }: ThingsToDoPageProps) => {
   const { place_id } = placeResult as unknown as PlaceResult;
 
   const googleData = await api.google.getPlaceDetails({
-    // placeId: "ChIJZ-hVgPnW3IARYLErmquJqwE" ?? "",
-    placeId: place_id ?? "",
+    placeId: place_id ?? "", // "ChIJZ-hVgPnW3IARYLErmquJqwE"
   });
 
   const prominentPlacesData =
