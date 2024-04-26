@@ -32,9 +32,9 @@
       "@/modals": ["./src/app/_components/modal"],
       "@/shadcn": ["./src/app/_components/shadcn/ui"],
 
-      "@/components": ["./src/app/_components"],
       "@/components/*": ["./src/app/_components/*"],
-     
+      "@/components": ["./src/app/_components"],
+      
       "@/constants": ["./src/lib/constants"],
     
       "~/*": ["./src/*"],
