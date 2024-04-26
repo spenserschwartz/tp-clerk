@@ -35,6 +35,7 @@ import Table from "./Table";
 import TableRow from "./Table/Row";
 import ThingsToDoProfile from "./ThingsToDoProfile";
 import ThingsToDoDetails from "./ThingsToDoProfile/Details";
+import ThingsToDoLaunch from "./ThingsToDoProfile/Launch";
 import ThingsToDoTitle from "./ThingsToDoProfile/Title";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage } from "./loading/LoadingPage";
@@ -79,6 +80,7 @@ export {
   Table,
   TableRow,
   ThingsToDoDetails,
+  ThingsToDoLaunch,
   ThingsToDoProfile,
   ThingsToDoTitle,
   TripAdvisorReviewBadge,
