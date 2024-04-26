@@ -1,12 +1,10 @@
 "use client";
-import { ImageGallery } from "@/components";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import type {
-  PlaceResult,
-  PlaceResultWithLatLng,
-  PlacesService,
-} from "~/types/google";
+
+import { ThingsToDoLaunch } from "@/components";
+import type { PlaceResult, PlacesService } from "~/types/google";
 
 interface ThingsToDoDetailsProps {
   googlePlaceId: string;
@@ -22,6 +20,7 @@ const ThingsToDoDetails = ({ googlePlaceId }: ThingsToDoDetailsProps) => {
     null,
   );
   const [images, setImages] = useState<string[]>([]);
+  const [showCityLaunch, setShowCityLaunch] = useState(false);
 
   // Correctly initializing PlacesService with a div element
   useEffect(() => {
@@ -33,41 +32,43 @@ const ThingsToDoDetails = ({ googlePlaceId }: ThingsToDoDetailsProps) => {
   // Fetch details from Google Places API
   useEffect(() => {
     if (!placesService || !googlePlaceId) return;
-    const request = {
-      placeId: googlePlaceId ?? "",
-      fields: [
-        "name",
-        "rating",
-        "formatted_address",
-        "formatted_phone_number",
-        "geometry",
-        "user_ratings_total",
-        "url",
-        "website",
-        "photos",
-        "vicinity",
-      ],
-    };
 
-    placesService.getDetails(request, (result, status) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK && result) {
-        setPlaceResult(result);
-        const photos = result?.photos?.map((photo) => {
-          return photo.getUrl();
-        });
-        setImages(photos?.slice(0, 5) ?? []);
-      } else {
-        console.log("Failed to fetch place details:", status);
-      }
-    });
+    placesService.textSearch(
+      { query: "Abbotsford BC Canda" },
+      (result, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && result) {
+          console.log("textSearch result", result);
+          setPlaceResult(result[0]);
+          const photos = result[0]?.photos?.map((photo) => {
+            return photo.getUrl();
+          });
+          setImages(photos?.slice(0, 5) ?? []);
+        } else {
+          console.log("Failed to fetch place details:", status);
+        }
+      },
+    );
   }, [placesService, googlePlaceId]);
 
   console.log("googlePlaceId", googlePlaceId);
   console.log("placeResult", placeResult);
   console.log("images", images);
+  console.log("placeResult lat", placeResult?.geometry?.location?.lat());
+
   return (
-    <div className="mt-4 w-full">
-      <ImageGallery images={images} />
+    <div className="mt-4 flex w-full justify-between border-2 border-red-400 ">
+      {/* <ImageGallery images={images} /> */}
+
+      <Image
+        src={images[0] ?? "/images/placeholder.png"}
+        alt="Alt is required by Next Image"
+        width={300}
+        height={300}
+        style={{ width: "auto" }}
+      />
+
+      {/* <CityLaunch setShowCityLaunch={setShowCityLaunch} /> */}
+      <ThingsToDoLaunch placeResult={placeResult} />
     </div>
   );
 };
