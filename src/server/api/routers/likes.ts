@@ -29,7 +29,6 @@ export const likesRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const likesByUserInThisCity = await ctx.db.likes.findMany({
         where: {
-          // userId: input.userId,
           userId: ctx.userId ?? "",
           cityId: input.cityId,
         },
@@ -41,7 +40,14 @@ export const likesRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ cityId: z.string(), placeId: z.string() }))
+    .input(
+      z.object({
+        cityId: z.string(),
+        placeId: z.string(),
+
+        formattedCityAddress: z.optional(z.string()),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const { userId } = ctx;
 
@@ -51,6 +57,7 @@ export const likesRouter = createTRPCRouter({
       const newLike = await ctx.db.likes.create({
         data: {
           cityId: input.cityId,
+          formattedCityAddress: input.formattedCityAddress,
           placeId: input.placeId,
           userId,
         },
