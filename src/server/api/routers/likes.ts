@@ -45,7 +45,7 @@ export const likesRouter = createTRPCRouter({
         cityId: z.string(),
         placeId: z.string(),
 
-        formattedCityAddress: z.optional(z.string()),
+        displayName: z.optional(z.string()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -57,7 +57,7 @@ export const likesRouter = createTRPCRouter({
       const newLike = await ctx.db.likes.create({
         data: {
           cityId: input.cityId,
-          formattedCityAddress: input.formattedCityAddress,
+          displayName: input.displayName,
           placeId: input.placeId,
           userId,
         },
