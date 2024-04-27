@@ -5,13 +5,18 @@ import { useEffect, useState } from "react";
 
 import { ThingsToDoLaunch } from "@/components";
 import type { PlaceResult, PlacesService } from "~/types/google";
+import type { GetAllLikesByUserInCityType } from "~/types/router";
 
 interface ThingsToDoDetailsProps {
+  allLikesByUserInCity: GetAllLikesByUserInCityType[];
   googlePlaceId: string;
   //   placeResult: PlaceResultWithLatLng;
 }
 
-const ThingsToDoDetails = ({ googlePlaceId }: ThingsToDoDetailsProps) => {
+const ThingsToDoDetails = ({
+  allLikesByUserInCity,
+  googlePlaceId,
+}: ThingsToDoDetailsProps) => {
   const placesLib = useMapsLibrary("places");
   const [placeResult, setPlaceResult] = useState<PlaceResult | undefined>(
     undefined,
@@ -67,8 +72,10 @@ const ThingsToDoDetails = ({ googlePlaceId }: ThingsToDoDetailsProps) => {
         style={{ width: "auto" }}
       />
 
-      {/* <CityLaunch setShowCityLaunch={setShowCityLaunch} /> */}
-      <ThingsToDoLaunch placeResult={placeResult} />
+      <ThingsToDoLaunch
+        allLikesByUserInCity={allLikesByUserInCity}
+        placeResult={placeResult}
+      />
     </div>
   );
 };
