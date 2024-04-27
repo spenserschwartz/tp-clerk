@@ -64,7 +64,12 @@ const TableRow = ({
     else {
       // If the user has already liked, remove their update. Else, add their like
       if (likedPlace) removeLike({ cityId, placeId: place.id });
-      else addLike({ cityId, placeId: place.id });
+      else
+        addLike({
+          cityId,
+          placeId: place.id,
+          displayName: place.displayName?.text,
+        });
     }
   };
 
