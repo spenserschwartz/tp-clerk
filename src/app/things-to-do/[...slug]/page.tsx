@@ -36,7 +36,11 @@ const ThingsToDoPage = async ({ params }: ThingsToDoPageProps) => {
 
   return (
     <div className="flex w-full flex-col justify-center">
-      <ThingsToDoProfile placeResult={placeResult} googleData={googleData} />
+      <ThingsToDoProfile
+        placeResult={placeResult}
+        googleData={googleData}
+        allLikesByUserInCity={allLikesByUserInCity}
+      />
 
       <h1 className="mt-4 text-2xl font-bold">Prominent Places</h1>
       <Table
