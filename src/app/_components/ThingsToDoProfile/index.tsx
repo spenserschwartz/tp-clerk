@@ -1,16 +1,20 @@
 "use client";
 
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import type { PlaceResult, PlaceResultWithLatLng } from "~/types/google";
 
 import { ThingsToDoDetails, ThingsToDoTitle } from "@/components";
 
+import type { PlaceResult, PlaceResultWithLatLng } from "~/types/google";
+import type { GetAllLikesByUserInCityType } from "~/types/router";
+
 interface ThingsToDoDetailsProps {
+  allLikesByUserInCity: GetAllLikesByUserInCityType[];
   googleData: PlaceResult | { error: string };
   placeResult?: PlaceResultWithLatLng;
 }
 
 const ThingsToDoProfile = ({
+  allLikesByUserInCity,
   googleData,
   placeResult,
 }: ThingsToDoDetailsProps) => {
@@ -24,7 +28,10 @@ const ThingsToDoProfile = ({
         <div className="flex w-full flex-grow flex-col items-center">
           <ThingsToDoTitle title={placeResult?.formatted_address ?? ""} />
 
-          <ThingsToDoDetails googlePlaceId={googlePlaceId} />
+          <ThingsToDoDetails
+            allLikesByUserInCity={allLikesByUserInCity}
+            googlePlaceId={googlePlaceId}
+          />
         </div>
       </div>
     </GoogleAPIProvider>
