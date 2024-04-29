@@ -3,6 +3,7 @@ import { useState, type MouseEvent } from "react";
 import toast from "react-hot-toast";
 
 import { HeartIcon } from "@/icons";
+import { revalidateThingsToDoPage } from "~/server/actions";
 import { api } from "~/trpc/react";
 import type { PlaceNew } from "~/types/google";
 
@@ -74,6 +75,8 @@ const TableRow = ({
           displayName: place.displayName?.text ?? "displayName not found",
         });
     }
+
+    void revalidateThingsToDoPage();
   };
 
   const rowClick = (e: MouseEvent<HTMLTableRowElement>) => {
