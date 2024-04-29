@@ -8,6 +8,7 @@ import type { PlaceNew } from "~/types/google";
 
 interface TableRowProps {
   cityId: string;
+  cityName: string;
   isSignedIn: boolean;
   place: PlaceNew;
   setOpenModal: (open: boolean) => void;
@@ -16,6 +17,7 @@ interface TableRowProps {
 
 const TableRow = ({
   cityId,
+  cityName,
   isSignedIn,
   place,
   setOpenModal,
@@ -67,8 +69,9 @@ const TableRow = ({
       else
         addLike({
           cityId,
+          cityName,
           placeId: place.id,
-          displayName: place.displayName?.text,
+          displayName: place.displayName?.text ?? "displayName not found",
         });
     }
   };
