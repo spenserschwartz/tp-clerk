@@ -26,12 +26,17 @@ import {
   type PlaceResult,
 } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
+import type { GetAllLikesByUserInCityType } from "~/types/router";
 
 interface ThingsToDoLaunchProps {
+  allLikesByUserInCity: GetAllLikesByUserInCityType[];
   placeResult: PlaceResult | undefined;
 }
 
-const ThingsToDoLaunch = ({ placeResult }: ThingsToDoLaunchProps) => {
+const ThingsToDoLaunch = ({
+  allLikesByUserInCity,
+  placeResult,
+}: ThingsToDoLaunchProps) => {
   const { isSignedIn } = useUser();
   const {
     createItinerary,
@@ -45,11 +50,13 @@ const ThingsToDoLaunch = ({ placeResult }: ThingsToDoLaunchProps) => {
     to: addDays(new Date(), 3),
   });
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
-  const [showLoading, setShowLoading] = useState(false);
-  const [attractionsLikedByUser, setAttractionsLikedByUser] = useState<
-    string[]
-  >([]);
   const [includedAttractions, setIncludedAttractions] = useState<string[]>([]);
+  const [showLoading, setShowLoading] = useState(false);
+  const attractionsLikedByUser: string[] = allLikesByUserInCity.map(
+    (el) => el.displayName,
+  );
+
+  console.log("alby", attractionsLikedByUser);
 
   const [requestOptions, setRequestOptions] =
     useState<AutocompleteRequest | null>(null);
@@ -103,7 +110,7 @@ const ThingsToDoLaunch = ({ placeResult }: ThingsToDoLaunchProps) => {
 
         // Add only new attractions that aren't already included
         attractionsLikedByUser.forEach((attraction) => {
-          updatedAttractionsSet.add(attraction);
+          attraction ? updatedAttractionsSet.add(attraction) : null;
         });
 
         // Convert the Set back into an array
