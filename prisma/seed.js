@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+const userId = 'user_2Yp2HNveOW22qJkeS4VLCHVowkL'
 const newYorkCityData = {
   cityId: "ChIJOwg_06VPwokRYv534QaPC8g",
   cityName: "New York City",
@@ -41,31 +42,64 @@ const newYorkCityData = {
   itineraryTitle: "3 days in New York City",
 };
 
+
 async function main() {
-  await prisma.itinerary.createMany({
-    data: [
-      {
-        cityId: newYorkCityData.cityId,
-        // city: { connect: { id: newYorkCityData.cityId } },
-        cityName: "Duplicate City",
-        // user: { connect: { id: userId } },
-        details: newYorkCityData.itineraryDetails,
-        title: "Duplicate Itinerary",
-        imageURL: newYorkCityData.imageURL,
-        placeId: null,
-      },
-      {
-        cityId: newYorkCityData.cityId,
-        // city: { connect: { id: newYorkCityData.cityId } },
-        cityName: "Duplicate City",
-        // user: { connect: { id: userId } },
-        details: newYorkCityData.itineraryDetails,
-        title: "Duplicate Itinerary",
-        imageURL: newYorkCityData.imageURL,
-        placeId: null,
-      },
-    ],
-  });
+  await prisma.itinerary.create({
+    data: {
+      city: { connect: { id: newYorkCityData.cityId } },
+      cityName: "Duplicate City",
+      user: { connect: { id: userId } },
+      details: newYorkCityData.itineraryDetails,
+      title: "Duplicate Itinerary",
+      imageURL: newYorkCityData.imageURL,
+      placeId: null,
+    },
+  })
+  await prisma.itinerary.create({
+    data: {
+      city: { connect: { id: newYorkCityData.cityId } },
+      cityName: "Duplicate City",
+      user: { connect: { id: userId } },
+      details: newYorkCityData.itineraryDetails,
+      title: "Duplicate Itinerary",
+      imageURL: newYorkCityData.imageURL,
+      placeId: null,
+    },
+  })
+  await prisma.itinerary.create({
+    data: {
+      city: { connect: { id: newYorkCityData.cityId } },
+      cityName: "Duplicate City",
+      user: { connect: { id: userId } },
+      details: newYorkCityData.itineraryDetails,
+      title: "Duplicate Itinerary",
+      imageURL: newYorkCityData.imageURL,
+      placeId: null,
+    },
+  })
+  await prisma.itinerary.create({
+    data: {
+      city: { connect: { id: newYorkCityData.cityId } },
+      cityName: "Duplicate City",
+      user: { connect: { id: userId } },
+      details: newYorkCityData.itineraryDetails,
+      title: "Duplicate Itinerary",
+      imageURL: newYorkCityData.imageURL,
+      placeId: null,
+    },
+  })
+  await prisma.itinerary.create({
+    data: {
+      city: { connect: { id: newYorkCityData.cityId } },
+      cityName: "Duplicate City",
+      user: { connect: { id: userId } },
+      details: newYorkCityData.itineraryDetails,
+      title: "Duplicate Itinerary",
+      imageURL: newYorkCityData.imageURL,
+      placeId: null,
+    },
+  })
+  
 }
 
 main()
