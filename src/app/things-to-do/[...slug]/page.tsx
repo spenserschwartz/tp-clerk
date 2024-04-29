@@ -1,7 +1,7 @@
 import { api } from "~/trpc/server";
 
 import { Table, ThingsToDoProfile } from "@/components";
-import { PlaceResult, PlaceResultWithLatLng } from "~/types/google";
+import type { PlaceResultWithLatLng } from "~/types/google";
 
 interface ThingsToDoPageProps {
   params: { slug: string[] };
@@ -17,11 +17,6 @@ const ThingsToDoPage = async ({ params }: ThingsToDoPageProps) => {
       : undefined;
   const latitude = placeResult?.geometry?.location?.lat ?? 0;
   const longitude = placeResult?.geometry?.location?.lng ?? 0;
-  const { place_id } = placeResult as unknown as PlaceResult;
-
-  const googleData = await api.google.getPlaceDetails({
-    placeId: place_id ?? "", // "ChIJZ-hVgPnW3IARYLErmquJqwE"
-  });
 
   const prominentPlacesData =
     await api.google.searchProminentPlacesByLocationNew({
@@ -34,19 +29,20 @@ const ThingsToDoPage = async ({ params }: ThingsToDoPageProps) => {
     cityId: placeResult?.place_id ?? "",
   });
 
+
   return (
     <div className="flex w-full flex-col justify-center">
       <ThingsToDoProfile
-        placeResult={placeResult}
-        googleData={googleData}
         allLikesByUserInCity={allLikesByUserInCity}
+        placeResult={placeResult}
       />
 
       <h1 className="mt-4 text-2xl font-bold">Prominent Places</h1>
       <Table
-        places={prominentPlacesData?.places}
-        cityId={placeResult?.place_id ?? ""}
         allLikesByUserInCity={allLikesByUserInCity}
+        cityId={placeResult?.place_id ?? ""}
+        cityName={placeResult?.formatted_address ?? placeResult?.name ?? ""}
+        places={prominentPlacesData?.places}
       />
     </div>
   );
