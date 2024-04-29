@@ -4,22 +4,19 @@ import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 
 import { ThingsToDoDetails, ThingsToDoTitle } from "@/components";
 
-import type { PlaceResult, PlaceResultWithLatLng } from "~/types/google";
+import type { PlaceResultWithLatLng } from "~/types/google";
 import type { GetAllLikesByUserInCityType } from "~/types/router";
 
 interface ThingsToDoDetailsProps {
   allLikesByUserInCity: GetAllLikesByUserInCityType[];
-  googleData: PlaceResult | { error: string };
   placeResult?: PlaceResultWithLatLng;
 }
 
 const ThingsToDoProfile = ({
   allLikesByUserInCity,
-  googleData,
   placeResult,
 }: ThingsToDoDetailsProps) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const googlePlaceId = placeResult?.place_id ?? "";
 
   if (!apiKey) return null;
   return (
@@ -30,7 +27,7 @@ const ThingsToDoProfile = ({
 
           <ThingsToDoDetails
             allLikesByUserInCity={allLikesByUserInCity}
-            googlePlaceId={googlePlaceId}
+            googleCityName={placeResult?.formatted_address ?? ""}
           />
         </div>
       </div>
