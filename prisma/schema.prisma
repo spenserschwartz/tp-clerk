@@ -84,7 +84,7 @@ model Likes {
     createdAt DateTime @default(now())
 
     cityId      String
-    displayName String?
+    displayName String
     placeId     String
     userId      String
 
