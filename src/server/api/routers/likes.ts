@@ -35,7 +35,6 @@ export const likesRouter = createTRPCRouter({
       });
 
       if (!likesByUserInThisCity) throw new TRPCError({ code: "NOT_FOUND" });
-
       return likesByUserInThisCity;
     }),
 
@@ -43,9 +42,9 @@ export const likesRouter = createTRPCRouter({
     .input(
       z.object({
         cityId: z.string(),
+        cityName: z.string(),
+        displayName: z.string(),
         placeId: z.string(),
-
-        displayName: z.optional(z.string()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -57,6 +56,7 @@ export const likesRouter = createTRPCRouter({
       const newLike = await ctx.db.likes.create({
         data: {
           cityId: input.cityId,
+          cityName: input.cityName,
           displayName: input.displayName,
           placeId: input.placeId,
           userId,
