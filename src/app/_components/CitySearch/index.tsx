@@ -3,6 +3,7 @@ import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { useRouter } from "next/navigation";
 
 import { LoadingPage, PlacesAutoComplete } from "@/components";
+import { FadeUpWrapper } from "@/framer-motion";
 import { convertFormattedAddressToUrlPath } from "~/lib/utils";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 
@@ -23,19 +24,31 @@ const CitySearch = () => {
     if (!formatted_address) return;
 
     const dynamicRoute = convertFormattedAddressToUrlPath(formatted_address);
-    // void router.push("/things-to-do" + dynamicRoute);
-    // void router.push({
-    //   pathname: "/things-to-do" + dynamicRoute,
-    // });
     void router.push("/things-to-do" + dynamicRoute);
   };
 
   return (
     <GoogleAPIProvider apiKey={apiKey}>
-      <PlacesAutoComplete
-        requestOptions={autocompleteRequest}
-        setSelected={handleSelectCity}
-      />
+      <section className="relative" id="quick_launch">
+        <FadeUpWrapper>
+          <div className="relative mx-auto flex max-w-6xl flex-col items-center px-3 sm:px-6">
+            <div>
+              {/* Section header */}
+              <div className="mx-auto max-w-3xl pb-2 text-center md:pb-20">
+                <h2 className="h2 mb-4">Search for Any City</h2>
+                <p className="text-xl text-gray-600">
+                  Find the best attractions for any city in the world and make
+                  an itinerary in seconds.
+                </p>
+              </div>
+            </div>
+            <PlacesAutoComplete
+              requestOptions={autocompleteRequest}
+              setSelected={handleSelectCity}
+            />
+          </div>
+        </FadeUpWrapper>
+      </section>
     </GoogleAPIProvider>
   );
 };

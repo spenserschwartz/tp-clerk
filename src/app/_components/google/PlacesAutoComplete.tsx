@@ -102,7 +102,7 @@ const PlacesAutoComplete = ({
   );
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-lg">
       <Combobox
         as="div"
         value={inputValue}

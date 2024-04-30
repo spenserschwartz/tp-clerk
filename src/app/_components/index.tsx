@@ -1,4 +1,5 @@
 import Avatar from "./Avatar";
+import BubbleBackground from "./BubbleBackground";
 import Button from "./Button";
 import Carousel from "./Carousel";
 import CityDetails from "./CityDetails";
@@ -32,6 +33,10 @@ import Select from "./Select";
 import StarRatings from "./StarRatings";
 import Table from "./Table";
 import TableRow from "./Table/Row";
+import ThingsToDoProfile from "./ThingsToDoProfile";
+import ThingsToDoDetails from "./ThingsToDoProfile/Details";
+import ThingsToDoLaunch from "./ThingsToDoProfile/Launch";
+import ThingsToDoTitle from "./ThingsToDoProfile/Title";
 import PlacesAutoComplete from "./google/PlacesAutoComplete";
 import { LoadingPage } from "./loading/LoadingPage";
 import LoadingSection from "./loading/LoadingSection";
@@ -39,6 +44,7 @@ import LoadingSpinner from "./loading/LoadingSpinner";
 
 export {
   Avatar,
+  BubbleBackground,
   Button,
   Carousel,
   CityDetails,
@@ -73,5 +79,9 @@ export {
   TabItemQuickLaunch,
   Table,
   TableRow,
+  ThingsToDoDetails,
+  ThingsToDoLaunch,
+  ThingsToDoProfile,
+  ThingsToDoTitle,
   TripAdvisorReviewBadge,
 };

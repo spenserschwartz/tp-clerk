@@ -48,6 +48,7 @@ const PlacesProfileDetails = ({
       fields: [
         "name",
         "rating",
+        "formatted_address",
         "formatted_phone_number",
         "geometry",
         "user_ratings_total",
@@ -70,8 +71,6 @@ const PlacesProfileDetails = ({
       }
     });
   }, [placesService, databaseData]);
-
-  console.log("PP placeResult:", placeResult);
 
   if (!databaseData || !tripAdvisorData) return null;
   if (typeof tripAdvisorData !== "object" || "error" in tripAdvisorData)
@@ -103,8 +102,6 @@ const PlacesProfileDetails = ({
       .map((subCat) => subCat.localized_name) ?? []),
   ].filter(Boolean);
 
-  console.log("ppd googledata", googleData);
-
   return (
     <div className="mt-4 w-full">
       <ImageGallery images={images} />
@@ -123,7 +120,6 @@ const PlacesProfileDetails = ({
 
         {/* Reviews */}
         <div className="flex flex-1 justify-end gap-2">
-          {/* <GoogleReviewBadge googleData={googleData} /> */}
           <GoogleReviewBadge googleData={placeResult} />
           <TripAdvisorReviewBadge tripAdvisorData={tripAdvisorData} />
         </div>

@@ -1,7 +1,14 @@
-import { CitySearch } from "@/components";
+import { BubbleBackground, CitySearch } from "@/components";
 
 const CitySearchPage = () => {
-  return <CitySearch />;
+  return (
+    <div className="h-full">
+      {/* Background Illustration */}
+      <BubbleBackground />
+
+      <CitySearch />
+    </div>
+  );
 };
 
 export default CitySearchPage;

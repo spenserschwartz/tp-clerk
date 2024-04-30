@@ -28,8 +28,9 @@ export const headerNavigation = (user: UserResource | null | undefined) => {
     links: [
       { name: "My Profile", href: `/user/${id}` },
       { name: "Quick Launch", href: "/quick-launch" },
+      { name: "City Search", href: "/city-search" },
       { name: "London", href: "/city/london" },
-      { name: "Berlin", href: "/city/berlin" },
+      // { name: "Berlin", href: "/city/berlin" },
     ],
   };
 };

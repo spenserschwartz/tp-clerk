@@ -10,12 +10,14 @@ import type { GetAllLikesByUserInCityType } from "~/types/router";
 interface TableProps {
   allLikesByUserInCity: GetAllLikesByUserInCityType[];
   cityId: string;
+  cityName: string;
   places: PlaceNew[] | undefined;
 }
 
 export default function Table({
   allLikesByUserInCity,
   cityId,
+  cityName,
   places,
 }: TableProps) {
   const { isSignedIn } = useUser();
@@ -57,10 +59,10 @@ export default function Table({
                   <TableRow
                     key={place.id}
                     cityId={cityId}
+                    cityName={cityName}
                     isSignedIn={isSignedIn ?? false}
                     place={place}
                     setOpenModal={setOpenModal}
-                    // userHasLikedPlace={set.has("ChIJLZlhwACdQIYRFvnVL8mq8BM")}
                     userHasLikedPlace={allLikesByUserInCitySet.has(place.id)}
                   />
                 ))}
