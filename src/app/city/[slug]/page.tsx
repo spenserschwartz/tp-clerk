@@ -1,4 +1,4 @@
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
 import { api } from "~/trpc/server";
 

@@ -1,6 +1,7 @@
 import { api } from "~/trpc/server";
 
 import { ItineraryImageGrid } from "@/components";
+import { clerkClient } from "@clerk/nextjs/server";
 import type { ItineraryWithCityInfoType } from "~/types/router";
 
 interface UserPageProps {
@@ -10,7 +11,9 @@ interface UserPageProps {
 const UserPage = async ({ params }: UserPageProps) => {
   const { id: userId } = params;
 
-  const userData = await api.profile.getUserById({ userId });
+  // const userData = await api.profile.getUserById({ userId });
+  const userData = await clerkClient.users.getUser(userId);
+
   const itinerariesByUser = await api.itinerary.getByUserId({ userId });
 
   const pageTitle =
