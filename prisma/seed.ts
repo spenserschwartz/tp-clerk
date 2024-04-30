@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const userId = 'user_2Yp2HNveOW22qJkeS4VLCHVowkL'
+const userId = "user_2Yp2HNveOW22qJkeS4VLCHVowkL";
 const newYorkCityData = {
   cityId: "ChIJOwg_06VPwokRYv534QaPC8g",
   cityName: "New York City",
@@ -42,7 +42,6 @@ const newYorkCityData = {
   itineraryTitle: "3 days in New York City",
 };
 
-
 async function main() {
   await prisma.itinerary.create({
     data: {
@@ -54,7 +53,7 @@ async function main() {
       imageURL: newYorkCityData.imageURL,
       placeId: null,
     },
-  })
+  });
   await prisma.itinerary.create({
     data: {
       city: { connect: { id: newYorkCityData.cityId } },
@@ -65,7 +64,7 @@ async function main() {
       imageURL: newYorkCityData.imageURL,
       placeId: null,
     },
-  })
+  });
   await prisma.itinerary.create({
     data: {
       city: { connect: { id: newYorkCityData.cityId } },
@@ -76,7 +75,7 @@ async function main() {
       imageURL: newYorkCityData.imageURL,
       placeId: null,
     },
-  })
+  });
   await prisma.itinerary.create({
     data: {
       city: { connect: { id: newYorkCityData.cityId } },
@@ -87,7 +86,7 @@ async function main() {
       imageURL: newYorkCityData.imageURL,
       placeId: null,
     },
-  })
+  });
   await prisma.itinerary.create({
     data: {
       city: { connect: { id: newYorkCityData.cityId } },
@@ -98,8 +97,7 @@ async function main() {
       imageURL: newYorkCityData.imageURL,
       placeId: null,
     },
-  })
-  
+  });
 }
 
 main()
