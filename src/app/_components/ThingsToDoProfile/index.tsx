@@ -25,10 +25,10 @@ const ThingsToDoProfile = ({
         <div className="flex w-full flex-grow flex-col items-center">
           <ThingsToDoTitle title={placeResult?.formatted_address ?? ""} />
 
-          <ThingsToDoDetails
+          {/* <ThingsToDoDetails
             allLikesByUserInCity={allLikesByUserInCity}
             googleCityName={placeResult?.formatted_address ?? ""}
-          />
+          /> */}
         </div>
       </div>
     </GoogleAPIProvider>
