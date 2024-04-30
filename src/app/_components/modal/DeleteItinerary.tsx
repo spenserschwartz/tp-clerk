@@ -44,7 +44,8 @@ const DeleteItineraryModal = ({
       if (lookingAtSingleItinerary) {
         toast.success("Itinerary deleted. You will be redirected.");
         setTimeout(() => {
-          void ctx.itinerary.getByUserId.invalidate();
+          // void ctx.itinerary.getByUserId.invalidate();
+          void revalidateThingsToDoPage();
           void router.push(`/user/${userId}`);
         }, 3000);
       } else {
