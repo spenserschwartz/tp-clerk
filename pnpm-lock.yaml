@@ -4374,7 +4374,7 @@ packages:
     peerDependencies:
       prosemirror-model: ^1.19.0
       prosemirror-state: ^1.4.2
-      prosemirror-view: ^1.31.2
+      prosemirror-view: ^1.33.6
     dependencies:
       '@remirror/core-constants': 2.0.2
       escape-string-regexp: 4.0.0
