@@ -33,7 +33,7 @@ export const profileRouter = createTRPCRouter({
       } else return filterUserForClient(data[0]);
     }),
 
-  // ! This file needs to be cleaned up and refactored
+  // ! This file needs to be cleaned up and refactored.
   getUserById: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async ({ input }) => {
