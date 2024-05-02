@@ -1,13 +1,13 @@
 import { useUser } from "@clerk/nextjs";
 import { Dialog } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type Dispatch } from "react";
 import toast from "react-hot-toast";
 
 import { revalidateThingsToDoPage } from "~/server/actions";
 import { api } from "~/trpc/react";
-import { useDeleteItinerary } from "~/utils/hooks";
+import { useDeleteItinerary, useProgressRouter } from "~/utils/hooks";
 import ModalWrapper from "./Wrapper";
 
 interface DeleteItineraryModalProps {
@@ -21,7 +21,7 @@ const DeleteItineraryModal = ({
   openModal,
   setOpenModal,
 }: DeleteItineraryModalProps) => {
-  const router = useRouter();
+  const router = useProgressRouter();
   const pathname = usePathname();
   const { user } = useUser();
   const ctx = api.useUtils();
@@ -44,7 +44,6 @@ const DeleteItineraryModal = ({
       if (lookingAtSingleItinerary) {
         toast.success("Itinerary deleted. You will be redirected.");
         setTimeout(() => {
-          // void ctx.itinerary.getByUserId.invalidate();
           void revalidateThingsToDoPage();
           void router.push(`/user/${userId}`);
         }, 3000);

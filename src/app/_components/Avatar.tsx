@@ -1,17 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 
-import { unknownClerkUser } from "~/lib/constants";
-import { AvatarPlaceholder } from "./icons";
+import { unknownClerkUser } from "@/constants";
+import { AvatarPlaceholder } from "@/icons";
+import { useProgressRouter } from "~/utils/hooks";
 
 interface AvatarProps {
   userId: string | null;
 }
 
 export default function Avatar({ userId }: AvatarProps) {
-  const router = useRouter();
+  const router = useProgressRouter();
   const { data: itineraryUserData } = api.profile.getUserById.useQuery({
     userId: userId ?? "",
   });
