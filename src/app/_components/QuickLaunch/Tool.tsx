@@ -2,7 +2,6 @@
 import { useUser } from "@clerk/nextjs";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
 import { addDays, format as formatDate } from "date-fns";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import toast from "react-hot-toast";
@@ -15,19 +14,23 @@ import {
   LoadingSection,
   PlacesAutoComplete,
   Select,
-} from "@/components/index";
+} from "@/components";
 
 import { quickLaunchCities, unknownClerkCity } from "@/constants";
 import { revalidateUserPage } from "~/server/actions";
 import { type QuickLaunchItineraryType } from "~/types/common";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
 import type { ParsedAIMessageInterface } from "~/types/openai";
-import { useAIGenerateItinerary, useCreateItinerary } from "~/utils/hooks";
+import {
+  useAIGenerateItinerary,
+  useCreateItinerary,
+  useProgressRouter,
+} from "~/utils/hooks";
 import DateRangePicker from "../DateRangePicker";
 
 const QuickLaunchTool = () => {
   const { isSignedIn } = useUser();
-  const router = useRouter();
+  const router = useProgressRouter();
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const autocompleteRequest: AutocompleteRequest = {

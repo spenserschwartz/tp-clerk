@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -34,6 +35,7 @@ export default function RootLayout({
 
               <MainWrapper>
                 <Toaster position="bottom-center" />
+                <NextTopLoader />
 
                 {/* Main Content */}
                 {children}
