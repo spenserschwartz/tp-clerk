@@ -16,4 +16,4 @@ Supabase
 
 ## Links
 
-- [DNS (Domains/Records)] (https://vercel.com/account/domains/travelperfect.io)
+[DNS (Domains/Records)] (https://vercel.com/account/domains/travelperfect.io)
