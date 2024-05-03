@@ -1,14 +1,14 @@
 "use client";
 import { APIProvider as GoogleAPIProvider } from "@vis.gl/react-google-maps";
-import { useRouter } from "next/navigation";
 
 import { LoadingPage, PlacesAutoComplete } from "@/components";
 import { FadeUpWrapper } from "@/framer-motion";
 import { convertFormattedAddressToUrlPath } from "~/lib/utils";
 import type { AutocompleteRequest, PlaceResult } from "~/types/google";
+import useProgressRouter from "~/utils/hooks/useProgressRouter";
 
 const CitySearch = () => {
-  const router = useRouter();
+  const router = useProgressRouter();
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   if (!apiKey) return <LoadingPage />;
 

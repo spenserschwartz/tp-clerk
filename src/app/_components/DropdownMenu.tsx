@@ -6,10 +6,10 @@ import {
   TrashIcon,
   ViewfinderCircleIcon,
 } from "@heroicons/react/20/solid";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { DeleteItineraryModal } from "@/modals";
+import { useProgressRouter } from "~/utils/hooks";
 
 interface DropdownMenuProps {
   itineraryID: string;
@@ -19,7 +19,7 @@ interface DropdownMenuProps {
 const DropdownMenu = ({ itineraryID, itineraryUserID }: DropdownMenuProps) => {
   const { user } = useUser();
   const userId = user?.id;
-  const router = useRouter();
+  const router = useProgressRouter();
   const [openModal, setOpenModal] = useState(false);
 
   const viewItineraryHandler = () => {
